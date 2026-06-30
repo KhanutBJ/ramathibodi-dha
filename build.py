@@ -1,504 +1,414 @@
 #!/usr/bin/env python3
 """
-Brain Code Camp — Carbon Design System static site builder.
+Ramathibodi Digital Health & AI Club - static site builder.
+
+Builds two surfaces from one design system:
+  1. The public venture site (home, who we are, what we do, insights, news,
+     careers, contact, fellowship, academy overview).
+  2. The gated Academy reader (curriculum .md / .ipynb behind a login gate).
 
 Usage:
-    pip install markdown pyyaml
+    pip install markdown pyyaml nbformat nbconvert
     python build.py
-
 Output: _site/
 """
 
-import os, re, shutil, html, json
+import os, re, shutil, html, json, datetime
 from pathlib import Path
-import yaml
 
 try:
     import markdown
-    HAS_MARKDOWN = True
+    HAS_MD = True
 except ImportError:
-    HAS_MARKDOWN = False
-    print("⚠  markdown not installed. Run: pip install markdown")
+    HAS_MD = False
+    print("!  markdown not installed: pip install markdown")
 
 try:
     import nbformat
     from nbconvert import HTMLExporter
-    from nbconvert.preprocessors import ExecutePreprocessor
-    HAS_NBCONVERT = True
+    HAS_NB = True
 except ImportError:
-    HAS_NBCONVERT = False
+    HAS_NB = False
 
 BASE = Path(__file__).parent
-OUT  = BASE / "_site"
+OUT = BASE / "_site"
+YEAR = datetime.date.today().year
 
-# ── TOC ──────────────────────────────────────────────────────────────────────
+SITE = {
+    "name": "Ramathibodi Digital Health & AI Club",
+    "short": "DHA Club",
+    "tagline": "Pioneering the integration of AI and medicine for better healthcare.",
+    "org_th": "คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล",
+    "org_en": "Faculty of Medicine Ramathibodi Hospital, Mahidol University",
+}
 
-def load_toc():
-    with open(BASE / "_toc.yml") as f:
-        return yaml.safe_load(f)
+NAV = [
+    ("Who We Are", "who-we-are.html"),
+    ("What We Do", "what-we-do.html"),
+    ("Academy", "academy.html"),
+    ("Fellowship", "fellowship.html"),
+    ("Insights", "insights/index.html"),
+    ("Careers", "careers.html"),
+]
 
-def flatten_toc(toc):
-    """Return ordered list of dicts: {file, label, depth, part}."""
-    pages = []
+# ----------------------------------------------------------------------------
+# Icons (Carbon-style line icons)
+# ----------------------------------------------------------------------------
+ICON = {
+    "arrow": '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>',
+    "brain": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8A3 3 0 0 0 9 18a2 2 0 0 0 3 0 2 2 0 0 0 3 0 3 3 0 0 0 4-5.2A3 3 0 0 0 18 7a3 3 0 0 0-3-3 2.5 2.5 0 0 0-3 0 2.5 2.5 0 0 0-3 0Z"/><path d="M12 6v12"/></svg>',
+    "flask": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg>',
+    "rocket": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 15c-1 2-1 4-1 4s2 0 4-1m6-13a9 9 0 0 1 3 7c0 3-2 5-2 5l-4 1-3-3 1-4s2-6 2-6Z"/><circle cx="14" cy="9" r="1.3"/></svg>',
+    "compass": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>',
+    "shield": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+    "node": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5" cy="12" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="19" cy="18" r="2.4"/><path d="M7.2 11l9.6-4M7.2 13l9.6 4"/></svg>',
+    "doc": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>',
+    "pulse": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>',
+    "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+    "users": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M15 20a6 6 0 0 0-1.5-4"/></svg>',
+    "moon": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><path d="M20 14a8 8 0 1 1-10-10 7 7 0 0 0 10 10Z"/></svg>',
+    "sun": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>',
+    "menu": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="22" height="22"><path d="M3 6h18M3 12h18M3 18h18"/></svg>',
+    "lock": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+}
 
-    def add(file, depth, part):
-        pages.append({"file": file, "depth": depth, "part": part, "title": None})
+# ----------------------------------------------------------------------------
+# Shell
+# ----------------------------------------------------------------------------
+def esc(s): return html.escape(s, quote=True)
 
-    root = toc.get("root", "intro")
-    add(root, 0, None)
+def nav_links(prefix, active):
+    out = []
+    for label, href in NAV:
+        cls = "nav__link is-active" if active == href else "nav__link"
+        out.append(f'<a class="{cls}" href="{prefix}{href}">{label}</a>')
+    return "\n".join(out)
 
-    for part in toc.get("parts", []):
-        cap = part.get("caption", "")
-        for ch in part.get("chapters", []):
-            _walk(ch, 1, cap, add)
+def mobile_links(prefix):
+    return "\n".join(f'<a href="{prefix}{href}">{label}</a>' for label, href in NAV)
 
-    return pages
+def shell(title, body, prefix="", active="", desc=None, body_attr=""):
+    desc = desc or SITE["tagline"]
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(desc)}"/>
+<link rel="icon" href="{prefix}assets/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="{prefix}assets/dha.css"/>
+<script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}}catch(e){{}}}})();</script>
+</head>
+<body{(' ' + body_attr) if body_attr else ''}>
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="{prefix}index.html" aria-label="{esc(SITE['name'])}">
+      <img class="light-only" src="{prefix}assets/dha-logo-light.png" alt="{esc(SITE['name'])}"/>
+      <img class="dark-only" src="{prefix}assets/dha-logo-dark.png" alt="{esc(SITE['name'])}"/>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      {nav_links(prefix, active)}
+    </nav>
+    <div class="nav__actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle colour theme">
+        <span class="sun">{ICON['sun']}</span><span class="moon">{ICON['moon']}</span>
+      </button>
+      <a class="btn btn--primary" href="{prefix}contact.html" style="padding:.6rem 1.1rem">Contact</a>
+      <button class="nav__burger" data-burger aria-label="Open menu">{ICON['menu']}</button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu">
+  {mobile_links(prefix)}
+  <a href="{prefix}contact.html">Contact</a>
+</div>
+<main id="top">
+{body}
+</main>
+{footer(prefix)}
+<script src="{prefix}assets/dha.js"></script>
+</body>
+</html>"""
 
-def _walk(node, depth, part, add_fn):
-    add_fn(node["file"], depth, part)
-    for sec in node.get("sections", []):
-        _walk(sec, depth + 1, part, add_fn)
+def footer(prefix):
+    cols = [
+        ("Club", [("Who We Are", "who-we-are.html"), ("What We Do", "what-we-do.html"),
+                  ("Careers", "careers.html"), ("Contact", "contact.html")]),
+        ("Programmes", [("Academy", "academy.html"), ("Fellowship", "fellowship.html"),
+                        ("Publications", "fellowship/publications.html"), ("Stories", "fellowship/stories.html")]),
+        ("Resources", [("Insights", "insights/index.html"), ("News", "news/index.html"),
+                       ("FAQ", "fellowship/faq.html")]),
+    ]
+    col_html = ""
+    for h4, links in cols:
+        items = "".join(f'<li><a href="{prefix}{href}">{label}</a></li>' for label, href in links)
+        col_html += f'<div><h4>{h4}</h4><ul>{items}</ul></div>'
+    return f"""<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img class="light-only" src="{prefix}assets/dha-logo-light.png" alt="{esc(SITE['name'])}"/>
+        <img class="dark-only" src="{prefix}assets/dha-logo-dark.png" alt="{esc(SITE['name'])}" style="display:none"/>
+        <p>{esc(SITE['tagline'])}</p>
+        <p class="muted" style="font-size:.82rem">{esc(SITE['org_en'])}<br/>{esc(SITE['org_th'])}</p>
+      </div>
+      {col_html}
+    </div>
+    <div class="footer__bottom">
+      <span>© {YEAR} {esc(SITE['name'])}</span>
+      <span>Built in Bangkok for Thailand's health system.</span>
+    </div>
+  </div>
+</footer>"""
 
-# ── Title extraction ─────────────────────────────────────────────────────────
+# ----------------------------------------------------------------------------
+# Section helpers
+# ----------------------------------------------------------------------------
+def card(icon, title, body, link=None, link_label="Learn more", prefix="", d=0):
+    lk = f'<a class="card__link" href="{prefix}{link}">{link_label} {ICON["arrow"]}</a>' if link else ""
+    dd = f' data-d="{d}"' if d else ""
+    return f"""<div class="card reveal"{dd}>
+  <div class="card__icon">{ICON.get(icon, ICON['node'])}</div>
+  <h3>{title}</h3><p>{body}</p>{lk}
+</div>"""
 
-def extract_title(file_path):
-    """Pull the first # heading from a .md file."""
-    p = BASE / (file_path + ".md")
-    if p.exists():
-        for line in p.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if line.startswith("# "):
-                return line[2:].strip()
-    p2 = BASE / (file_path + ".ipynb")
-    if p2.exists():
-        try:
-            nb = json.loads(p2.read_text(encoding="utf-8"))
-            for cell in nb.get("cells", []):
-                if cell.get("cell_type") == "markdown":
-                    for line in "".join(cell.get("source", [])).splitlines():
-                        line = line.strip()
-                        if line.startswith("# "):
-                            return line[2:].strip()
-        except Exception:
-            pass
-    return Path(file_path).stem.replace("_", " ").replace("-", " ").title()
+def stat(num, label):
+    return f'<div class="reveal"><div class="stat__num">{num}</div><div class="stat__label">{label}</div></div>'
 
-# ── MyST → HTML preprocessing ────────────────────────────────────────────────
-
-_dropdown_id = [0]
-
-def myst_preprocess(text):
-    """Convert common MyST/Sphinx directives to plain HTML snippets."""
-
-    # Remove toctree blocks
+# ----------------------------------------------------------------------------
+# Markdown / MyST -> HTML  (kept from prior build)
+# ----------------------------------------------------------------------------
+def myst(text):
     text = re.sub(r"```\{toctree\}.*?```", "", text, flags=re.DOTALL)
-
-    # {image} path \n :opt: val
     def rep_image(m):
         path = m.group(1).strip()
         inner = m.group(2)
-        alt   = (re.search(r":alt:\s*(.+)", inner) or [None, ""])[1].strip()
+        alt = (re.search(r":alt:\s*(.+)", inner) or [None, ""])[1].strip()
         width = (re.search(r":width:\s*(.+)", inner) or [None, ""])[1].strip()
         style = f"max-width:{width};" if width else "max-width:100%;"
-        return (
-            f'\n<figure class="cds-figure">'
-            f'<img src="{path}" alt="{html.escape(alt)}" style="{style}" />'
-            f'<figcaption>{html.escape(alt)}</figcaption>'
-            f"</figure>\n"
-        )
+        return f'\n<figure><img src="{path}" alt="{esc(alt)}" style="{style}"/><figcaption>{esc(alt)}</figcaption></figure>\n'
     text = re.sub(r"```\{image\}\s+([^\n]+)\n(.*?)```", rep_image, text, flags=re.DOTALL)
-
-    # Admonitions: note, warning, tip, important, caution, attention, seealso
-    ADMONITIONS = {
-        "note":      ("ℹ", "note"),
-        "warning":   ("⚠", "warning"),
-        "caution":   ("⚠", "caution"),
-        "attention": ("!", "attention"),
-        "tip":       ("✓", "tip"),
-        "important": ("★", "important"),
-        "seealso":   ("→", "note"),
-        "hint":      ("💡", "tip"),
-        "error":     ("✕", "attention"),
-        "danger":    ("✕", "attention"),
-    }
-    for kind, (icon, css) in ADMONITIONS.items():
-        def rep_admon(m, _icon=icon, _css=css, _kind=kind):
-            title_arg = m.group(1).strip() or _kind.capitalize()
-            body = m.group(2).strip()
-            return (
-                f'\n<div class="cds-notification cds-notification--{_css}">'
-                f'<div class="cds-notification__icon">{_icon}</div>'
-                f'<div class="cds-notification__body">'
-                f'<p class="cds-notification__title">{html.escape(title_arg)}</p>'
-                f'<div class="cds-notification__content">{body}</div>'
-                f"</div></div>\n"
-            )
-        text = re.sub(
-            rf"```\{{{kind}\}}([^\n]*)\n(.*?)```",
-            rep_admon, text, flags=re.DOTALL
-        )
-
-    # Toggle / dropdown → <details>
+    ADM = {"note": "note", "warning": "warning", "tip": "tip", "important": "important",
+           "caution": "warning", "seealso": "note", "hint": "tip"}
+    for kind, css in ADM.items():
+        def rep(m, _css=css, _k=kind):
+            t = m.group(1).strip() or _k.capitalize()
+            return f'\n<div class="callout callout--{_css}"><strong>{esc(t)}</strong><div>{m.group(2).strip()}</div></div>\n'
+        text = re.sub(rf"```\{{{kind}\}}([^\n]*)\n(.*?)```", rep, text, flags=re.DOTALL)
     for kind in ("toggle", "dropdown"):
-        def rep_toggle(m, _kind=kind):
-            _dropdown_id[0] += 1
-            title = m.group(1).strip() or "Show / Hide"
-            body  = m.group(2).strip()
-            return (
-                f'\n<details class="cds-accordion">'
-                f'<summary class="cds-accordion__heading">{html.escape(title)}</summary>'
-                f'<div class="cds-accordion__content">{body}</div>'
-                f"</details>\n"
-            )
-        text = re.sub(
-            rf"```\{{{kind}\}}([^\n]*)\n(.*?)```",
-            rep_toggle, text, flags=re.DOTALL
-        )
-
-    # {code-block} lang  →  standard fenced block
-    def rep_codeblock(m):
-        lang  = m.group(1).strip()
-        inner = m.group(2)
-        lines = [l for l in inner.splitlines() if not l.lstrip().startswith(":")]
-        return f"\n```{lang}\n" + "\n".join(lines).strip() + "\n```\n"
-    text = re.sub(
-        r"```\{code-block\}\s+(\w+)\n(.*?)```",
-        rep_codeblock, text, flags=re.DOTALL
-    )
-
-    # {math} block
-    text = re.sub(
-        r"```\{math\}([^\n]*)\n(.*?)```",
-        lambda m: f'\n<div class="cds-math">$${m.group(2).strip()}$$</div>\n',
-        text, flags=re.DOTALL
-    )
-
-    # Remove any remaining unknown directives
+        def rept(m):
+            return f'\n<details class="callout"><summary>{esc(m.group(1).strip() or "Show")}</summary><div>{m.group(2).strip()}</div></details>\n'
+        text = re.sub(rf"```\{{{kind}\}}([^\n]*)\n(.*?)```", rept, text, flags=re.DOTALL)
+    def repcb(m):
+        lines = [l for l in m.group(2).splitlines() if not l.lstrip().startswith(":")]
+        return f"\n```{m.group(1).strip()}\n" + "\n".join(lines).strip() + "\n```\n"
+    text = re.sub(r"```\{code-block\}\s+(\w+)\n(.*?)```", repcb, text, flags=re.DOTALL)
     text = re.sub(r"```\{[^}]+\}[^\n]*\n.*?```", "", text, flags=re.DOTALL)
-
-    # Fix relative image paths: assets/… → keep as-is (will be copied)
+    text = text.replace("](", "](")  # noop keep links
     return text
 
-# ── Markdown → HTML ──────────────────────────────────────────────────────────
+MD_EXTS = ["fenced_code", "tables", "attr_list", "def_list", "footnotes", "toc", "sane_lists"]
+def md_html(text):
+    if not HAS_MD:
+        return f"<pre>{esc(text)}</pre>"
+    return markdown.markdown(myst(text), extensions=MD_EXTS)
 
-MD_EXTS = [
-    "fenced_code", "tables", "attr_list", "def_list",
-    "footnotes", "toc", "nl2br", "sane_lists",
-]
-
-def md_to_html(text):
-    if not HAS_MARKDOWN:
-        return f"<pre>{html.escape(text)}</pre>"
-    preprocessed = myst_preprocess(text)
-    return markdown.markdown(preprocessed, extensions=MD_EXTS)
-
-# ── Notebook → HTML ──────────────────────────────────────────────────────────
-
-def nb_to_html(nb_path, file_rel):
-    """Convert ipynb → HTML body content."""
-    if not HAS_NBCONVERT:
-        stem = Path(file_rel).stem
-        colab_url = (
-            "https://colab.research.google.com/github/"
-            f"braincodecamp/brainCodeCamp2026/blob/main/{file_rel}.ipynb"
-        )
-        return (
-            f'<div class="cds-notification cds-notification--note">'
-            f'<div class="cds-notification__icon">📓</div>'
-            f'<div class="cds-notification__body">'
-            f'<p class="cds-notification__title">Jupyter Notebook</p>'
-            f'<div class="cds-notification__content">'
-            f"<p>This page is a Jupyter Notebook. "
-            f"Install <code>nbconvert</code> and rebuild to render it locally:</p>"
-            f"<pre><code>pip install nbconvert\npython build.py</code></pre>"
-            f'<p><a class="cds-btn cds-btn--primary" href="{colab_url}" '
-            f'target="_blank" rel="noopener">Open in Google Colab ↗</a></p>'
-            f"</div></div></div>"
-        )
-
+def nb_html(nb_path):
+    if not HAS_NB:
+        return '<div class="callout callout--note"><strong>Notebook</strong><div>Install nbconvert and rebuild to render this notebook.</div></div>'
     try:
         nb = nbformat.read(str(nb_path), as_version=4)
-        exp = HTMLExporter()
-        exp.template_name = "basic"
+        exp = HTMLExporter(); exp.template_name = "basic"
         body, _ = exp.from_notebook_node(nb)
-        # strip outer HTML boilerplate from nbconvert
         body = re.sub(r"^.*?<body[^>]*>", "", body, flags=re.DOTALL)
         body = re.sub(r"</body>.*$", "", body, flags=re.DOTALL)
         return body
     except Exception as e:
-        return f'<div class="cds-notification cds-notification--warning"><div class="cds-notification__icon">⚠</div><div class="cds-notification__body"><p class="cds-notification__title">Notebook render error</p><div class="cds-notification__content"><p>{html.escape(str(e))}</p></div></div></div>'
+        return f'<div class="callout callout--warning"><strong>Render error</strong><div>{esc(str(e))}</div></div>'
 
-# ── Navigation HTML ──────────────────────────────────────────────────────────
+def first_h1(path):
+    if path.suffix == ".md" and path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip().startswith("# "):
+                return line.strip()[2:].strip()
+    if path.suffix == ".ipynb" and path.exists():
+        try:
+            nb = json.loads(path.read_text(encoding="utf-8"))
+            for c in nb.get("cells", []):
+                if c.get("cell_type") == "markdown":
+                    for line in "".join(c.get("source", [])).splitlines():
+                        if line.strip().startswith("# "):
+                            return line.strip()[2:].strip()
+        except Exception:
+            pass
+    return path.stem.replace("-", " ").replace("_", " ").title()
 
-def build_nav_html(toc, titles, current_file, root_prefix):
-    """Return the <li>…</li> blocks for the side nav."""
-    lines = []
+# ----------------------------------------------------------------------------
+# Page bodies are defined in pages.py-style functions imported below
+# ----------------------------------------------------------------------------
+import pages  # noqa: E402  (separate module holds the long-form copy)
 
-    root = toc.get("root", "intro")
-    root_title = titles.get(root, "Home")
-    root_href  = root_prefix + root + ".html"
-    active     = " active" if current_file == root else ""
-    lines.append(
-        f'<li class="cds-side-nav__item">'
-        f'<a class="cds-side-nav__link{active}" href="{root_href}">{html.escape(root_title)}</a>'
-        f"</li>"
-    )
-
-    for part in toc.get("parts", []):
-        cap = part.get("caption", "")
-        lines.append(f'<li class="cds-side-nav__category">{html.escape(cap)}</li>')
-        for ch in part.get("chapters", []):
-            lines.extend(_nav_chapter(ch, titles, current_file, root_prefix, depth=0))
-
-    return "\n".join(lines)
-
-def _nav_chapter(node, titles, current_file, root_prefix, depth):
-    file     = node["file"]
-    title    = titles.get(file, Path(file).stem.replace("_", " ").title())
-    href     = root_prefix + file + ".html"
-    sections = node.get("sections", [])
-    active   = " active" if current_file == file else ""
-
-    lines = []
-
-    if sections:
-        # Parent with children
-        open_cls = " open" if _contains_active(node, current_file) else ""
-        indent   = "  " * depth
-        lines.append(
-            f'<li class="cds-side-nav__item{open_cls}">'
-            f'<a class="cds-side-nav__link{active}" href="{href}" data-toggle="1">'
-            f'{html.escape(title)}'
-            f'<svg class="cds-side-nav__chevron" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">'
-            f'<path d="M4.5 1.5L9 6l-4.5 4.5-.9-.9L7.2 6 3.6 2.4z"/>'
-            f"</svg>"
-            f"</a>"
-            f'<ul class="cds-side-nav__sub">'
-        )
-        for sec in sections:
-            lines.extend(_nav_chapter(sec, titles, current_file, root_prefix, depth + 1))
-        lines.append("</ul></li>")
-    else:
-        lines.append(
-            f'<li class="cds-side-nav__item">'
-            f'<a class="cds-side-nav__link{active}" href="{href}">{html.escape(title)}</a>'
-            f"</li>"
-        )
-
-    return lines
-
-def _contains_active(node, current_file):
-    if node["file"] == current_file:
-        return True
-    for sec in node.get("sections", []):
-        if _contains_active(sec, current_file):
-            return True
-    return False
-
-# ── Breadcrumb ───────────────────────────────────────────────────────────────
-
-def make_breadcrumb(file, titles, toc, root_prefix):
-    root   = toc.get("root", "intro")
-    crumbs = []
-    crumbs.append(
-        f'<a href="{root_prefix}{root}.html">{html.escape(titles.get(root, "Home"))}</a>'
-        f'<span class="cds-breadcrumb__separator">/</span>'
-    )
-    # find part caption
-    for part in toc.get("parts", []):
-        for ch in part.get("chapters", []):
-            if _contains_active(ch, file):
-                crumbs.append(
-                    f'<span>{html.escape(part.get("caption", ""))}</span>'
-                    f'<span class="cds-breadcrumb__separator">/</span>'
-                )
-                break
-    title = titles.get(file, Path(file).stem.replace("_", " ").title())
-    crumbs.append(f'<span class="cds-breadcrumb__current">{html.escape(title)}</span>')
-    return "\n".join(crumbs)
-
-# ── Prev / Next ───────────────────────────────────────────────────────────────
-
-def make_prev_next(file, flat_pages, titles, root_prefix):
-    files = [p["file"] for p in flat_pages]
-    try:
-        idx = files.index(file)
-    except ValueError:
-        return ""
-    parts = []
-    if idx > 0:
-        prev_f  = files[idx - 1]
-        prev_t  = html.escape(titles.get(prev_f, prev_f))
-        prev_hr = root_prefix + prev_f + ".html"
-        parts.append(
-            f'<a class="cds-page-nav__link cds-page-nav__link--prev" href="{prev_hr}">'
-            f'<span class="cds-page-nav__label">← Previous</span>'
-            f'<span class="cds-page-nav__title">{prev_t}</span>'
-            f"</a>"
-        )
-    if idx < len(files) - 1:
-        next_f  = files[idx + 1]
-        next_t  = html.escape(titles.get(next_f, next_f))
-        next_hr = root_prefix + next_f + ".html"
-        parts.append(
-            f'<a class="cds-page-nav__link cds-page-nav__link--next" href="{next_hr}">'
-            f'<span class="cds-page-nav__label">Next →</span>'
-            f'<span class="cds-page-nav__title">{next_t}</span>'
-            f"</a>"
-        )
-    return "\n".join(parts)
-
-# ── Page template ─────────────────────────────────────────────────────────────
-
-PAGE_TMPL = """\
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>{page_title} — Brain Code Camp</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="{root}assets/carbon.css"/>
-  <link rel="stylesheet" href="{root}assets/dha-overrides.css"/>
-</head>
-<body>
-
-<header class="cds-header" role="banner">
-  <button class="cds-header__menu-btn" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="true">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <rect x="2" y="4"  width="16" height="2"/>
-      <rect x="2" y="9"  width="16" height="2"/>
-      <rect x="2" y="14" width="16" height="2"/>
-    </svg>
-  </button>
-  <a class="cds-header__name" href="{root}index.html">
-    <img src="{root}assets/dha-logo.svg" alt="" class="cds-header__logo" style="height:36px;width:auto;"/>
-  </a>
-  <div class="cds-header__search" role="search">
-    <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
-      <path d="M29 27.586l-7.552-7.552A11.018 11.018 0 1 0 19.83 21.63L27.586 29zM13 22a9 9 0 1 1 9-9 9.01 9.01 0 0 1-9 9z"/>
-    </svg>
-    Search
-  </div>
-</header>
-
-<div class="cds-header__overlay" id="nav-overlay"></div>
-
-<div class="cds-shell">
-  <nav class="cds-side-nav" id="side-nav" aria-label="Side navigation">
-    <ul class="cds-side-nav__items">
-{nav_html}
-    </ul>
-  </nav>
-
-  <main class="cds-content" id="main-content" role="main">
-    <div class="cds-content__inner">
-      <nav class="cds-breadcrumb" aria-label="Breadcrumb">
-{breadcrumb}
-      </nav>
-      <article class="cds-article">
-{content}
-      </article>
-      <nav class="cds-page-nav" aria-label="Page navigation">
-{prev_next}
-      </nav>
-    </div>
-  </main>
-</div>
-
-<footer class="cds-footer" role="contentinfo">
-  คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล &nbsp;·&nbsp; Ramathibodi Digital Health Academy
-</footer>
-
-<script src="{root}assets/carbon-nav.js"></script>
-</body>
-</html>
-"""
-
-# ── Build ─────────────────────────────────────────────────────────────────────
+def write(rel, content):
+    p = OUT / rel
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(content, encoding="utf-8")
 
 def build():
-    toc        = load_toc()
-    flat_pages = flatten_toc(toc)
-
-    # Collect titles
-    titles = {}
-    for p in flat_pages:
-        titles[p["file"]] = extract_title(p["file"])
-
-    # Clean output
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
+    shutil.copytree(BASE / "assets", OUT / "assets")
 
-    # Copy assets
-    src_assets = BASE / "assets"
-    if src_assets.exists():
-        shutil.copytree(src_assets, OUT / "assets")
+    ctx = {"ICON": ICON, "SITE": SITE, "card": card, "stat": stat, "esc": esc, "ICONS": ICON}
 
-    # Copy any notebook-related images (from _images or assets subfolders)
-    for pattern in ("_images",):
-        src = BASE / pattern
-        if src.exists():
-            shutil.copytree(src, OUT / pattern)
+    # ---- Public marketing pages ----
+    marketing = pages.MARKETING  # list of (rel, title, active, body_fn)
+    for rel, title, active, fn in marketing:
+        prefix = "../" * (len(Path(rel).parts) - 1)
+        body = fn(prefix, ctx)
+        write(rel, shell(title, body, prefix=prefix, active=active))
 
-    ok = fail = 0
+    # ---- Gates ----
+    write("academy/gate.html", shell(
+        "Enter the Academy", pages.gate_body("../", "academy", "learn/index.html",
+        "Academy access", "The Academy curriculum is open to enrolled members.",
+        "Ask your programme lead for the member access code."),
+        prefix="../", active="academy.html"))
+    write("fellowship/gate.html", shell(
+        "Fellowship portal", pages.gate_body("../", "fellowship", "portal/index.html",
+        "Fellowship portal", "The Fellowship portal is reserved for current fellows and mentors.",
+        "Use the access code from your fellowship onboarding."),
+        prefix="../", active="fellowship.html"))
 
-    for page in flat_pages:
-        file = page["file"]   # e.g. "GeneralInfo/schedule"
-        depth = len(Path(file).parts) - 1
-        root_prefix = "../" * depth if depth > 0 else ""
+    # ---- Academy reader (gated) ----
+    build_academy_reader()
 
-        # Determine source
-        md_src = BASE / (file + ".md")
-        nb_src = BASE / (file + ".ipynb")
+    # ---- Fellowship portal stub (gated) ----
+    write("fellowship/portal/index.html", shell(
+        "Fellowship portal", pages.portal_body("../../"),
+        prefix="../../", active="fellowship.html",
+        body_attr='data-guard="fellowship" data-guard-gate="../gate.html"'))
 
-        if md_src.exists():
-            raw_md  = md_src.read_text(encoding="utf-8")
-            content = md_to_html(raw_md)
-        elif nb_src.exists():
-            content = nb_to_html(nb_src, file)
+    print(f"\n  Built site -> _site/   ({count_pages()} html pages)")
+    print("  Open: _site/index.html\n")
+
+def count_pages():
+    return sum(1 for _ in OUT.rglob("*.html"))
+
+# ---- Academy curriculum reader -------------------------------------------
+ACADEMY_TOC = [
+    ("Start here", [
+        ("intro", "intro.md"),
+        ("curriculum/overview", "curriculum/overview.md"),
+    ]),
+    ("Foundations", [
+        ("curriculum/foundation/what-is-ai", "curriculum/foundation/what-is-ai.md"),
+        ("curriculum/foundation/how-to-ai", "curriculum/foundation/how-to-ai.md"),
+        ("curriculum/foundation/datasets", "curriculum/foundation/datasets.md"),
+        ("curriculum/foundation/evaluation", "curriculum/foundation/evaluation.md"),
+        ("curriculum/basics", "curriculum/basics.md"),
+    ]),
+    ("Clinical AI", [
+        ("curriculum/health/clinical-ai", "curriculum/health/clinical-ai.md"),
+        ("curriculum/health/clinical-applications", "curriculum/health/clinical-applications.md"),
+        ("curriculum/health/medical-imaging", "curriculum/health/medical-imaging.md"),
+        ("curriculum/health/fhir", "curriculum/health/fhir.md"),
+        ("curriculum/digital-health", "curriculum/digital-health.md"),
+    ]),
+    ("Build", [
+        ("curriculum/ai-agent", "curriculum/ai-agent.md"),
+        ("curriculum/deep-ai", "curriculum/deep-ai.md"),
+        ("curriculum/deployment", "curriculum/deployment.md"),
+        ("curriculum/governance", "curriculum/governance.md"),
+    ]),
+    ("Notebooks", [
+        ("notebooks/01-clinical-ml", "notebooks/01-clinical-ml.ipynb"),
+        ("notebooks/02-fhir-data", "notebooks/02-fhir-data.ipynb"),
+        ("notebooks/03-medical-imaging", "notebooks/03-medical-imaging.ipynb"),
+    ]),
+    ("Capstone", [
+        ("curriculum/capstone/index", "curriculum/capstone/index.md"),
+        ("curriculum/capstone/deployment", "curriculum/capstone/deployment.md"),
+        ("curriculum/capstone/ethics", "curriculum/capstone/ethics.md"),
+    ]),
+]
+
+def build_academy_reader():
+    # flatten, keep only existing sources
+    flat = []
+    for cap, items in ACADEMY_TOC:
+        for slug, src in items:
+            if (BASE / src).exists():
+                flat.append((cap, slug, src))
+    titles = {slug: first_h1(BASE / src) for cap, slug, src in flat}
+
+    # academy landing inside reader -> redirect to first
+    if not flat:
+        return
+    first_slug = flat[0][1]
+    write("academy/learn/index.html",
+          f'<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" '
+          f'content="0;url={first_slug.replace("/","__")}.html"><a href="{first_slug.replace("/","__")}.html">Enter</a>')
+
+    order = [slug for _, slug, _ in flat]
+    for i, (cap, slug, src) in enumerate(flat):
+        sp = BASE / src
+        if sp.suffix == ".md":
+            content = md_html(sp.read_text(encoding="utf-8"))
         else:
-            content = f"<p>Source file not found: <code>{file}</code></p>"
-            fail += 1
+            content = nb_html(sp)
+        # fix relative asset/image links: point to academy root
+        content = content.replace('src="assets/', 'src="../../assets/')
+        content = content.replace('href="assets/', 'href="../../assets/')
 
-        # Build nav (root-relative always, then fix prefix)
-        nav_html   = build_nav_html(toc, titles, file, root_prefix)
-        breadcrumb = make_breadcrumb(file, titles, toc, root_prefix)
-        prev_next  = make_prev_next(file, flat_pages, titles, root_prefix)
-        page_title = titles.get(file, "Brain Code Camp")
+        nav = academy_nav(slug, titles)
+        prev_next = academy_prevnext(order, titles, i)
+        flat_name = slug.replace("/", "__") + ".html"
+        body = f"""
+<div class="container" style="padding-block:1.5rem 0">
+  <div class="crumb"><a href="../../academy.html">Academy</a> / <a href="index.html">Curriculum</a> / {esc(titles.get(slug, slug))}</div>
+</div>
+<div class="container">
+  <div class="docs">
+    <aside class="docs__nav">{nav}</aside>
+    <div class="docs__main">
+      <article class="prose">{content}</article>
+      <nav class="page-nav">{prev_next}</nav>
+    </div>
+  </div>
+</div>"""
+        write(f"academy/learn/{flat_name}",
+              shell(titles.get(slug, "Academy"), body, prefix="../../", active="academy.html",
+                    body_attr='data-guard="academy" data-guard-gate="../gate.html"'))
 
-        html_out = PAGE_TMPL.format(
-            page_title=html.escape(page_title),
-            root=root_prefix,
-            nav_html=nav_html,
-            breadcrumb=breadcrumb,
-            content=content,
-            prev_next=prev_next,
-        )
+def academy_nav(active_slug, titles):
+    out = []
+    for cap, items in ACADEMY_TOC:
+        existing = [(s, src) for s, src in items if (BASE / src).exists()]
+        if not existing:
+            continue
+        out.append(f'<div class="cap">{cap}</div>')
+        for s, src in existing:
+            cls = "is-active" if s == active_slug else ""
+            fn = s.replace("/", "__") + ".html"
+            out.append(f'<a class="{cls}" href="{fn}">{esc(titles.get(s, s))}</a>')
+    return "\n".join(out)
 
-        # Write file
-        out_path = OUT / (file + ".html")
-        out_path.parent.mkdir(parents=True, exist_ok=True)
-        out_path.write_text(html_out, encoding="utf-8")
-        ok += 1
-
-    # index.html → redirect to root page
-    root_file = toc.get("root", "intro")
-    (OUT / "index.html").write_text(
-        f'<!DOCTYPE html><html><head><meta charset="utf-8"/>'
-        f'<meta http-equiv="refresh" content="0;url={root_file}.html"/>'
-        f'<title>Brain Code Camp</title></head>'
-        f'<body><a href="{root_file}.html">Brain Code Camp</a></body></html>',
-        encoding="utf-8",
-    )
-
-    print(f"\n✓  Built {ok} pages → _site/")
-    if fail:
-        print(f"   {fail} source files missing (placeholders rendered)")
-    print(f"   Open: _site/index.html\n")
+def academy_prevnext(order, titles, i):
+    parts = []
+    if i > 0:
+        s = order[i - 1]; fn = s.replace("/", "__") + ".html"
+        parts.append(f'<a href="{fn}"><div class="k">Previous</div><div class="t">{esc(titles.get(s, s))}</div></a>')
+    else:
+        parts.append("<span></span>")
+    if i < len(order) - 1:
+        s = order[i + 1]; fn = s.replace("/", "__") + ".html"
+        parts.append(f'<a class="next" href="{fn}"><div class="k">Next</div><div class="t">{esc(titles.get(s, s))}</div></a>')
+    return "\n".join(parts)
 
 if __name__ == "__main__":
     build()

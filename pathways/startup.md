@@ -1,107 +1,54 @@
-# เส้นทาง Startup
+# Startup pathway
 
-สำหรับผู้ที่ต้องการนำ AI มาสร้างผลิตภัณฑ์หรือบริษัท Digital Health ในประเทศไทย
+For people who want their work to become a product that lives outside a single
+hospital. This pathway takes the tool you built in the domains and asks the
+harder questions: is it worth building, who pays, and how does it scale safely in
+Thailand and beyond.
 
----
+## Is this a product or a project
 
-## ภาพรวมเส้นทาง
+Most good clinical tools should stay projects: useful inside one department,
+maintained by the team that needs them. A few should become products. The test
+is not how clever the model is. It is whether the same problem exists in many
+places, whether someone will pay to solve it, and whether you can deliver it
+safely at scale.
 
-```
-ไอเดีย → Validate → Prototype → Clinical Pilot → ขึ้นทะเบียน → Go-to-Market
-```
-
----
-
-## ขั้นที่ 1: Problem Discovery
-
-ก่อนเขียนโค้ด — ต้องเข้าใจปัญหาให้ลึกพอ
-
-- **Shadowing**: ตามแพทย์หรือพยาบาลดูการทำงานจริง 1 สัปดาห์
-- **Pain Point Interview**: สัมภาษณ์บุคลากรสุขภาพ ≥ 20 คน
-- **Data Audit**: ข้อมูลที่มีอยู่คืออะไร? อยู่ที่ไหน? คุณภาพเป็นอย่างไร?
-- **Stakeholder Mapping**: ใครได้ประโยชน์? ใครต้องตัดสินใจ?
-
-```{tip} ข้อผิดพลาดที่พบบ่อย
-Startup ด้าน Health มักสร้างสิ่งที่ตัวเองคิดว่าดี แต่แพทย์ไม่ใช้ การ Validate ปัญหาก่อนสร้างคือสิ่งที่สำคัญที่สุด
+```{tip}
+Talk to ten clinicians in other hospitals before you write a business plan. If
+nine of them have the problem and none of them have a fix they trust, you may
+have a product. If they shrug, you have a project, and that is fine.
 ```
 
----
+## Validation before scale
 
-## ขั้นที่ 2: Solution Design
+A startup that scales an unvalidated clinical tool is scaling harm. The order is
+fixed: prove it works and is safe, then grow. Carry the evidence plan and the
+governance brief from [Strategy and Governance](../curriculum/governance.md) into
+the company from day one. Investors who understand health will ask for them.
 
-- กำหนด Value Proposition ให้ชัด
-- เลือก User: แพทย์? ผู้ป่วย? โรงพยาบาล? สปสช.?
-- วาด Workflow: AI อยู่ตรงไหนใน Clinical Flow?
-- กำหนด Success Metric: วัดความสำเร็จอย่างไร?
+## The Thai venture landscape
 
----
+You are not building in a vacuum. Thailand has a path from research to venture:
 
-## ขั้นที่ 3: MVP Development
+- **National Innovation Agency (NIA).** Grants and programmes that back the move
+  from prototype to startup, with a health and deep-tech focus.
+- **Thai HealthTech ecosystem.** A growing community of companies, associations,
+  and investors. Partners, customers, and talent live here.
+- **Universities and incubators.** Mahidol and Ramathibodi sit inside a research
+  base that most startups would envy.
+- **Reimbursement.** The National Health Security Office decides what the system
+  pays for. A product the system will reimburse has a real market.
 
-| สิ่งที่ต้องมี | เครื่องมือแนะนำ |
-|---|---|
-| AI Model | Pretrained + Fine-tune หรือ API |
-| Backend | FastAPI + PostgreSQL |
-| Frontend | Streamlit หรือ React |
-| Infrastructure | Google Cloud Run |
-| Data Storage | GCS + Firestore |
+## Our venture studio
 
-ระยะเวลา MVP: 4–8 สัปดาห์
+The strongest projects do not have to find this path alone. The club's venture
+studio adds product engineering, regulatory navigation for SaMD, clinical
+validation, and routes to pilot and to market. We are also an innovation
+consulting partner for institutions, which means your product has informed early
+customers.
 
----
+## What you leave with
 
-## ขั้นที่ 4: Clinical Pilot
-
-การทดสอบในสภาพแวดล้อมจริงอย่างมีกระบวนการ
-
-**ขั้นตอน:**
-1. ยื่น IRB (Ethics Committee) — 1–3 เดือน
-2. ออกแบบ Pilot: กลุ่มทดลอง vs กลุ่มควบคุม
-3. Training บุคลากร: แพทย์และพยาบาลที่ร่วม Pilot
-4. เก็บ Feedback อย่างเป็นระบบ
-5. วิเคราะห์ผลและปรับปรุง
-
-**สิ่งที่ต้องวัด:**
-- Clinical Outcome: ผลลัพธ์ผู้ป่วยดีขึ้นหรือไม่?
-- User Adoption: บุคลากรใช้จริงหรือไม่?
-- Workflow Integration: AI ทำให้ช้าลงหรือเร็วขึ้น?
-- Safety Events: มีเหตุไม่พึงประสงค์หรือไม่?
-
----
-
-## ขั้นที่ 5: การขึ้นทะเบียน อย.
-
-สำหรับ AI ที่ช่วยวินิจฉัยหรือรักษา — ต้องขึ้นทะเบียนเป็น Medical Device
-
-- ปรึกษา Regulatory Affairs Consultant
-- เตรียม Technical File ตาม IMDRF
-- จัดทำ Clinical Evidence Report
-- ยื่น อย. และรอการพิจารณา (6–18 เดือน)
-
----
-
-## ขั้นที่ 6: Go-to-Market
-
-**โมเดลธุรกิจที่ทำงานได้ในไทย:**
-
-| โมเดล | ตัวอย่าง |
-|---|---|
-| SaaS รายเดือน | โรงพยาบาลเอกชนจ่าย subscription |
-| Per-use | คิดราคาต่อ Case ที่ AI ช่วยวินิจฉัย |
-| Hospital License | ขายใบอนุญาตต่อปี |
-| B2G | ขายให้ สปสช. หรือกระทรวงสาธารณสุข |
-
-**ช่องทางการขาย:**
-- การนำเสนอต่อฝ่าย IT โรงพยาบาล
-- Partnership กับผู้ขาย HIS
-- ผ่านโครงการภาครัฐ (e-Bidding)
-- ทุน NSTDA / NIA / Startup Thailand
-
----
-
-## ทรัพยากรสนับสนุน
-
-- **NIA (สำนักงานนวัตกรรมแห่งชาติ)** — ทุนสนับสนุน Startup
-- **NSTDA** — ทุนวิจัยและพัฒนา
-- **dtac Accelerate / AIS The StartUp** — Accelerator ไทย
-- **Ramathibodi Innovation Hub** — พื้นที่ทำงานและ Mentorship ภายในรามาธิบดี
+A validated tool, an intended-use and evidence story an investor and a regulator
+both accept, a first pilot site, and a clear read on whether the Thai system will
+pay for what you built.

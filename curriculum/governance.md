@@ -1,100 +1,96 @@
-# กลยุทธ์และการกำกับดูแล AI ด้านสุขภาพ
+# Strategy and Governance
 
-การนำ AI เข้าสู่ระบบสาธารณสุขไม่ใช่แค่เรื่องเทคนิค — ต้องเข้าใจกฎระเบียบ มาตรฐาน และกระบวนการกำกับดูแล
+This is the domain that separates a demo from something a hospital can use on a
+patient. It is where a strategist and a regulator think. You do not need to
+become a lawyer, but you do need to know the path, because a tool built without
+the path in mind usually cannot walk it later. Governance is a design material,
+present from the first decision, not a gate at the end.
 
----
+## Why a clinician should care about regulation
 
-## 1. Thai FDA และการขึ้นทะเบียน AI เป็นเครื่องมือแพทย์
+If your tool influences diagnosis or treatment, it is probably a medical device
+in the eyes of the law, even if it is just software. That is not a reason to stop.
+It is the reason to build so that approval is possible. The teams that win are the
+ones that designed for the regulator from day one.
 
-สำนักงานคณะกรรมการอาหารและยา (อย.) มีแนวทางการกำกับดูแล Software as Medical Device (SaMD) ที่พัฒนาอย่างต่อเนื่อง
+## Thai FDA
 
-**สิ่งที่จะเรียน:**
-- ประกาศ อย. เกี่ยวกับ AI Medical Device
-- การจัดประเภทความเสี่ยง: Class I, II, III
-- เอกสารที่ต้องยื่น: Technical File, Clinical Evidence
-- Pre-market vs Post-market Requirements
-- เส้นทางการขึ้นทะเบียนสำหรับ AI Software
-- กรณีศึกษา: การขึ้นทะเบียน AI วินิจฉัยภาพ X-ray
+Thailand's Food and Drug Administration regulates medical devices, and software
+that meets the definition of a medical device falls under it. The key questions
+the Thai FDA framework asks of any device map cleanly onto how you build:
 
----
+- **What does it claim to do.** The intended use defines everything that follows.
+- **What is the risk if it is wrong.** Risk class drives the evidence required.
+- **What evidence supports the claim.** Validation, clinical evaluation, and
+  ongoing monitoring.
 
-## 2. AI SaMD (Software as Medical Device)
+You will learn how the Thai framework aligns with international norms, so a tool
+built here can move beyond here.
 
-มาตรฐานสากลสำหรับซอฟต์แวร์ทางการแพทย์ที่ใช้ AI
+## AI as Software as a Medical Device (SaMD)
 
-**Frameworks หลัก:**
-- **IMDRF**: กรอบการจัดประเภท SaMD ระดับนานาชาติ
-- **FDA AI/ML Action Plan**: แนวทางของสหรัฐอเมริกา
-- **EU MDR / IVDR**: กฎหมายของสหภาพยุโรป
-- **IEC 62304**: มาตรฐาน Software Lifecycle สำหรับ Medical Device
+SaMD is the international concept for software that is a medical device in its own
+right, without being part of a physical instrument. The IMDRF framework, which
+Thai and global regulators draw on, classifies SaMD by two axes: how serious the
+condition is, and how central the software is to the clinical decision.
 
-**สิ่งที่จะเรียน:**
-- การจำแนก Intended Use และ Intended Purpose
-- Clinical Validation: Evidence ที่ต้องการ
-- Post-market Surveillance: ติดตามผลหลังใช้งาน
-- Continuous Learning AI: ความท้าทายเมื่อ Model เปลี่ยนแปลง
+What this means for you:
 
-```{warning} ข้อควรระวัง
-AI ที่ใช้ในการวินิจฉัยโรคหรือช่วยตัดสินใจรักษาต้องผ่านกระบวนการกำกับดูแล ก่อนนำไปใช้กับผู้ป่วยจริง ไม่ว่าจะแม่นยำแค่ไหนก็ตาม
+- A triage suggestion a clinician confirms is a lower class than an autonomous
+  diagnosis.
+- AI that changes over time (a learning model) needs a plan for how change is
+  controlled and re-validated.
+- Your intended-use statement is the most important sentence in the project.
+  Write it early, write it precisely, and let it constrain scope.
+
+```{important}
+Narrow your claim. "Flags possible diabetic retinopathy for ophthalmologist
+review" is buildable and approvable. "Diagnoses eye disease" is neither. Scope is
+a safety feature.
 ```
 
----
+## ISO and quality systems
 
-## 3. ISO Standards
+Standards are how you prove you build responsibly and repeatably.
 
-มาตรฐาน ISO ที่เกี่ยวข้องกับ AI ด้านสุขภาพ
+- **ISO 13485.** Quality management for medical devices. How the organisation
+  that makes the software is run.
+- **ISO 14971.** Risk management. Identify, evaluate, and control every way the
+  software could harm, across its life.
+- **IEC 62304.** The software life-cycle for medical devices.
+- **ISO 27001 and information security.** Protecting the data, which ties back to
+  PDPA in [Digital Health](digital-health.md).
 
-| มาตรฐาน | เนื้อหา |
-|---|---|
-| ISO 13485 | Quality Management System สำหรับ Medical Device |
-| ISO 14971 | Risk Management สำหรับ Medical Device |
-| ISO/IEC 27001 | Information Security Management |
-| ISO/IEC 42001 | AI Management System (ใหม่ 2023) |
-| ISO 82304-1 | Health Software General Requirements |
+You will not certify a company in this course. You will learn what these
+standards ask for, so your project's documentation, risk log, and change control
+are built in from the start rather than reconstructed in a panic later.
 
-**สิ่งที่จะเรียน:**
-- หลักการ Risk Management: Hazard → Risk → Mitigation
-- การทำ FMEA (Failure Mode and Effects Analysis)
-- การจัดทำ Technical Documentation
-- Internal Audit และ Corrective Action
+## The regulatory and strategy path
 
----
+Putting it together, the route from idea to real use looks like this:
 
-## 4. Regulatory Affairs ในบริบทไทย
+1. **Intended use.** One precise sentence. The clinical problem and the claim.
+2. **Risk classification.** How bad is a wrong answer. This sets the bar.
+3. **Evidence plan.** What validation and clinical evaluation the claim needs.
+4. **Quality and risk documentation.** The ISO and IEC artefacts, kept as you go.
+5. **Data governance.** PDPA basis, consent, security, residency.
+6. **Submission and review.** Engagement with the Thai FDA.
+7. **Post-market monitoring.** Watching for drift and harm after deployment.
 
-การทำงานกับหน่วยงานกำกับดูแลในประเทศไทย
+A strategist also reads the landscape: where the Ministry of Public Health is
+pushing, where the National Health Security Office will pay, and where the
+National Innovation Agency will fund the next step.
 
-**หน่วยงานที่เกี่ยวข้อง:**
-- **อย. (FDA)** — กำกับดูแล Medical Device รวม AI
-- **สปสช.** — นโยบายและการชดเชยค่ารักษา
-- **กระทรวงสาธารณสุข** — นโยบาย Digital Health ระดับประเทศ
-- **ETDA** — มาตรฐาน Digital และ Data Governance
-- **สคส.** — คณะกรรมการคุ้มครองข้อมูลส่วนบุคคล
+## What you build
 
-**สิ่งที่จะเรียน:**
-- การยื่นขออนุญาตใช้ AI ในโรงพยาบาล
-- Ethics Committee (IRB) สำหรับงานวิจัย AI
-- การเขียน Protocol วิจัยที่ผ่านจริยธรรม
-- Informed Consent สำหรับการใช้ AI กับผู้ป่วย
-- กรณีศึกษา: เส้นทาง 2 ปีของ Startup Thai FDA
+A one-page regulatory and governance brief for your own project: the intended-use
+statement, a first-pass risk classification with reasoning, the evidence you would
+need, the PDPA basis, and the top five risks from a simple ISO 14971-style risk
+table.
 
----
+## Where this goes next
 
-## 5. AI Ethics ในบริบทสาธารณสุข
-
-**หลักการสำคัญ:**
-
-- **Beneficence** — AI ต้องเป็นประโยชน์ต่อผู้ป่วย
-- **Non-maleficence** — ไม่ก่อให้เกิดอันตราย
-- **Autonomy** — ผู้ป่วยมีสิทธิ์รับรู้และปฏิเสธการใช้ AI
-- **Justice** — AI ต้องไม่สร้างความไม่เท่าเทียม
-
-**Bias ในข้อมูลสุขภาพ:**
-- Historical Bias: ข้อมูลอดีตสะท้อนความไม่เท่าเทียม
-- Representation Bias: ข้อมูลไม่ครอบคลุมทุกกลุ่มประชากร
-- Measurement Bias: เครื่องมือบางชนิดไม่แม่นยำกับทุกกลุ่ม
-
-**การแก้ไข:**
-- Fairness Metrics: Demographic Parity, Equal Opportunity
-- Diverse Dataset Collection
-- Subgroup Analysis: ทดสอบแยกตามกลุ่มประชากร
+You now hold the whole craft, from idea to a tool with a path to real use. Choose
+where it lands: the [Startup pathway](../pathways/startup.md) to build a product,
+or the [Hospital information pathway](../pathways/hospital.md) to strengthen the
+system from inside.

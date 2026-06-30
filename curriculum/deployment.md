@@ -1,96 +1,90 @@
-# การ Deploy ระบบ Digital Health
+# Deployment
 
-จากโมเดลที่พัฒนาแล้ว สู่ระบบที่ใช้งานได้จริงในโรงพยาบาล — ครอบคลุมการสร้าง Dashboard การ Prototype และการ Deploy บน Cloud
+A model in a notebook helps no one. Deployment is the craft of putting your work
+in front of real users, in a form they can use, and then measuring whether it
+actually helped. Most clinical AI dies here, not because the model was bad, but
+because it never reached a workflow. This domain is how yours does not.
 
----
+## Dashboards and visualisation
 
-## 1. Dashboard และ Visualization
+The first way most clinical AI reaches people is a dashboard. A good dashboard
+answers a clinical question at a glance and earns trust by being honest about
+uncertainty.
 
-การสร้างหน้าจอแสดงผลข้อมูลสุขภาพสำหรับผู้ใช้งานระดับต่าง ๆ
+- **Tools.** Streamlit and Gradio for fast Python apps, Plotly and Altair for
+  charts, Power BI or Looker Studio for operational reporting.
+- **Principles.** One question per view. Show the denominator. Show uncertainty.
+  Never a number without context.
 
-**เครื่องมือที่ครอบคลุม:**
-
-### สำหรับนักพัฒนา (Code-based)
-- **Streamlit** — สร้าง Web App ด้วย Python ได้เร็วมาก
-- **Gradio** — Demo AI Model ได้ภายในไม่กี่บรรทัด
-- **Plotly Dash** — Dashboard ที่ยืดหยุ่นและสวยงาม
-
-### สำหรับนักวิเคราะห์ข้อมูล (Low-code)
-- **Power BI** — Dashboard สำหรับองค์กร
-- **Tableau** — Visualization ระดับองค์กร
-- **Looker Studio** — ฟรี เชื่อมกับ Google Services
-
-### สำหรับงานคลินิก
-- การออกแบบ Dashboard สำหรับแพทย์: ข้อมูลสำคัญต้องเห็นทันที
-- Real-time Monitoring: ผู้ป่วยใน ICU
-- Alert System: แจ้งเตือนค่าผิดปกติ
-
----
-
-## 2. Web Prototyping
-
-การสร้าง Prototype อย่างรวดเร็วเพื่อทดสอบแนวคิดก่อนพัฒนาระบบจริง
-
-**เครื่องมือและ Framework:**
-
-### No-Code / Low-Code
-- **Figma** — ออกแบบ UI/UX และทำ Interactive Prototype
-- **Bubble** — สร้าง Web App โดยไม่ต้องเขียนโค้ด
-- **Webflow** — Landing Page และ Marketing Site
-
-### Code-based
-- **Next.js / React** — Frontend Modern สำหรับ Web App
-- **FastAPI + Jinja2** — Backend Python พร้อม Template
-- **Streamlit** — Prototype ที่รวด เร็วที่สุดสำหรับ Data App
-
-```{tip} แนะนำสำหรับ Hackathon
-Streamlit + FastAPI เป็น Stack ที่ดีที่สุดสำหรับการสร้าง Prototype ด้าน AI ในระยะเวลาสั้น สามารถสร้าง Demo ที่ใช้งานได้จริงภายใน 1 วัน
+```python
+import streamlit as st
+st.metric("Predicted 30-day readmission risk", "18%", help="Calibrated, n=1,204")
+st.caption("Model v0.3 / external test AUROC 0.79 / for clinician review only")
 ```
 
----
+## Web prototyping
 
-## 3. Cloud / On-Premises Deployment
+To get feedback you need something people can click. You will learn to stand up a
+working prototype fast: a front end people can use, a small API behind it, and a
+model endpoint it calls.
 
-การเลือกรูปแบบการ Deploy ที่เหมาะกับข้อกำหนดด้านความปลอดภัยของโรงพยาบาล
+- **Front end.** A simple page, or a Streamlit and Gradio app, or a no-code tool.
+- **API.** FastAPI is the standard for serving a Python model.
+- **The loop.** Ship a rough version, watch a real clinician use it, fix the
+  thing that confused them, repeat.
 
-### Cloud Deployment
-| Provider | บริการหลัก | เหมาะกับ |
-|---|---|---|
-| Google Cloud | Cloud Run, Vertex AI | AI/ML Workload |
-| AWS | ECS, SageMaker | Enterprise |
-| Azure | AKS, Azure Health Data | Microsoft Shop |
+```python
+from fastapi import FastAPI
+app = FastAPI()
 
-**ขั้นตอน Cloud Deployment:**
-1. Docker: บรรจุ App เป็น Container
-2. Push ไปยัง Container Registry
-3. Deploy บน Cloud Run / ECS
-4. ตั้งค่า Domain และ HTTPS
-5. Monitoring: Logging, Alerting
-
-### On-Premises Deployment
-ข้อมูลผู้ป่วยบางประเภทต้องเก็บภายในโรงพยาบาลตามกฎหมาย
-
-- **Kubernetes**: จัดการ Container ขนาดใหญ่
-- **Private Cloud**: OpenStack, VMware
-- **Air-gapped**: ระบบที่ไม่เชื่อมต่ออินเทอร์เน็ต
-- **Hybrid**: บาง Workload บน Cloud บาง Workload On-prem
-
-### ข้อพิจารณาสำหรับโรงพยาบาล
-- ข้อมูลผู้ป่วยต้องเก็บในประเทศ (PDPA)
-- การ Backup และ Disaster Recovery
-- SLA ที่ยอมรับได้: 99.9% Uptime
-- Audit Log ทุก Access
-
----
-
-## CI/CD Pipeline
-
-การตั้งค่า Automated Deployment เพื่อความปลอดภัยและความเร็ว
-
-```
-Code Push → GitHub Actions → Test → Build Docker → Push Registry → Deploy Staging → Test → Deploy Production
+@app.post("/predict")
+def predict(features: dict):
+    risk = model.predict_proba([to_vector(features)])[0][1]
+    return {"risk": round(float(risk), 3), "model": "v0.3"}
 ```
 
-- **GitHub Actions** — CI/CD ฟรีสำหรับ Public Repo
-- **Testing**: Unit Test, Integration Test, Load Test
-- **Rollback**: กลับเวอร์ชันเดิมได้ทันทีหากมีปัญหา
+## Cloud and on-premise
+
+Where your tool runs is a clinical and legal decision as much as a technical one.
+
+- **Cloud.** Fast to start, scales easily. Cloud Run, managed endpoints, and
+  serverless functions. Watch data residency and PDPA.
+- **On-premise.** Inside the hospital network, behind its firewall. Often
+  required for the most sensitive data. Harder to run, sometimes the only option.
+- **Hybrid.** Train in the cloud on de-identified data, serve on-premise.
+
+You will learn containers (Docker) so the same tool runs the same way in both
+places, and the basics of monitoring so you know when a deployed model drifts.
+
+## Statistics that hold up
+
+Deployment is where bad statistics get people hurt, so this domain insists on the
+numbers being honest.
+
+- **The right metric.** AUROC, sensitivity, specificity, PPV and NPV, and why
+  prevalence makes PPV move. Calibration, not just discrimination.
+- **Uncertainty.** Confidence intervals on every headline number.
+- **Comparison.** Against the current standard of care, not against nothing.
+- **Subgroups.** Does it work as well for women, for the elderly, for the poor.
+  A model that helps on average and harms a subgroup is not good enough.
+- **Prospective evaluation.** Retrospective performance is a promise. Prospective
+  performance is the truth. The strongest projects end with a prospective look.
+
+```{important}
+The question is never just "is the model accurate." It is "does using this tool
+change a decision, and does that change help the patient." Design the evaluation
+to answer that.
+```
+
+## What you build
+
+Take your trained model and ship it: a Streamlit or Gradio app backed by a FastAPI
+endpoint in a Docker container, deployed to Cloud Run, with an honest results
+panel showing the metric, its confidence interval, and the population it was
+tested on.
+
+## Where this goes next
+
+A deployed, evaluated tool is ready for the hardest questions, which live in
+[Strategy and Governance](governance.md): may you use it, and how do you get it
+approved. From there, choose a [pathway](../pathways/startup.md).

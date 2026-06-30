@@ -1,38 +1,48 @@
-# ภาพรวมหลักสูตร
+# Curriculum overview
 
-หลักสูตร Digital Health Academy แบ่งออกเป็น **6 โมดูลหลัก** ออกแบบให้เรียนตามลำดับหรือเลือกเรียนตามความสนใจได้
+This is the map. The Academy teaches medical AI as one craft, from the first
+line of code to a tool a hospital can trust. You do not need to be a programmer
+to start. You do need to be willing to build.
 
----
+The curriculum is organised into six domains and two pathways. Most people move
+through the domains in order, then pick a pathway that matches where they want
+their work to land.
 
-## แผนผังหลักสูตร
+## The six domains
 
-| โมดูล | หัวข้อ | ระดับ |
+| Domain | What you learn | What you can do after |
 |---|---|---|
-| 1 | [ทักษะพื้นฐาน](basics.md) | เริ่มต้น |
-| 2 | [AI Agent](ai-agent.md) | กลาง |
-| 3 | [Deep AI](deep-ai.md) | ขั้นสูง |
-| 4 | [Digital Health](digital-health.md) | กลาง–ขั้นสูง |
-| 5 | [การ Deploy](deployment.md) | กลาง |
-| 6 | [กลยุทธ์และการกำกับดูแล](governance.md) | ทุกระดับ |
+| **1. Basics** | No-code and vibe coding, Git, reading documentation, APIs, the cloud | Set up a working environment and ship a small tool without fear |
+| **2. AI Agent** | LLMs, hallucination and guardrails, RAG, speech, automation with Line, n8n, and Cloud Run | Build a supervised assistant that does real clinical or operational work |
+| **3. Deep AI** | Deep learning for images, signals, sound, and tabular data, plus explainability | Train and interpret a model on real medical data |
+| **4. Digital Health** | HIS, EMR and PHR, ICD-10, HL7 and FHIR, PDPA, Genomics Thailand, NHSO claims | Work fluently with the data a Thai hospital actually holds |
+| **5. Deployment** | Dashboards, web prototyping, cloud and on-premise, statistics that hold up | Put a model in front of users and measure whether it helps |
+| **6. Strategy and Governance** | Thai FDA, AI as Software as a Medical Device, ISO, the regulatory path | Take a tool from prototype toward something approvable |
 
----
+## The two pathways
 
-## เส้นทางการเรียนรู้ที่แนะนำ
+- **Startup pathway.** For people who want their work to become a product.
+  Validation, the move from research to venture, and the road through the
+  National Innovation Agency and the Thai HealthTech ecosystem.
+- **Hospital information pathway.** For people who want to strengthen the system
+  from inside. Interoperability, data governance, and AI that fits a real
+  clinical workflow.
 
-### สำหรับนักพัฒนา / นักวิทยาศาสตร์ข้อมูล
-1 → 2 → 3 → 5 → 4
+## How we teach
 
-### สำหรับแพทย์ / บุคลากรสาธารณสุข
-4 → 1 → 6 → 2
+Every domain ends in something you built, not a quiz. You read, you run, you
+build, in that order. Notebooks open in your browser or in Google Colab.
 
-### สำหรับผู้บริหาร / ผู้กำหนดนโยบาย
-6 → 4 → [เส้นทางโรงพยาบาล](../pathways/hospital.md) → [เส้นทาง Startup](../pathways/startup.md)
+We hold to the standard set by accredited clinician-facing education such as the
+AMA Ed Hub course *Practical Applications for AI in Health Care*, then add the
+part most courses leave out: you make the thing, under supervision, with
+governance built in from the start.
 
----
+## What a Thai medical student should leave with
 
-## รูปแบบการเรียน
+1. The confidence to build, not just to buy or to critique.
+2. Fluency in the data their own hospital holds, and the law that governs it.
+3. The judgement to know when a model is safe to use and when it is not.
+4. A finished project, and a network of clinicians and engineers who built alongside them.
 
-- **Online Self-paced** — วิดีโอบรรยาย + Jupyter Notebook + แบบฝึกหัด
-- **Workshop** — ฝึกปฏิบัติกับข้อมูลจริงจากโรงพยาบาลรามาธิบดี
-- **Mentorship** — จับคู่กับที่ปรึกษาผู้เชี่ยวชาญ
-- **Project** — พัฒนาโปรเจกต์จริงและนำเสนอในงาน Showcase
+Start with [Basics](basics.md), or jump to the domain you need.

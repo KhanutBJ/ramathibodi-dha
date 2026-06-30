@@ -218,17 +218,58 @@ def md_html(text):
     return markdown.markdown(myst(text), extensions=MD_EXTS)
 
 def nb_html(nb_path):
-    if not HAS_NB:
-        return '<div class="callout callout--note"><strong>Notebook</strong><div>Install nbconvert and rebuild to render this notebook.</div></div>'
+    """Render an .ipynb directly to styled HTML. No nbconvert dependency."""
     try:
-        nb = nbformat.read(str(nb_path), as_version=4)
-        exp = HTMLExporter(); exp.template_name = "basic"
-        body, _ = exp.from_notebook_node(nb)
-        body = re.sub(r"^.*?<body[^>]*>", "", body, flags=re.DOTALL)
-        body = re.sub(r"</body>.*$", "", body, flags=re.DOTALL)
-        return body
+        nb = json.loads(Path(nb_path).read_text(encoding="utf-8"))
     except Exception as e:
-        return f'<div class="callout callout--warning"><strong>Render error</strong><div>{esc(str(e))}</div></div>'
+        return f'<div class="callout callout--warning"><strong>Notebook error</strong><div>{esc(str(e))}</div></div>'
+
+    def src(cell):
+        s = cell.get("source", [])
+        return "".join(s) if isinstance(s, list) else s
+
+    parts = []
+    for cell in nb.get("cells", []):
+        kind = cell.get("cell_type")
+        if kind == "markdown":
+            parts.append(md_html(src(cell)))
+        elif kind == "code":
+            code = src(cell)
+            if code.strip():
+                parts.append(
+                    '<div class="nb-cell"><div class="nb-in">'
+                    f'<pre><code>{esc(code)}</code></pre></div>'
+                )
+            else:
+                parts.append('<div class="nb-cell">')
+            for out in cell.get("outputs", []):
+                parts.append(render_output(out))
+            parts.append("</div>")
+    return "\n".join(parts)
+
+def render_output(out):
+    ot = out.get("output_type")
+    if ot == "stream":
+        text = "".join(out.get("text", []))
+        return f'<pre class="nb-out">{esc(text)}</pre>' if text.strip() else ""
+    if ot in ("execute_result", "display_data"):
+        data = out.get("data", {})
+        if "image/png" in data:
+            b64 = data["image/png"]
+            if isinstance(b64, list):
+                b64 = "".join(b64)
+            return f'<div class="nb-out nb-out--img"><img src="data:image/png;base64,{b64.strip()}" alt="output"/></div>'
+        if "text/html" in data:
+            html_out = data["text/html"]
+            return "".join(html_out) if isinstance(html_out, list) else html_out
+        if "text/plain" in data:
+            text = "".join(data["text/plain"])
+            return f'<pre class="nb-out">{esc(text)}</pre>'
+    if ot == "error":
+        tb = esc("\n".join(out.get("traceback", [])))
+        tb = re.sub(r"\x1b\[[0-9;]*m", "", tb)  # strip ANSI colour codes
+        return f'<pre class="nb-out nb-out--err">{tb}</pre>'
+    return ""
 
 def first_h1(path):
     if path.suffix == ".md" and path.exists():
@@ -305,30 +346,39 @@ ACADEMY_TOC = [
         ("intro", "intro.md"),
         ("curriculum/overview", "curriculum/overview.md"),
     ]),
-    ("Foundations", [
+    ("1 / Basics", [
+        ("curriculum/basics", "curriculum/basics.md"),
         ("curriculum/foundation/what-is-ai", "curriculum/foundation/what-is-ai.md"),
         ("curriculum/foundation/how-to-ai", "curriculum/foundation/how-to-ai.md"),
         ("curriculum/foundation/datasets", "curriculum/foundation/datasets.md"),
         ("curriculum/foundation/evaluation", "curriculum/foundation/evaluation.md"),
-        ("curriculum/basics", "curriculum/basics.md"),
     ]),
-    ("Clinical AI", [
+    ("2 / AI Agent", [
+        ("curriculum/ai-agent", "curriculum/ai-agent.md"),
+        ("notebooks/04-clinical-rag", "notebooks/04-clinical-rag.ipynb"),
+    ]),
+    ("3 / Deep AI", [
+        ("curriculum/deep-ai", "curriculum/deep-ai.md"),
+        ("curriculum/health/medical-imaging", "curriculum/health/medical-imaging.md"),
+        ("notebooks/03-medical-imaging", "notebooks/03-medical-imaging.ipynb"),
+        ("notebooks/01-clinical-ml", "notebooks/01-clinical-ml.ipynb"),
+    ]),
+    ("4 / Digital Health", [
+        ("curriculum/digital-health", "curriculum/digital-health.md"),
         ("curriculum/health/clinical-ai", "curriculum/health/clinical-ai.md"),
         ("curriculum/health/clinical-applications", "curriculum/health/clinical-applications.md"),
-        ("curriculum/health/medical-imaging", "curriculum/health/medical-imaging.md"),
         ("curriculum/health/fhir", "curriculum/health/fhir.md"),
-        ("curriculum/digital-health", "curriculum/digital-health.md"),
+        ("notebooks/02-fhir-data", "notebooks/02-fhir-data.ipynb"),
     ]),
-    ("Build", [
-        ("curriculum/ai-agent", "curriculum/ai-agent.md"),
-        ("curriculum/deep-ai", "curriculum/deep-ai.md"),
+    ("5 / Deployment", [
         ("curriculum/deployment", "curriculum/deployment.md"),
+    ]),
+    ("6 / Strategy & Governance", [
         ("curriculum/governance", "curriculum/governance.md"),
     ]),
-    ("Notebooks", [
-        ("notebooks/01-clinical-ml", "notebooks/01-clinical-ml.ipynb"),
-        ("notebooks/02-fhir-data", "notebooks/02-fhir-data.ipynb"),
-        ("notebooks/03-medical-imaging", "notebooks/03-medical-imaging.ipynb"),
+    ("Pathways", [
+        ("pathways/startup", "pathways/startup.md"),
+        ("pathways/hospital", "pathways/hospital.md"),
     ]),
     ("Capstone", [
         ("curriculum/capstone/index", "curriculum/capstone/index.md"),
@@ -355,12 +405,33 @@ def build_academy_reader():
           f'content="0;url={first_slug.replace("/","__")}.html"><a href="{first_slug.replace("/","__")}.html">Enter</a>')
 
     order = [slug for _, slug, _ in flat]
+    known = {slug for _, slug, _ in flat}
+
+    def rewrite_links(html_text, src_path):
+        import posixpath
+        base_dir = posixpath.dirname(src_path)  # e.g. "curriculum"
+
+        def repl(m):
+            href = m.group(1)
+            if href.startswith(("http://", "https://", "#", "mailto:")):
+                return m.group(0)
+            target = posixpath.normpath(posixpath.join(base_dir, href))
+            slug2 = target[:-3] if target.endswith(".md") else target
+            if slug2 in known:
+                return 'href="' + slug2.replace("/", "__") + '.html"'
+            # unresolved internal link (orphan reference): fall back to overview
+            if "curriculum/overview" in known:
+                return 'href="curriculum__overview.html"'
+            return 'href="index.html"'
+        return re.sub(r'href="([^"]+\.md)"', repl, html_text)
+
     for i, (cap, slug, src) in enumerate(flat):
         sp = BASE / src
         if sp.suffix == ".md":
             content = md_html(sp.read_text(encoding="utf-8"))
         else:
             content = nb_html(sp)
+        content = rewrite_links(content, src)
         # fix relative asset/image links: point to academy root
         content = content.replace('src="assets/', 'src="../../assets/')
         content = content.replace('href="assets/', 'href="../../assets/')

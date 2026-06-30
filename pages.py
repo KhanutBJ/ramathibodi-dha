@@ -51,12 +51,15 @@ def home(prefix, ctx):
 </section>"""
 
     proof = sec(
-        '<div class="reveal" style="display:flex;flex-direction:column;gap:1rem">'
-        '<span class="eyebrow">Built for the national health system</span>'
+        '<div class="reveal" style="display:flex;flex-direction:column;gap:1.4rem">'
+        '<span class="eyebrow">Built inside the system, with partners who build</span>'
         '<div class="logos">'
         '<span>Ramathibodi</span><span>Mahidol University</span>'
-        '<span>MOPH Digital Health</span><span>NHSO</span><span>Thai FDA</span>'
-        '<span>NIA</span><span>Thai HealthTech</span>'
+        '<span>Google Developer Groups on Campus</span><span>BOTNOI Academy</span>'
+        '</div>'
+        '<div class="logos muted" style="font-size:.85rem">'
+        '<span>Aligned with</span><span>MOPH Digital Health</span><span>NHSO</span>'
+        '<span>Thai FDA</span><span>NIA</span><span>Thai HealthTech</span>'
         '</div></div>', "section section--tight")
 
     what = sec(
@@ -226,12 +229,45 @@ def who_we_are(prefix, ctx):
         ctx['card']('pulse', 'Accredited education', 'We hold to the standard set by bodies like the AMA Ed Hub for clinician-facing AI education, adapted for Thailand.', None, '', prefix) +
         '</div>')
 
+    partners = sec(
+        head("Partners", "We do not build alone.",
+             "We work with the people who train builders and ship technology, and we align with the bodies that set Thailand's health agenda.") +
+        '<div class="grid grid-2">' +
+        ctx['card']('node', 'Google Developer Groups on Campus', 'A community of student developers and the Google Cloud and AI tooling our hands-on work runs on. Our Basics and Deployment domains lean on this stack.', None, '', prefix) +
+        ctx['card']('users', 'BOTNOI Academy', 'A Thai leader in AI education and voice technology. A natural partner for the speech and language parts of the curriculum, taught for Thai data.', None, '', prefix) +
+        '</div>' +
+        '<p class="muted mt4 reveal" style="font-size:.9rem">We design to align with the Ministry of Public Health digital health agenda, the National Health Security Office, the Thai FDA pathway for Software as a Medical Device, the National Innovation Agency, and the Thai HealthTech ecosystem.</p>')
+
+    consulting = f"""
+<section class="section">
+  <div class="container">
+    <div class="band reveal">
+      <div class="band__glow"></div>
+      <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
+        <div class="split">
+          <div class="stack">
+            <span class="eyebrow" style="color:#cbd5ef">Innovation consulting</span>
+            <h2>An innovation partner for the next-generation healthcare workforce.</h2>
+            <p>Beyond teaching and the fellowship, we advise hospitals, agencies, and health technology companies that are standing up their own AI capability. We design teams, governance, and training programmes, so the people we train have strong places to land and the system gains capability it keeps. This is how a club becomes infrastructure.</p>
+            <div class="btn-row"><a class="btn btn--grad" href="{prefix}what-we-do.html">How we work {I['arrow']}</a><a class="btn btn--ghost" href="{prefix}contact.html" style="color:#fff;border-color:rgba(255,255,255,.25)">Work with us</a></div>
+          </div>
+          <div class="grid" style="gap:1rem">
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">Capability design</span>', '<span style="color:#9fb0d4">Teams, not just tools</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">Governance</span>', '<span style="color:#9fb0d4">Evaluation and SaMD readiness</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">Workforce</span>', '<span style="color:#9fb0d4">Training programmes that stick</span>')}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>"""
+
     team = sec(
         head("People", "Faculty, builders, and clinicians in one room.",
              "The club brings together attending physicians, machine learning engineers, data scientists, and health policy people. Profiles and the founding team are published as the club grows.") +
         f'<div class="btn-row reveal"><a class="btn btn--ghost" href="{prefix}careers.html">Join the team {I["arrow"]}</a><a class="btn btn--ghost" href="{prefix}contact.html">Partner with us</a></div>')
 
-    return hero + mv + values + position + eco + team
+    return hero + mv + values + position + eco + partners + consulting + team
 
 def row(num, title, body):
     return (f'<div class="row reveal"><div class="row__num">{num}</div>'

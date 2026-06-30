@@ -1,124 +1,159 @@
 # AI Agent
 
-การสร้างและนำ AI Agent มาใช้ในงานด้านสุขภาพ — ตั้งแต่การใช้งาน LLM ขั้นพื้นฐานไปจนถึงระบบ Agent ที่ทำงานอัตโนมัติ
+This is where most people feel the ground shift. Large language models can read,
+write, reason over documents, talk, and take actions. An agent is an LLM given
+tools, memory, and a goal. In a hospital that can mean drafting a discharge
+summary, answering a patient on Line, or triaging a referral inbox.
 
----
+It can also mean confidently inventing a drug dose. The whole craft is getting
+the power without the harm. That is what this domain teaches.
 
-## 1. LLM พื้นฐาน (LLM Basics)
+## LLM basics
 
-ทำความเข้าใจการทำงานของ Large Language Model ก่อนนำไปใช้งานจริง
+A large language model predicts the next token given everything before it. From
+that one trick comes summarising, translating, extracting, and answering. You do
+not need the maths to use one well, but you do need the mental model:
 
-**สิ่งที่จะเรียน:**
-- Transformer Architecture ภาพรวม
-- Tokenization และ Context Window
-- Prompt Engineering: Zero-shot, Few-shot, Chain-of-Thought
-- การเลือกใช้ Model: GPT-4o, Claude, Gemini, LLaMA, Typhoon
-- API Calling และการจัดการ Response
+- The model has no memory between calls unless you give it one.
+- Everything it knows about your task lives in the **context** you send.
+- It does not know what it does not know. It will guess fluently.
 
----
+Key controls you will use every day:
 
-## 2. Hallucination และ Guardrails
+- **Prompt.** The instruction and the context you provide.
+- **System prompt.** The standing role and rules.
+- **Temperature.** How random the output is. Low for clinical work.
+- **Tokens.** The unit of text, and the unit of cost and limits.
 
-ปัญหาที่ต้องเข้าใจก่อนนำ AI ไปใช้ในระบบสาธารณสุข
+## Hallucination
 
-**สิ่งที่จะเรียน:**
-- ประเภทของ Hallucination: Factual, Logical, Citation
-- วิธีตรวจสอบและลด Hallucination
-- Guardrails: NeMo Guardrails, Llama Guard
-- Constitutional AI และ Safety Alignment
-- การทดสอบ LLM ในบริบทการแพทย์
+A hallucination is a confident, wrong answer. In casual use it is annoying. In
+medicine it is dangerous. You must assume the model can be wrong and design so
+that a wrong answer is caught.
 
-```{warning} สำคัญมาก
-LLM ที่ไม่มี Guardrails เหมาะสมอาจให้ข้อมูลทางการแพทย์ที่ผิดพลาด ซึ่งเป็นอันตรายต่อผู้ป่วย ต้องมีกระบวนการตรวจสอบโดยผู้เชี่ยวชาญเสมอ
+Where hallucinations come from:
+
+- The answer was not in the context, so the model guessed.
+- The question was ambiguous, so the model picked a reading.
+- The model was pushed to always answer, so it never said "I do not know."
+
+You reduce hallucination with grounding (give the model the source), with
+permission to abstain, and with verification (check the answer against the
+source before showing it).
+
+```{warning}
+Never put an ungrounded LLM between a patient and a decision. Every clinical
+output needs a source it can be checked against and a human who signs off.
 ```
 
----
+## Guardrails
 
-## 3. RAG (Retrieval-Augmented Generation)
+Guardrails are the rules and checks that sit around the model so it behaves. They
+are not optional in healthcare.
 
-การเชื่อม LLM กับฐานความรู้ทางการแพทย์เพื่อให้คำตอบที่แม่นยำและอ้างอิงได้
+- **Input guardrails.** Strip or flag protected information, block out-of-scope requests.
+- **Output guardrails.** Check format, check for unsupported claims, refuse when uncertain.
+- **Scope limits.** The assistant answers logistics, not diagnosis, unless a clinician is in the loop.
+- **Logging.** Every interaction is recorded so it can be audited and improved.
 
-**สิ่งที่จะเรียน:**
-- RAG Architecture: Retriever + Generator
-- Vector Database: Chroma, Pinecone, Weaviate
-- Embedding Models: text-embedding-3, BGE-M3
-- Chunking Strategies สำหรับเอกสารทางการแพทย์
-- Reranking และ Hybrid Search
-- การสร้าง Medical Q&A Bot ด้วย RAG
+## RAG: retrieval augmented generation
 
----
+RAG is how you make a model answer from your documents instead of from its
+training. You retrieve the relevant passages from your own knowledge base, put
+them in the context, and ask the model to answer using only those passages.
 
-## 4. Context / Loop Engineering
+The pipeline:
 
-การออกแบบระบบ AI ที่ทำงานอัตโนมัติในหลายขั้นตอน
+1. Split your documents (guidelines, formularies, SOPs) into chunks.
+2. Turn each chunk into an embedding and store it in a vector database.
+3. At question time, embed the question, find the closest chunks, and pass them in.
+4. Ask the model to answer from those chunks and cite them.
 
-**สิ่งที่จะเรียน:**
-- Agentic Workflow: Plan → Act → Observe → Reflect
-- Tool Use / Function Calling
-- Memory: Short-term, Long-term, Episodic
-- Multi-Agent Systems
-- LangChain / LangGraph พื้นฐาน
-- Claude MCP (Model Context Protocol)
+```python
+# sketch of a RAG step
+chunks = vector_db.search(embed(question), k=5)
+answer = llm.complete(
+    system="Answer only from the provided sources. If unsure, say so.",
+    context=chunks,
+    question=question,
+)
+```
 
----
+RAG is the single most useful pattern for clinical assistants, because it keeps
+the answer tied to a source you control and can update.
 
-## 5. TTS / STT (ASR)
+## Context and loop engineering
 
-การแปลงเสียงพูดเป็นข้อความและข้อความเป็นเสียง — สำหรับระบบบันทึกเวชระเบียน AI
+Getting good results is less about clever prompts and more about managing what
+goes into the context and how the model loops over a task.
 
-**สิ่งที่จะเรียน:**
-- Speech-to-Text: Whisper, Conformer
-- Text-to-Speech: XTTS, Fish Speech
-- ASR ภาษาไทย: NECTEC, AI for Thai
-- Medical Transcription: บันทึกเวชระเบียนด้วยเสียง
-- Speaker Diarization: แยกเสียงแพทย์และผู้ป่วย
+- **Context engineering.** Decide what the model sees: the right documents, the
+  right examples, the patient summary and nothing it should not have.
+- **Loop engineering.** Many tasks are not one call. The agent plans, calls a
+  tool, reads the result, and decides the next step. You design that loop, set a
+  stopping condition, and keep a human checkpoint where it matters.
 
----
+## Speech: TTS and STT (ASR)
 
-## 6. Line Agent
+Voice is how medicine actually runs. Two capabilities matter:
 
-การสร้าง Chatbot บน Line สำหรับงานสาธารณสุข — แพลตฟอร์มที่คนไทยใช้มากที่สุด
+- **STT / ASR (speech to text).** Transcribe a consultation or a ward round.
+  Thai and code-switched Thai-English are the real challenge. You will evaluate
+  models on Thai medical speech, not just English benchmarks.
+- **TTS (text to speech).** Read instructions back to a patient, useful for
+  accessibility and for low-literacy settings.
 
-**สิ่งที่จะเรียน:**
-- Line Messaging API
-- Line Bot พื้นฐาน: Webhook, Reply, Push
-- การเชื่อม LLM กับ Line Bot
-- Line LIFF: Mini App บน Line
-- กรณีศึกษา: Bot นัดหมาย, ติดตามอาการ, ให้ข้อมูลยา
+A transcription assistant that produces a structured note from a Thai
+consultation is one of the highest-value things a fellow can build.
 
----
+## Building real agents: Line, n8n, Cloud Run, OpenClaw
 
-## 7. n8n / OpenClaw (Workflow Automation)
+Thailand runs on Line, so that is where a patient-facing agent often lives.
 
-สร้างระบบอัตโนมัติโดยไม่ต้องเขียนโค้ดมาก
+- **Line agent.** Use the Line Messaging API to put an assistant where patients
+  and staff already are. Appointment reminders, triage intake, follow-up.
+- **n8n.** A visual automation tool. Wire together triggers, the model, a
+  database, and Line without writing a full backend. Excellent for prototypes
+  and for real internal workflows.
+- **OpenClaw and agent frameworks.** Orchestration for multi-step agents that
+  call tools and keep state.
+- **Cloud Run.** Google Cloud's way to run your service in a container that
+  scales to zero when idle. Cheap, simple, production-grade. A good first
+  deployment target for a Line webhook or an API.
 
-**สิ่งที่จะเรียน:**
-- n8n: Workflow อัตโนมัติแบบ Visual
-- การเชื่อมต่อ API, Database, Email, Line
-- Trigger-based Automation สำหรับงานโรงพยาบาล
-- Error Handling และ Monitoring
+```{tip}
+A realistic first agent: a Line bot, backed by an n8n flow, running on Cloud Run,
+that answers appointment and preparation questions from your department's own FAQ
+using RAG. Useful, shippable, and safe because it never diagnoses.
+```
 
----
+## Human in the loop
 
-## 8. Cloud Run
+The most important design choice in clinical AI is where the human sits. Human in
+the loop means a person reviews or approves before an action with clinical
+consequence happens. The model drafts, the clinician decides.
 
-การ Deploy AI Agent บน Cloud อย่างมีประสิทธิภาพ
+Design the checkpoint deliberately: what the human sees, how fast they can
+approve or reject, and how their corrections feed back to improve the system.
 
-**สิ่งที่จะเรียน:**
-- Docker: Container พื้นฐาน
-- Google Cloud Run: Serverless Container
-- CI/CD: GitHub Actions
-- Scaling และ Cost Optimization
+## Basic ML, in this context
 
----
+Not everything needs an LLM. A lot of clinical prediction is better served by a
+simple, interpretable model on tabular data. You will learn when to reach for
+classic machine learning instead of a language model, and how to combine them:
+an LLM to read the note, a calibrated model to make the prediction.
 
-## 9. Human in the Loop
+This connects directly to [Deep AI](deep-ai.md), where you train these models
+properly.
 
-การออกแบบระบบ AI ที่มีแพทย์หรือผู้เชี่ยวชาญ Validate ผลลัพธ์
+## What you build
 
-**สิ่งที่จะเรียน:**
-- การออกแบบ Workflow ที่ AI ช่วยตัดสินใจ ไม่ใช่ตัดสินใจแทน
-- Active Learning: ให้ผู้เชี่ยวชาญ Label ข้อมูลที่ไม่แน่ใจ
-- HITL Interface Design
-- Audit Trail และ Accountability
-- กรณีศึกษา: AI วินิจฉัยภาพถ่าย X-ray พร้อม Radiologist Review
+A supervised assistant that does one real job end to end: grounded in your own
+documents with RAG, wrapped in guardrails, reachable on Line, deployed on Cloud
+Run, with a human checkpoint before anything that touches care.
+
+## Where this goes next
+
+Take the assistant into [Deployment](deployment.md) to measure whether it helps,
+and into [Strategy and Governance](governance.md) to understand what it would
+take to use it for real.

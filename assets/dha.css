@@ -362,11 +362,15 @@ strong { color: var(--ink); font-weight: 600; }
 .crumb { font-size: 0.8rem; color: var(--ink-faint); margin-bottom: var(--s3); font-family: var(--font-mono); letter-spacing: .04em; }
 .crumb a:hover { color: var(--ink); }
 
-/* notebook output (nbconvert basic) */
-.prose .jp-Cell, .prose .cell { margin: 1.2rem 0; }
-.prose .jp-InputArea, .prose .input_area { background: var(--navy-2); color: #e6ebf5; border-radius: var(--radius); padding: var(--s2) var(--s3); overflow-x: auto; font-family: var(--font-mono); font-size: 0.84rem; }
-.prose .jp-OutputArea, .prose .output_area { font-size: 0.9rem; overflow-x: auto; }
-.prose .jp-RenderedImage img, .prose .output_png img { border: 1px solid var(--line); border-radius: var(--radius); }
+/* notebook cells (custom renderer) */
+.nb-cell { margin: 1.4rem 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.nb-in { position: relative; }
+.nb-in::before { content: "In"; position: absolute; top: 0.5rem; right: 0.7rem; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: .1em; color: rgba(255,255,255,.35); }
+.nb-in pre { margin: 0; background: var(--navy-2); color: #e6ebf5; padding: var(--s3) var(--s3); border-radius: 0; border: 0; }
+.nb-out { margin: 0; padding: var(--s2) var(--s3); background: var(--bg-elev); color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.55; overflow-x: auto; border-top: 1px solid var(--line); white-space: pre-wrap; word-break: break-word; }
+.nb-out--err { background: rgba(247,98,5,.08); color: var(--ink); }
+.nb-out--img { padding: var(--s3); background: #fff; border-top: 1px solid var(--line); }
+.nb-out--img img { margin-inline: auto; }
 
 /* ---- Motion --------------------------------------------------------------- */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }

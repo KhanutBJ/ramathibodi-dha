@@ -1,49 +1,38 @@
-# Ramathibodi Digital Health Academy
+# Welcome to the Academy
 
-**Ramathibodi Digital Health Academy (DHA)** คือโครงการพัฒนาศักยภาพบุคลากรด้านสุขภาพดิจิทัล ภายใต้คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล มุ่งสร้างผู้นำด้าน Digital Health ที่สามารถนำเทคโนโลยีปัญญาประดิษฐ์ (AI) ไปประยุกต์ใช้ในระบบสาธารณสุขไทยได้จริง
+This is the open curriculum of the **Ramathibodi Digital Health and AI Club**. It
+teaches medical AI as one craft, from the first line of code to a tool a hospital
+can trust. It is built for clinicians, students, engineers, and scientists, and
+you can start with no programming background at all.
 
----
+## How to use this
 
-## โครงการนี้คืออะไร?
+Work through the six domains in order if you are new, or jump straight to what you
+need. Each domain ends in something you built. Notebooks run in your browser or in
+Google Colab.
 
-DHA เป็นโครงการที่รวม **แพทย์ นักวิจัย นักพัฒนาซอฟต์แวร์ และผู้กำหนดนโยบาย** เข้าไว้ด้วยกัน เพื่อสร้างระบบนิเวศ Digital Health ที่แข็งแกร่งในประเทศไทย ผ่านการเรียนรู้ทั้งภาคทฤษฎีและการลงมือปฏิบัติจริง
-
----
-
-## ใครเข้าร่วมได้บ้าง?
-
-| กลุ่มเป้าหมาย | รายละเอียด |
-|---|---|
-| **บุคคลทั่วไป (User)** | แพทย์ พยาบาล นักวิทยาศาสตร์ นักศึกษา ผู้สนใจด้าน Digital Health |
-| **Fellow (ภายใน)** | บุคลากรรามาธิบดีที่ได้รับการคัดเลือกเข้าร่วมโครงการวิจัยและพัฒนา |
-
----
-
-## สิ่งที่คุณจะได้รับ
-
-- ทักษะการเขียนโปรแกรมสำหรับงานสาธารณสุข
-- ความเข้าใจระบบข้อมูลสุขภาพ (HIS, EMR, HL7/FHIR)
-- ประสบการณ์สร้าง AI เพื่องานคลินิกจริง
-- เครือข่ายผู้เชี่ยวชาญด้าน Digital Health
-- โอกาสแสดงผลงานและต่อยอดสู่ผลิตภัณฑ์จริง
-
----
-
-## โครงสร้างหลักสูตร
-
-```{image} assets/curriculum-overview.png
-:alt: โครงสร้างหลักสูตร DHA
-:width: 100%
+```{tip}
+If you only do one thing first, open [the curriculum overview](curriculum/overview.md)
+and read the map. Then start with [Basics](curriculum/basics.md).
 ```
 
-หลักสูตรแบ่งออกเป็น **6 โมดูลหลัก** ครอบคลุมตั้งแต่ทักษะพื้นฐานการเขียนโปรแกรม ไปจนถึง AI ขั้นสูง ระบบสุขภาพดิจิทัล และกลยุทธ์เชิงนโยบาย
+## The shape of the curriculum
 
-ดูรายละเอียดหลักสูตรทั้งหมดได้ที่ [ภาพรวมหลักสูตร](curriculum/overview.md)
+1. **[Basics](curriculum/basics.md).** No-code and vibe coding, Git, documentation, APIs, the cloud.
+2. **[AI Agent](curriculum/ai-agent.md).** LLMs, guardrails, RAG, speech, and real agents on Line, n8n, and Cloud Run.
+3. **[Deep AI](curriculum/deep-ai.md).** Deep learning for images, signals, sound, and tables, plus explainability.
+4. **[Digital Health](curriculum/digital-health.md).** HIS, EMR and PHR, ICD-10, HL7 and FHIR, PDPA, Genomics Thailand, NHSO claims.
+5. **[Deployment](curriculum/deployment.md).** Dashboards, web prototyping, cloud and on-premise, honest statistics.
+6. **[Strategy and Governance](curriculum/governance.md).** Thai FDA, AI as Software as a Medical Device, ISO, the regulatory path.
 
----
+Then choose a pathway: [Startup](pathways/startup.md) or
+[Hospital information](pathways/hospital.md).
 
-## ติดต่อและสมัคร
+## What you will leave with
 
-- [สมัครเป็นสมาชิก](community/register-member.md) — เปิดรับสมาชิกทั่วไป
-- [สมัครเป็นที่ปรึกษา (Mentor)](community/register-mentor.md) — สำหรับผู้เชี่ยวชาญที่ต้องการแบ่งปันความรู้
-- [ติดต่อเรา](community/contact.md)
+The confidence to build, fluency in the data your own hospital holds, the
+judgement to know when a model is safe to use, and a finished project you made
+alongside other clinicians and engineers.
+
+Built by the Faculty of Medicine Ramathibodi Hospital, Mahidol University, for
+Thailand's health system.

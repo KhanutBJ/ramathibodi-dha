@@ -1,124 +1,54 @@
-# เส้นทางโรงพยาบาล
+# Hospital information pathway
 
-สำหรับบุคลากรสาธารณสุขและ IT โรงพยาบาลที่ต้องการนำ AI มาปรับปรุงระบบภายในองค์กร
+For people who want to strengthen the health system from the inside. Not every
+good idea should become a startup. Some of the most valuable work is making one
+hospital's data flow, governing it well, and fitting AI into a real clinical
+workflow so it is used and trusted. This pathway is for the builders who will run
+medical informatics inside institutions.
 
----
+## The problem inside the walls
 
-## ภาพรวม
+A hospital is a pile of systems that do not talk to each other: an HIS, a LIS for
+the lab, a PACS for imaging, a pharmacy system, a dozen spreadsheets. The patient
+is scattered across all of them. Before AI can help, the data has to be findable,
+joined, and trustworthy. That work is the foundation, and it is rarely glamorous
+and always essential.
 
-เส้นทางนี้ออกแบบสำหรับ:
-- แพทย์และพยาบาลที่ต้องการนำ AI มาช่วยงานคลินิก
-- ทีม IT โรงพยาบาลที่ต้องการพัฒนาระบบดิจิทัล
-- ผู้บริหารโรงพยาบาลที่ต้องการวางแผนกลยุทธ์ Digital Health
+## Interoperability in practice
 
----
+This is where [HL7 and FHIR](../curriculum/digital-health.md) stop being theory.
+You will learn to:
 
-## ขั้นที่ 1: Digital Maturity Assessment
+- Map data out of the HIS and into FHIR resources.
+- Stand up or connect to a FHIR server as the common layer.
+- Reconcile identities across systems so one patient is one patient.
+- Keep an eye on data quality, because a model on dirty data is worse than no model.
 
-ประเมินความพร้อมขององค์กรก่อนนำ AI เข้ามา
+## Governance and the clinical workflow
 
-**4 มิติที่ต้องประเมิน:**
+A tool that is technically correct but does not fit how clinicians work will not
+be used. The informatics builder designs for the workflow:
 
-| มิติ | คำถาม |
-|---|---|
-| ข้อมูล | ข้อมูลอยู่ในรูปดิจิทัลแล้วหรือไม่? ครบถ้วนแค่ไหน? |
-| โครงสร้างพื้นฐาน | Network, Server, Security พร้อมหรือไม่? |
-| บุคลากร | มีทีม IT? มีคนที่เข้าใจ AI? |
-| วัฒนธรรมองค์กร | ผู้บริหารสนับสนุน? บุคลากรพร้อมเปลี่ยน? |
+- Where in the round, the clinic, or the order set does the tool appear.
+- What the clinician sees, and how little friction it adds.
+- The [human-in-the-loop](../curriculum/ai-agent.md) checkpoint and the audit trail.
+- Change control, monitoring, and the PDPA basis, owned and maintained over time.
 
----
-
-## ขั้นที่ 2: Use Case Prioritization
-
-เลือก Use Case ที่เหมาะสมที่สุดในการเริ่มต้น
-
-**Matrix การคัดเลือก:**
-
-| Use Case | Impact | ความง่าย | ลำดับความสำคัญ |
-|---|---|---|---|
-| AI อ่าน X-ray | สูง | กลาง | สูง |
-| Predictive Readmission | กลาง | ยาก | กลาง |
-| Chatbot นัดหมาย | กลาง | ง่าย | สูง |
-| Auto ICD Coding | สูง | กลาง | สูง |
-| Sepsis Early Warning | สูง | ยาก | กลาง |
-
-**หลักการเลือก Use Case แรก:**
-- เริ่มจากปัญหาที่ชัดเจน วัดผลได้
-- ข้อมูลมีอยู่แล้วและมีคุณภาพพอ
-- บุคลากรพร้อมใช้และสนับสนุน
-- ROI ชัดเจนภายใน 6–12 เดือน
-
----
-
-## ขั้นที่ 3: Data Infrastructure
-
-สร้างโครงสร้างพื้นฐานข้อมูลก่อนพัฒนา AI
-
-```
-HIS / EMR → ETL Pipeline → Data Warehouse → Data Mart → AI Model
+```{important}
+Adoption is a clinical change-management problem, not a software problem. The best
+tool fails if it adds clicks to a busy ward. Design with the people who will use
+it, from the first sketch.
 ```
 
-**สิ่งที่ต้องทำ:**
-- **Data Audit**: รู้ว่ามีข้อมูลอะไร อยู่ที่ไหน คุณภาพเป็นอย่างไร
-- **Data Governance**: กำหนดเจ้าของข้อมูล สิทธิ์การเข้าถึง
-- **Data Pipeline**: ดึงข้อมูลจาก HIS อย่างปลอดภัยและสม่ำเสมอ
-- **Data Quality**: ทำความสะอาดและ Validate ข้อมูล
+## Working with the national system
 
----
+Inside the system you connect upward too: to the Ministry of Public Health's
+digital health direction, to NHSO data and reimbursement, and to national
+standards. A hospital that builds to these standards plugs into the country
+instead of working around it.
 
-## ขั้นที่ 4: AI Implementation
+## What you leave with
 
-**รูปแบบการนำ AI เข้าใช้:**
-
-### Buy (ซื้อ)
-- ซื้อ AI Solution สำเร็จรูปจากบริษัทภายนอก
-- ข้อดี: เร็ว มีการรับรองแล้ว
-- ข้อเสีย: ราคาสูง ปรับแต่งได้น้อย
-
-### Build (พัฒนาเอง)
-- พัฒนาโดยทีม IT โรงพยาบาลหรือ Fellow
-- ข้อดี: ยืดหยุ่น เข้าใจบริบทดี
-- ข้อเสีย: ใช้เวลานาน ต้องการผู้เชี่ยวชาญ
-
-### Partner (ร่วมพัฒนา)
-- ร่วมกับมหาวิทยาลัย Startup หรือบริษัทเทคโนโลยี
-- ข้อดี: ได้ทั้ง Know-how และ Solution
-- ข้อเสีย: ต้องจัดการ Partnership ให้ดี
-
----
-
-## ขั้นที่ 5: Change Management
-
-ความท้าทายที่ใหญ่ที่สุดในการนำ AI เข้าโรงพยาบาล ไม่ใช่เรื่องเทคนิค แต่เป็นเรื่องคน
-
-**กลยุทธ์:**
-- **Champion Program**: หา Key Opinion Leader ในแต่ละแผนก
-- **Training**: อบรมการใช้งานและความปลอดภัย
-- **Feedback Loop**: รับ Feedback จากผู้ใช้อย่างสม่ำเสมอ
-- **Quick Win**: แสดงผลสำเร็จเล็กน้อยบ่อย ๆ ก่อนขยายใหญ่
-- **Leadership Buy-in**: ผู้อำนวยการต้องสนับสนุนอย่างจริงจัง
-
----
-
-## ขั้นที่ 6: Monitoring และ Governance
-
-หลัง Deploy ต้องติดตามและดูแลระบบอย่างต่อเนื่อง
-
-- **Model Performance Monitoring**: ความแม่นยำเปลี่ยนไปหรือไม่? (Data Drift)
-- **Clinical Outcome Tracking**: ผลลัพธ์ผู้ป่วยดีขึ้นจริงหรือไม่?
-- **Incident Management**: กระบวนการรับมือเมื่อ AI ทำงานผิดพลาด
-- **Regular Audit**: ทบทวน AI Performance ทุกไตรมาส
-
----
-
-## กรณีศึกษา: Ramathibodi
-
-Use Cases ที่กำลังดำเนินการหรือสนใจพัฒนา:
-
-| โครงการ | สถานะ | แผนก |
-|---|---|---|
-| AI อ่าน CXR (Chest X-ray) | Pilot | รังสีวิทยา |
-| Sepsis Early Warning | Development | ICU |
-| Auto ICD Coding | Pilot | เวชระเบียน |
-| Drug Interaction Alert | Planning | เภสัชกรรม |
-| AI สรุป OPD Note | Research | ทุกแผนก |
+A working interoperability layer for a real clinical problem, an AI tool that
+sits inside the workflow and is actually used, and the governance and monitoring
+to keep it safe after you move on.

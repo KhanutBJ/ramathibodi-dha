@@ -1,0 +1,44 @@
+/* DHA — Brand overrides on top of Carbon DS */
+
+:root {
+  --cds-interactive:        #0f62fe;
+  --cds-link-primary:       #0f62fe;
+  --cds-shell-bg:           #001141;   /* Ramathibodi navy */
+  --cds-shell-border:       #002060;
+  --cds-shell-hover:        #002060;
+  --cds-shell-active:       #003399;
+  --side-nav-w:             17rem;
+}
+
+/* Header — use Ramathibodi navy instead of pure black */
+.cds-header {
+  background: var(--cds-shell-bg);
+  border-bottom: 1px solid #002060;
+}
+
+/* Side nav — slightly lighter navy tint */
+.cds-side-nav { background: #00174d; }
+.cds-side-nav__sub { background: #001141; }
+
+/* Hero banner on intro page */
+.cds-article h1:first-child {
+  font-size: 2.25rem;
+}
+
+/* Tag accent color */
+.cds-tag--blue { background: #d0e2ff; border-color: #0043ce; color: #0043ce; }
+
+/* Table header accent */
+.cds-article thead th { background: #edf5ff; }
+
+/* Notification tweaks */
+.cds-notification--note { border-color: #0f62fe; }
+
+/* Code block language label */
+.cds-article pre[data-lang]::before { color: #8a8a8a; }
+
+/* Footer */
+.cds-footer {
+  border-top-color: #e0e0e0;
+  color: #525252;
+}

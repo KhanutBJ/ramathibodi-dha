@@ -1,0 +1,29 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: เกี่ยวกับโครงการ
+    chapters:
+      - file: about
+
+  - caption: หลักสูตร
+    chapters:
+      - file: curriculum/overview
+      - file: curriculum/basics
+      - file: curriculum/ai-agent
+      - file: curriculum/deep-ai
+      - file: curriculum/digital-health
+      - file: curriculum/deployment
+      - file: curriculum/governance
+
+  - caption: เส้นทางการเรียนรู้
+    chapters:
+      - file: pathways/startup
+      - file: pathways/hospital
+
+  - caption: ชุมชนและการมีส่วนร่วม
+    chapters:
+      - file: community/register-member
+      - file: community/register-mentor
+      - file: community/showcase
+      - file: community/contact

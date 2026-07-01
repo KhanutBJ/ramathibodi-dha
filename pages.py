@@ -106,73 +106,58 @@ def esc_txt(s):
 # ===========================================================================
 # HOME
 # ===========================================================================
-def _sketch_figure(cx, ground_y, cls="vf-figure", halo=False):
-    """A simple standing figure, drawn from two shapes: a head and a coat.
-    Not a photo, a sketch, the same register as every other diagram on the
-    site. When halo is set, a small ring of circuit-dots orbits the head,
-    the visual shorthand for 'augmented, still human.'"""
-    head_r = 10
-    head_cy = ground_y - 74
-    body = (f"M {cx-15} {ground_y} L {cx-18} {ground_y-40} "
-            f"Q {cx} {ground_y-52} {cx+18} {ground_y-40} L {cx+15} {ground_y} Z")
-    out = (f'<circle class="{cls}__head" cx="{cx}" cy="{head_cy}" r="{head_r}"/>'
-           f'<path class="{cls}__body" d="{body}"/>')
-    if halo:
-        import math
-        dots = ""
-        for k in range(5):
-            a = k * (2 * math.pi / 5)
-            hx, hy = cx + 24 * math.cos(a), head_cy + 24 * math.sin(a)
-            dots += f'<circle class="vf-halo-dot" cx="{hx:.1f}" cy="{hy:.1f}" r="2.6"/>'
-        out += f'<circle class="vf-halo-ring" cx="{cx}" cy="{head_cy}" r="24"/>' + dots
-    return out
-
 def vision_dawn():
-    """Seventh signature sketch, the homepage's vision statement: a dawn arc
-    rising from a ground line, distinct in shape from the path, trail, orbit,
-    hub, funnel, scatter chart, and comb already used elsewhere. Three sketched
-    figures climb it, the same person, drawn three times: rooted in everyday
-    care, learning to build, then standing at the peak as the digital doctor,
-    augmented but still recognisably themselves, still tethered to the ground."""
-    waypoints = [
-        (110, 322, "Rooted in care", "หยั่งรากในการดูแล", False),
-        (350, 220, "Learns to build", "เรียนรู้ที่จะสร้าง", False),
-        (580, 140, "Becomes the digital doctor", "กลายเป็นแพทย์ยุคดิจิทัล", True),
-    ]
-    d = "M 110 322 C 200 300, 260 240, 350 220 C 440 200, 500 160, 580 140 C 650 120, 700 100, 760 85"
-    figures, labels = "", ""
-    for i, (x, y, en, th, halo) in enumerate(waypoints):
-        figures += _sketch_figure(x, y, halo=halo)
-        yoff = -70
-        labels += (f'<text class="l-en vd-lab" x="{x}" y="{y+yoff}" text-anchor="middle">{en}</text>'
-                   f'<text class="l-th vd-lab" x="{x}" y="{y+yoff}" text-anchor="middle">{th}</text>')
-    labels += (f'<text class="l-en vd-lab" x="785" y="70" text-anchor="end">Shapes the future, keeps the culture</text>'
-               f'<text class="l-th vd-lab" x="785" y="70" text-anchor="end">กำหนดอนาคต รักษาวัฒนธรรม</text>')
+    """Seventh signature sketch, the homepage's vision statement. Not literal
+    figures (tried, looked like clip art, cut). Instead: a workforce is many
+    people, so the diagram is many thin threads, each starting from a
+    different point on the ground, each on its own path, all converging into
+    one bold gradient line, the way the whole site's 'one continuous line'
+    idea actually works at the scale of a country. Abstract, but the meaning
+    is exact: nobody rises alone, and the many become one movement without
+    losing their individual starting points."""
+    import math
+    starts = [70, 150, 230, 310, 390]
+    merge = (560, 175)
+    threads = ""
+    for i, sx in enumerate(starts):
+        cx1 = sx + 90 + i * 6
+        cy1 = 330 - i * 8
+        cx2 = merge[0] - 110
+        cy2 = merge[1] + 40 - i * 4
+        d = f"M {sx} 360 C {cx1} {cy1}, {cx2} {cy2}, {merge[0]} {merge[1]}"
+        threads += f'<path class="vd-thread" d="{d}" fill="none" style="animation-delay:{i*0.12:.2f}s"/>'
+    d_main = f"M {merge[0]} {merge[1]} C 650 130, 720 90, 810 55"
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 900 400" role="img" aria-label="Three sketched figures climbing a dawn arc, from a clinician rooted in care to the digital doctor, augmented and reaching a gradient sun" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 900 400" role="img" aria-label="Many individual threads, each starting from a different point on the ground, converging into one bright line rising toward the future" preserveAspectRatio="xMidYMid meet">
     <defs>
       <filter id="sketch8" x="-8%" y="-8%" width="116%" height="116%">
         <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="61" result="n"/>
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.8"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/>
       </filter>
-      <radialGradient id="vd-grad" cx="50%" cy="50%" r="60%">
-        <stop offset="0" stop-color="#fd6502"/><stop offset="0.55" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
-      </radialGradient>
+      <linearGradient id="vd-grad" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#3412d1"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#fd6502"/>
+      </linearGradient>
     </defs>
     <g filter="url(#sketch8)">
       <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
-      <path class="vd-arc" d="{d}" fill="none"/>
-      {figures}
-      <circle class="vd-node vd-node--sun" cx="760" cy="85" r="16"/>
+      {threads}
+      <path class="vd-arc" d="{d_main}" fill="none"/>
+      <circle class="vd-node vd-node--sun" cx="810" cy="55" r="15"/>
     </g>
-    {labels}
-    <text class="fa-hand" x="530" y="330" transform="rotate(-3 530 330)">the same person, further along</text>
-    <path class="fa-hand-arrow" d="M570 340 q 10 -22 -6 -40"/>
+    <circle class="vd-merge-ring" cx="{merge[0]}" cy="{merge[1]}" r="20"/>
+    <text class="l-en vd-lab" x="70" y="345">Many starting points</text>
+    <text class="l-th vd-lab" x="70" y="345">จุดเริ่มต้นที่ต่างกัน</text>
+    <text class="l-en vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">One workforce</text>
+    <text class="l-th vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">หนึ่งกำลังคน</text>
+    <text class="l-en vd-lab" x="835" y="30" text-anchor="end">The future of Thai care</text>
+    <text class="l-th vd-lab" x="835" y="30" text-anchor="end">อนาคตการดูแลสุขภาพไทย</text>
+    <text class="fa-hand" x="120" y="215" transform="rotate(-4 120 215)">not one hero, a whole generation</text>
+    <path class="fa-hand-arrow" d="M170 224 q 30 8 54 22"/>
   </svg>
   <div class="flow-art__legend">
-    <span class="l-en">Three sketches, one person. Nobody is left behind at the ground, and nobody who rises forgets what the ground was for.</span>
-    <span class="l-th">สามภาพร่าง หนึ่งคน ไม่มีใครถูกทิ้งไว้ที่พื้น และไม่มีใครที่ขึ้นไปแล้วลืมว่าพื้นนั้นมีไว้เพื่ออะไร</span>
+    <span class="l-en">A workforce is not one brilliant person. It is many people, starting from different places, who choose to rise together.</span>
+    <span class="l-th">กำลังคนไม่ใช่คนเก่งเพียงคนเดียว แต่คือคนจำนวนมาก ที่เริ่มจากจุดต่างกัน แล้วเลือกที่จะเติบโตไปด้วยกัน</span>
   </div>
 </div>"""
     return svg
@@ -224,7 +209,6 @@ def home(prefix, ctx):
     _partner_marks = (
         (f'{prefix}assets/partners/ramathibodi-seal.svg', 'Faculty of Medicine Ramathibodi Hospital, Mahidol University'),
         (f'{prefix}assets/partners/mind-center.svg', 'MIND Center, Ramathibodi'),
-        (f'{prefix}assets/partners/nia-thailand.svg', 'National Innovation Agency, Thailand'),
         (f'{prefix}assets/partners/gdg-bangkok.svg', 'Google Developer Group Bangkok'),
         (f'{prefix}assets/partners/botnoi-academy.svg', 'Botnoi Academy'),
     )
@@ -910,6 +894,34 @@ def fellowship_orbit(prefix):
             f'{head(bi("The year", "หนึ่งปี"), bi("One loop, four waypoints.", "หนึ่งวงจร สี่จุดพัก"))}'
             f'{svg}</div></section>')
 
+def competency_spine():
+    """The four-pillar competency spine: Fluency, Builder, Strategist,
+    Steward. A clean typographic panel, not a hand-sketch, because this is
+    information architecture, not narrative. Each row's accent bar samples
+    one stop of the brand gradient, so four rows read as one family rather
+    than four arbitrary colours."""
+    pillars = [
+        ("#3412d1", "I", bi("Fluency", "ความเข้าใจพื้นฐาน"), bi("Read, question, and evaluate the AI tools a graduate meets at work.", "อ่าน ตั้งคำถาม และประเมินเครื่องมือ AI ที่บัณฑิตจะเจอในการทำงาน")),
+        ("#7a2ba8", "II", bi("Builder", "ผู้สร้าง"), bi("Design, train, and evaluate a model, then ship it into a real workflow.", "ออกแบบ ฝึกโมเดล ประเมินผล แล้วนำไปใช้จริงในเวิร์กโฟลว์")),
+        ("#b0507a", "III", bi("Strategist", "นักกลยุทธ์"), bi("Decide build, buy, or wait, and manage the change an institution needs.", "ตัดสินใจสร้าง ซื้อ หรือรอ และบริหารการเปลี่ยนแปลงที่สถาบันต้องการ")),
+        ("#fd6502", "IV", bi("Steward", "ผู้ดูแลระยะยาว"), bi("Watch over a tool for years: monitor drift, audit bias, know when to retire it.", "ดูแลเครื่องมือในระยะยาว เฝ้าระวังความคลาดเคลื่อน ตรวจสอบอคติ และรู้ว่าเมื่อไรควรเลิกใช้")),
+    ]
+    rows = "".join(
+        f'<div class="spine-row" style="border-left-color:{color}">'
+        f'<span class="spine-row__num" style="color:{color}">{num}</span>'
+        f'<div class="spine-row__body"><h3>{title}</h3><p>{desc}</p></div>'
+        f'</div>'
+        for color, num, title, desc in pillars)
+    return f"""
+<section class="section section--tight">
+  <div class="container">
+    <span class="eyebrow reveal">{bi("The four-pillar competency spine", "แกนกลางสี่เสาหลักของทักษะ")}</span>
+    <h2 class="reveal mt3">{bi("Everyone climbs the same spine.", "ทุกคนไต่บันไดเดียวกัน")}</h2>
+    <p class="lead reveal mt3 measure">{bi("The six courses teach the craft. This is the judgement the craft is for: from reading a tool honestly, to building one, to deciding where it belongs, to watching over it for years.", "หกคอร์สสอนวิชาชีพ นี่คือวิจารณญาณที่วิชาชีพนั้นมีไว้เพื่อ ตั้งแต่อ่านเครื่องมืออย่างตรงไปตรงมา ไปจนถึงสร้างมันขึ้นมา ตัดสินใจว่ามันควรอยู่ตรงไหน และดูแลมันในระยะยาว")}</p>
+    <div class="spine reveal mt5">{rows}</div>
+  </div>
+</section>"""
+
 def academy(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
@@ -944,7 +956,7 @@ def academy(prefix, ctx):
     modules = sec(
         head(bi("The curriculum", "หลักสูตร"), bi("Six courses, one through-line.", "หกคอร์ส หนึ่งเส้นทางเชื่อมโยง"),
              bi("Each course is hands-on. You write code, read clinical data, and build something that runs. Notebooks open in the browser or in Colab.", "ทุกคอร์สเน้นลงมือทำ คุณเขียนโค้ด อ่านข้อมูลคลินิก และสร้างสิ่งที่รันได้จริง เปิด notebook ในเบราว์เซอร์หรือใน Colab")) +
-        f'<div class="catalog">{cat}</div>') + learning_trail(prefix)
+        f'<div class="catalog">{cat}</div>') + learning_trail(prefix) + competency_spine()
 
     fmt = f"""
 <section class="section">

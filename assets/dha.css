@@ -430,15 +430,6 @@ strong { color: var(--ink); font-weight: 600; }
 .pq .gradient-text { display: inline; }
 .pq__cite { display: block; margin-top: var(--s4); font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); font-style: normal; font-weight: 400; }
 
-/* converge diagram (why now) */
-.converge { display: grid; gap: 0.7rem; max-width: 460px; }
-.converge__in { display: flex; align-items: center; gap: 0.9rem; }
-.dotline { flex: 0 0 64px; height: 2px; border-radius: 2px; }
-.dotline--on { background: linear-gradient(90deg, var(--orange), var(--purple)); }
-.dotline--off { background: repeating-linear-gradient(90deg, var(--ink-faint) 0 4px, transparent 4px 9px); opacity: .55; }
-.converge__lab { font-weight: 600; font-size: 0.98rem; }
-.converge__lab--miss { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--ink-faint); }
-.converge__out { margin-top: 0.6rem; padding: 0.85rem 1.2rem; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--grad-soft); font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); }
 
 /* ---- Footer --------------------------------------------------------------- */
 .footer { border-top: 1px solid var(--line); padding-block: var(--s6) var(--s4); margin-top: var(--s6); }
@@ -839,6 +830,18 @@ strong { color: var(--ink); font-weight: 600; }
   .vd-node--sun { animation: none; opacity: 1; }
   .vd-merge-ring { animation: none; opacity: .3; }
 }
+
+/* Why-now variant: the "trained builders" threads stop short of the join
+   on purpose, so the gap between what exists and what is missing is
+   visible, not just stated. */
+.vd-thread--gap { stroke: var(--accent); opacity: .6; }
+.vd-gap-link {
+  fill: none; stroke: var(--ink-faint); stroke-width: 1.6; stroke-linecap: round;
+  stroke-dasharray: 3 7; opacity: 0; animation: vd-fade .6s ease 2.2s forwards;
+}
+.vd-merge-ring--gap { stroke: var(--ink-faint); stroke-dasharray: 3 5; animation: vd-pulse-ring 2.4s ease-in-out 2.2s infinite; }
+.vd-lab--gap { fill: var(--accent); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .vd-gap-link { animation: none; opacity: 1; } }
 
 /* Four-pillar competency spine: a hand-sketch ascending staircase. */
 .spine-ground { stroke: var(--line); stroke-width: 2; }

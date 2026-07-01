@@ -58,16 +58,6 @@ def journey_map(items, icons):
                   f'<div class="k">{k}</div><h3>{title}</h3><p>{desc}</p></div>')
     return f'<div class="journey">{nodes}</div>'
 
-def whynow_viz(labels):
-    """Three inputs converging to one gap. labels = (a,b,c,gap)."""
-    a, b, c, gap = labels
-    return (f'<div class="converge reveal">'
-            f'<div class="converge__in"><span class="dotline dotline--on"></span><div class="converge__lab">{a}</div></div>'
-            f'<div class="converge__in"><span class="dotline dotline--on"></span><div class="converge__lab">{b}</div></div>'
-            f'<div class="converge__in"><span class="dotline dotline--off"></span><div class="converge__lab converge__lab--miss">{c}</div></div>'
-            f'<div class="converge__out">{gap}</div>'
-            f'</div>')
-
 def moment(img, prefix, label, ratio="ratio-21x9"):
     """Full-width photographic band, editorial style."""
     return (f'<section class="section--tight"><div class="container">'
@@ -154,59 +144,69 @@ def vision_dawn():
 </div>"""
     return svg
 
-def workforce_rising():
-    """The homepage's original vision sketch, kept and moved rather than
-    deleted. The vision section now argues medicine and AI are one craft;
-    this older diagram argues something true at a different altitude, that
-    no one learns or practices that craft alone. Many thin threads, each
-    starting from a different point, converge into one bold gradient line
-    rising toward the future. Reuses the .vd-* visual grammar, but with its
-    own filter and gradient ids so two instances of this motif can safely
-    share a page without duplicate SVG ids; the gradient is applied inline
-    per element since the shared CSS classes point at the vision section's
-    #vd-grad by default."""
-    starts = [70, 150, 230, 310, 390]
+def why_now_convergence():
+    """Merged diagram: the old three-input "why now" legend and the old
+    "whole generation" thread sketch were making two halves of one argument,
+    so they are now one drawing. Capable models and national policy are
+    solid, single lines: they have already arrived. Trained builders is not
+    a third solid line, it is many thin threads (the old workforce motif,
+    folded in here) because that is the one input that is not one hero, it
+    is a generation. Those threads stop short of the convergence point on
+    purpose, a visibly open gap, and only a faint dashed line reaches on
+    toward the future until that gap closes. Reuses .vd-* with its own ids."""
     merge = (560, 175)
+    gap_pt = (470, 205)
+    model_path = f"M 70 90 C 300 90, 420 150, {merge[0]} {merge[1]}"
+    policy_path = f"M 70 190 C 300 190, 430 178, {merge[0]} {merge[1]}"
+    starts = [70, 150, 230, 310]
     threads = ""
     for i, sx in enumerate(starts):
         cx1 = sx + 90 + i * 6
-        cy1 = 330 - i * 8
-        cx2 = merge[0] - 110
-        cy2 = merge[1] + 40 - i * 4
-        d = f"M {sx} 360 C {cx1} {cy1}, {cx2} {cy2}, {merge[0]} {merge[1]}"
-        threads += f'<path class="vd-thread" d="{d}" fill="none" style="animation-delay:{i*0.12:.2f}s"/>'
+        cy1 = 330 - i * 6
+        cx2 = gap_pt[0] - 60
+        cy2 = gap_pt[1] + 20 - i * 3
+        d = f"M {sx} 360 C {cx1} {cy1}, {cx2} {cy2}, {gap_pt[0]} {gap_pt[1]}"
+        threads += f'<path class="vd-thread vd-thread--gap" d="{d}" fill="none" style="animation-delay:{i*0.12:.2f}s"/>'
+    d_gap = f"M {gap_pt[0]} {gap_pt[1]} L {merge[0]} {merge[1]}"
     d_main = f"M {merge[0]} {merge[1]} C 650 130, 720 90, 810 55"
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 900 400" role="img" aria-label="Many individual threads, each starting from a different point on the ground, converging into one bright line rising toward the future" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 900 400" role="img" aria-label="Two solid lines, capable models and national policy, meeting many thin threads representing trained builders, which stop short of the join, leaving a visible gap before the path continues toward the future" preserveAspectRatio="xMidYMid meet">
     <defs>
-      <filter id="sketch8b" x="-8%" y="-8%" width="116%" height="116%">
+      <filter id="sketch-wn" x="-8%" y="-8%" width="116%" height="116%">
         <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="61" result="n"/>
         <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/>
       </filter>
-      <linearGradient id="wr-grad" x1="0" y1="1" x2="1" y2="0">
+      <linearGradient id="wn-grad" x1="0" y1="1" x2="1" y2="0">
         <stop offset="0" stop-color="#3412d1"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#fd6502"/>
       </linearGradient>
     </defs>
-    <g filter="url(#sketch8b)">
+    <g filter="url(#sketch-wn)">
       <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
+      <path class="vd-arc" d="{model_path}" fill="none" style="stroke:url(#wn-grad)"/>
+      <path class="vd-arc" d="{policy_path}" fill="none" style="stroke:url(#wn-grad);opacity:.75"/>
       {threads}
-      <path class="vd-arc" d="{d_main}" fill="none" style="stroke:url(#wr-grad)"/>
-      <circle class="vd-node vd-node--sun" cx="810" cy="55" r="15" style="fill:url(#wr-grad)"/>
+      <path class="vd-gap-link" d="{d_gap}"/>
+      <path class="vd-arc" d="{d_main}" fill="none" style="stroke:url(#wn-grad)"/>
+      <circle class="vd-node vd-node--sun" cx="810" cy="55" r="15" style="fill:url(#wn-grad)"/>
     </g>
-    <circle class="vd-merge-ring" cx="{merge[0]}" cy="{merge[1]}" r="20" style="stroke:url(#wr-grad)"/>
-    <text class="l-en vd-lab" x="70" y="345">Many starting points</text>
-    <text class="l-th vd-lab" x="70" y="345">จุดเริ่มต้นที่ต่างกัน</text>
-    <text class="l-en vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">One workforce</text>
-    <text class="l-th vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">หนึ่งกำลังคน</text>
+    <circle class="vd-merge-ring vd-merge-ring--gap" cx="{gap_pt[0]}" cy="{gap_pt[1]}" r="16"/>
+    <text class="l-en vd-lab" x="70" y="75">Capable models</text>
+    <text class="l-th vd-lab" x="70" y="75">โมเดลที่เก่งพอ</text>
+    <text class="l-en vd-lab" x="70" y="215">National policy</text>
+    <text class="l-th vd-lab" x="70" y="215">นโยบายระดับชาติ</text>
+    <text class="l-en vd-lab" x="70" y="345">Trained builders</text>
+    <text class="l-th vd-lab" x="70" y="345">คนที่สร้างเป็น</text>
+    <text class="l-en vd-lab vd-lab--gap" x="{gap_pt[0]}" y="{gap_pt[1]-26}" text-anchor="middle">The gap</text>
+    <text class="l-th vd-lab vd-lab--gap" x="{gap_pt[0]}" y="{gap_pt[1]-26}" text-anchor="middle">ช่องว่าง</text>
     <text class="l-en vd-lab" x="835" y="30" text-anchor="end">The future of Thai care</text>
     <text class="l-th vd-lab" x="835" y="30" text-anchor="end">อนาคตการดูแลสุขภาพไทย</text>
-    <text class="fa-hand" x="120" y="215" transform="rotate(-4 120 215)">not one hero, a whole generation</text>
-    <path class="fa-hand-arrow" d="M170 224 q 30 8 54 22"/>
+    <text class="fa-hand" x="120" y="290" transform="rotate(-4 120 290)">not one hero, a whole generation</text>
+    <path class="fa-hand-arrow" d="M180 296 q 30 6 46 18"/>
   </svg>
   <div class="flow-art__legend">
-    <span class="l-en">A workforce is not one brilliant person. It is many people, starting from different places, who choose to rise together.</span>
-    <span class="l-th">กำลังคนไม่ใช่คนเก่งเพียงคนเดียว แต่คือคนจำนวนมาก ที่เริ่มจากจุดต่างกัน แล้วเลือกที่จะเติบโตไปด้วยกัน</span>
+    <span class="l-en">Two lines are already drawn: capable models, national policy. The third is not one line, it is many, a whole generation of builders, and until it reaches, the path stops at a gap.</span>
+    <span class="l-th">สองเส้นวาดไว้แล้ว โมเดลที่เก่งพอ และนโยบายระดับชาติ ส่วนเส้นที่สามไม่ใช่เส้นเดียว แต่คือคนทั้งรุ่นที่กำลังสร้าง และตราบใดที่ยังไปไม่ถึง เส้นทางก็จะหยุดอยู่ที่ช่องว่างนั้น</span>
   </div>
 </div>"""
     return svg
@@ -329,14 +329,6 @@ def home(prefix, ctx):
         '</div>' +
         f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}insights/index.html">{bi("All insights", "บทความทั้งหมด")} {I["arrow"]}</a></div>')
 
-    movement = f"""
-<section class="section">
-  <div class="container">
-    {head(bi("Not one hero", "ไม่ใช่วีรบุรุษคนเดียว"), bi("A whole generation, rising together.", "คนทั้งรุ่น ที่เติบโตไปด้วยกัน"), bi("The craft is learned by one person at a time. The workforce it becomes belongs to everyone who starts, wherever they start from.", "วิชาชีพนี้เรียนรู้ทีละคน แต่กำลังคนที่มันจะกลายเป็น เป็นของทุกคนที่เริ่มต้น ไม่ว่าจะเริ่มจากจุดไหน"))}
-    {workforce_rising()}
-  </div>
-</section>"""
-
     cta = f"""
 <section class="section">
   <div class="container center stack reveal">
@@ -350,20 +342,14 @@ def home(prefix, ctx):
   </div>
 </section>"""
 
-    # Chapter: the problem, with a diagram
+    # Chapter: the problem, with a diagram. This section now also carries
+    # the old "not one hero" argument, folded into the same drawing rather
+    # than repeated in a second section further down the page.
     problem = f"""
 <section class="section">
   <div class="container">
-    {head(bi("Why now", "ทำไมต้องตอนนี้"), bi("The models are here. The people are not.", "โมเดลมาถึงแล้ว แต่คนยังไม่มา"))}
-    <div class="split">
-      <div class="stack reveal">
-        <p class="lead">{bi("For the first time, AI is genuinely useful in the clinic. Thailand has a national direction, the data, and the talent. The one thing missing is a generation of people who can hold a clinical problem in one hand and a model in the other.", "เป็นครั้งแรกที่ AI มีประโยชน์จริงในคลินิก ประเทศไทยมีทิศทางระดับชาติ มีข้อมูล และมีคนเก่ง สิ่งเดียวที่ขาดคือคนรุ่นใหม่ที่ถือโจทย์ทางคลินิกไว้มือหนึ่ง และถือโมเดลไว้อีกมือหนึ่ง")}</p>
-        <p>{bi("That gap is not technology. It is people. Closing it is the whole reason we exist.", "ช่องว่างนั้นไม่ใช่เทคโนโลยี แต่คือคน การปิดช่องว่างนี้คือเหตุผลทั้งหมดที่เรามีอยู่")}</p>
-      </div>
-      <div class="stack reveal" style="justify-content:center">
-        {whynow_viz((bi("Capable models", "โมเดลที่เก่งพอ"), bi("National policy", "นโยบายระดับชาติ"), bi("Trained builders", "คนที่สร้างเป็น"), bi("The gap is people.", "ช่องว่างคือคน")))}
-      </div>
-    </div>
+    {head(bi("Why now", "ทำไมต้องตอนนี้"), bi("The models are here. The people are not.", "โมเดลมาถึงแล้ว แต่คนยังไม่มา"), bi("For the first time, AI is genuinely useful in the clinic, and Thailand has the policy behind it. The one thing missing is not one hero. It is a whole generation who can hold a clinical problem in one hand and a model in the other, wherever they start from.", "เป็นครั้งแรกที่ AI มีประโยชน์จริงในคลินิก และประเทศไทยมีนโยบายรองรับ สิ่งที่ขาดไม่ใช่วีรบุรุษคนเดียว แต่คือคนทั้งรุ่นที่ถือโจทย์ทางคลินิกไว้มือหนึ่ง และถือโมเดลไว้อีกมือหนึ่ง ไม่ว่าจะเริ่มจากจุดไหน"))}
+    {why_now_convergence()}
   </div>
 </section>"""
 
@@ -431,7 +417,7 @@ def home(prefix, ctx):
             + problem
             + moment("hero-clinician.jpg", prefix, bi("AI at the bedside", "AI ข้างเตียงผู้ป่วย") + " / Ramathibodi")
             + whymed + what + path + journey + band + quote + insights
-            + ctx["community_block"](prefix) + movement + cta)
+            + ctx["community_block"](prefix) + cta)
 
 def entry(meta, title, body, href, tone="a", img=None, prefix=""):
     return (f'<a class="entry reveal" href="{href}">'

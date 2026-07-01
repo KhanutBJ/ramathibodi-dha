@@ -106,11 +106,30 @@ def esc_txt(s):
 # ===========================================================================
 # HOME
 # ===========================================================================
+def hero_line_art():
+    """The hero's signature mark: the club's 'one continuous line' idea, made
+    literal. A single open bezier path, drawn by hand, that draws itself in
+    once when the page loads (not scroll-triggered, this is the greeting).
+    Faint, gradient, never competes with the headline in front of it."""
+    d = ("M 60 340 C 40 220, 140 120, 260 130 C 340 138, 360 220, 300 260 "
+         "C 250 294, 190 250, 210 190 C 226 142, 300 130, 340 168 "
+         "C 400 224, 380 320, 300 360 C 210 406, 90 380, 60 340 Z")
+    return f"""
+<svg class="hero-line" viewBox="0 0 900 460" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="hl-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fd6502"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+    </linearGradient>
+  </defs>
+  <path class="hero-line__path" d="{d}" fill="none" stroke="url(#hl-grad)" stroke-width="2.4" stroke-linecap="round"/>
+</svg>"""
+
 def home(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
 <section class="hero">
   <div class="hero__glow"></div>
+  {hero_line_art()}
   <div class="container">
     <span class="eyebrow reveal">Ramathibodi Digital Health &amp; AI Club</span>
     <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>

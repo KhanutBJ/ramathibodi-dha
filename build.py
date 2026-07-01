@@ -485,6 +485,7 @@ ACADEMY_TOC = [
         ("curriculum/health/clinical-applications", "curriculum/health/clinical-applications.md"),
         ("curriculum/health/fhir", "curriculum/health/fhir.md"),
         ("notebooks/02-fhir-data", "notebooks/02-fhir-data.ipynb"),
+        ("curriculum/health/patient-communication", "curriculum/health/patient-communication.md"),
     ]),
     ("5 / Deployment", [
         ("curriculum/deployment", "curriculum/deployment.md"),

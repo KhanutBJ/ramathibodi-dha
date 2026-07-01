@@ -233,7 +233,22 @@ strong { color: var(--ink); font-weight: 600; }
     radial-gradient(40rem 28rem at 78% -8%, rgba(52,18,209,.18), transparent 60%),
     radial-gradient(34rem 26rem at 8% 6%, rgba(247,98,5,.12), transparent 58%);
 }
-.hero h1 { font-size: var(--step-5); max-width: 16ch; }
+/* Hero signature line: the club's mark drawing itself in, once, on load.
+   Faint and quiet by design, it is texture, not a second colour moment. */
+.hero-line {
+  position: absolute; top: 50%; right: -6%; width: min(52vw, 620px); height: auto;
+  transform: translateY(-48%); z-index: 0; pointer-events: none; opacity: .22;
+}
+.hero-line__path {
+  stroke-dasharray: 2000; stroke-dashoffset: 2000;
+  animation: hero-draw 2.6s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards;
+}
+@keyframes hero-draw { to { stroke-dashoffset: 0; } }
+@media (max-width: 900px) { .hero-line { width: 70vw; opacity: .16; } }
+@media (prefers-reduced-motion: reduce) { .hero-line__path { animation: none; stroke-dashoffset: 0; } }
+
+.hero h1 { font-size: var(--step-5); max-width: 16ch; position: relative; z-index: 1; }
+.hero .lead, .hero .btn-row, .hero .hero__meta, .hero .eyebrow { position: relative; z-index: 1; }
 .hero .lead { margin-top: var(--s4); max-width: 54ch; }
 .hero .btn-row { margin-top: var(--s5); }
 .hero__meta { margin-top: var(--s6); display: flex; flex-wrap: wrap; gap: var(--s5); }

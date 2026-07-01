@@ -127,6 +127,8 @@ and which lifecycle stage your project has actually reached.
 
 ## Where this goes next
 
-You now hold the safety discipline for clinical AI in general. Apply it to a
+You now hold the safety discipline for clinical AI in general. Before you
+build further, see how this reaches the actual conversation with a patient in
+[Talking to patients about AI](patient-communication.md). Or apply it to a
 specific, high-impact modality in [Medical Imaging](medical-imaging.md), or
 learn the data standard underneath all of this in [FHIR](fhir.md).

@@ -810,6 +810,14 @@ strong { color: var(--ink); font-weight: 600; }
 .partner-mark:hover img { filter: grayscale(0%); opacity: 1; }
 .partner-mark__cap { font-size: 0.88rem; color: var(--ink-soft); }
 
+/* Vision dawn motif: a ground line, an ascending arc, a gradient sun at the peak. */
+.vd-ground { stroke: currentColor; stroke-width: 1.6; opacity: .25; }
+.vd-arc { stroke: url(#vd-grad); stroke-width: 2.6; stroke-linecap: round; }
+.vd-node { fill: var(--card); stroke: var(--accent); stroke-width: 2; }
+.vd-node--sun { fill: url(#vd-grad); stroke: none; }
+.vd-lab { font-family: var(--font-mono); font-size: 12.5px; fill: var(--ink-soft); letter-spacing: .01em; }
+[data-lang="th"] .vd-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 13px; }
+
 /* ============================================================================
    Editorial refinement. Rams: as little design as possible. Ive: air + clarity.
    Appended last so it settles the whole system toward a book/journal feel.

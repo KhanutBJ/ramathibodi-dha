@@ -106,6 +106,53 @@ def esc_txt(s):
 # ===========================================================================
 # HOME
 # ===========================================================================
+def vision_dawn():
+    """Seventh signature sketch, the homepage's vision statement: a dawn arc
+    rising from a ground line, distinct in shape from the path, trail, orbit,
+    hub, funnel, scatter chart, and comb already used elsewhere. Four
+    waypoints climb from rooted, everyday care toward a gradient sun at the
+    peak: the digital doctor, still tethered to the ground it rose from."""
+    waypoints = [
+        (110, 322, "Rooted in care", "หยั่งรากในการดูแล"),
+        (350, 220, "Learns to build", "เรียนรู้ที่จะสร้าง"),
+        (580, 140, "Becomes the digital doctor", "กลายเป็นแพทย์ยุคดิจิทัล"),
+        (760, 85, "Shapes the future, keeps the culture", "กำหนดอนาคต รักษาวัฒนธรรม"),
+    ]
+    d = "M 110 322 C 200 300, 260 240, 350 220 C 440 200, 500 160, 580 140 C 650 120, 700 100, 760 85"
+    nodes, labels = "", ""
+    for i, (x, y, en, th) in enumerate(waypoints):
+        yoff = -18 if i < 3 else -26
+        nodes += f'<circle class="vd-node{" vd-node--sun" if i == 3 else ""}" cx="{x}" cy="{y}" r="{7 if i < 3 else 16}"/>'
+        labels += (f'<text class="l-en vd-lab" x="{x}" y="{y+yoff}" text-anchor="{"end" if i == 3 else "middle"}">{en}</text>'
+                   f'<text class="l-th vd-lab" x="{x}" y="{y+yoff}" text-anchor="{"end" if i == 3 else "middle"}">{th}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 900 400" role="img" aria-label="A dawn arc rising from a ground line, four waypoints from rooted clinical care to the digital doctor" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch8" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="61" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.8"/>
+      </filter>
+      <radialGradient id="vd-grad" cx="50%" cy="50%" r="60%">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.55" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </radialGradient>
+    </defs>
+    <g filter="url(#sketch8)">
+      <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
+      <path class="vd-arc" d="{d}" fill="none"/>
+      {nodes}
+    </g>
+    {labels}
+    <text class="fa-hand" x="560" y="290" transform="rotate(-3 560 290)">the same person, further along</text>
+    <path class="fa-hand-arrow" d="M600 300 q 10 -22 -6 -40"/>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">Four waypoints, one climb. Nobody is left behind at the ground, and nobody who rises forgets what the ground was for.</span>
+    <span class="l-th">สี่จุดพัก หนึ่งการไต่ระดับ ไม่มีใครถูกทิ้งไว้ที่พื้น และไม่มีใครที่ขึ้นไปแล้วลืมว่าพื้นนั้นมีไว้เพื่ออะไร</span>
+  </div>
+</div>"""
+    return svg
+
 def hero_line_art():
     """The hero's signature mark: the club's actual brain mark, traced from
     its real outer-contour path data (extracted from the official brand
@@ -164,6 +211,14 @@ def home(prefix, ctx):
         f'<div class="logo-marquee"><div class="logo-marquee__track">{_marks_html}{_marks_html}</div></div>'
         '<p class="muted center" style="font-size:.82rem;margin-top:1.4rem">Aligned with MOPH Digital Health, NHSO, Thai FDA, and Thai HealthTech</p>'
         '</div>', "section section--tight")
+
+    vision = f"""
+<section class="section">
+  <div class="container">
+    {head(bi("The vision", "วิสัยทัศน์"), bi("A new kind of doctor, rising from the same ground.", "แพทย์แบบใหม่ ที่งอกจากรากเดิม"), bi("Not a replacement for the clinician Thailand already trusts. An evolution of them: rooted in the same care, risen with a new instrument, still carrying the culture that made the care mean something.", "ไม่ใช่การแทนที่แพทย์ที่ประเทศไทยไว้ใจอยู่แล้ว แต่คือวิวัฒนาการของพวกเขา หยั่งรากในการดูแลแบบเดิม เติบโตขึ้นด้วยเครื่องมือใหม่ และยังคงแบกวัฒนธรรมที่ทำให้การดูแลนั้นมีความหมาย"))}
+    {vision_dawn()}
+  </div>
+</section>"""
 
     what = sec(
         head(bi("What we do", "สิ่งที่เราทำ"), bi("Four parts, one pipeline.", "สี่ส่วน หนึ่งเส้นทาง"),
@@ -307,7 +362,7 @@ def home(prefix, ctx):
            'เป้าหมายไม่ใช่แค่เรียนรู้เรื่อง AI การแพทย์ แต่คือการ <span class="gradient-text">สร้างมันขึ้นมา</span> ให้ดีพอที่โรงพยาบาลจะใช้จริง'),
         bi("The Ramathibodi Digital Health &amp; AI Club", "Ramathibodi Digital Health &amp; AI Club"))
 
-    return (hero + proof
+    return (hero + proof + vision
             + problem
             + moment("hero-clinician.jpg", prefix, bi("AI at the bedside", "AI ข้างเตียงผู้ป่วย") + " / Ramathibodi")
             + whymed + what + path + journey + band + quote + insights
@@ -1873,7 +1928,7 @@ MARKETING = [
     ("what-we-do.html", "What We Do - DHA Club", "what-we-do.html", what_we_do),
     ("academy.html", "Academy - DHA Club", "academy.html", academy),
     ("platform.html", "Platform - DHA Club", "platform.html", platform),
-    ("tools.html", "Tools - DHA Club", "platform.html", tools),
+    ("tools.html", "Tools - DHA Club", "tools.html", tools),
     ("fellowship.html", "Fellowship - DHA Club", "fellowship.html", fellowship),
     ("fellowship/apply.html", "Apply - Fellowship", "fellowship.html", fellowship_apply),
     ("fellowship/stories.html", "Stories - Fellowship", "fellowship.html", fellowship_stories),

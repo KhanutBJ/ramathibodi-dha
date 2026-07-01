@@ -839,7 +839,6 @@ strong { color: var(--ink); font-weight: 600; }
   fill: none; stroke: var(--ink-faint); stroke-width: 1.6; stroke-linecap: round;
   stroke-dasharray: 3 7; opacity: 0; animation: vd-fade .6s ease 2.2s forwards;
 }
-.vd-merge-ring--gap { stroke: var(--ink-faint); stroke-dasharray: 3 5; animation: vd-pulse-ring 2.4s ease-in-out 2.2s infinite; }
 .vd-lab--gap { fill: var(--accent); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { .vd-gap-link { animation: none; opacity: 1; } }
 

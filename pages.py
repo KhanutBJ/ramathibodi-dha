@@ -155,23 +155,30 @@ def why_now_convergence():
     purpose, a visibly open gap, and only a faint dashed line reaches on
     toward the future until that gap closes. Reuses .vd-* with its own ids."""
     merge = (560, 175)
-    gap_pt = (470, 205)
-    model_path = f"M 70 90 C 300 90, 420 150, {merge[0]} {merge[1]}"
-    policy_path = f"M 70 190 C 300 190, 430 178, {merge[0]} {merge[1]}"
-    starts = [70, 150, 230, 310]
-    threads = ""
-    for i, sx in enumerate(starts):
-        cx1 = sx + 90 + i * 6
-        cy1 = 330 - i * 6
-        cx2 = gap_pt[0] - 60
-        cy2 = gap_pt[1] + 20 - i * 3
-        d = f"M {sx} 360 C {cx1} {cy1}, {cx2} {cy2}, {gap_pt[0]} {gap_pt[1]}"
-        threads += f'<path class="vd-thread vd-thread--gap" d="{d}" fill="none" style="animation-delay:{i*0.12:.2f}s"/>'
-    d_gap = f"M {gap_pt[0]} {gap_pt[1]} L {merge[0]} {merge[1]}"
+    # Every builder thread aims at the same point the two solid lines
+    # actually reach. None of them get there: each stops at a different
+    # fraction of the way, a staggered fan rather than one crowded knot,
+    # because real progress is uneven, not a single finish line.
+    starts = [70, 190, 310, 430]
+    progress = [0.45, 0.6, 0.72, 0.85]
+    threads, ends = "", []
+    for i, (sx, p) in enumerate(zip(starts, progress)):
+        ex = sx + p * (merge[0] - sx)
+        ey = 360 + p * (merge[1] - 360)
+        ends.append((ex, ey))
+        cx1, cy1 = sx + 130, 355
+        cx2, cy2 = ex - 70, ey + 45
+        d = f"M {sx} 360 C {cx1} {cy1}, {cx2:.0f} {cy2:.0f}, {ex:.0f} {ey:.0f}"
+        op = 0.32 + i * 0.13
+        threads += f'<path class="vd-thread vd-thread--gap" d="{d}" fill="none" style="animation-delay:{i*0.12:.2f}s;opacity:{op:.2f}"/>'
+    nearest = ends[-1]
+    model_path = f"M 70 70 C 300 70, 430 130, {merge[0]} {merge[1]}"
+    policy_path = f"M 70 190 C 300 190, 440 182, {merge[0]} {merge[1]}"
+    d_gap = f"M {nearest[0]:.0f} {nearest[1]:.0f} L {merge[0]} {merge[1]}"
     d_main = f"M {merge[0]} {merge[1]} C 650 130, 720 90, 810 55"
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 900 400" role="img" aria-label="Two solid lines, capable models and national policy, meeting many thin threads representing trained builders, which stop short of the join, leaving a visible gap before the path continues toward the future" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 900 400" role="img" aria-label="Two solid lines, capable models and national policy, arriving at one point. Many thinner threads, representing trained builders, fan toward the same point at different, unfinished distances, none quite arriving" preserveAspectRatio="xMidYMid meet">
     <defs>
       <filter id="sketch-wn" x="-8%" y="-8%" width="116%" height="116%">
         <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="61" result="n"/>
@@ -183,30 +190,30 @@ def why_now_convergence():
     </defs>
     <g filter="url(#sketch-wn)">
       <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
+      {threads}
       <path class="vd-arc" d="{model_path}" fill="none" style="stroke:url(#wn-grad)"/>
       <path class="vd-arc" d="{policy_path}" fill="none" style="stroke:url(#wn-grad);opacity:.75"/>
-      {threads}
       <path class="vd-gap-link" d="{d_gap}"/>
       <path class="vd-arc" d="{d_main}" fill="none" style="stroke:url(#wn-grad)"/>
       <circle class="vd-node vd-node--sun" cx="810" cy="55" r="15" style="fill:url(#wn-grad)"/>
     </g>
-    <circle class="vd-merge-ring vd-merge-ring--gap" cx="{gap_pt[0]}" cy="{gap_pt[1]}" r="16"/>
-    <text class="l-en vd-lab" x="70" y="75">Capable models</text>
-    <text class="l-th vd-lab" x="70" y="75">โมเดลที่เก่งพอ</text>
+    <text class="l-en vd-lab" x="70" y="55">Capable models</text>
+    <text class="l-th vd-lab" x="70" y="55">โมเดลที่เก่งพอ</text>
     <text class="l-en vd-lab" x="70" y="215">National policy</text>
     <text class="l-th vd-lab" x="70" y="215">นโยบายระดับชาติ</text>
     <text class="l-en vd-lab" x="70" y="345">Trained builders</text>
     <text class="l-th vd-lab" x="70" y="345">คนที่สร้างเป็น</text>
-    <text class="l-en vd-lab vd-lab--gap" x="{gap_pt[0]}" y="{gap_pt[1]-26}" text-anchor="middle">The gap</text>
-    <text class="l-th vd-lab vd-lab--gap" x="{gap_pt[0]}" y="{gap_pt[1]-26}" text-anchor="middle">ช่องว่าง</text>
+    <text class="l-en vd-lab vd-lab--gap" x="{merge[0]-14}" y="{merge[1]+42}" text-anchor="end">The gap</text>
+    <text class="l-th vd-lab vd-lab--gap" x="{merge[0]-14}" y="{merge[1]+42}" text-anchor="end">ช่องว่าง</text>
     <text class="l-en vd-lab" x="835" y="30" text-anchor="end">The future of Thai care</text>
     <text class="l-th vd-lab" x="835" y="30" text-anchor="end">อนาคตการดูแลสุขภาพไทย</text>
-    <text class="fa-hand" x="120" y="290" transform="rotate(-4 120 290)">not one hero, a whole generation</text>
-    <path class="fa-hand-arrow" d="M180 296 q 30 6 46 18"/>
+    <text class="fa-hand" x="90" y="270" transform="rotate(-3 90 270)">not one hero,</text>
+    <text class="fa-hand" x="90" y="300" transform="rotate(-3 90 300)">a whole generation</text>
+    <path class="fa-hand-arrow" d="M255 288 q 40 -4 70 4"/>
   </svg>
   <div class="flow-art__legend">
-    <span class="l-en">Two lines are already drawn: capable models, national policy. The third is not one line, it is many, a whole generation of builders, and until it reaches, the path stops at a gap.</span>
-    <span class="l-th">สองเส้นวาดไว้แล้ว โมเดลที่เก่งพอ และนโยบายระดับชาติ ส่วนเส้นที่สามไม่ใช่เส้นเดียว แต่คือคนทั้งรุ่นที่กำลังสร้าง และตราบใดที่ยังไปไม่ถึง เส้นทางก็จะหยุดอยู่ที่ช่องว่างนั้น</span>
+    <span class="l-en">Two lines are already drawn: capable models, national policy. The third is not one line, it is many, each a different distance along, and none of them have arrived yet.</span>
+    <span class="l-th">สองเส้นวาดไว้แล้ว โมเดลที่เก่งพอ และนโยบายระดับชาติ ส่วนเส้นที่สามไม่ใช่เส้นเดียว แต่คือหลายเส้นในระยะที่ต่างกัน และยังไม่มีเส้นไหนไปถึง</span>
   </div>
 </div>"""
     return svg

@@ -908,3 +908,41 @@ strong { color: var(--ink); font-weight: 600; }
 .nav__link:hover { background: none; }
 .nav__link:hover::after, .nav__link.is-active::after { transform: scaleX(1); }
 .nav__link.is-active { color: var(--ink); }
+
+/* ---- Partner strip (data.gov.sg-style: grayscale, evenly spaced, colour on hover) */
+.partner-strip { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; text-align: center; }
+.logos--center { justify-content: center; }
+.logo-mark { filter: grayscale(1) opacity(.62); transition: filter .3s var(--ease); }
+.logo-mark:hover { filter: grayscale(0) opacity(1); }
+.logo-word { filter: grayscale(1); opacity: .68; transition: opacity .3s var(--ease), filter .3s var(--ease); }
+.logo-word:hover { filter: grayscale(0); opacity: 1; }
+
+/* ---- Dataset cards (data.gov.sg-inspired: tinted panel, colour-chip cards) */
+.ds-panel {
+  margin-top: var(--s5); padding: clamp(1.4rem, 3vw, 2.2rem);
+  border-radius: var(--radius-lg);
+  background: radial-gradient(60% 90% at 10% 0%, rgba(29,158,117,.10), transparent 60%),
+              radial-gradient(60% 90% at 90% 100%, rgba(88,34,166,.10), transparent 60%),
+              var(--bg-sunk);
+  border: 1px solid var(--line);
+}
+.ds-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .ds-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 980px) { .ds-grid { grid-template-columns: repeat(4, 1fr); } }
+.ds-card {
+  display: flex; flex-direction: column; gap: .6rem; background: var(--card);
+  border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem;
+  transition: transform .22s var(--ease), box-shadow .22s var(--ease), border-color .2s;
+}
+.ds-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--ink-faint); }
+.ds-card__ic { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; }
+.ds-card__ic svg { width: 18px; height: 18px; }
+.ds-card--teal .ds-card__ic { background: rgba(29,158,117,.14); color: #0f6e56; }
+.ds-card--coral .ds-card__ic { background: rgba(216,90,48,.14); color: #993c1d; }
+.ds-card--purple .ds-card__ic { background: rgba(127,119,221,.16); color: var(--purple); }
+.ds-card--blue .ds-card__ic { background: rgba(55,138,221,.14); color: #185fa5; }
+[data-theme="dark"] .ds-card--teal .ds-card__ic { color: #5dcaa5; }
+[data-theme="dark"] .ds-card--coral .ds-card__ic { color: #f0997b; }
+[data-theme="dark"] .ds-card--blue .ds-card__ic { color: #85b7eb; }
+.ds-card__title { font-weight: 600; color: var(--ink); font-size: .98rem; line-height: 1.25; }
+.ds-card__stat { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); letter-spacing: .01em; }

@@ -137,17 +137,17 @@ def home(prefix, ctx):
 </section>"""
 
     proof = sec(
-        '<div class="reveal" style="display:flex;flex-direction:column;gap:1.4rem">'
-        '<span class="eyebrow">Built inside the system, with partners who build</span>'
-        '<div class="logos logos--mark">'
+        '<div class="reveal partner-strip">'
+        '<span class="eyebrow center">Built inside the system, with partners who build</span>'
+        '<div class="logos logos--mark logos--center">'
         f'<img class="logo-mark" src="{prefix}assets/partners/ramathibodi-seal.svg" alt="Faculty of Medicine Ramathibodi Hospital, Mahidol University"/>'
-        '<span class="logo-word">MIND <b>Center</b></span>'
-        '<span>Google Developer Groups on Campus</span><span>BOTNOI Academy</span>'
+        f'<img class="logo-mark" src="{prefix}assets/partners/mind-center.svg" alt="MIND Center, Ramathibodi"/>'
+        f'<img class="logo-mark" src="{prefix}assets/partners/nia-thailand.svg" alt="National Innovation Agency, Thailand"/>'
+        '<span class="logo-word">Google Developer Groups <b>on Campus</b></span>'
+        '<span class="logo-word">BOTNOI <b>Academy</b></span>'
         '</div>'
-        '<div class="logos muted" style="font-size:.85rem">'
-        '<span>Aligned with</span><span>MOPH Digital Health</span><span>NHSO</span>'
-        '<span>Thai FDA</span><span>NIA</span><span>Thai HealthTech</span>'
-        '</div></div>', "section section--tight")
+        '<p class="muted center" style="font-size:.82rem;margin-top:1.4rem">Aligned with MOPH Digital Health, NHSO, Thai FDA, and Thai HealthTech</p>'
+        '</div>', "section section--tight")
 
     what = sec(
         head(bi("What we do", "สิ่งที่เราทำ"), bi("Four parts, one pipeline.", "สี่ส่วน หนึ่งเส้นทาง"),
@@ -1038,16 +1038,18 @@ def platform(prefix, ctx):
         ctx['card']('users', bi('Matching', 'จับคู่'), bi('Match people to teams, mentors, and problems.', 'จับคู่คนเข้ากับทีม เมนเทอร์ และโจทย์'), None, '', prefix) +
         '</div>')
 
-    # Dataset marketplace
+    # Dataset marketplace (data.gov.sg-inspired: coloured icon chip + stat card grid)
     datasets = f"""
 <section class="section">
   <div class="container">
-    {head(bi("Dataset marketplace", "ตลาดชุดข้อมูล"), bi("Data you can actually learn on.", "ข้อมูลที่คุณเรียนรู้ได้จริง"), bi("Governed and de-identified, released under clear terms and a PDPA basis. You never touch raw patient data without supervision.", "กำกับดูแลและลบตัวตนแล้ว เผยแพร่ภายใต้เงื่อนไขที่ชัดเจนและฐานทางกฎหมาย PDPA คุณจะไม่แตะข้อมูลผู้ป่วยดิบโดยไม่มีการกำกับ"))}
-    <div class="rows">
-      {ds_row("Thai Clinical Tabular", "Tabular", bi("De-identified labs, vitals, and outcomes for risk modelling.", "แล็บ สัญญาณชีพ และผลลัพธ์ที่ลบตัวตนแล้ว สำหรับสร้างโมเดลความเสี่ยง"), "Open")}
-      {ds_row("Chest X-ray (teaching set)", "Image", bi("Curated radiographs with labels, for imaging practice.", "ภาพเอกซเรย์ทรวงอกที่คัดสรรพร้อมป้ายกำกับ สำหรับฝึกงานภาพ"), "Open")}
-      {ds_row("Thai Clinical Notes (synthetic)", "Text", bi("Synthetic Thai clinical text for NLP without privacy risk.", "ข้อความคลินิกภาษาไทยสังเคราะห์ สำหรับงาน NLP โดยไม่มีความเสี่ยงด้านความเป็นส่วนตัว"), "Open")}
-      {ds_row("ECG Rhythm Strips", "Signal", bi("Labelled ECG segments for signal model practice.", "สัญญาณ ECG พร้อมป้ายกำกับ สำหรับฝึกโมเดลสัญญาณ"), "On request")}
+    {head(bi("Dataset marketplace", "ตลาดชุดข้อมูล"), bi("Data you can actually learn on.", "ข้อมูลที่คุณเรียนรู้ได้จริง"), bi("Governed and de-identified. You never touch raw patient data without supervision.", "กำกับดูแลและลบตัวตนแล้ว คุณจะไม่แตะข้อมูลผู้ป่วยดิบโดยไม่มีการกำกับ"))}
+    <div class="ds-panel reveal">
+      <div class="ds-grid">
+        {ds_card("teal", I["doc"], "Thai Clinical Tabular", "Tabular", "Open", "12 fields / n=4,200", prefix)}
+        {ds_card("coral", I["pulse"], "Chest X-ray teaching set", "Image", "Open", "9,100 films", prefix)}
+        {ds_card("purple", I["brain"], "Thai Clinical Notes", "Text / synthetic", "Open", "12k notes", prefix)}
+        {ds_card("blue", I["pulse"], "ECG Rhythm Strips", "Signal", "On request", "3,400 strips", prefix)}
+      </div>
     </div>
     <p class="muted mt4 reveal" style="font-size:.88rem">{bi("Every dataset lists its source, its licence, and the lawful basis for use. Access to sensitive sets is supervised.", "ทุกชุดข้อมูลระบุแหล่งที่มา สัญญาอนุญาต และฐานทางกฎหมายในการใช้งาน การเข้าถึงข้อมูลอ่อนไหวจะมีการกำกับดูแล")}</p>
   </div>
@@ -1133,11 +1135,12 @@ def platform(prefix, ctx):
 
     return hero + tiles + moment("network-people.jpg", prefix, bi("One community, many problems", "หนึ่งชุมชน หลายโจทย์")) + datasets + tasks + lb + matching + engine + jobs
 
-def ds_row(title, kind, desc, status):
-    return (f'<div class="row reveal" style="grid-template-columns:1fr auto"><div>'
-            f'<h3 style="font-size:var(--step-1)">{title} <span class="pill" style="margin-left:.4rem">{kind}</span></h3>'
-            f'<p style="font-size:.95rem;margin-top:.3rem">{desc}</p></div>'
-            f'<div class="mono muted" style="font-size:.8rem;white-space:nowrap">{status}</div></div>')
+def ds_card(tone, icon, title, kind, status, stat, prefix=""):
+    """data.gov.sg-style dataset card: coloured icon chip, bold title, mono stat line."""
+    return (f'<a class="ds-card ds-card--{tone}" href="{prefix}contact.html">'
+            f'<span class="ds-card__ic">{icon}</span>'
+            f'<span class="ds-card__title">{title}</span>'
+            f'<span class="ds-card__stat">{kind} / {status} / {stat}</span></a>')
 
 def task_row(tag, title, desc):
     return (f'<div class="row reveal"><div class="row__num">{tag}</div>'

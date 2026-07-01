@@ -140,6 +140,27 @@ def vision_dawn():
     <g filter="url(#sketch8)">
       <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
       <path class="vd-arc" d="{d}" fill="none"/>
+      
+      <!-- Animated workforce of the future -->
+      <g stroke="url(#vd-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <circle cx="0" cy="-22" r="5" />
+        <path d="M 0,-17 L 0,3 M -10,-5 L 10,-5 M 0,3 L -8,16 M 0,3 L 8,16" />
+        <animateMotion dur="12s" repeatCount="indefinite" path="{d}" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="12s" repeatCount="indefinite"/>
+      </g>
+      <g stroke="url(#vd-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <circle cx="0" cy="-22" r="5" />
+        <path d="M 0,-17 L 0,3 M -10,-5 L 10,-5 M 0,3 L -8,16 M 0,3 L 8,16" />
+        <animateMotion dur="12s" begin="4s" repeatCount="indefinite" path="{d}" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="12s" begin="4s" repeatCount="indefinite"/>
+      </g>
+      <g stroke="url(#vd-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <circle cx="0" cy="-22" r="5" />
+        <path d="M 0,-17 L 0,3 M -10,-5 L 10,-5 M 0,3 L -8,16 M 0,3 L 8,16" />
+        <animateMotion dur="12s" begin="8s" repeatCount="indefinite" path="{d}" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="12s" begin="8s" repeatCount="indefinite"/>
+      </g>
+
       {nodes}
     </g>
     {labels}

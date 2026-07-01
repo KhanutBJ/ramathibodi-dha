@@ -107,21 +107,25 @@ def esc_txt(s):
 # HOME
 # ===========================================================================
 def hero_line_art():
-    """The hero's signature mark: the club's 'one continuous line' idea, made
-    literal. A single open bezier path, drawn by hand, that draws itself in
-    once when the page loads (not scroll-triggered, this is the greeting).
-    Faint, gradient, never competes with the headline in front of it."""
-    d = ("M 60 340 C 40 220, 140 120, 260 130 C 340 138, 360 220, 300 260 "
-         "C 250 294, 190 250, 210 190 C 226 142, 300 130, 340 168 "
-         "C 400 224, 380 320, 300 360 C 210 406, 90 380, 60 340 Z")
+    """The hero's signature mark: the club's actual brain mark, traced from
+    its real outer-contour path data (extracted from the official brand
+    file), drawn as one open gradient stroke that draws itself in once on
+    load. This is the real logo's geometry, not an invented shape: the
+    viewBox matches the mark's native bounding box so the path 'd' string
+    is used verbatim, with no manual coordinate transform to get wrong."""
+    d = ("M659.95,2445.04c-6.94,29.54-11.39,62.57-23.03,90.67-25.24,60.91-56.08-20.01-66.06-44.8-16.27-40.42-29.09-83.7-37.65-126.43"
+         "-15.2-.29-28.27,8.86-42.18,14.16-66.28,25.26-159.35,39.58-213.7-17.63-3.1-3.26-11.96-16.85-13.66-17.99-5.21-3.47-27.99-9.55"
+         "-36.14-12.86-142.95-58.04-245.32-195.9-127.71-337.06,150.67-180.85,541.76-203.48,719.7-54.32,78.13,65.49,103.83,156.33,50.78"
+         ",247.84-1.88,3.24-9.36,12.57-9.72,15.03-.22,1.45,7.41,14.02,8.84,17.64,25.01,62.8-22.51,141.53-69.46,181.48-37.68,32.06-89.56"
+         ",57.1-140,44.25Z")
     return f"""
-<svg class="hero-line" viewBox="0 0 900 460" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+<svg class="hero-line" viewBox="-2.5 1797.5 951.7 803.5" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="hl-grad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#fd6502"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
     </linearGradient>
   </defs>
-  <path class="hero-line__path" d="{d}" fill="none" stroke="url(#hl-grad)" stroke-width="2.4" stroke-linecap="round"/>
+  <path class="hero-line__path" d="{d}" fill="none" stroke="url(#hl-grad)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>"""
 
 def home(prefix, ctx):

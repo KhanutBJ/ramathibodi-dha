@@ -32,6 +32,31 @@ def course_card(num, icon, title, desc, tags, href, prefix, label):
             f'<span class="course__go">{label} <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>'
             f'<span class="course__bar"></span></a>')
 
+def pullquote(text, attrib=None):
+    a = f'<cite class="pq__cite">{attrib}</cite>' if attrib else ""
+    return (f'<section class="section pq-wrap"><div class="container">'
+            f'<blockquote class="pq reveal">{text}{a}</blockquote>'
+            f'</div></section>')
+
+def journey_map(items, icons):
+    """Vertical 'single line' path through the curriculum. items=[(k,title,desc)]."""
+    nodes = ""
+    for i, (k, title, desc) in enumerate(items):
+        ic = icons[i] if i < len(icons) else ""
+        nodes += (f'<div class="journey__node reveal"><span class="journey__ic">{ic}</span>'
+                  f'<div class="k">{k}</div><h3>{title}</h3><p>{desc}</p></div>')
+    return f'<div class="journey">{nodes}</div>'
+
+def whynow_viz(labels):
+    """Three inputs converging to one gap. labels = (a,b,c,gap)."""
+    a, b, c, gap = labels
+    return (f'<div class="converge reveal">'
+            f'<div class="converge__in"><span class="dotline dotline--on"></span><div class="converge__lab">{a}</div></div>'
+            f'<div class="converge__in"><span class="dotline dotline--on"></span><div class="converge__lab">{b}</div></div>'
+            f'<div class="converge__in"><span class="dotline dotline--off"></span><div class="converge__lab converge__lab--miss">{c}</div></div>'
+            f'<div class="converge__out">{gap}</div>'
+            f'</div>')
+
 def moment(img, prefix, label, ratio="ratio-21x9"):
     """Full-width photographic band, editorial style."""
     return (f'<section class="section--tight"><div class="container">'
@@ -187,9 +212,87 @@ def home(prefix, ctx):
   </div>
 </section>"""
 
+    # Chapter: the problem, with a diagram
+    problem = f"""
+<section class="section">
+  <div class="container">
+    {head(bi("Why now", "ทำไมต้องตอนนี้"), bi("The models are here. The people are not.", "โมเดลมาถึงแล้ว แต่คนยังไม่มา"))}
+    <div class="split">
+      <div class="stack reveal">
+        <p class="lead">{bi("For the first time, AI is genuinely useful in the clinic. Thailand has a national direction, the data, and the talent. The one thing missing is a generation of people who can hold a clinical problem in one hand and a model in the other.", "เป็นครั้งแรกที่ AI มีประโยชน์จริงในคลินิก ประเทศไทยมีทิศทางระดับชาติ มีข้อมูล และมีคนเก่ง สิ่งเดียวที่ขาดคือคนรุ่นใหม่ที่ถือโจทย์ทางคลินิกไว้มือหนึ่ง และถือโมเดลไว้อีกมือหนึ่ง")}</p>
+        <p>{bi("That gap is not technology. It is people. Closing it is the whole reason we exist.", "ช่องว่างนั้นไม่ใช่เทคโนโลยี แต่คือคน การปิดช่องว่างนี้คือเหตุผลทั้งหมดที่เรามีอยู่")}</p>
+      </div>
+      <div class="stack reveal" style="justify-content:center">
+        {whynow_viz((bi("Capable models", "โมเดลที่เก่งพอ"), bi("National policy", "นโยบายระดับชาติ"), bi("Trained builders", "คนที่สร้างเป็น"), bi("The gap is people.", "ช่องว่างคือคน")))}
+      </div>
+    </div>
+  </div>
+</section>"""
+
+    # Chapter: why medical students
+    whymed = f"""
+<section class="section">
+  <div class="container">
+    <div class="split split--rev">
+      {frame(bi("For the next generation", "เพื่อคนรุ่นใหม่"), "ratio-4x3", "a", "doctor.jpg", prefix)}
+      <div class="stack reveal">
+        <span class="eyebrow">{bi("Why medical students", "ทำไมต้องเป็นนักศึกษาแพทย์")}</span>
+        <h2>{bi("You already see the problems. We give you the tools.", "คุณเห็นปัญหาอยู่แล้ว เราแค่ให้เครื่องมือ")}</h2>
+        <p class="lead">{bi("The best medical AI does not come from engineers guessing at clinical needs. It comes from clinicians who learned to build. As a medical student in Thailand, you sit on the exact advantage the field needs.", "AI การแพทย์ที่ดีที่สุดไม่ได้มาจากวิศวกรที่เดาความต้องการทางคลินิก แต่มาจากแพทย์ที่เรียนรู้ที่จะสร้าง ในฐานะนักศึกษาแพทย์ไทย คุณมีข้อได้เปรียบที่วงการนี้ต้องการพอดี")}</p>
+        <ul class="rows" style="border-top:1px solid var(--line)">
+          <li class="row" style="grid-template-columns:1fr"><div><h3 style="font-size:var(--step-1)">{bi("You know what matters", "คุณรู้ว่าอะไรสำคัญ")}</h3><p>{bi("You have seen the ward, the frustration, the delay. You know which problems are worth solving.", "คุณเคยเห็นหอผู้ป่วย ความติดขัด ความล่าช้า คุณรู้ว่าโจทย์ไหนคุ้มค่าที่จะแก้")}</p></div></li>
+          <li class="row" style="grid-template-columns:1fr"><div><h3 style="font-size:var(--step-1)">{bi("You start with no code, and that is fine", "เริ่มจากไม่มีพื้นโค้ดก็ได้")}</h3><p>{bi("The Academy is built for clinicians. You will build a working tool before you feel like a programmer.", "อคาเดมีสร้างมาเพื่อแพทย์ คุณจะสร้างเครื่องมือที่ใช้ได้ ก่อนที่จะรู้สึกว่าตัวเองเป็นโปรแกรมเมอร์")}</p></div></li>
+          <li class="row" style="grid-template-columns:1fr"><div><h3 style="font-size:var(--step-1)">{bi("You compound early", "ยิ่งเริ่มเร็ว ยิ่งทบต้น")}</h3><p>{bi("Learn this now and you spend an entire career as the person who can build, not just prescribe.", "เรียนตอนนี้ แล้วคุณจะใช้ทั้งอาชีพเป็นคนที่สร้างได้ ไม่ใช่แค่สั่งการรักษา")}</p></div></li>
+        </ul>
+        <div class="btn-row"><a class="btn btn--grad" href="{prefix}academy.html">{bi("Start the Academy", "เริ่มที่อคาเดมี")} {I['arrow']}</a></div>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+    # Chapter: the path (flow diagram)
+    path = sec(
+        head(bi("The path", "เส้นทาง"), bi("From your first line of code to a tool a hospital trusts.", "จากโค้ดบรรทัดแรก สู่เครื่องมือที่โรงพยาบาลเชื่อใจ")) +
+        flow([
+            (bi("Step 01", "ขั้นที่ 01"), bi("Learn", "เรียน"), bi("Foundations and clinical context, free and at your own pace.", "พื้นฐานและบริบททางคลินิก ฟรีและตามจังหวะของคุณ")),
+            (bi("Step 02", "ขั้นที่ 02"), bi("Apply", "สมัคร"), bi("Bring a real problem, get matched with a mentor and data.", "นำโจทย์จริงมา จับคู่กับเมนเทอร์และข้อมูล")),
+            (bi("Step 03", "ขั้นที่ 03"), bi("Build", "สร้าง"), bi("Ship an evaluated tool into a real clinical workflow.", "ส่งเครื่องมือที่ประเมินแล้วเข้าสู่เวิร์กโฟลว์คลินิกจริง")),
+            (bi("Step 04", "ขั้นที่ 04"), bi("Scale", "ขยายผล"), bi("If it deserves to live, the studio makes it a product.", "หากคู่ควรที่จะอยู่ต่อ สตูดิโอทำให้เป็นผลิตภัณฑ์")),
+        ], [I["brain"], I["flask"], I["shield"], I["rocket"]]))
+
+    # Chapter: the curriculum, as a journey map
+    journey = f"""
+<section class="section">
+  <div class="container">
+    {head(bi("The curriculum", "หลักสูตร"), bi("One line through six courses.", "หนึ่งเส้น ผ่านหกคอร์ส"), bi("Most people walk the courses in order, then choose a pathway. Every course ends in something you built.", "คนส่วนใหญ่เดินตามลำดับ แล้วเลือกเส้นทาง ทุกคอร์สจบด้วยสิ่งที่คุณสร้าง"))}
+    <div class="split">
+      <div class="reveal">
+        {journey_map([
+            (bi("Course 01", "คอร์ส 01"), bi("Basics", "พื้นฐาน"), bi("No-code, Git, APIs, the cloud.", "No-code, Git, API, คลาวด์")),
+            (bi("Course 02", "คอร์ส 02"), bi("AI Agent", "AI Agent"), bi("LLMs, guardrails, RAG, agents.", "LLM, guardrails, RAG, agents")),
+            (bi("Course 03", "คอร์ส 03"), bi("Deep AI", "Deep AI"), bi("Images, signals, sound, tables.", "ภาพ สัญญาณ เสียง ตาราง")),
+            (bi("Course 04", "คอร์ส 04"), bi("Digital Health", "สุขภาพดิจิทัล"), bi("HIS, FHIR, ICD-10, PDPA.", "HIS, FHIR, ICD-10, PDPA")),
+            (bi("Course 05", "คอร์ส 05"), bi("Deployment", "Deployment"), bi("Dashboards, prototyping, stats.", "แดชบอร์ด prototyping สถิติ")),
+            (bi("Course 06", "คอร์ส 06"), bi("Strategy & Governance", "กลยุทธ์และธรรมาภิบาล"), bi("Thai FDA, SaMD, ISO.", "อย., SaMD, ISO")),
+        ], [I["brain"], I["node"], I["pulse"], I["doc"], I["rocket"], I["shield"]])}
+      </div>
+      <div class="stack reveal" style="justify-content:center">
+        <p class="lead">{bi("Then a pathway: build a startup, or strengthen a hospital from inside.", "จากนั้นเลือกเส้นทาง สร้างสตาร์ตอัป หรือเสริมความแข็งแกร่งให้โรงพยาบาลจากภายใน")}</p>
+        <div class="btn-row"><a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("See all courses", "ดูคอร์สทั้งหมด")} {I['arrow']}</a></div>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+    quote = pullquote(
+        bi('The point is not to learn about medical AI. The point is to <span class="gradient-text">build it</span>, well enough that a hospital will use it.',
+           'เป้าหมายไม่ใช่แค่เรียนรู้เรื่อง AI การแพทย์ แต่คือการ <span class="gradient-text">สร้างมันขึ้นมา</span> ให้ดีพอที่โรงพยาบาลจะใช้จริง'),
+        bi("The Ramathibodi Digital Health &amp; AI Club", "Ramathibodi Digital Health &amp; AI Club"))
+
     return (hero + proof
+            + problem
             + moment("hero-clinician.jpg", prefix, bi("AI at the bedside", "AI ข้างเตียงผู้ป่วย") + " / Ramathibodi")
-            + what + why + band + insights + cta)
+            + whymed + what + path + journey + band + quote + insights + cta)
 
 def entry(meta, title, body, href, tone="a", img=None, prefix=""):
     return (f'<a class="entry reveal" href="{href}">'

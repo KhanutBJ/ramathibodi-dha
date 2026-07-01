@@ -318,6 +318,63 @@ def entry(meta, title, body, href, tone="a", img=None, prefix=""):
 # ===========================================================================
 # WHO WE ARE
 # ===========================================================================
+def position_chart():
+    """A category-creation chart, not a card grid: two axes, four players
+    plotted. The Club sits alone in the quadrant nobody else occupies. Every
+    SVG <text> below holds plain text only, in l-en/l-th pairs, never a
+    pre-wrapped bi() HTML string (that mistake once broke this exact kind
+    of diagram)."""
+    ox, oy, w, h = 70, 40, 460, 340  # plot origin (bottom-left) is (ox, oy+h)
+    def plot(px, py):
+        return (ox + px * w, oy + h - py * h)
+    plain_labels = [
+        (0.18, 0.22, "Universities", "มหาวิทยาลัย"),
+        (0.78, 0.16, "Startups", "สตาร์ตอัป"),
+        (0.86, 0.28, "Vendors", "ผู้ขายเทคโนโลยี"),
+    ]
+    dots, labels = "", ""
+    for px, py, en, th in plain_labels:
+        x, y = plot(px, py)
+        dots += f'<circle class="pc-dot" cx="{x:.0f}" cy="{y:.0f}" r="7"/>'
+        labels += (f'<text class="l-en pc-lab" x="{x+12:.0f}" y="{y+4:.0f}">{en}</text>'
+                   f'<text class="l-th pc-lab" x="{x+12:.0f}" y="{y+4:.0f}">{th}</text>')
+    cx, cy = plot(0.82, 0.86)
+    club = (f'<circle class="pc-dot pc-dot--club" cx="{cx:.0f}" cy="{cy:.0f}" r="12"/>'
+            f'<text class="l-en pc-club" x="{cx-16:.0f}" y="{cy-20:.0f}" text-anchor="end">The Club</text>'
+            f'<text class="l-th pc-club" x="{cx-16:.0f}" y="{cy-20:.0f}" text-anchor="end">คลับของเรา</text>')
+    svg = f"""
+<div class="flow-art reveal" style="margin-top:0">
+  <svg viewBox="0 0 600 430" role="img" aria-label="A chart plotting universities, startups, vendors, and the club on deployment versus capability left behind" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch6" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.017" numOctaves="2" seed="41" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6"/>
+      </filter>
+      <radialGradient id="pc-grad" cx="50%" cy="50%" r="60%">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.55" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </radialGradient>
+    </defs>
+    <g filter="url(#sketch6)" fill="none">
+      <line class="pc-axis" x1="{ox}" y1="{oy}" x2="{ox}" y2="{oy+h}"/>
+      <line class="pc-axis" x1="{ox}" y1="{oy+h}" x2="{ox+w}" y2="{oy+h}"/>
+    </g>
+    <text class="l-en pc-axis-lab" x="{ox}" y="{oy-14}">Leaves lasting capability</text>
+    <text class="l-th pc-axis-lab" x="{ox}" y="{oy-14}">ทิ้งขีดความสามารถไว้</text>
+    <text class="l-en pc-axis-lab" x="{ox+w}" y="{oy+h+28}" text-anchor="end">Ships a real product</text>
+    <text class="l-th pc-axis-lab" x="{ox+w}" y="{oy+h+28}" text-anchor="end">ส่งมอบผลิตภัณฑ์จริง</text>
+    <g filter="url(#sketch6)">
+      {dots}
+      {club}
+    </g>
+    {labels}
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">Everyone else trades one for the other. We plot in the corner where both are true at once.</span>
+    <span class="l-th">คนอื่นแลกอย่างหนึ่งกับอีกอย่างหนึ่งเสมอ เราอยู่ในมุมที่ทั้งสองอย่างเป็นจริงพร้อมกัน</span>
+  </div>
+</div>"""
+    return svg
+
 def who_we_are(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
@@ -356,13 +413,13 @@ def who_we_are(prefix, ctx):
 
     values = sec(
         head(bi("How we work", "วิธีการทำงานของเรา"), bi("Five principles we do not bend on.", "ห้าหลักการที่เราไม่ยอมประนีประนอม")) +
-        '<div class="rows">' +
-        row("01", bi("Clinic first", "คลินิกมาก่อน"), bi("Every project starts from a real clinical question, with a clinician in the room. Technology serves care, never the other way around.", "ทุกโปรเจกต์เริ่มจากคำถามทางคลินิกจริง โดยมีแพทย์อยู่ในทีม เทคโนโลยีรับใช้การดูแลผู้ป่วย ไม่ใช่ทางกลับกัน")) +
-        row("02", bi("Governance as a material", "ธรรมาภิบาลเป็นวัสดุในการสร้าง"), bi("Safety, evaluation, privacy, and regulation are part of how we build, present from the first design decision, not bolted on at the end.", "ความปลอดภัย การประเมินผล ความเป็นส่วนตัว และกฎระเบียบ เป็นส่วนหนึ่งของการสร้างตั้งแต่การตัดสินใจออกแบบครั้งแรก ไม่ใช่มาแปะทีหลัง")) +
-        row("03", bi("Build to learn", "เรียนรู้ด้วยการลงมือสร้าง"), bi("We learn by shipping. Reviewed work, real deployment, measured outcomes. Lectures support the build, not the other way around.", "เราเรียนรู้ด้วยการส่งงานจริง งานที่ผ่านการรีวิว การนำไปใช้จริง และผลลัพธ์ที่วัดได้ การบรรยายสนับสนุนการสร้าง ไม่ใช่ทางกลับกัน")) +
-        row("04", bi("Open where we can, selective where it counts", "เปิดกว้างเท่าที่ทำได้ คัดสรรในจุดที่สำคัญ"), bi("The Academy is open to anyone in Thailand. The Fellowship is small on purpose, so depth is possible.", "อคาเดมีเปิดให้ทุกคนในประเทศไทย เฟลโลว์ชิปตั้งใจให้เล็ก เพื่อให้เกิดความลึกได้จริง")) +
-        row("05", bi("Of the system, for the system", "จากระบบ เพื่อระบบ"), bi("We design to plug into the national health agenda, so the people we train have a country ready to receive them.", "เราออกแบบให้เชื่อมกับวาระสุขภาพของชาติ เพื่อให้คนที่เราฝึกมีประเทศที่พร้อมรองรับ")) +
-        '</div>')
+        flow([
+            (bi("01", "01"), bi("Clinic first", "คลินิกมาก่อน"), bi("A clinician is in the room. Technology serves care, never the reverse.", "มีแพทย์อยู่ในห้อง เทคโนโลยีรับใช้การดูแล ไม่ใช่ทางกลับกัน")),
+            (bi("02", "02"), bi("Governance as a material", "ธรรมาภิบาลคือวัสดุ"), bi("Safety and privacy are present from the first design decision.", "ความปลอดภัยและความเป็นส่วนตัว มีตั้งแต่การตัดสินใจแรก")),
+            (bi("03", "03"), bi("Build to learn", "เรียนรู้ด้วยการสร้าง"), bi("Reviewed work, real deployment, measured outcomes.", "งานที่รีวิวแล้ว นำไปใช้จริง วัดผลได้")),
+            (bi("04", "04"), bi("Open, then selective", "เปิดกว้าง แล้วคัดสรร"), bi("The Academy is open to all. The Fellowship stays small on purpose.", "อคาเดมีเปิดให้ทุกคน เฟลโลว์ชิปตั้งใจให้เล็ก")),
+            (bi("05", "05"), bi("Of the system, for the system", "จากระบบ เพื่อระบบ"), bi("Built to plug into the national health agenda.", "ออกแบบให้เชื่อมกับวาระสุขภาพของชาติ")),
+        ], [I["pulse"], I["shield"], I["flask"], I["users"], I["node"]]))
 
     position = f"""
 <section class="section">
@@ -374,12 +431,7 @@ def who_we_are(prefix, ctx):
         <p>{bi("Pure universities teach theory without deployment. Pure startups deploy without clinical depth or a teaching mission. Vendors sell finished products and leave no capability behind. We are deliberately the thing in the middle: an academic home with a builder's studio and a fellowship, accountable to patients and to the public health system at the same time.", "มหาวิทยาลัยล้วนๆ สอนทฤษฎีแต่ไม่ได้นำไปใช้จริง สตาร์ตอัปล้วนๆ นำไปใช้แต่ขาดความลึกทางคลินิกและพันธกิจการสอน ผู้ขายขายผลิตภัณฑ์สำเร็จรูปแต่ไม่ทิ้งขีดความสามารถไว้ให้ เราตั้งใจอยู่ตรงกลาง เป็นบ้านทางวิชาการที่มีทั้งสตูดิโอของผู้สร้างและเฟลโลว์ชิป รับผิดชอบต่อผู้ป่วยและต่อระบบสุขภาพสาธารณะไปพร้อมกัน")}</p>
         <p>{bi("That is why this works here and not as a side project somewhere else. We have the clinical reality of Ramathibodi, the academic standing of Mahidol, and a mandate to teach. The result is a pipeline that produces both people and products the country can trust.", "นี่คือเหตุผลที่สิ่งนี้เกิดขึ้นได้ที่นี่ ไม่ใช่โปรเจกต์เสริมที่อื่น เรามีความจริงทางคลินิกของรามาธิบดี สถานะทางวิชาการของมหิดล และหน้าที่ในการสอน ผลลัพธ์คือเส้นทางที่ผลิตทั้งคนและผลิตภัณฑ์ที่ประเทศไว้วางใจได้")}</p>
       </div>
-      <div class="stack">
-        <div class="card reveal"><h3>{bi("Universities", "มหาวิทยาลัย")}</h3><p>{bi("Deep theory, little deployment. Knowledge that rarely reaches a ward.", "ทฤษฎีลึก แต่แทบไม่ได้นำไปใช้ ความรู้ที่ไม่ค่อยไปถึงหอผู้ป่วย")}</p></div>
-        <div class="card reveal" data-d="1"><h3>{bi("Startups", "สตาร์ตอัป")}</h3><p>{bi("Fast deployment, thin clinical grounding, no teaching mandate.", "นำไปใช้เร็ว แต่รากฐานทางคลินิกบาง และไม่มีพันธกิจการสอน")}</p></div>
-        <div class="card reveal" data-d="2"><h3>{bi("Vendors", "ผู้ขายเทคโนโลยี")}</h3><p>{bi("Finished products, no capability left behind in the institution.", "ผลิตภัณฑ์สำเร็จรูป แต่ไม่ทิ้งขีดความสามารถไว้ในสถาบัน")}</p></div>
-        <div class="card reveal" data-d="3" style="border-color:var(--accent)"><h3 class="gradient-text">{bi("The Club", "คลับของเรา")}</h3><p>{bi("Clinical depth, real deployment, and a workforce produced on the way. All three, in one place.", "ความลึกทางคลินิก การนำไปใช้จริง และกำลังคนที่เกิดขึ้นระหว่างทาง ครบทั้งสามในที่เดียว")}</p></div>
-      </div>
+      {position_chart()}
     </div>
   </div>
 </section>"""

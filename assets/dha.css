@@ -779,6 +779,17 @@ strong { color: var(--ink); font-weight: 600; }
   .lt-token { display: none; }
 }
 
+/* Position chart motif (Who We Are): a category-creation scatter, not cards. */
+.pc-axis { stroke: currentColor; stroke-width: 1.6; opacity: .3; }
+.pc-axis-lab { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; fill: var(--ink-faint); }
+[data-lang="th"] .pc-axis-lab { font-family: "Noto Sans Thai", sans-serif; }
+.pc-dot { fill: var(--card); stroke: var(--ink-faint); stroke-width: 2; }
+.pc-dot--club { fill: url(#pc-grad); stroke: none; }
+.pc-lab { font-family: var(--font-mono); font-size: 12.5px; fill: var(--ink-soft); }
+.pc-club { font-family: var(--font-display); font-weight: 700; font-size: 15px; fill: var(--ink); }
+[data-lang="th"] .pc-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 13px; }
+[data-lang="th"] .pc-club { font-family: "Noto Sans Thai", sans-serif; }
+
 /* ============================================================================
    Editorial refinement. Rams: as little design as possible. Ive: air + clarity.
    Appended last so it settles the whole system toward a book/journal feel.

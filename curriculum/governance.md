@@ -6,6 +6,30 @@ become a lawyer, but you do need to know the path, because a tool built without
 the path in mind usually cannot walk it later. Governance is a design material,
 present from the first decision, not a gate at the end.
 
+```{note}
+**Level** Advanced. **Prerequisite** [Deployment](deployment.md).
+**Time** ~6 to 8 hours over a week. **Sessions** 4.
+**Before you start** You have a project, real or planned, to write the brief for.
+This domain is done with a document, not a model.
+```
+
+### What you will be able to do
+
+1. Judge whether your tool is a medical device, and why designing for the regulator early matters.
+2. Write a precise intended-use statement and use it to constrain scope.
+3. Place a tool on the SaMD risk axes and explain what evidence its class demands.
+4. Name the ISO and IEC standards that apply and what artefacts they ask you to keep as you build.
+5. Produce a one-page regulatory and governance brief for your own project.
+
+### Sessions
+
+| # | Session | Format | Time | You finish |
+|---|---|---|---|---|
+| 1 | Why regulation, and intended use | Read | ~1.5 hrs | An intended-use sentence |
+| 2 | Thai FDA and SaMD classification | Read + build | ~2 hrs | A first-pass risk class |
+| 3 | ISO, IEC, and quality systems | Read | ~1.5 hrs | A risk-log skeleton |
+| 4 | The path, and the brief | Build | ~2 hrs | A one-page brief |
+
 ## Why a clinician should care about regulation
 
 If your tool influences diagnosis or treatment, it is probably a medical device
@@ -80,6 +104,25 @@ Putting it together, the route from idea to real use looks like this:
 A strategist also reads the landscape: where the Ministry of Public Health is
 pushing, where the National Health Security Office will pay, and where the
 National Innovation Agency will fund the next step.
+
+## Common mistakes
+
+- **A claim too broad to approve.** "Diagnoses eye disease" is neither buildable
+  nor approvable. Narrow it until it is both.
+- **Reconstructing documentation in a panic** at the end, instead of keeping the
+  risk log and change control as you build.
+- **Treating governance as someone else's job.** It is a design material. The
+  builder who ignores it builds a tool that cannot be used.
+- **Forgetting post-market.** Approval is not the finish line; drift and harm are
+  watched for the life of the tool.
+
+## Check yourself
+
+- [ ] I can state, in one precise sentence, what my tool is intended to do.
+- [ ] I can place it on the SaMD risk axes and justify the class.
+- [ ] I know which evidence my claim needs before it could be used.
+- [ ] I have a first-pass risk table and a PDPA basis written down.
+- [ ] My scope is narrow enough to be safe and approvable.
 
 ## What you build
 

@@ -5,6 +5,33 @@ learning on images, signals, sound, and tables. This domain teaches you to train
 a model on real medical data, to know whether it actually works, and to explain
 what it is doing. The last part is not optional in medicine.
 
+```{note}
+**Level** Intermediate. **Prerequisite** [Basics](basics.md), and the evaluation
+ideas from [Foundations](foundation/evaluation.md).
+**Time** ~12 to 14 hours over a week. **Sessions** 6.
+**Before you start** Comfort running a Colab notebook. No calculus required; you
+read training curves, you do not derive gradients.
+```
+
+### What you will be able to do
+
+1. Explain a neural network's training loop and read its loss and validation curves.
+2. Pick the right model family for image, signal, sound, or tabular data, and know when a gradient-boosted tree beats deep learning.
+3. Spot and test for shortcut learning (scanner artefacts, burned-in labels).
+4. Train one model on a real medical dataset and evaluate it on a held-out, ideally external, test set.
+5. Produce an explanation a clinician can read: SHAP or Grad-CAM, plus a calibration curve.
+
+### Sessions
+
+| # | Session | Format | Time | You finish |
+|---|---|---|---|---|
+| 1 | Deep learning basics in PyTorch | Tutorial | ~2.5 hrs | A trained toy model |
+| 2 | Image models and shortcuts | Read + tutorial | ~2.5 hrs | A tested image classifier |
+| 3 | Signal and sound | Read + tutorial | ~2 hrs | A sequence model run |
+| 4 | Tabular, and when trees win | Read + build | ~2 hrs | An XGBoost baseline |
+| 5 | Explainability | Tutorial | ~2 hrs | SHAP or Grad-CAM output |
+| 6 | Honest evaluation | Build | ~2 hrs | A calibration curve |
+
 ## Basic deep learning
 
 A neural network is a stack of simple functions that learn, by example, to turn
@@ -80,6 +107,25 @@ Explainability is how you open the box.
 
 Explainability is also a regulatory and trust requirement, which you will see
 again in [Governance](governance.md).
+
+## Common mistakes
+
+- **Reporting the number on data the model has seen.** Only a held-out, ideally
+  external, test set tells the truth. Everything else is a rehearsal.
+- **Reaching for deep learning on tabular data** before trying a gradient-boosted
+  tree that is faster, stronger, and explains itself.
+- **Ignoring calibration.** A good ranking with bad calibration still misleads a
+  clinician reading a percentage.
+- **Not checking where the model looked.** Grad-CAM on a few cases catches
+  shortcut learning before it embarrasses you in front of a radiologist.
+
+## Check yourself
+
+- [ ] I trained a model and can read its loss and validation curves.
+- [ ] I reported performance on a held-out or external test set, with its denominator.
+- [ ] I tried a simple baseline before a complex model.
+- [ ] I produced an explanation a clinician could actually read.
+- [ ] I checked calibration, not just accuracy or AUROC.
 
 ## What you build
 

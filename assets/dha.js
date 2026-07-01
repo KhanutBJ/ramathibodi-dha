@@ -32,11 +32,22 @@
   root.setAttribute("data-lang", storedLang);
   root.setAttribute("lang", storedLang);
 
+  function syncPlaceholders(l) {
+    var key = l === "th" ? "phTh" : "phEn";
+    var nodes = document.querySelectorAll("[data-ph-en],[data-ph-th]");
+    for (var i = 0; i < nodes.length; i++) {
+      var v = nodes[i].dataset[key];
+      if (v != null) nodes[i].setAttribute("placeholder", v);
+    }
+  }
+
   function setLang(l) {
     root.setAttribute("data-lang", l);
     root.setAttribute("lang", l);
     try { localStorage.setItem("dha-lang", l); } catch (e) {}
+    syncPlaceholders(l);
   }
+  syncPlaceholders(storedLang);
   document.addEventListener("click", function (e) {
     if (e.target.closest("[data-lang-toggle]")) {
       setLang(root.getAttribute("data-lang") === "th" ? "en" : "th");

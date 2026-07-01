@@ -8,6 +8,33 @@ summary, answering a patient on Line, or triaging a referral inbox.
 It can also mean confidently inventing a drug dose. The whole craft is getting
 the power without the harm. That is what this domain teaches.
 
+```{note}
+**Level** Intermediate. **Prerequisite** [Basics](basics.md).
+**Time** ~10 to 12 hours over a week. **Sessions** 6.
+**Before you start** You can call an API and read JSON, and you have an AI model
+API key. Bring one real, low-risk task from your department (an FAQ, a follow-up
+message, a form) to build against.
+```
+
+### What you will be able to do
+
+1. Explain what an LLM can and cannot do, and set temperature, system prompt, and context deliberately.
+2. Recognise where hallucinations come from and design so a wrong answer is caught.
+3. Wrap a model in input and output guardrails fit for healthcare.
+4. Build a RAG assistant that answers only from your own documents, with citations.
+5. Ship a supervised assistant on Line, with a human checkpoint before anything that touches care.
+
+### Sessions
+
+| # | Session | Format | Time | You finish |
+|---|---|---|---|---|
+| 1 | LLM basics and controls | Read + tutorial | ~1.5 hrs | A prompted task that works |
+| 2 | Hallucination and guardrails | Read + build | ~2 hrs | Guardrails on your task |
+| 3 | RAG: grounded answers | Tutorial | ~2.5 hrs | A grounded Q&A over your docs |
+| 4 | Context and loop engineering | Read + build | ~1.5 hrs | A two-step agent loop |
+| 5 | Speech: STT and TTS in Thai | Read + tutorial | ~1.5 hrs | A Thai transcription test |
+| 6 | Real agents: Line, n8n, Cloud Run | Build | ~3 hrs | A deployed Line assistant |
+
 ## LLM basics
 
 A large language model predicts the next token given everything before it. From
@@ -145,6 +172,25 @@ an LLM to read the note, a calibrated model to make the prediction.
 
 This connects directly to [Deep AI](deep-ai.md), where you train these models
 properly.
+
+## Common mistakes
+
+- **Trusting fluency.** A confident answer is not a correct one. If it has no
+  source, treat it as a guess.
+- **No abstention.** An assistant that must always answer will invent. Give it
+  permission to say "I do not know," and reward it for doing so.
+- **Skipping the human checkpoint** to feel faster. In clinical work the
+  checkpoint is the product, not the friction.
+- **RAG without checking retrieval.** If the wrong passages come back, the answer
+  is wrong no matter how good the model is. Inspect what was retrieved.
+
+## Check yourself
+
+- [ ] I can explain, to a colleague, why an LLM hallucinates and how I reduce it.
+- [ ] My assistant answers only from sources it can cite.
+- [ ] It refuses or escalates when it is unsure.
+- [ ] There is a human checkpoint before anything with clinical consequence.
+- [ ] Every interaction is logged so it can be audited.
 
 ## What you build
 

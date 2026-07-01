@@ -5,6 +5,30 @@ in front of real users, in a form they can use, and then measuring whether it
 actually helped. Most clinical AI dies here, not because the model was bad, but
 because it never reached a workflow. This domain is how yours does not.
 
+```{note}
+**Level** Intermediate to advanced. **Prerequisite** [AI Agent](ai-agent.md) or
+[Deep AI](deep-ai.md), and [Digital Health](digital-health.md).
+**Time** ~8 to 10 hours over a week. **Sessions** 4.
+**Before you start** You have one trained model or working assistant to deploy.
+```
+
+### What you will be able to do
+
+1. Build an honest dashboard that answers one clinical question and shows its uncertainty.
+2. Stand up a working prototype: a front end, a FastAPI endpoint, a model call.
+3. Choose between cloud, on-premise, and hybrid for clinical and legal reasons, and containerise so it runs the same everywhere.
+4. Report performance that holds up: the right metric, confidence intervals, subgroups, and a comparison to current care.
+5. Design a prospective evaluation that asks whether using the tool changes a decision and helps the patient.
+
+### Sessions
+
+| # | Session | Format | Time | You finish |
+|---|---|---|---|---|
+| 1 | Dashboards and honest visualisation | Read + tutorial | ~2 hrs | A Streamlit panel |
+| 2 | Web prototyping with FastAPI | Tutorial | ~2.5 hrs | A model behind an API |
+| 3 | Cloud, on-premise, and Docker | Read + build | ~2 hrs | A containerised deploy |
+| 4 | Statistics that hold up | Read + build | ~2.5 hrs | An honest results panel |
+
 ## Dashboards and visualisation
 
 The first way most clinical AI reaches people is a dashboard. A good dashboard
@@ -75,6 +99,25 @@ The question is never just "is the model accurate." It is "does using this tool
 change a decision, and does that change help the patient." Design the evaluation
 to answer that.
 ```
+
+## Common mistakes
+
+- **Optimising the model, ignoring the workflow.** A slightly worse model that
+  fits how clinicians actually work beats a better one nobody opens.
+- **A number without a denominator or an interval.** It reads as certainty you do
+  not have.
+- **Cloud by default** without checking data residency and PDPA. Where it runs is
+  a legal decision.
+- **Stopping at retrospective numbers.** The strongest projects end with a
+  prospective look at whether the tool changed a decision.
+
+## Check yourself
+
+- [ ] A real clinician has used my prototype and I fixed what confused them.
+- [ ] It runs in a container, the same way in cloud or on-premise.
+- [ ] Every headline number has a confidence interval and a denominator.
+- [ ] I checked subgroups, not just the average.
+- [ ] I can state whether using the tool changes a decision, and whether that helps.
 
 ## What you build
 

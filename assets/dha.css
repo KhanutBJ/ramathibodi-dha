@@ -26,10 +26,15 @@ ul, ol { list-style: none; padding: 0; }
   --grad: linear-gradient(95deg, #fd6502 0%, #c14e3b 22%, #91386e 48%, #5120af 74%, #2a1bd6 100%);
   --grad-soft: linear-gradient(95deg, rgba(247,98,5,.14), rgba(88,34,166,.14), rgba(52,18,209,.14));
 
-  /* Type */
-  --font-display: "Montserrat", "Inter", system-ui, sans-serif;
+  /* Type. Fraunces = editorial voice (soul), Newsreader = long-form reading,
+     Montserrat = brand/UI labels, Inter = dense UI, IBM Plex Mono = code/labels. */
+  --font-editorial: "Fraunces", "Newsreader", Georgia, "Times New Roman", serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-display: "Fraunces", "Montserrat", Georgia, serif;
+  --font-brand: "Montserrat", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+  --font-hand: "Caveat", "Segoe Script", cursive;
 
   /* Fluid scale */
   --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.92rem);
@@ -93,11 +98,12 @@ body {
 }
 
 /* ---- Type ----------------------------------------------------------------- */
-h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
-h1 { font-size: var(--step-4); }
-h2 { font-size: var(--step-3); }
+h1, h2, h3 { font-family: var(--font-editorial); font-optical-sizing: auto; font-weight: 600; line-height: 1.04; letter-spacing: -0.02em; }
+h4 { font-family: var(--font-brand); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+h1 { font-size: var(--step-4); letter-spacing: -0.028em; }
+h2 { font-size: var(--step-3); letter-spacing: -0.024em; }
 h3 { font-size: var(--step-2); }
-h4 { font-size: var(--step-1); letter-spacing: -0.01em; }
+h4 { font-size: var(--step-1); }
 p { color: var(--ink-soft); }
 strong { color: var(--ink); font-weight: 600; }
 
@@ -539,3 +545,312 @@ strong { color: var(--ink); font-weight: 600; }
 .callout--important { border-left-color: var(--purple); }
 .callout summary { cursor: pointer; font-weight: 600; color: var(--ink); }
 .callout[open] summary { margin-bottom: 0.6rem; }
+
+/* ============================================================================
+   Community channels + coming-soon social state
+   ========================================================================== */
+.social--soon { opacity: .5; cursor: default; position: relative; }
+.social--soon::after {
+  content: ""; position: absolute; right: -1px; top: -1px; width: 7px; height: 7px;
+  border-radius: 999px; background: var(--orange); box-shadow: 0 0 0 2px var(--card);
+}
+.chan-grid { display: grid; grid-template-columns: 1fr; gap: var(--s2); margin-top: var(--s5); }
+@media (min-width: 560px) { .chan-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .chan-grid { grid-template-columns: repeat(3, 1fr); } }
+.chan {
+  display: flex; align-items: center; gap: var(--s2);
+  padding: 1.05rem 1.15rem; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--card); transition: border-color .2s, transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.chan:not(.chan--soon):hover { border-color: var(--ink-faint); transform: translateY(-3px); box-shadow: var(--shadow); }
+.chan--soon { opacity: .72; }
+.chan__ic { width: 40px; height: 40px; flex: none; border-radius: 11px; display: grid; place-items: center; color: #fff; }
+.chan__ic svg { width: 20px; height: 20px; }
+.chan__ic--line { background: #06c755; }
+.chan__ic--instagram { background: linear-gradient(45deg,#f9ce34,#ee2a7b 45%,#6228d7); }
+.chan__ic--discord { background: #5865f2; }
+.chan__ic--linkedin { background: #0a66c2; }
+.chan__ic--facebook { background: #1877f2; }
+.chan__ic--github { background: #1b1f24; }
+.chan__ic--youtube { background: #ff0033; }
+.chan__name { font-weight: 600; color: var(--ink); font-family: var(--font-display); letter-spacing: -.01em; }
+.chan__go { margin-left: auto; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; color: var(--accent); display: inline-flex; align-items: center; gap: .35rem; }
+.chan__go svg { width: 14px; height: 14px; }
+.chan__go--soon { color: var(--ink-faint); }
+
+/* ============================================================================
+   Opportunity board (canvas / kanban)
+   ========================================================================== */
+.board {
+  margin-top: var(--s5);
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr);
+  gap: var(--s3); overflow-x: auto; padding: var(--s4);
+  border: 1px solid var(--line); border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0 / 22px 22px,
+    var(--bg-sunk);
+  scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 720px) { .board { grid-auto-flow: row; grid-auto-columns: auto; padding: var(--s3); } }
+.lane { scroll-snap-align: start; min-width: 0; display: flex; flex-direction: column; gap: var(--s2); }
+.lane__head { display: flex; align-items: center; gap: .55rem; padding: 0 .2rem .2rem; }
+.lane__dot { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+.lane__dot--grad { background: var(--grad); }
+.lane__dot--orange { background: var(--orange); }
+.lane__dot--indigo { background: var(--indigo); }
+.lane__dot--purple { background: var(--purple); }
+.lane__title { font-family: var(--font-display); font-weight: 700; font-size: .98rem; color: var(--ink); letter-spacing: -.01em; }
+.lane__count { margin-left: auto; font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); background: var(--bg-elev); border: 1px solid var(--line); border-radius: 999px; padding: .05rem .5rem; }
+.lane__cards { display: flex; flex-direction: column; gap: var(--s2); }
+.bcard {
+  display: block; background: var(--card); border: 1px solid var(--line); border-radius: 13px;
+  padding: .95rem 1rem 0.85rem; box-shadow: 0 1px 2px rgba(20,20,15,.04);
+  transition: transform .22s var(--ease), box-shadow .22s var(--ease), border-color .2s;
+  position: relative;
+}
+.bcard:not(.bcard--soon):hover { transform: translateY(-3px) rotate(-.3deg); box-shadow: var(--shadow); border-color: var(--ink-faint); }
+.bcard--soon { opacity: .66; }
+.bcard__top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .5rem; }
+.bcard__state { font-family: var(--font-mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; padding: .12rem .5rem; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-soft); }
+.bcard__state--open { color: #06894f; border-color: rgba(6,137,79,.35); background: rgba(6,137,79,.08); }
+.bcard__state--partner { color: var(--purple); border-color: rgba(88,34,166,.3); background: rgba(88,34,166,.07); }
+.bcard__state--soon { color: var(--ink-faint); }
+.bcard__meta { font-family: var(--font-mono); font-size: .68rem; color: var(--ink-faint); text-align: right; }
+.bcard__title { font-size: 1.02rem; line-height: 1.2; color: var(--ink); margin-bottom: .3rem; }
+.bcard__desc { font-size: .86rem; color: var(--ink-soft); line-height: 1.5; }
+.bcard__foot { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: .8rem; padding-top: .7rem; border-top: 1px dashed var(--line); }
+.bcard__badge { font-family: var(--font-mono); font-size: .7rem; color: var(--ink-faint); }
+.bcard__go { font-family: var(--font-mono); font-size: .72rem; color: var(--accent); display: inline-flex; align-items: center; gap: .3rem; }
+.bcard__go svg { width: 13px; height: 13px; }
+
+/* ============================================================================
+   Team page + annual report
+   ========================================================================== */
+.team-grid { display: grid; grid-template-columns: 1fr; gap: var(--s3); margin-top: var(--s5); }
+@media (min-width: 560px) { .team-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+.person { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3); transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .2s; }
+.person:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--ink-faint); }
+.person__avatar { width: 56px; height: 56px; border-radius: 999px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; color: #fff; background: var(--grad); letter-spacing: .02em; margin-bottom: var(--s2); }
+.person__name { font-size: var(--step-1); color: var(--ink); }
+.person__role { font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: .2rem 0 .6rem; }
+.person__bio { font-size: .9rem; color: var(--ink-soft); }
+.person__tag { display: inline-block; margin-top: .8rem; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .06em; color: var(--ink-faint); border: 1px solid var(--line); border-radius: 999px; padding: .12rem .55rem; }
+
+.report-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); margin-top: var(--s5); }
+@media (min-width: 760px) { .report-metrics { grid-template-columns: repeat(4, 1fr); } }
+.metric { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3); background: var(--card); }
+.metric__num { font-family: var(--font-display); font-weight: 800; font-size: var(--step-3); line-height: 1; letter-spacing: -.03em; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.metric__label { color: var(--ink-soft); font-size: .88rem; margin-top: .5rem; }
+.report-note { font-size: .82rem; color: var(--ink-faint); margin-top: var(--s4); }
+
+/* ============================================================================
+   Editorial layer. Make long-form feel like a well-set book / journal.
+   Fraunces headlines with character, Newsreader reading, generous rhythm.
+   ========================================================================== */
+/* Lead paragraphs read as a serif standfirst, the way a journal opens a piece. */
+.lead { font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400; }
+
+/* Hero headline gets optical-size character and a touch of warmth. */
+.hero h1 { font-weight: 500; }
+
+/* Pull quotes: serif italic, the classic journal voice (Sequoia / YC lineage). */
+.pq { font-family: var(--font-editorial); font-weight: 400; font-style: italic; font-optical-sizing: auto; letter-spacing: -0.01em; }
+.pq .gradient-text { font-style: italic; }
+
+/* Long-form reading surface: the "book" page. */
+.prose { font-family: var(--font-serif); font-optical-sizing: auto; font-size: 1.15rem; line-height: 1.78; max-width: 68ch; }
+.prose > * + * { margin-top: 1.3rem; }
+.prose p, .prose li { color: var(--ink); }
+.prose h2, .prose h3 { font-family: var(--font-editorial); }
+.prose h2 { margin-top: 2.8rem; }
+.prose h3 { margin-top: 2rem; }
+/* Drop cap on the opening paragraph, like a chapter head. */
+.prose > p:first-of-type::first-letter {
+  font-family: var(--font-editorial); font-weight: 600; font-size: 3.4em; line-height: 0.72;
+  float: left; margin: 0.06em 0.10em 0 0; color: var(--ink);
+}
+/* Blockquotes as quiet serif asides, not shouty bars. */
+.prose blockquote {
+  border-left: 2px solid var(--accent); padding-left: 1.3rem; margin-left: 0;
+  font-family: var(--font-editorial); font-style: italic; font-weight: 400;
+  font-size: var(--step-1); color: var(--ink); letter-spacing: -0.005em; line-height: 1.35;
+}
+.prose figcaption { font-family: var(--font-serif); font-style: italic; }
+.prose th { font-family: var(--font-brand); }
+
+/* Section eyebrows keep the mono label, but heads now carry serif soul via h2. */
+.section-head .lead { max-width: 60ch; }
+
+/* Thai reads in Noto Serif Thai so the journal feel survives the language switch. */
+[data-lang="th"] {
+  --font-editorial: "Noto Serif Thai", "Fraunces", Georgia, serif;
+  --font-serif: "Noto Serif Thai", "Newsreader", Georgia, serif;
+  --font-display: "Noto Serif Thai", "Fraunces", Georgia, serif;
+}
+[data-lang="th"] h1, [data-lang="th"] h2, [data-lang="th"] h3 { font-weight: 600; line-height: 1.2; }
+[data-lang="th"] .prose { line-height: 2; }
+/* Thai script does not take drop caps well (combining marks); turn it off. */
+[data-lang="th"] .prose > p:first-of-type::first-letter {
+  font-size: inherit; float: none; margin: 0; font-weight: inherit; line-height: inherit;
+}
+
+/* ---- Showcase marketplace card ------------------------------------------- */
+.show { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3); transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .2s; }
+.show:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--ink-faint); }
+.show__top { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: var(--s2); }
+.show__status { font-family: var(--font-mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--purple); border: 1px solid rgba(88,34,166,.3); background: rgba(88,34,166,.07); border-radius: 999px; padding: .12rem .55rem; }
+.show__metric { font-family: var(--font-mono); font-size: .78rem; color: var(--ink); font-weight: 500; }
+.show__title { font-size: var(--step-1); line-height: 1.15; color: var(--ink); }
+.show__by { font-size: .86rem; color: var(--ink-soft); margin-top: .5rem; }
+.show__contact { margin-top: var(--s3); font-family: var(--font-mono); font-size: .76rem; letter-spacing: .04em; color: var(--accent); display: inline-flex; align-items: center; gap: .4rem; }
+.show__contact svg { width: 14px; height: 14px; }
+
+/* ---- Tools surface ------------------------------------------------------- */
+.tool-grid { display: grid; grid-template-columns: 1fr; gap: var(--s3); margin-top: var(--s5); }
+@media (min-width: 640px) { .tool-grid { grid-template-columns: 1fr 1fr; } }
+.tool { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .2s; }
+.tool:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--ink-faint); }
+.tool__head { display: flex; align-items: center; gap: .9rem; margin-bottom: var(--s2); }
+.tool__ic { width: 46px; height: 46px; flex: none; border-radius: 12px; display: grid; place-items: center; background: var(--grad-soft); color: var(--accent); }
+.tool__ic svg { width: 22px; height: 22px; }
+.tool__state { margin-left: auto; font-family: var(--font-mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; padding: .12rem .5rem; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-faint); }
+.tool__state--build { color: #06894f; border-color: rgba(6,137,79,.35); background: rgba(6,137,79,.08); }
+.tool h3 { font-size: var(--step-1); color: var(--ink); }
+.tool p { margin-top: .5rem; font-size: .95rem; }
+.tool__for { margin-top: auto; padding-top: var(--s3); font-family: var(--font-mono); font-size: .7rem; letter-spacing: .04em; color: var(--ink-faint); }
+
+/* ---- Science of Science engine diagram ----------------------------------- */
+.scisci-loop { display: grid; grid-template-columns: 1fr; gap: var(--s2); margin-top: var(--s5); counter-reset: loop; }
+@media (min-width: 760px) { .scisci-loop { grid-template-columns: repeat(5, 1fr); align-items: stretch; } }
+.loop-step { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3); }
+.loop-step__k { font-family: var(--font-mono); font-size: .72rem; color: var(--accent); letter-spacing: .06em; }
+.loop-step h4 { font-size: 1rem; color: var(--ink); margin-top: .4rem; }
+.loop-step p { font-size: .84rem; margin-top: .4rem; }
+.loop-step::after { content: "\2192"; position: absolute; color: var(--ink-faint); font-size: 1.2rem; }
+@media (min-width: 760px) { .loop-step::after { right: -0.85rem; top: 50%; transform: translateY(-50%); } .loop-step:last-child::after { content: "\21ba"; right: 50%; bottom: -1.9rem; top: auto; transform: translateX(50%); } }
+@media (max-width: 759px) { .loop-step::after { bottom: -0.85rem; left: 50%; transform: translateX(-50%) rotate(90deg); } .loop-step:last-child::after { content: ""; } }
+
+/* Markdown tables must not push the page wide on mobile; scroll them locally. */
+.prose table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* ============================================================================
+   Our art: hand-sketch, animated hospital-workflow. Ink on paper, editorial.
+   ========================================================================== */
+.flow-art { color: var(--ink); margin-top: var(--s5); }
+.flow-art svg { width: 100%; height: auto; overflow: visible; }
+.fa-path { fill: none; stroke: url(#fa-grad); stroke-width: 2.6; stroke-linecap: round;
+  stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: fa-draw 2.4s var(--ease) forwards; }
+.fa-box { fill: none; stroke: currentColor; stroke-width: 1.7; opacity: .38; }
+.fa-link { stroke: currentColor; stroke-width: 1.3; stroke-dasharray: 2 5; stroke-linecap: round; opacity: .34; }
+.fa-node { fill: var(--orange); }
+.fa-ai { fill: var(--bg-elev); stroke: currentColor; stroke-opacity: .34; stroke-width: 1.4; }
+.fa-token { fill: #fd6502; filter: drop-shadow(0 0 5px rgba(247,98,5,.75)); }
+.fa-pulse { fill: var(--purple); transform-box: fill-box; transform-origin: center; animation: fa-pulse 2.4s ease-in-out infinite; }
+.fa-st { font-family: var(--font-editorial); font-optical-sizing: auto; font-style: italic; font-size: 22px; font-weight: 500; fill: var(--ink); }
+.fa-tag { font-family: var(--font-mono); font-size: 9px; font-weight: 500; fill: #fff; }
+.fa-cap { font-family: var(--font-mono); font-size: 11px; fill: var(--ink-soft); letter-spacing: .01em; }
+[data-lang="th"] .fa-cap { font-family: "Noto Sans Thai", sans-serif; font-size: 12px; }
+.flow-art__legend { max-width: 60ch; margin: var(--s3) auto 0; text-align: center; font-family: var(--font-serif); font-style: italic; font-size: 1.02rem; color: var(--ink-soft); line-height: 1.5; }
+@keyframes fa-draw { to { stroke-dashoffset: 0; } }
+@keyframes fa-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .45; } }
+@media (prefers-reduced-motion: reduce) {
+  .fa-path { animation: none; stroke-dashoffset: 0; }
+  .fa-pulse { animation: none; }
+  .fa-token { display: none; }
+}
+
+/* ============================================================================
+   Editorial refinement. Rams: as little design as possible. Ive: air + clarity.
+   Appended last so it settles the whole system toward a book/journal feel.
+   ========================================================================== */
+/* Air. Sections breathe like pages, not panels. */
+.section { padding-block: clamp(4.5rem, 9vw, 9rem); }
+.section-head { margin-bottom: clamp(2.75rem, 5vw, 4.5rem); max-width: 60ch; }
+.section-head h2 { margin-top: var(--s3); }
+.section-head p { margin-top: var(--s3); }
+
+/* Cards: hairline, almost no shadow, a restrained lift. Nothing shouts. */
+.card { border-radius: var(--radius); box-shadow: none;
+  transition: transform .3s var(--ease), border-color .3s, box-shadow .3s; }
+.card:hover { transform: translateY(-2px); border-color: var(--line);
+  box-shadow: 0 1px 2px rgba(20,20,15,.03), 0 10px 26px rgba(20,20,15,.05); }
+.card__icon { background: transparent; border: 1px solid var(--line); }
+[data-theme="dark"] .card:hover { box-shadow: 0 1px 2px rgba(0,0,0,.25), 0 12px 30px rgba(0,0,0,.3); }
+
+/* Figures set in the editorial serif, like numbers in a printed report. */
+.stat__num { font-family: var(--font-editorial); font-weight: 500; letter-spacing: -0.02em; }
+
+/* Earned colour: calm the ambient glows so the one gradient still means something. */
+.hero__glow { opacity: .5; }
+.band__glow { opacity: .8; }
+
+/* Reading measure and rhythm on standfirsts. */
+.lead { line-height: 1.55; }
+.hero .lead { max-width: 52ch; }
+.measure { max-width: 58ch; }
+
+/* Quieter motion on buttons (Rams). */
+.btn--primary:hover, .btn--grad:hover { transform: translateY(-1px); }
+
+/* A journal hairline between consecutive open sections. Structure, quietly. */
+.section + .section { border-top: 1px solid var(--line-soft); }
+
+/* ============================================================================
+   The scripty layer + motion. A handwritten voice annotates the editorial
+   base, the way a thinker writes in the margin. Motion that feels drawn, not
+   engineered. This is where the "new school of thought" lives.
+   ========================================================================== */
+.hand { font-family: var(--font-hand); font-weight: 600; }
+
+/* Marginalia: a handwritten aside, tilted like a real note in the margin. */
+.annot { font-family: var(--font-hand); font-weight: 600; font-size: 1.6rem;
+  line-height: 1.05; color: var(--accent); display: inline-block; transform: rotate(-3.5deg); }
+[data-lang="th"] .annot { font-family: "Noto Sans Thai", sans-serif; font-weight: 600;
+  font-size: 1.05rem; transform: none; }
+
+/* A handwritten signature. */
+.sig { font-family: var(--font-hand); font-weight: 600; font-size: 1.8rem; color: var(--ink); line-height: 1; }
+[data-lang="th"] .sig { font-family: "Noto Serif Thai", serif; font-size: 1.1rem; font-weight: 600; }
+
+/* Hand highlighter: earned emphasis on a word, like a marker pass. */
+.marker { background: linear-gradient(180deg, transparent 60%, rgba(247,98,5,.26) 60%); padding: 0 .06em; }
+
+/* Editorial links draw their underline in, rather than sitting statically. */
+.prose a, .link-hand {
+  text-decoration: none;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-position: 0 100%; background-repeat: no-repeat; background-size: 100% 1.5px;
+  transition: background-size .3s var(--ease), color .2s;
+}
+.prose a:hover, .link-hand:hover { background-size: 100% 3px; }
+
+/* Refined reveal: a gentle rise with a whisper of blur clearing, seamless. */
+.reveal { opacity: 0; transform: translateY(20px); filter: blur(5px);
+  transition: opacity .85s var(--ease), transform .85s var(--ease), filter .85s var(--ease); }
+.reveal.is-in { opacity: 1; transform: none; filter: none; }
+
+/* A drawn accent rule that grows in when its section arrives. */
+.accent-rule { transform-origin: left; }
+.reveal .accent-rule, .accent-rule.reveal { transform: scaleX(0); transition: transform .7s var(--ease) .1s; }
+.reveal.is-in .accent-rule, .accent-rule.reveal.is-in { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+/* Handwritten marginalia on the sketch diagram: narrative, in our own hand. */
+.fa-hand { font-family: var(--font-hand); font-weight: 600; font-size: 27px; fill: var(--accent); }
+.fa-hand-arrow { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; opacity: .7; }
+
+/* Hand-drawn circle around one earned word per page (Sequoia/annotation move). */
+.circle-word { position: relative; display: inline-block; }
+.circle-ink {
+  position: absolute; left: -14%; top: -28%; width: 128%; height: 156%;
+  fill: none; stroke: var(--accent); stroke-width: 3; opacity: .8;
+  pointer-events: none; z-index: -1;
+  stroke-dasharray: 620; stroke-dashoffset: 620;
+  transition: stroke-dashoffset 1s var(--ease) .3s;
+}
+.reveal.is-in .circle-ink, .is-in .circle-ink { stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: reduce) { .circle-ink { stroke-dashoffset: 0; transition: none; } }

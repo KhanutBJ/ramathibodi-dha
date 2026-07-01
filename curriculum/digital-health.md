@@ -6,6 +6,32 @@ Thai hospital actually runs, the standards that move data between them, and the
 rules that govern how you may use it. This is the part most pure AI courses skip,
 and it is the part that decides whether your tool can ever be used.
 
+```{note}
+**Level** Intermediate. **Prerequisite** [Basics](basics.md).
+**Time** ~10 to 12 hours over a week. **Sessions** 6.
+**Before you start** No hospital-IT background needed. If you have ever been
+frustrated by a hospital system as a clinician, that frustration is your syllabus.
+```
+
+### What you will be able to do
+
+1. Describe how a Thai HIS, EMR, and PHR store and expose data, and what that means for a model.
+2. Read ICD-10 coded data and explain why codes are chosen for billing, not truth.
+3. Parse and build on FHIR resources, and feel where real data is messier than the spec.
+4. State the PDPA basis for every field you use, and de-identify responsibly.
+5. Use NHSO claims and Genomics Thailand data for what they are good at, and distrust them where they lie.
+
+### Sessions
+
+| # | Session | Format | Time | You finish |
+|---|---|---|---|---|
+| 1 | HIS, EMR, and PHR | Read | ~1.5 hrs | A map of your hospital's data |
+| 2 | ICD-10 and clinical coding | Read + build | ~1.5 hrs | A coded-data read |
+| 3 | HL7 and FHIR | Read + tutorial | ~2.5 hrs | A parsed FHIR bundle |
+| 4 | PDPA and data protection | Read | ~1.5 hrs | A PDPA basis note |
+| 5 | Genomics Thailand and NHSO claims | Read | ~1.5 hrs | A source-limits memo |
+| 6 | Build a small data pipeline | Build | ~2.5 hrs | A feature table with a basis |
+
 ## Health information system (HIS)
 
 The HIS is the hospital's operational backbone: registration, orders, results,
@@ -91,6 +117,25 @@ Claims data is powerful for population health, risk, and policy, and treacherous
 if you forget what it is. It records what was billed, not what was true, and it
 misses what happens outside the scheme. You will learn to use it for what it is
 good at and to distrust it where it lies.
+
+## Common mistakes
+
+- **Building on a one-off export** that no one can reproduce, instead of the way
+  the HIS actually exposes data.
+- **Treating ICD codes as ground truth.** They record what was billed. The note
+  holds the reality.
+- **Leaving PDPA to the end.** A model trained on data you had no right to use is
+  a liability, not an asset. The basis comes first.
+- **Assuming FHIR is clean.** Real bundles have missing fields, local quirks, and
+  Thai free text. Plan for the mess.
+
+## Check yourself
+
+- [ ] I can name the HIS, EMR, and PHR my hospital uses and how they expose data.
+- [ ] I can read a FHIR bundle and pull a value out of it.
+- [ ] Every field in my feature table has a written PDPA basis.
+- [ ] I can explain what NHSO claims data is good for and where it misleads.
+- [ ] I de-identified before I did anything else with patient data.
 
 ## What you build
 

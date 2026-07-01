@@ -379,6 +379,57 @@ def position_chart():
 </div>"""
     return svg
 
+def agenda_comb():
+    """Sixth signature sketch: a spine and branches, distinct in shape from
+    the path, trail, orbit, hub, funnel, and scatter chart already used
+    elsewhere. The club is the spine on the left. Six branches reach out to
+    the bodies that set the national agenda, each a short, direct connection,
+    not a cluster of cards."""
+    items = [
+        ("Ministry of Public Health", "กระทรวงสาธารณสุข", "Sets the direction for a connected, data-driven health system", "กำหนดทิศทางระบบสุขภาพที่เชื่อมโยงและขับเคลื่อนด้วยข้อมูล"),
+        ("NHSO", "สปสช.", "Runs universal coverage; AI has to meet its real-world constraints", "ดูแลหลักประกันสุขภาพถ้วนหน้า AI ต้องตอบโจทย์ข้อจำกัดจริง"),
+        ("Thai FDA", "อย.", "Regulates medical AI as Software as a Medical Device", "กำกับดูแล AI ทางการแพทย์ในฐานะ Software as a Medical Device"),
+        ("NIA", "NIA", "Backs the move from research to venture", "สนับสนุนการต่อยอดจากงานวิจัยสู่ธุรกิจ"),
+        ("Thai HealthTech", "เฮลท์เทคไทย", "A growing ecosystem of companies and associations", "ระบบนิเวศบริษัทและสมาคมที่กำลังเติบโต"),
+        ("Accredited education", "การศึกษาที่รับรอง", "The AMA Ed Hub standard, adapted for Thailand", "มาตรฐานแบบ AMA Ed Hub ปรับใช้สำหรับไทย"),
+    ]
+    sx, top, bottom = 66, 30, 370
+    n = len(items)
+    step = (bottom - top) / (n - 1)
+    branches, nodes, labels = "", "", ""
+    for i, (en, th, cap_en, cap_th) in enumerate(items):
+        y = top + i * step
+        ex = 210 + (14 if i % 2 else -6)
+        branches += f'<path class="ac-branch" d="M {sx} {y:.0f} L {ex} {y:.0f}"/>'
+        nodes += f'<circle class="ac-node" cx="{ex}" cy="{y:.0f}" r="6"/>'
+        labels += (f'<text class="l-en ac-lab" x="{ex+16}" y="{y-4:.0f}">{en}</text>'
+                   f'<text class="l-th ac-lab" x="{ex+16}" y="{y-4:.0f}">{th}</text>'
+                   f'<text class="l-en ac-cap" x="{ex+16}" y="{y+14:.0f}">{cap_en}</text>'
+                   f'<text class="l-th ac-cap" x="{ex+16}" y="{y+14:.0f}">{cap_th}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 640 400" role="img" aria-label="The club as a spine, with six branches reaching the bodies that set Thailand's health agenda" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch7" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.017" numOctaves="2" seed="53" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/>
+      </filter>
+      <linearGradient id="ac-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </linearGradient>
+    </defs>
+    <g filter="url(#sketch7)">
+      <line class="ac-spine" x1="{sx}" y1="{top}" x2="{sx}" y2="{bottom}"/>
+      {branches}
+      {nodes}
+    </g>
+    {labels}
+    <text class="l-en ac-us" x="{sx}" y="{top-12}" text-anchor="middle">Us</text>
+    <text class="l-th ac-us" x="{sx}" y="{top-12}" text-anchor="middle">เรา</text>
+  </svg>
+</div>"""
+    return svg
+
 def who_we_are(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
@@ -443,22 +494,21 @@ def who_we_are(prefix, ctx):
     eco = sec(
         head(bi("Where we fit nationally", "เราอยู่ตรงไหนในระดับชาติ"), bi("Designed to plug into Thailand's health agenda.", "ออกแบบให้เสียบเข้ากับวาระสุขภาพของไทย"),
              bi("We do not work around the system. We build toward the goals the country has already set, so our graduates and tools have a place to go.", "เราไม่ได้ทำงานเลี่ยงระบบ เราสร้างไปในทิศทางเป้าหมายที่ประเทศตั้งไว้แล้ว เพื่อให้ผู้จบและเครื่องมือของเรามีที่ไป")) +
-        '<div class="grid grid-3">' +
-        ctx['card']('shield', 'Ministry of Public Health', 'The MOPH Digital Health agenda sets the direction for a connected, data-driven health system. We train the workforce that direction requires.', None, '', prefix) +
-        ctx['card']('users', 'NHSO', 'The National Health Security Office runs universal coverage. AI that improves access and efficiency has to meet its real-world constraints.', None, '', prefix) +
-        ctx['card']('doc', 'Thai FDA', 'Medical AI is regulated as Software as a Medical Device. We teach to that standard so what we build can be approved and trusted.', None, '', prefix) +
-        ctx['card']('rocket', 'NIA', 'The National Innovation Agency backs the move from research to venture. Our studio is built to meet it.', None, '', prefix) +
-        ctx['card']('node', 'Thai HealthTech', 'A growing ecosystem of health technology companies and associations. We supply it talent and partners.', None, '', prefix) +
-        ctx['card']('pulse', 'Accredited education', 'We hold to the standard set by bodies like the AMA Ed Hub for clinician-facing AI education, adapted for Thailand.', None, '', prefix) +
-        '</div>')
+        agenda_comb())
 
     partners = sec(
         head(bi("Partners", "พันธมิตร"), bi("We do not build alone.", "เราไม่ได้สร้างเพียงลำพัง"),
-             bi("We work with the people who train builders and ship technology, and we align with the bodies that set Thailand's health agenda.", "เราทำงานร่วมกับผู้ที่ฝึกคนสร้างและส่งมอบเทคโนโลยี และเชื่อมกับหน่วยงานที่กำหนดวาระสุขภาพของไทย")) +
-        '<div class="grid grid-2">' +
-        ctx['card']('node', 'Google Developer Groups on Campus', bi('A community of student developers and the Google Cloud and AI tooling our hands-on work runs on. Our Basics and Deployment domains lean on this stack.', 'ชุมชนนักพัฒนานักศึกษา และเครื่องมือ Google Cloud และ AI ที่งานภาคปฏิบัติของเราใช้ โดเมน Basics และ Deployment ของเราพึ่งพาชุดเครื่องมือนี้'), None, '', prefix) +
-        ctx['card']('users', 'BOTNOI Academy', bi('A Thai leader in AI education and voice technology. A natural partner for the speech and language parts of the curriculum, taught for Thai data.', 'ผู้นำไทยด้านการศึกษา AI และเทคโนโลยีเสียง เป็นพันธมิตรที่เหมาะกับส่วน speech และภาษาในหลักสูตร ที่สอนบนข้อมูลภาษาไทย'), None, '', prefix) +
-        '</div>' +
+             bi("We work with the people who train builders and ship technology.", "เราทำงานร่วมกับผู้ที่ฝึกคนสร้างและส่งมอบเทคโนโลยี")) +
+        f"""<div class="partner-row reveal">
+          <a class="partner-mark" href="{prefix}contact.html">
+            <img src="{prefix}assets/partners/gdg-bangkok.svg" alt="Google Developer Groups on Campus, Bangkok"/>
+            <span class="partner-mark__cap">{bi('Google Cloud and AI tooling for our hands-on work', 'เครื่องมือ Google Cloud และ AI สำหรับงานภาคปฏิบัติ')}</span>
+          </a>
+          <a class="partner-mark" href="{prefix}contact.html">
+            <img src="{prefix}assets/partners/botnoi-academy.svg" alt="BOTNOI Academy"/>
+            <span class="partner-mark__cap">{bi('Thai speech and language for the curriculum', 'เสียงและภาษาไทยสำหรับหลักสูตร')}</span>
+          </a>
+        </div>""" +
         '<p class="muted mt4 reveal" style="font-size:.9rem">' + bi("We design to align with the Ministry of Public Health digital health agenda, the National Health Security Office, the Thai FDA pathway for Software as a Medical Device, the National Innovation Agency, and the Thai HealthTech ecosystem.", "เราออกแบบให้สอดคล้องกับวาระสุขภาพดิจิทัลของกระทรวงสาธารณสุข สำนักงานหลักประกันสุขภาพแห่งชาติ (NHSO) แนวทาง Software as a Medical Device ของ อย. สำนักงานนวัตกรรมแห่งชาติ (NIA) และระบบนิเวศ HealthTech ไทย") + '</p>')
 
     consulting = f"""

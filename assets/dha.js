@@ -27,7 +27,7 @@
   var storedLang = null;
   try { storedLang = localStorage.getItem("dha-lang"); } catch (e) {}
   if (!storedLang) {
-    storedLang = (navigator.language || "").toLowerCase().indexOf("th") === 0 ? "th" : "en";
+    storedLang = "th"; // Thai-first
   }
   root.setAttribute("data-lang", storedLang);
   root.setAttribute("lang", storedLang);
@@ -106,6 +106,49 @@
       } else {
         msg.textContent = "That access code was not recognised. Check with your programme lead.";
         input.focus();
+      }
+    });
+  }
+
+  /* ---- Role-based sign in -------------------------------------------- */
+  var ROLES = {
+    student: { code: "RAMA-STUDENT", grant: "academy",     dest: "academy/learn/index.html" },
+    faculty: { code: "RAMA-FACULTY", grant: "academy",     dest: "academy/learn/index.html" },
+    fellow:  { code: "RAMA-FELLOW",  grant: "fellowship",  dest: "fellowship/portal/index.html" },
+    partner: { code: "RAMA-PARTNER", grant: "partner",     dest: "platform.html" },
+    admin:   { code: "RAMA-ADMIN",   grant: "admin",       dest: "admin.html" }
+  };
+  var signinEl = document.querySelector("[data-signin]");
+  if (signinEl) {
+    var chosen = null;
+    var formEl = signinEl.querySelector(".signin-form");
+    var inputEl = signinEl.querySelector("input");
+    var msgEl = signinEl.querySelector(".gate__msg");
+    signinEl.querySelectorAll(".role").forEach(function (b) {
+      b.addEventListener("click", function () {
+        signinEl.querySelectorAll(".role").forEach(function (x) { x.classList.remove("is-sel"); });
+        b.classList.add("is-sel");
+        chosen = b.getAttribute("data-role");
+        formEl.style.display = "block";
+        msgEl.textContent = "";
+        inputEl.focus();
+      });
+    });
+    formEl.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!chosen) return;
+      var r = ROLES[chosen];
+      var code = (inputEl.value || "").trim().toUpperCase();
+      var th = root.getAttribute("data-lang") === "th";
+      if (code === r.code) {
+        try {
+          localStorage.setItem("dha-access-" + r.grant, "1");
+          localStorage.setItem("dha-role", chosen);
+        } catch (e2) {}
+        window.location.assign(r.dest);
+      } else {
+        msgEl.textContent = th ? "รหัสไม่ถูกต้อง ลองอีกครั้งหรือติดต่อผู้ดูแลโปรแกรม" : "That code was not recognised. Check with your programme lead.";
+        inputEl.focus();
       }
     });
   }

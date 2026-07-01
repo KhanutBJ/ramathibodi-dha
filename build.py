@@ -71,6 +71,11 @@ ICON = {
     "sun": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>',
     "menu": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="22" height="22"><path d="M3 6h18M3 12h18M3 18h18"/></svg>',
     "lock": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+    "x": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.1 8.1L23 22h-6.6l-5.2-6.8L5.3 22H2.2l7.6-8.7L1.5 2h6.8l4.7 6.2zm-1.1 18h1.8L7.3 3.9H5.4z"/></svg>',
+    "linkedin": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.4 8.65 22 10.7 22 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3s-2.3 1.57-2.3 3.2V21H9z"/></svg>',
+    "facebook": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.75-1.6 1.5V12h2.7l-.43 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>',
+    "github": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.5c.5.1.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.9.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.66.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.59.69.48A10 10 0 0 0 12 2z"/></svg>',
+    "youtube": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.43-5a2.5 2.5 0 0 0-1.77-1.77C19.2 4.8 12 4.8 12 4.8s-7.2 0-8.8.43A2.5 2.5 0 0 0 1.43 7C1 8.6 1 12 1 12s0 3.4.43 5a2.5 2.5 0 0 0 1.77 1.77C4.8 19.2 12 19.2 12 19.2s7.2 0 8.8-.43A2.5 2.5 0 0 0 22.57 17c.43-1.6.43-5 .43-5zM9.8 15.3V8.7l5.7 3.3z"/></svg>',
 }
 
 # ----------------------------------------------------------------------------
@@ -106,7 +111,7 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="{prefix}assets/dha.css"/>
-<script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('dha-lang')||((navigator.language||'').toLowerCase().indexOf('th')===0?'th':'en');document.documentElement.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l);}}catch(e){{}}}})();</script>
+<script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('dha-lang')||'th';document.documentElement.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l);}}catch(e){{}}}})();</script>
 </head>
 <body{(' ' + body_attr) if body_attr else ''}>
 <header class="nav">
@@ -125,6 +130,7 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle colour theme">
         <span class="sun">{ICON['sun']}</span><span class="moon">{ICON['moon']}</span>
       </button>
+      <a class="nav__signin" href="{prefix}signin.html">{bi('Sign in', 'เข้าสู่ระบบ')}</a>
       <a class="btn btn--primary" href="{prefix}contact.html" style="padding:.6rem 1.1rem">{bi('Contact', 'ติดต่อ')}</a>
       <button class="nav__burger" data-burger aria-label="Open menu">{ICON['menu']}</button>
     </div>
@@ -132,6 +138,7 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 </header>
 <div class="mobile-menu">
   {mobile_links(prefix)}
+  <a href="{prefix}signin.html">{bi('Sign in', 'เข้าสู่ระบบ')}</a>
   <a href="{prefix}contact.html">{bi('Contact', 'ติดต่อเรา')}</a>
 </div>
 <main id="top">
@@ -144,31 +151,66 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 
 def footer(prefix):
     cols = [
-        (("Club", "คลับ"), [(("Who We Are", "เกี่ยวกับเรา"), "who-we-are.html"), (("What We Do", "สิ่งที่เราทำ"), "what-we-do.html"),
-                  (("Careers", "ร่วมงานกับเรา"), "careers.html"), (("Contact", "ติดต่อ"), "contact.html")]),
-        (("Programmes", "โปรแกรม"), [(("Academy", "อคาเดมี"), "academy.html"), (("Fellowship", "เฟลโลว์ชิป"), "fellowship.html"),
-                        (("Publications", "ผลงานตีพิมพ์"), "fellowship/publications.html"), (("Stories", "เรื่องราว"), "fellowship/stories.html")]),
-        (("Resources", "แหล่งข้อมูล"), [(("Insights", "บทความ"), "insights/index.html"), (("News", "ข่าวสาร"), "news/index.html"),
-                       (("FAQ", "คำถามที่พบบ่อย"), "fellowship/faq.html")]),
+        (("Main Menu", "เมนูหลัก"), [
+            (("Who We Are", "เกี่ยวกับเรา"), "who-we-are.html"),
+            (("What We Do", "สิ่งที่เราทำ"), "what-we-do.html"),
+            (("Academy", "อคาเดมี"), "academy.html"),
+            (("Platform", "แพลตฟอร์ม"), "platform.html"),
+            (("Fellowship", "เฟลโลว์ชิป"), "fellowship.html"),
+            (("Sign in", "เข้าสู่ระบบ"), "signin.html"),
+        ]),
+        (("Resources", "แหล่งข้อมูล"), [
+            (("Insights", "บทความ"), "insights/index.html"),
+            (("News", "ข่าวสาร"), "news/index.html"),
+            (("Publications", "ผลงานตีพิมพ์"), "fellowship/publications.html"),
+            (("Stories", "เรื่องราว"), "fellowship/stories.html"),
+            (("FAQ", "คำถามที่พบบ่อย"), "fellowship/faq.html"),
+        ]),
+        (("Connect", "ติดต่อและร่วมงาน"), [
+            (("Contact", "ติดต่อเรา"), "contact.html"),
+            (("Careers", "ร่วมงานกับเรา"), "careers.html"),
+            (("Partner with us", "เป็นพันธมิตร"), "contact.html"),
+            (("Code of Conduct", "จรรยาบรรณ"), "about/conduct.html"),
+            (("Privacy (PDPA)", "ความเป็นส่วนตัว PDPA"), "about/privacy.html"),
+        ]),
     ]
     col_html = ""
     for (h_en, h_th), links in cols:
         items = "".join(f'<li><a href="{prefix}{href}">{bi(l_en, l_th)}</a></li>' for (l_en, l_th), href in links)
         col_html += f'<div><h4>{bi(h_en, h_th)}</h4><ul>{items}</ul></div>'
+
+    socials = "".join(
+        f'<a class="social" href="{url}" target="_blank" rel="noopener" aria-label="{name}">{ICON[ic]}</a>'
+        for ic, name, url in [
+            ("x", "X", "#"), ("linkedin", "LinkedIn", "#"), ("facebook", "Facebook", "#"),
+            ("github", "GitHub", "#"), ("youtube", "YouTube", "#"),
+        ])
+
+    newsletter = f"""
+      <div class="footer__news">
+        <h4>{bi("Stay up to date", "ติดตามข่าวสาร")}</h4>
+        <form class="news-form" onsubmit="event.preventDefault();this.querySelector('.news-msg').textContent=(document.documentElement.getAttribute('data-lang')==='th'?'ขอบคุณครับ ระบบสาธิต เชื่อมต่ออีเมลจริงก่อนเปิดใช้':'Thanks. Demo form, wire it to a real list before launch.');">
+          <input type="email" required placeholder="{bi('', '')}" aria-label="Email"/>
+          <button class="btn btn--grad" type="submit">{bi("Subscribe", "สมัคร")}</button>
+        </form>
+        <div class="news-msg muted" style="font-size:.8rem;min-height:1em;margin-top:.5rem"></div>
+        <div class="socials">{socials}</div>
+      </div>"""
+
     return f"""<footer class="footer">
   <div class="container">
-    <div class="footer__grid">
+    <div class="footer__grid footer__grid--rich">
       <div class="footer__brand">
         <img class="light-only" src="{prefix}assets/dha-logo-light.png" alt="{esc(SITE['name'])}"/>
         <img class="dark-only" src="{prefix}assets/dha-logo-dark.png" alt="{esc(SITE['name'])}" style="display:none"/>
-        <p>{bi(esc(SITE['tagline']), 'ผู้บุกเบิกการผสานปัญญาประดิษฐ์กับการแพทย์ เพื่อสุขภาพที่ดีกว่า')}</p>
-        <p class="muted" style="font-size:.82rem">{esc(SITE['org_en'])}<br/>{esc(SITE['org_th'])}</p>
+        <p>{bi('The Ramathibodi Digital Health and AI Club trains the next generation of Thailand&#39;s medical AI builders, inside the Faculty of Medicine Ramathibodi Hospital, Mahidol University.', 'ชมรมสุขภาพดิจิทัลและปัญญาประดิษฐ์รามาธิบดี บ่มเพาะคนรุ่นใหม่ผู้สร้าง AI ทางการแพทย์ของไทย ภายใต้คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล')}</p>
       </div>
       {col_html}
+      {newsletter}
     </div>
     <div class="footer__bottom">
       <span>© {YEAR} {esc(SITE['name'])}</span>
-      <span>{bi("Built in Bangkok for Thailand's health system.", "สร้างในกรุงเทพ เพื่อระบบสุขภาพของไทย")}</span>
+      <span>{bi("Built in Bangkok for Thailand&#39;s health system.", "สร้างในกรุงเทพ เพื่อระบบสุขภาพของไทย")}</span>
     </div>
   </div>
 </footer>"""

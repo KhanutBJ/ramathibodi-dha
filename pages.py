@@ -59,16 +59,16 @@ def home(prefix, ctx):
   <div class="hero__glow"></div>
   <div class="container">
     <span class="eyebrow reveal">Ramathibodi Digital Health &amp; AI Club</span>
-    <h1 class="reveal" data-d="1">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</h1>
-    <p class="lead reveal measure" data-d="2">A club, an academy, and a fellowship built inside one of Thailand's leading medical schools. We turn clinicians, engineers, and scientists into builders who can take medical AI from idea to patient care, safely.</p>
+    <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>
+    <p class="lead reveal measure" data-d="2">{bi("A club, an academy, and a fellowship built inside one of Thailand's leading medical schools. We turn clinicians, engineers, and scientists into builders who can take medical AI from idea to patient care, safely.", "คลับ อคาเดมี และเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย เราเปลี่ยนแพทย์ วิศวกร และนักวิทยาศาสตร์ ให้เป็นผู้สร้างที่นำ AI ทางการแพทย์จากไอเดียไปสู่การดูแลผู้ป่วยได้จริงอย่างปลอดภัย")}</p>
     <div class="btn-row reveal" data-d="3">
-      <a class="btn btn--grad btn--lg" href="{prefix}academy.html">Explore the Academy {I['arrow']}</a>
-      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">Apply for the Fellowship</a>
+      <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Explore the Academy", "สำรวจอคาเดมี")} {I['arrow']}</a>
+      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Apply for the Fellowship", "สมัครเฟลโลว์ชิป")}</a>
     </div>
     <div class="hero__meta">
-      {ctx['stat']('<span class="gradient-text">AI + Medicine</span>', 'One discipline, taught as one')}
-      {ctx['stat']('Idea to bedside', 'Build under clinical supervision')}
-      {ctx['stat']('Open + selective', 'Academy for all, Fellowship for few')}
+      {ctx['stat']('<span class="gradient-text">AI + Medicine</span>', bi('One discipline, taught as one', 'สองศาสตร์ สอนเป็นหนึ่งเดียว'))}
+      {ctx['stat'](bi('Idea to bedside', 'ไอเดียสู่ข้างเตียง'), bi('Build under clinical supervision', 'สร้างงานภายใต้การกำกับทางคลินิก'))}
+      {ctx['stat'](bi('Open + selective', 'เปิดกว้าง + คัดสรร'), bi('Academy for all, Fellowship for few', 'อคาเดมีเพื่อทุกคน เฟลโลว์ชิปเพื่อคนที่ใช่'))}
     </div>
   </div>
 </section>"""
@@ -86,13 +86,13 @@ def home(prefix, ctx):
         '</div></div>', "section section--tight")
 
     what = sec(
-        head("What we do", "Four parts, one pipeline.",
-             "Most programmes teach theory and stop. We carry a person all the way from first principles to a working clinical product, then help the strongest ideas become real.") +
+        head(bi("What we do", "สิ่งที่เราทำ"), bi("Four parts, one pipeline.", "สี่ส่วน หนึ่งเส้นทาง"),
+             bi("Most programmes teach theory and stop. We carry a person all the way from first principles to a working clinical product, then help the strongest ideas become real.", "หลักสูตรส่วนใหญ่สอนทฤษฎีแล้วจบ เราพาคนคนหนึ่งไปตลอดทาง ตั้งแต่พื้นฐานจนถึงผลิตภัณฑ์ทางคลินิกที่ใช้ได้จริง แล้วช่วยให้ไอเดียที่ดีที่สุดเกิดขึ้นจริง")) +
         '<div class="grid grid-2">' +
-        ctx['card']('brain', 'Academy', 'An open curriculum in AI and digital health, from foundations to clinical deployment. Free to learn, practical from day one.', 'academy.html', 'Start learning', prefix, 1) +
-        ctx['card']('flask', 'Fellowship', 'A selective, in-residence year. Fellows work on real clinical problems with Ramathibodi data, faculty, and patients.', 'fellowship.html', 'See the Fellowship', prefix, 2) +
-        ctx['card']('rocket', 'Venture Studio', 'We help the best fellowship work become deployable products, with engineering, regulatory, and go-to-market support.', 'what-we-do.html', 'How it works', prefix, 1) +
-        ctx['card']('compass', 'Consulting', 'We advise hospitals and agencies building their own AI capability, so the workforce we train has somewhere to land.', 'what-we-do.html', 'Work with us', prefix, 2) +
+        ctx['card']('brain', bi('Academy', 'อคาเดมี'), bi('An open curriculum in AI and digital health, from foundations to clinical deployment. Free to learn, practical from day one.', 'หลักสูตรเปิดด้าน AI และสุขภาพดิจิทัล ตั้งแต่พื้นฐานจนถึงการนำไปใช้ในคลินิก เรียนฟรี ลงมือทำได้ตั้งแต่วันแรก'), 'academy.html', bi('Start learning', 'เริ่มเรียน'), prefix, 1) +
+        ctx['card']('flask', bi('Fellowship', 'เฟลโลว์ชิป'), bi('A selective, in-residence year. Fellows work on real clinical problems with Ramathibodi data, faculty, and patients.', 'หนึ่งปีแบบคัดสรรและประจำในสถานที่ เฟลโลว์ทำงานกับโจทย์คลินิกจริง ด้วยข้อมูล อาจารย์ และผู้ป่วยของรามาธิบดี'), 'fellowship.html', bi('See the Fellowship', 'ดูเฟลโลว์ชิป'), prefix, 2) +
+        ctx['card']('rocket', bi('Venture Studio', 'เวนเจอร์สตูดิโอ'), bi('We help the best fellowship work become deployable products, with engineering, regulatory, and go-to-market support.', 'เราช่วยให้ผลงานเฟลโลว์ชิปที่ดีที่สุดกลายเป็นผลิตภัณฑ์ที่ใช้งานได้จริง ด้วยการสนับสนุนด้านวิศวกรรม กฎระเบียบ และการออกสู่ตลาด'), 'what-we-do.html', bi('How it works', 'ทำงานอย่างไร'), prefix, 1) +
+        ctx['card']('compass', bi('Consulting', 'ที่ปรึกษานวัตกรรม'), bi('We advise hospitals and agencies building their own AI capability, so the workforce we train has somewhere to land.', 'เราให้คำปรึกษาแก่โรงพยาบาลและหน่วยงานที่กำลังสร้างขีดความสามารถด้าน AI ของตนเอง เพื่อให้คนที่เราฝึกมีที่ไปที่แข็งแรง'), 'what-we-do.html', bi('Work with us', 'ร่วมงานกับเรา'), prefix, 2) +
         '</div>')
 
     why = f"""
@@ -159,12 +159,12 @@ def home(prefix, ctx):
     cta = f"""
 <section class="section">
   <div class="container center stack reveal">
-    <span class="eyebrow" style="justify-content:center">Join us</span>
-    <h2 class="measure" style="margin-inline:auto">Two doors in. One mission.</h2>
-    <p class="lead measure" style="margin-inline:auto">Learn the craft in the Academy. Prove it in the Fellowship. Either way, you leave able to build medical AI that a hospital will actually use.</p>
+    <span class="eyebrow" style="justify-content:center">{bi("Join us", "มาร่วมกับเรา")}</span>
+    <h2 class="measure" style="margin-inline:auto">{bi("Two doors in. One mission.", "สองประตูเข้า หนึ่งภารกิจ")}</h2>
+    <p class="lead measure" style="margin-inline:auto">{bi("Learn the craft in the Academy. Prove it in the Fellowship. Either way, you leave able to build medical AI that a hospital will actually use.", "เรียนวิชาชีพในอคาเดมี พิสูจน์ตัวเองในเฟลโลว์ชิป ไม่ว่าทางไหน คุณจะจากไปพร้อมความสามารถในการสร้าง AI ทางการแพทย์ที่โรงพยาบาลใช้ได้จริง")}</p>
     <div class="btn-row" style="justify-content:center">
-      <a class="btn btn--grad btn--lg" href="{prefix}academy.html">Enter the Academy {I['arrow']}</a>
-      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">Apply for the Fellowship</a>
+      <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Enter the Academy", "เข้าสู่อคาเดมี")} {I['arrow']}</a>
+      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Apply for the Fellowship", "สมัครเฟลโลว์ชิป")}</a>
     </div>
   </div>
 </section>"""
@@ -817,6 +817,98 @@ def task_row(tag, title, desc):
 # ===========================================================================
 # GATE + PORTAL
 # ===========================================================================
+def signin(prefix, ctx):
+    I = ctx["ICON"]
+    roles = [
+        ("student", I["brain"], bi("Ramathibodi Student", "นักศึกษารามาธิบดี"),
+         bi("Learn the full Academy curriculum.", "เรียนหลักสูตรอคาเดมีทั้งหมด")),
+        ("faculty", I["users"], bi("Ramathibodi Faculty", "อาจารย์และบุคลากรรามาธิบดี"),
+         bi("Teach, mentor, and post problems.", "สอน เป็นเมนเทอร์ และโพสต์โจทย์")),
+        ("fellow", I["flask"], bi("Fellow", "เฟลโลว์"),
+         bi("Enter the Fellowship portal.", "เข้าสู่พอร์ทัลเฟลโลว์ชิป")),
+        ("partner", I["node"], bi("Partner", "พันธมิตร"),
+         bi("Hospitals, agencies, and companies.", "โรงพยาบาล หน่วยงาน และบริษัท")),
+        ("admin", I["shield"], bi("Admin", "ผู้ดูแลระบบ"),
+         bi("Manage the club and the platform.", "ดูแลคลับและแพลตฟอร์ม")),
+    ]
+    cards = ""
+    for rid, icon, label, desc in roles:
+        cards += (f'<button type="button" class="role" data-role="{rid}">'
+                  f'<span class="role__ic">{icon}</span>'
+                  f'<span class="role__t">{label}</span>'
+                  f'<span class="role__d">{desc}</span></button>')
+    return f"""
+<section class="gate" data-signin>
+  <div class="gate__card" style="max-width:560px">
+    <span class="eyebrow">{bi("Sign in", "เข้าสู่ระบบ")}</span>
+    <h2 class="mt2">{bi("Welcome. Who are you?", "ยินดีต้อนรับ คุณคือใคร")}</h2>
+    <p class="muted mt2" style="font-size:.92rem">{bi("Choose your role, then enter your access code.", "เลือกบทบาทของคุณ แล้วกรอกรหัสเข้าใช้งาน")}</p>
+    <div class="role-grid mt3">{cards}</div>
+    <form class="signin-form" style="margin-top:1.2rem;display:none">
+      <div class="field"><label>{bi("Access code", "รหัสเข้าใช้งาน")}</label>
+        <input type="password" autocomplete="off" placeholder="{bi('Enter your code', 'กรอกรหัสของคุณ')}"/></div>
+      <div class="gate__msg"></div>
+      <div class="btn-row mt3"><button class="btn btn--grad btn--lg" type="submit" style="width:100%;justify-content:center">{bi("Enter", "เข้าสู่ระบบ")}</button></div>
+    </form>
+    <p class="gate__hint mt3">{bi("Codes are issued by your programme lead. Do not have one?", "รหัสออกให้โดยผู้ดูแลโปรแกรมของคุณ ยังไม่มีรหัส?")} <a href="{prefix}contact.html" style="color:var(--accent)">{bi("Contact us", "ติดต่อเรา")}</a>.</p>
+  </div>
+</section>"""
+
+def admin_page(prefix, ctx):
+    return f"""
+<section class="section">
+  <div class="container" data-guard="admin" data-guard-gate="signin.html">
+    <span class="eyebrow reveal">{bi("Admin", "ผู้ดูแลระบบ")}</span>
+    <h1 class="reveal mt3" data-d="1" style="max-width:16ch">{bi("Club control room.", "ห้องควบคุมคลับ")}</h1>
+    <p class="lead reveal measure" data-d="2">{bi("A private overview for club administrators. Members, cohorts, datasets, and the task board live here once the Supabase backend is connected.", "ภาพรวมส่วนตัวสำหรับผู้ดูแลคลับ สมาชิก รุ่น ชุดข้อมูล และกระดานโจทย์จะอยู่ที่นี่เมื่อเชื่อมต่อระบบหลังบ้าน Supabase แล้ว")}</p>
+    <div class="grid grid-3 mt5">
+      <div class="card reveal"><h3>{bi("Members", "สมาชิก")}</h3><p>{bi("Students, faculty, fellows, and partners.", "นักศึกษา อาจารย์ เฟลโลว์ และพันธมิตร")}</p></div>
+      <div class="card reveal" data-d="1"><h3>{bi("Cohorts", "รุ่น")}</h3><p>{bi("Academy and Fellowship intakes.", "การรับเข้าอคาเดมีและเฟลโลว์ชิป")}</p></div>
+      <div class="card reveal" data-d="2"><h3>{bi("Platform", "แพลตฟอร์ม")}</h3><p>{bi("Datasets, tasks, and matching.", "ชุดข้อมูล โจทย์ และการจับคู่")}</p></div>
+    </div>
+    <div class="btn-row mt5"><a class="btn btn--ghost" href="{prefix}index.html" data-signout="admin">{bi("Sign out", "ออกจากระบบ")}</a></div>
+  </div>
+</section>"""
+
+def legal_page(title_en, title_th, lead_en, lead_th, sections):
+    def fn(prefix, ctx):
+        secs = ""
+        for (h_en, h_th), (b_en, b_th) in sections:
+            secs += f'<h2 class="mt5">{bi(h_en, h_th)}</h2><p class="mt2">{bi(b_en, b_th)}</p>'
+        return f"""
+<section class="section">
+  <div class="container">
+    <div style="max-width:70ch">
+      <span class="eyebrow reveal">{bi(title_en, title_th)}</span>
+      <h1 class="reveal mt3" data-d="1">{bi(title_en, title_th)}</h1>
+      <p class="lead reveal mt3">{bi(lead_en, lead_th)}</p>
+      <div class="prose reveal mt4">{secs}</div>
+    </div>
+  </div>
+</section>"""
+    return fn
+
+conduct_page = legal_page(
+    "Code of Conduct", "จรรยาบรรณ",
+    "We are a community of clinicians, engineers, and students. We treat each other, and patient data, with respect.",
+    "เราคือชุมชนของแพทย์ วิศวกร และนักศึกษา เราปฏิบัติต่อกันและต่อข้อมูลผู้ป่วยด้วยความเคารพ",
+    [
+        (("Respect", "ความเคารพ"), ("Be kind, be direct, assume good faith. Harassment or discrimination of any kind is not tolerated.", "มีน้ำใจ ตรงไปตรงมา และเชื่อในเจตนาดีของกันและกัน เราไม่ยอมรับการคุกคามหรือการเลือกปฏิบัติทุกรูปแบบ")),
+        (("Patient first", "ผู้ป่วยมาก่อน"), ("Everything we build serves patient care. Safety and dignity come before novelty.", "ทุกสิ่งที่เราสร้างมีไว้เพื่อการดูแลผู้ป่วย ความปลอดภัยและศักดิ์ศรีมาก่อนความแปลกใหม่")),
+        (("Data with care", "ดูแลข้อมูล"), ("Handle clinical data lawfully and minimally, under supervision, always with a PDPA basis.", "จัดการข้อมูลคลินิกอย่างถูกกฎหมายและเท่าที่จำเป็น ภายใต้การกำกับ และมีฐานตาม PDPA เสมอ")),
+        (("Report", "แจ้งเหตุ"), ("If something is wrong, tell a programme lead. We will listen.", "หากมีสิ่งใดผิดปกติ แจ้งผู้ดูแลโปรแกรม เราพร้อมรับฟัง")),
+    ])
+
+privacy_page = legal_page(
+    "Privacy (PDPA)", "ความเป็นส่วนตัว (PDPA)",
+    "How we handle personal data, in line with Thailand's Personal Data Protection Act.",
+    "เราจัดการข้อมูลส่วนบุคคลอย่างไร ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคลของไทย",
+    [
+        (("What we collect", "เราเก็บอะไร"), ("Only what a task needs: your contact details when you enrol or apply, and site analytics. We do not collect patient data through this website.", "เฉพาะสิ่งที่จำเป็นต่องาน ได้แก่ ข้อมูลติดต่อเมื่อคุณสมัคร และสถิติการใช้งานเว็บไซต์ เราไม่เก็บข้อมูลผู้ป่วยผ่านเว็บไซต์นี้")),
+        (("Your rights", "สิทธิของคุณ"), ("Under PDPA you may access, correct, or ask us to delete your personal data. Contact us to exercise these rights.", "ภายใต้ PDPA คุณมีสิทธิเข้าถึง แก้ไข หรือขอให้ลบข้อมูลส่วนบุคคลของคุณ ติดต่อเราเพื่อใช้สิทธิเหล่านี้")),
+        (("Clinical data", "ข้อมูลคลินิก"), ("Clinical and research data are governed separately, under supervised access and a specific lawful basis, never through this public site.", "ข้อมูลคลินิกและการวิจัยถูกกำกับแยกต่างหาก ภายใต้การเข้าถึงที่มีการกำกับและฐานทางกฎหมายเฉพาะ ไม่ผ่านเว็บไซต์สาธารณะนี้")),
+    ])
+
 def gate_body(prefix, scope, target, eyebrow, headline, hint):
     return f"""
 <section class="gate" data-gate="{scope}" data-gate-target="{target}">
@@ -870,6 +962,10 @@ MARKETING = [
     ("news/index.html", "News - DHA Club", "insights/index.html", news_index),
     ("careers.html", "Careers - DHA Club", "careers.html", careers),
     ("contact.html", "Contact - DHA Club", "", contact),
+    ("signin.html", "Sign in - DHA Club", "", signin),
+    ("admin.html", "Admin - DHA Club", "", admin_page),
+    ("about/conduct.html", "Code of Conduct - DHA Club", "", conduct_page),
+    ("about/privacy.html", "Privacy - DHA Club", "", privacy_page),
 ]
 for _slug in INSIGHT_ARTICLES:
     MARKETING.append((f"insights/{_slug}.html", f"{INSIGHT_ARTICLES[_slug][1]} - Insights",

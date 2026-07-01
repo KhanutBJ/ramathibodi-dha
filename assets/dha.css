@@ -898,3 +898,20 @@ strong { color: var(--ink); font-weight: 600; }
 .fo-node { fill: var(--card); stroke: currentColor; stroke-width: 2; opacity: .55; }
 .fo-lab { font-family: var(--font-mono); font-size: 13px; fill: var(--ink-soft); letter-spacing: .02em; }
 [data-lang="th"] .fo-lab { font-family: "Noto Sans Thai", sans-serif; }
+
+/* Platform ecosystem motif: a builder at the centre, six stations on spokes. */
+.pe-spoke { stroke: currentColor; stroke-width: 1.6; opacity: .28; }
+.pe-node { fill: var(--card); stroke: var(--accent); stroke-width: 2; opacity: .85; }
+.pe-lab { font-family: var(--font-mono); font-size: 12.5px; font-weight: 500; fill: var(--ink); letter-spacing: .01em; }
+.pe-cap { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-faint); }
+.pe-center { font-family: var(--font-display); font-weight: 700; font-size: 13px; fill: #fff; }
+[data-lang="th"] .pe-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 13px; }
+[data-lang="th"] .pe-cap { font-family: "Noto Sans Thai", sans-serif; font-size: 11px; }
+[data-lang="th"] .pe-center { font-family: "Noto Sans Thai", sans-serif; }
+
+/* Tools funnel motif: raw reality narrowing to one routed answer. */
+.tf-band { opacity: .85; }
+.tf-lab { font-family: var(--font-display); font-weight: 700; font-size: 15px; fill: var(--ink); }
+.tf-cap { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-faint); }
+[data-lang="th"] .tf-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 14px; }
+[data-lang="th"] .tf-cap { font-family: "Noto Sans Thai", sans-serif; font-size: 11px; }

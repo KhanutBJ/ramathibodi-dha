@@ -160,23 +160,23 @@ def home(prefix, ctx):
       <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
         <div class="split">
           <div class="stack">
-            <span class="eyebrow" style="color:#cbd5ef">The model we learn from</span>
-            <h2>The craft of medical AI, taught like a craft.</h2>
-            <p>Accredited education like the AMA Ed Hub shows what rigorous, clinician-facing AI training looks like. We take that standard of care and pair it with a builder's studio, so people do not just understand medical AI, they make it.</p>
+            <span class="eyebrow" style="color:#cbd5ef">{bi("The standard we learn from", "มาตรฐานที่เรายึดถือ")}</span>
+            <h2>{bi("The craft of medical AI, taught like a craft.", "วิชาชีพ AI การแพทย์ สอนแบบวิชาชีพ")}</h2>
+            <p>{bi("Accredited education such as the AMA Ed Hub course on practical applications of AI in health care shows what rigorous, clinician-facing AI training looks like. We hold to that same standard of care, then pair it with a builder's studio, so people do not just understand medical AI, they make it.", "การศึกษาที่ได้รับการรับรอง เช่น คอร์สของ AMA Ed Hub ว่าด้วยการประยุกต์ใช้ AI ในการดูแลสุขภาพ แสดงให้เห็นว่าการฝึกอบรม AI ที่เข้มงวดสำหรับแพทย์ควรเป็นอย่างไร เรายึดมาตรฐานเดียวกันนี้ แล้วเสริมด้วยสตูดิโอของผู้สร้าง เพื่อให้คนไม่ได้แค่เข้าใจ AI การแพทย์ แต่ลงมือสร้างมันขึ้นมาเอง")}</p>
             <div class="btn-row">
-              <a class="btn btn--grad" href="{prefix}what-we-do.html">How we teach {I['arrow']}</a>
-              <a class="btn btn--ghost" href="{prefix}insights/index.html" style="color:#fff;border-color:rgba(255,255,255,.25)">Read Insights</a>
+              <a class="btn btn--grad" href="{prefix}what-we-do.html">{bi("How we teach", "เราสอนอย่างไร")} {I['arrow']}</a>
+              <a class="btn btn--ghost" href="{prefix}insights/index.html" style="color:#fff;border-color:rgba(255,255,255,.25)">{bi("Read Insights", "อ่านบทความ")}</a>
             </div>
           </div>
           <div class="grid" style="gap:1rem">
             <div style="display:flex;gap:2rem;flex-wrap:wrap">
-              {ctx['stat']('<span style="color:#fff">Governance first</span>', '<span style="color:#9fb0d4">Evaluation and safety from day one</span>')}
+              {ctx['stat']('<span style="color:#fff">'+bi("Governance first", "ธรรมาภิบาลมาก่อน")+'</span>', '<span style="color:#9fb0d4">'+bi("Evaluation and safety from day one", "ประเมินและปลอดภัยตั้งแต่วันแรก")+'</span>')}
             </div>
             <div style="display:flex;gap:2rem;flex-wrap:wrap">
-              {ctx['stat']('<span style="color:#fff">Real data</span>', '<span style="color:#9fb0d4">Clinical problems, supervised access</span>')}
+              {ctx['stat']('<span style="color:#fff">'+bi("Real data", "ข้อมูลจริง")+'</span>', '<span style="color:#9fb0d4">'+bi("Clinical problems, supervised access", "โจทย์คลินิกจริง เข้าถึงข้อมูลแบบมีการกำกับ")+'</span>')}
             </div>
             <div style="display:flex;gap:2rem;flex-wrap:wrap">
-              {ctx['stat']('<span style="color:#fff">Real deployment</span>', '<span style="color:#9fb0d4">Ship into the workflow, measure outcomes</span>')}
+              {ctx['stat']('<span style="color:#fff">'+bi("Real deployment", "นำไปใช้จริง")+'</span>', '<span style="color:#9fb0d4">'+bi("Ship into the workflow, measure outcomes", "ส่งเข้าสู่เวิร์กโฟลว์จริง วัดผลลัพธ์")+'</span>')}
             </div>
           </div>
         </div>
@@ -832,72 +832,72 @@ def fellowship_apply(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">Apply</span>
-  <h1 class="reveal" data-d="1" style="max-width:16ch">Tell us the problem you want to solve.</h1>
-  <p class="lead reveal measure" data-d="2">We select for judgement and drive more than for a perfect resume. If you can hold a clinical problem and a technical one at once, we want to read your application.</p>
+  <span class="eyebrow reveal">{bi("Apply", "สมัคร")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("Tell us the problem you want to solve.", "บอกเราว่าคุณอยากแก้โจทย์อะไร")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("We select for judgement and drive more than for a perfect resume. If you can hold a clinical problem and a technical one at once, we want to read your application.", "เราคัดเลือกจากวิจารณญาณและความมุ่งมั่น มากกว่าเรซูเม่ที่สมบูรณ์แบบ ถ้าคุณถือโจทย์คลินิกไว้มือหนึ่งและโจทย์เทคนิคไว้อีกมือหนึ่งได้ เราอยากอ่านใบสมัครของคุณ")}</p>
 </div></section>"""
     who = sec(
-        head("Who should apply", "Three kinds of people, one room.") +
+        head(bi("Who should apply", "ใครควรสมัคร"), bi("Three kinds of people, one room.", "สามแบบคน หนึ่งห้อง")) +
         '<div class="grid grid-3">' +
-        ctx['card']('pulse', 'Clinicians', 'Doctors, nurses, and allied health staff who see the problems daily and want to build the fix.', None, '', prefix) +
-        ctx['card']('node', 'Engineers and scientists', 'Software, data, and ML people who want their work to matter in a clinic.', None, '', prefix) +
-        ctx['card']('brain', 'Students', 'Advanced students from medicine, engineering, and data science ready for real responsibility.', None, '', prefix) +
+        ctx['card']('pulse', bi('Clinicians', 'บุคลากรทางการแพทย์'), bi('Doctors, nurses, and allied health staff who see the problems daily and want to build the fix.', 'แพทย์ พยาบาล และบุคลากรสายสุขภาพที่เห็นปัญหาทุกวัน และอยากลงมือสร้างทางแก้'), None, '', prefix) +
+        ctx['card']('node', bi('Engineers and scientists', 'วิศวกรและนักวิทยาศาสตร์'), bi('Software, data, and ML people who want their work to matter in a clinic.', 'คนสายซอฟต์แวร์ ข้อมูล และ ML ที่อยากให้งานของตัวเองมีความหมายในคลินิก'), None, '', prefix) +
+        ctx['card']('brain', bi('Students', 'นักศึกษา'), bi('Advanced students from medicine, engineering, and data science ready for real responsibility.', 'นักศึกษาชั้นสูงจากแพทยศาสตร์ วิศวกรรม และวิทยาศาสตร์ข้อมูล ที่พร้อมรับผิดชอบงานจริง'), None, '', prefix) +
         '</div>')
     how = sec(
-        head("How selection works", "Four steps, no theatre.") +
+        head(bi("How selection works", "การคัดเลือกทำงานอย่างไร"), bi("Four steps, no theatre.", "สี่ขั้นตอน ไม่มีพิธีรีตอง")) +
         '<div class="steps">' +
-        step("01", "Apply", "Send a short application and the problem you care about. No long forms.") +
-        step("02", "Conversation", "A focused conversation about your problem, your background, and fit.") +
-        step("03", "Scoping", "We shape your problem into a project with a mentor and a data plan.") +
-        step("04", "Cohort", "Join the cohort, get access, and start building under supervision.") +
+        step("01", bi("Apply", "สมัคร"), bi("Send a short application and the problem you care about. No long forms.", "ส่งใบสมัครสั้น ๆ พร้อมโจทย์ที่คุณสนใจ ไม่มีแบบฟอร์มยาวเยิ่นเย้อ")) +
+        step("02", bi("Conversation", "พูดคุย"), bi("A focused conversation about your problem, your background, and fit.", "บทสนทนาที่เจาะจงเรื่องโจทย์ของคุณ ประสบการณ์ และความเหมาะสม")) +
+        step("03", bi("Scoping", "กำหนดขอบเขต"), bi("We shape your problem into a project with a mentor and a data plan.", "เราช่วยปั้นโจทย์ของคุณให้เป็นโปรเจกต์ พร้อมเมนเทอร์และแผนข้อมูล")) +
+        step("04", bi("Cohort", "เข้ารุ่น"), bi("Join the cohort, get access, and start building under supervision.", "เข้าร่วมรุ่น ได้รับสิทธิ์เข้าถึง แล้วเริ่มสร้างภายใต้การกำกับดูแล")) +
         '</div>' +
-        f'<div class="btn-row mt5 reveal"><a class="btn btn--grad btn--lg" href="{prefix}contact.html">Start your application {I["arrow"]}</a><a class="btn btn--ghost btn--lg" href="{prefix}fellowship/faq.html">Read the FAQ</a></div>')
+        f'<div class="btn-row mt5 reveal"><a class="btn btn--grad btn--lg" href="{prefix}contact.html">{bi("Start your application", "เริ่มสมัคร")} {I["arrow"]}</a><a class="btn btn--ghost btn--lg" href="{prefix}fellowship/faq.html">{bi("Read the FAQ", "อ่านคำถามที่พบบ่อย")}</a></div>')
     return hero + who + how
 
 def fellowship_stories(prefix, ctx):
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">Stories</span>
-  <h1 class="reveal" data-d="1" style="max-width:16ch">The work, in the words of the people who built it.</h1>
-  <p class="lead reveal measure" data-d="2">Profiles of fellows and their projects will be published here as cohorts complete. The shape is always the same: a real problem, a hard build, a tool in use.</p>
+  <span class="eyebrow reveal">{bi("Stories", "เรื่องราว")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("The work, in the words of the people who built it.", "ผลงาน เล่าโดยคนที่สร้างมันขึ้นมา")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("Profiles of fellows and their projects will be published here as cohorts complete. The shape is always the same: a real problem, a hard build, a tool in use.", "โปรไฟล์ของเฟลโลว์และโปรเจกต์จะเผยแพร่ที่นี่เมื่อแต่ละรุ่นจบการศึกษา รูปแบบเดิมเสมอ โจทย์จริง การสร้างที่ยาก และเครื่องมือที่ใช้งานจริง")}</p>
 </div></section>"""
     grid = sec(
         '<div class="grid grid-3">' +
-        entry("Story", "From ward round to working model", "How a resident turned a daily frustration into a deployed risk tool. Coming soon.", prefix + "fellowship/stories.html", "a") +
-        entry("Story", "Reading scans, faster and safer", "An imaging fellow's path from dataset to a validated classifier. Coming soon.", prefix + "fellowship/stories.html", "b") +
-        entry("Story", "Making the data speak FHIR", "Building the interoperability layer a department had been missing. Coming soon.", prefix + "fellowship/stories.html", "c") +
+        entry(bi("Story", "เรื่องราว"), bi("From ward round to working model", "จากรอบหอผู้ป่วยสู่โมเดลที่ใช้งานได้"), bi("How a resident turned a daily frustration into a deployed risk tool. Coming soon.", "แพทย์ประจำบ้านคนหนึ่งเปลี่ยนความหงุดหงิดในทุกวันให้เป็นเครื่องมือประเมินความเสี่ยงที่ deploy จริง เร็ว ๆ นี้"), prefix + "fellowship/stories.html", "a") +
+        entry(bi("Story", "เรื่องราว"), bi("Reading scans, faster and safer", "อ่านภาพสแกน เร็วขึ้นและปลอดภัยขึ้น"), bi("An imaging fellow's path from dataset to a validated classifier. Coming soon.", "เส้นทางของเฟลโลว์สายภาพจากชุดข้อมูลสู่ classifier ที่ผ่านการตรวจสอบ เร็ว ๆ นี้"), prefix + "fellowship/stories.html", "b") +
+        entry(bi("Story", "เรื่องราว"), bi("Making the data speak FHIR", "ทำให้ข้อมูลพูดภาษา FHIR"), bi("Building the interoperability layer a department had been missing. Coming soon.", "สร้างชั้น interoperability ที่แผนกหนึ่งขาดหายไปนาน เร็ว ๆ นี้"), prefix + "fellowship/stories.html", "c") +
         '</div>')
     return hero + grid
 
 def fellowship_publications(prefix, ctx):
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">Publications</span>
-  <h1 class="reveal" data-d="1" style="max-width:16ch">What we learn, we publish.</h1>
-  <p class="lead reveal measure" data-d="2">Papers, technical reports, datasets, and open-source releases from the club and its fellows. We share methods and evidence so the whole Thai ecosystem moves faster.</p>
+  <span class="eyebrow reveal">{bi("Publications", "ผลงานตีพิมพ์")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("What we learn, we publish.", "สิ่งที่เราเรียนรู้ เราเผยแพร่")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("Papers, technical reports, datasets, and open-source releases from the club and its fellows. We share methods and evidence so the whole Thai ecosystem moves faster.", "บทความ รายงานเทคนิค ชุดข้อมูล และซอฟต์แวร์โอเพนซอร์สจากชมรมและเฟลโลว์ เราแบ่งปันวิธีการและหลักฐาน เพื่อให้ระบบนิเวศไทยทั้งหมดก้าวไปเร็วขึ้น")}</p>
 </div></section>"""
     rows = sec(
         '<div class="rows">' +
-        row("2026", "Evaluation practices for clinical AI in Thai hospitals", "A practical framework for honest evaluation before deployment. In preparation.") +
-        row("2026", "FHIR adoption patterns in Thai EMR systems", "What we found building on real hospital data. In preparation.") +
-        row("Open", "DHA teaching notebooks", "The Academy's hands-on notebooks, released openly for educators.") +
+        row("2026", bi("Evaluation practices for clinical AI in Thai hospitals", "แนวปฏิบัติการประเมิน AI ทางคลินิกในโรงพยาบาลไทย"), bi("A practical framework for honest evaluation before deployment. In preparation.", "กรอบการทำงานเชิงปฏิบัติสำหรับการประเมินอย่างตรงไปตรงมาก่อนนำไปใช้จริง กำลังจัดทำ")) +
+        row("2026", bi("FHIR adoption patterns in Thai EMR systems", "รูปแบบการใช้ FHIR ในระบบ EMR ของไทย"), bi("What we found building on real hospital data. In preparation.", "สิ่งที่เราพบจากการสร้างงานบนข้อมูลโรงพยาบาลจริง กำลังจัดทำ")) +
+        row("Open", bi("DHA teaching notebooks", "Notebook การสอนของ DHA"), bi("The Academy's hands-on notebooks, released openly for educators.", "Notebook ภาคปฏิบัติของอคาเดมี เผยแพร่แบบเปิดสำหรับผู้สอน")) +
         '</div>')
     return hero + rows
 
 def fellowship_faq(prefix, ctx):
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">FAQ</span>
-  <h1 class="reveal" data-d="1" style="max-width:16ch">Questions, answered plainly.</h1>
+  <span class="eyebrow reveal">{bi("FAQ", "คำถามที่พบบ่อย")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:16ch">{bi("Questions, answered plainly.", "คำถาม ตอบตรง ๆ")}</h1>
 </div></section>"""
     qa = [
-        ("Who can apply to the Fellowship?", "Clinicians, engineers, scientists, and advanced students based in Thailand or able to be in residence at Ramathibodi. You do not need to be from Ramathibodi to apply."),
-        ("Do I need to be a strong programmer?", "You need to be able to learn fast and build. The Academy gives you the foundations. Clinicians without a coding background have a pathway in."),
-        ("How long is the Fellowship?", "It runs as a cohort across roughly a year, ending in a deployed, evaluated project. Exact dates are published each intake."),
-        ("Is it full time?", "It is designed for serious commitment. We work with clinical schedules where we can, but the build is real and takes real hours."),
-        ("Is there funding?", "Funding and support vary by cohort and partner. Details are shared during the conversation stage so there are no surprises."),
-        ("What is the difference between the Academy and the Fellowship?", "The Academy is open and teaches the craft. The Fellowship is selective and is where you prove it on a real clinical problem with data and mentorship."),
-        ("Who owns what I build?", "Arrangements are set out clearly before you start, balancing your credit, patient safety, and the institution's responsibilities. Nothing is hidden."),
+        (bi("Who can apply to the Fellowship?", "ใครสมัครเฟลโลว์ชิปได้บ้าง"), bi("Clinicians, engineers, scientists, and advanced students based in Thailand or able to be in residence at Ramathibodi. You do not need to be from Ramathibodi to apply.", "บุคลากรทางการแพทย์ วิศวกร นักวิทยาศาสตร์ และนักศึกษาชั้นสูงที่อยู่ในไทยหรือสามารถประจำที่รามาธิบดีได้ คุณไม่จำเป็นต้องมาจากรามาธิบดีเพื่อสมัคร")),
+        (bi("Do I need to be a strong programmer?", "ต้องเขียนโปรแกรมเก่งไหม"), bi("You need to be able to learn fast and build. The Academy gives you the foundations. Clinicians without a coding background have a pathway in.", "คุณแค่ต้องเรียนรู้เร็วและลงมือสร้างได้ อคาเดมีให้พื้นฐานกับคุณ บุคลากรทางการแพทย์ที่ไม่มีพื้นโค้ดก็มีเส้นทางเข้ามาได้")),
+        (bi("How long is the Fellowship?", "เฟลโลว์ชิปใช้เวลานานแค่ไหน"), bi("It runs as a cohort across roughly a year, ending in a deployed, evaluated project. Exact dates are published each intake.", "รันเป็นรุ่น ระยะเวลาประมาณหนึ่งปี จบด้วยโปรเจกต์ที่ deploy และประเมินแล้ว วันที่แน่นอนประกาศในแต่ละรอบรับสมัคร")),
+        (bi("Is it full time?", "ต้องทำเต็มเวลาไหม"), bi("It is designed for serious commitment. We work with clinical schedules where we can, but the build is real and takes real hours.", "ออกแบบมาให้ต้องทุ่มเทจริงจัง เราปรับให้เข้ากับตารางคลินิกเท่าที่ทำได้ แต่งานสร้างเป็นเรื่องจริงที่ต้องใช้เวลาจริง")),
+        (bi("Is there funding?", "มีทุนสนับสนุนไหม"), bi("Funding and support vary by cohort and partner. Details are shared during the conversation stage so there are no surprises.", "ทุนและการสนับสนุนแตกต่างกันไปตามรุ่นและพันธมิตร รายละเอียดจะแจ้งในขั้นตอนพูดคุย เพื่อไม่ให้มีเรื่องเซอร์ไพรส์")),
+        (bi("What is the difference between the Academy and the Fellowship?", "อคาเดมีกับเฟลโลว์ชิปต่างกันอย่างไร"), bi("The Academy is open and teaches the craft. The Fellowship is selective and is where you prove it on a real clinical problem with data and mentorship.", "อคาเดมีเปิดกว้างและสอนวิชาชีพ เฟลโลว์ชิปคัดสรรและเป็นที่ที่คุณพิสูจน์ฝีมือบนโจทย์คลินิกจริง พร้อมข้อมูลและเมนเทอร์")),
+        (bi("Who owns what I build?", "ใครเป็นเจ้าของสิ่งที่ฉันสร้าง"), bi("Arrangements are set out clearly before you start, balancing your credit, patient safety, and the institution's responsibilities. Nothing is hidden.", "ข้อตกลงถูกกำหนดไว้ชัดเจนก่อนเริ่ม โดยสมดุลระหว่างเครดิตของคุณ ความปลอดภัยของผู้ป่วย และความรับผิดชอบของสถาบัน ไม่มีอะไรถูกซ่อนไว้")),
     ]
     items = "".join(
         f'<details class="row reveal" style="display:block"><summary style="cursor:pointer;font-family:var(--font-display);font-weight:700;font-size:var(--step-1)">{q}</summary>'
@@ -908,63 +908,90 @@ def fellowship_faq(prefix, ctx):
 # INSIGHTS + NEWS
 # ===========================================================================
 INSIGHT_ARTICLES = {
-    "governance-as-design": ("Field note", "Governance is a design material, not a checkpoint",
-        """Most teams treat governance as the gate at the end: build the model, then ask whether it is safe, private, and allowed. By then the important decisions are already made and hard to undo.
-
-We teach the opposite. Evaluation, privacy, and the regulatory frame are materials you build with, present from the first design decision. When a fellow chooses a clinical problem, we ask how success will be measured and how failure will be caught before a single line of code is written.
-
-This is slower at the start and far faster overall. A tool designed to be evaluated is a tool that can be trusted, approved, and deployed. A tool that bolts evaluation on at the end usually cannot."""),
-    "fhir-in-plain-language": ("Explainer", "FHIR, in plain language",
-        """If you want to build clinical AI in Thailand, you will meet FHIR quickly. It is the modern standard for how health data is described and exchanged, and it is the difference between a model that runs on one hospital's export and a model that travels.
-
-FHIR breaks health information into resources: a Patient, an Observation, a Condition, a Medication. Each has a defined shape, so a blood pressure reading from one system looks like a blood pressure reading from another. That sounds dull. It is the whole game. Interoperability is what lets a tool built at Ramathibodi work elsewhere.
-
-In the Academy you do not just read about FHIR. You parse it, build on it, and feel where real hospital data is messy in ways the spec does not warn you about."""),
-    "train-builders-not-buyers": ("Position", "Why Thailand should train builders, not just buyers",
-        """A country can get AI into its hospitals two ways. It can buy finished products from abroad, or it can grow people who build and run their own. Both have a place. Only one builds lasting capability.
-
-When you buy, you get a tool and a dependency. The vendor holds the knowledge, the updates, and the leverage. When the context shifts, and in medicine it always shifts, you wait. When you build, the capability stays in the institution and compounds.
-
-This is why we exist inside a hospital and not beside one. The national agenda, through the Ministry of Public Health, the NHSO, the Thai FDA, and the NIA, points the same way: a health system that can build for itself. That needs a workforce. Producing it is the work."""),
+    "governance-as-design": {
+        "meta": bi("Field note", "บันทึกภาคสนาม"),
+        "title": bi("Governance is a design material, not a checkpoint", "ธรรมาภิบาลคือวัสดุในการออกแบบ ไม่ใช่ด่านตรวจ"),
+        "body_en": [
+            "Most teams treat governance as the gate at the end: build the model, then ask whether it is safe, private, and allowed. By then the important decisions are already made and hard to undo.",
+            "We teach the opposite. Evaluation, privacy, and the regulatory frame are materials you build with, present from the first design decision. When a fellow chooses a clinical problem, we ask how success will be measured and how failure will be caught before a single line of code is written.",
+            "This is slower at the start and far faster overall. A tool designed to be evaluated is a tool that can be trusted, approved, and deployed. A tool that bolts evaluation on at the end usually cannot.",
+        ],
+        "body_th": [
+            "ทีมส่วนใหญ่มองธรรมาภิบาลเป็นด่านสุดท้าย สร้างโมเดลก่อน แล้วค่อยถามว่ามันปลอดภัย เป็นส่วนตัว และได้รับอนุญาตหรือไม่ ถึงตอนนั้นการตัดสินใจสำคัญได้เกิดขึ้นแล้วและแก้ยาก",
+            "เราสอนตรงกันข้าม การประเมินผล ความเป็นส่วนตัว และกรอบกฎระเบียบ เป็นวัสดุที่คุณใช้สร้างงาน อยู่ตั้งแต่การตัดสินใจออกแบบครั้งแรก เมื่อเฟลโลว์เลือกโจทย์คลินิก เราถามว่าจะวัดความสำเร็จอย่างไรและจะจับความล้มเหลวได้อย่างไร ก่อนที่จะเขียนโค้ดบรรทัดแรกด้วยซ้ำ",
+            "วิธีนี้ช้ากว่าในช่วงเริ่มต้น แต่เร็วกว่ามากในภาพรวม เครื่องมือที่ออกแบบมาให้ประเมินได้ คือเครื่องมือที่ไว้ใจได้ อนุมัติได้ และนำไปใช้จริงได้ เครื่องมือที่แปะการประเมินไว้ท้ายสุดมักทำแบบนั้นไม่ได้",
+        ],
+    },
+    "fhir-in-plain-language": {
+        "meta": bi("Explainer", "อธิบายให้เข้าใจ"),
+        "title": bi("FHIR, in plain language", "FHIR อธิบายแบบเข้าใจง่าย"),
+        "body_en": [
+            "If you want to build clinical AI in Thailand, you will meet FHIR quickly. It is the modern standard for how health data is described and exchanged, and it is the difference between a model that runs on one hospital's export and a model that travels.",
+            "FHIR breaks health information into resources: a Patient, an Observation, a Condition, a Medication. Each has a defined shape, so a blood pressure reading from one system looks like a blood pressure reading from another. That sounds dull. It is the whole game. Interoperability is what lets a tool built at Ramathibodi work elsewhere.",
+            "In the Academy you do not just read about FHIR. You parse it, build on it, and feel where real hospital data is messy in ways the spec does not warn you about.",
+        ],
+        "body_th": [
+            "ถ้าคุณอยากสร้าง AI ทางคลินิกในไทย คุณจะเจอ FHIR อย่างรวดเร็ว มันคือมาตรฐานสมัยใหม่สำหรับการอธิบายและแลกเปลี่ยนข้อมูลสุขภาพ และเป็นตัวตัดสินว่าโมเดลของคุณจะรันได้แค่กับข้อมูลส่งออกของโรงพยาบาลเดียว หรือเดินทางไปที่อื่นได้ด้วย",
+            "FHIR แบ่งข้อมูลสุขภาพออกเป็น resource ต่าง ๆ เช่น Patient, Observation, Condition, Medication แต่ละอย่างมีโครงสร้างที่กำหนดไว้ชัดเจน ค่าความดันโลหิตจากระบบหนึ่งจึงมีหน้าตาเหมือนค่าความดันโลหิตจากอีกระบบหนึ่ง ฟังดูน่าเบื่อ แต่นี่คือหัวใจทั้งหมด interoperability คือสิ่งที่ทำให้เครื่องมือที่สร้างที่รามาธิบดีไปทำงานที่อื่นได้",
+            "ในอคาเดมี คุณไม่ได้แค่อ่านเรื่อง FHIR แต่คุณ parse มัน สร้างงานบนมัน และสัมผัสได้ว่าข้อมูลโรงพยาบาลจริงยุ่งเหยิงตรงไหนบ้างที่สเปกไม่ได้เตือนไว้",
+        ],
+    },
+    "train-builders-not-buyers": {
+        "meta": bi("Position", "จุดยืน"),
+        "title": bi("Why Thailand should train builders, not just buyers", "ทำไมไทยควรฝึกคนที่สร้างเป็น ไม่ใช่แค่คนที่ซื้อเป็น"),
+        "body_en": [
+            "A country can get AI into its hospitals two ways. It can buy finished products from abroad, or it can grow people who build and run their own. Both have a place. Only one builds lasting capability.",
+            "When you buy, you get a tool and a dependency. The vendor holds the knowledge, the updates, and the leverage. When the context shifts, and in medicine it always shifts, you wait. When you build, the capability stays in the institution and compounds.",
+            "This is why we exist inside a hospital and not beside one. The national agenda, through the Ministry of Public Health, the NHSO, the Thai FDA, and the NIA, points the same way: a health system that can build for itself. That needs a workforce. Producing it is the work.",
+        ],
+        "body_th": [
+            "ประเทศหนึ่งมีสองทางที่จะนำ AI เข้าสู่โรงพยาบาลของตน ซื้อผลิตภัณฑ์สำเร็จรูปจากต่างประเทศ หรือบ่มเพาะคนที่สร้างและดูแลของตัวเองได้ ทั้งสองทางมีที่ทางของมัน แต่มีเพียงทางเดียวที่สร้างขีดความสามารถที่ยั่งยืน",
+            "เมื่อคุณซื้อ คุณได้เครื่องมือมาพร้อมกับการพึ่งพา ผู้ขายถือความรู้ การอัปเดต และอำนาจต่อรองไว้ทั้งหมด เมื่อบริบทเปลี่ยน และในทางการแพทย์มันเปลี่ยนเสมอ คุณต้องรอ เมื่อคุณสร้างเอง ขีดความสามารถนั้นอยู่ในสถาบันและเติบโตทบต้นไปเรื่อย ๆ",
+            "นี่คือเหตุผลที่เราอยู่ภายในโรงพยาบาล ไม่ใช่อยู่ข้าง ๆ วาระระดับชาติ ไม่ว่าจะเป็นกระทรวงสาธารณสุข NHSO อย. หรือ NIA ต่างชี้ไปทางเดียวกัน ระบบสุขภาพที่สร้างเพื่อตัวเองได้ ต้องการกำลังคน การผลิตกำลังคนนั้นคืองานของเรา",
+        ],
+    },
 }
 
 def insights_index(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">Insights</span>
-  <h1 class="reveal" data-d="1" style="max-width:16ch">Thinking from inside the work.</h1>
-  <p class="lead reveal measure" data-d="2">Field notes, explainers, and positions on building medical AI that a health system can trust. Written by the people doing it.</p>
+  <span class="eyebrow reveal">{bi("Insights", "บทความ")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("Thinking from inside the work.", "ความคิดจากคนที่ลงมือทำ")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("Field notes, explainers, and positions on building medical AI that a health system can trust. Written by the people doing it.", "บันทึกภาคสนาม บทอธิบาย และจุดยืน ว่าด้วยการสร้าง AI การแพทย์ที่ระบบสุขภาพไว้ใจได้ เขียนโดยคนที่ลงมือทำจริง")}</p>
 </div></section>"""
     cards = ""
     tone = ["b", "a", "c"]
-    for i, (slug, (meta, title, _)) in enumerate(INSIGHT_ARTICLES.items()):
-        cards += entry(meta, title, "", prefix + f"insights/{slug}.html", tone[i % 3])
+    for i, (slug, art) in enumerate(INSIGHT_ARTICLES.items()):
+        cards += entry(art["meta"], art["title"], "", prefix + f"insights/{slug}.html", tone[i % 3])
     feat = sec('<div class="grid grid-3">' + cards + '</div>')
     news = sec(
-        head("From the newsroom", "Announcements and milestones.") +
+        head(bi("From the newsroom", "จากห้องข่าว"), bi("Announcements and milestones.", "ประกาศและก้าวสำคัญ")) +
         '<div class="rows">' +
-        row("News", "The club, in public", "Launches, cohorts, partnerships, and events as they happen.") +
+        row(bi("News", "ข่าว"), bi("The club, in public", "ชมรม สู่สาธารณะ"), bi("Launches, cohorts, partnerships, and events as they happen.", "การเปิดตัว รุ่นเรียน พันธมิตร และกิจกรรม ตามเวลาจริง")) +
         '</div>' +
-        f'<div class="btn-row mt4 reveal"><a class="btn btn--ghost" href="{prefix}news/index.html">All news {I["arrow"]}</a></div>')
+        f'<div class="btn-row mt4 reveal"><a class="btn btn--ghost" href="{prefix}news/index.html">{bi("All news", "ข่าวทั้งหมด")} {I["arrow"]}</a></div>')
     return hero + feat + news
 
 def insight_article(slug):
-    meta, title, body = INSIGHT_ARTICLES[slug]
-    paras = "".join(f"<p>{p.strip()}</p>" for p in body.split("\n\n"))
+    art = INSIGHT_ARTICLES[slug]
+    meta, title = art["meta"], art["title"]
+    paras = "".join(
+        f'<p><span class="l-en">{en.strip()}</span><span class="l-th">{th.strip()}</span></p>'
+        for en, th in zip(art["body_en"], art["body_th"]))
     def fn(prefix, ctx):
         I = ctx["ICON"]
         return f"""
 <section class="section">
   <div class="container">
-    <div class="crumb"><a href="{prefix}insights/index.html">Insights</a> / {meta}</div>
+    <div class="crumb"><a href="{prefix}insights/index.html">{bi("Insights", "บทความ")}</a> / {meta}</div>
     <div style="max-width:70ch">
       <span class="eyebrow reveal">{meta}</span>
       <h1 class="reveal mt3" data-d="1">{title}</h1>
     </div>
     {frame(title, "ratio-16x9", "b")}
     <article class="prose reveal" style="margin-top:2.5rem">{paras}</article>
-    <div class="btn-row" style="margin-top:3rem"><a class="btn btn--ghost" href="{prefix}insights/index.html">{I['arrow']} All insights</a></div>
+    <div class="btn-row" style="margin-top:3rem"><a class="btn btn--ghost" href="{prefix}insights/index.html">{I['arrow']} {bi("All insights", "บทความทั้งหมด")}</a></div>
   </div>
 </section>"""
     return fn
@@ -972,15 +999,15 @@ def insight_article(slug):
 def news_index(prefix, ctx):
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">News</span>
-  <h1 class="reveal" data-d="1" style="max-width:16ch">What is happening at the club.</h1>
-  <p class="lead reveal measure" data-d="2">Launches, cohorts, partnerships, and events. The record of a club finding its feet in public.</p>
+  <span class="eyebrow reveal">{bi("News", "ข่าวสาร")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:16ch">{bi("What is happening at the club.", "ความเคลื่อนไหวของชมรม")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("Launches, cohorts, partnerships, and events. The record of a club finding its feet in public.", "การเปิดตัว รุ่นเรียน พันธมิตร และกิจกรรม บันทึกการเติบโตของชมรมสู่สาธารณะ")}</p>
 </div></section>"""
     items = sec(
         '<div class="rows">' +
-        news_row("July 2026", "The club goes public", "The Ramathibodi Digital Health and AI Club launches its site, its Academy, and its first call for fellows.") +
-        news_row("Soon", "First Academy cohort opens", "Enrolment for the open curriculum opens to clinicians, students, and engineers across Thailand.") +
-        news_row("Soon", "Fellowship intake", "Applications open for the first in-residence fellowship cohort.") +
+        news_row("July 2026", bi("The club goes public", "ชมรมเปิดตัวสู่สาธารณะ"), bi("The Ramathibodi Digital Health and AI Club launches its site, its Academy, and its first call for fellows.", "Ramathibodi Digital Health and AI Club เปิดตัวเว็บไซต์ อคาเดมี และประกาศรับสมัครเฟลโลว์รุ่นแรก")) +
+        news_row(bi("Soon", "เร็ว ๆ นี้"), bi("First Academy cohort opens", "เปิดรับรุ่นแรกของอคาเดมี"), bi("Enrolment for the open curriculum opens to clinicians, students, and engineers across Thailand.", "เปิดลงทะเบียนหลักสูตรเปิด สำหรับบุคลากรทางการแพทย์ นักศึกษา และวิศวกรทั่วประเทศไทย")) +
+        news_row(bi("Soon", "เร็ว ๆ นี้"), bi("Fellowship intake", "เปิดรับเฟลโลว์ชิป"), bi("Applications open for the first in-residence fellowship cohort.", "เปิดรับสมัครเฟลโลว์ชิปรุ่นแรกแบบประจำในสถานที่")) +
         '</div>')
     return hero + items
 
@@ -1051,6 +1078,98 @@ def contact(prefix, ctx):
   </div>
 </section>"""
     return body
+
+def platform_ecosystem(prefix):
+    """Fourth signature sketch: the platform as a hub and spoke, distinct in
+    shape from the clinical path (hospital-flow), the hiking trail (Academy),
+    and the closed loop (Fellowship orbit). A builder at the centre, six
+    stations around it, each a two-way street: you draw from it, you feed it
+    back."""
+    import math
+    cx, cy, r = 300, 200, 148
+    stations = [
+        (bi("Datasets", "ชุดข้อมูล"), bi("Learn from real, governed data", "เรียนรู้จากข้อมูลจริงที่กำกับดูแล")),
+        (bi("Task board", "กระดานโจทย์"), bi("Pick up a real clinical problem", "รับโจทย์คลินิกจริงไปทำ")),
+        (bi("Showcase", "โชว์เคส"), bi("Show what you built, honestly scored", "แสดงผลงาน วัดผลตรงไปตรงมา")),
+        (bi("Matching", "จับคู่"), bi("Find a mentor, a team, a partner", "หาเมนเทอร์ ทีม หรือพันธมิตร")),
+        (bi("Job board", "กระดานงาน"), bi("Turn a project into a role", "เปลี่ยนโปรเจกต์เป็นตำแหน่งงาน")),
+        (bi("Academy & Fellowship", "อคาเดมีและเฟลโลว์ชิป"), bi("Where the skill to use all this comes from", "ที่มาของทักษะที่ใช้สิ่งเหล่านี้")),
+    ]
+    def pt(i, n):
+        a = -math.pi/2 + i * (2*math.pi/n)
+        return (cx + r*math.cos(a), cy + r*math.sin(a))
+    nodes, spokes = "", ""
+    n = len(stations)
+    for i, (label, cap) in enumerate(stations):
+        x, y = pt(i, n)
+        anchor = "middle"
+        xoff, yoff = 0, (-30 if y < cy - 20 else (46 if y > cy + 20 else 0))
+        if abs(y - cy) <= 20:
+            anchor = "start" if x > cx else "end"
+            xoff = 18 if x > cx else -18
+        spokes += f'<line class="pe-spoke" x1="{cx:.0f}" y1="{cy:.0f}" x2="{x:.0f}" y2="{y:.0f}"/>'
+        nodes += (f'<circle class="pe-node" cx="{x:.0f}" cy="{y:.0f}" r="10"/>'
+                  f'<text class="pe-lab" x="{x+xoff:.0f}" y="{y+yoff:.0f}" text-anchor="{anchor}">{label}</text>'
+                  f'<text class="pe-cap" x="{x+xoff:.0f}" y="{y+yoff+16:.0f}" text-anchor="{anchor}">{cap}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 600 400" role="img" aria-label="The Platform, as a hub with six stations" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch4" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="23" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.3"/>
+      </filter>
+      <radialGradient id="pe-grad" cx="50%" cy="50%" r="60%">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.55" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </radialGradient>
+    </defs>
+    <g filter="url(#sketch4)" fill="none">
+      {spokes}
+    </g>
+    <g filter="url(#sketch4)">
+      {nodes}
+    </g>
+    <circle cx="{cx}" cy="{cy}" r="17" fill="url(#pe-grad)"/>
+    <text class="pe-center l-en" x="{cx}" y="{cy+4}" text-anchor="middle">You</text>
+    <text class="pe-center l-th" x="{cx}" y="{cy+4}" text-anchor="middle">คุณ</text>
+    <text class="fa-hand" x="30" y="40" transform="rotate(-3 30 40)">one builder, six doors</text>
+    <path class="fa-hand-arrow" d="M70 50 q 10 20 -4 40"/>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">Not six separate products. Six doors into the same platform, and you can walk through more than one at a time.</span>
+    <span class="l-th">ไม่ใช่หกผลิตภัณฑ์ที่แยกกัน แต่เป็นหกประตูสู่แพลตฟอร์มเดียวกัน และคุณเดินผ่านได้มากกว่าหนึ่งประตูพร้อมกัน</span>
+  </div>
+</div>"""
+    return (f'<section class="section"><div class="container">'
+            f'{head(bi("The ecosystem", "ระบบนิเวศ"), bi("One platform, six stations, one builder in the middle.", "หนึ่งแพลตฟอร์ม หกสถานี หนึ่งผู้สร้างตรงกลาง"), bi("Data feeds problems. Problems become projects. Projects find mentors, teams, and jobs. It is one loop you move through more than once.", "ข้อมูลป้อนโจทย์ โจทย์กลายเป็นโปรเจกต์ โปรเจกต์พาไปเจอเมนเทอร์ ทีม และงาน มันคือวงเดียวที่คุณเดินผ่านได้มากกว่าหนึ่งรอบ"))}'
+            f'{svg}</div></section>')
+
+def public_datasets(prefix):
+    rows = [
+        ("Open", bi("NIH ChestX-ray14", "NIH ChestX-ray14"), bi("112,000 chest X-rays with disease labels, from the NIH Clinical Center. No registration needed.", "ภาพเอกซเรย์ทรวงอก 112,000 ภาพพร้อมป้ายกำกับโรค จาก NIH Clinical Center ไม่ต้องลงทะเบียน")),
+        ("Open", bi("CheXpert", "CheXpert"), bi("224,000 chest radiographs from Stanford, free with a short registration.", "ภาพรังสีทรวงอก 224,000 ภาพจาก Stanford ใช้ฟรีเพียงลงทะเบียนสั้น ๆ")),
+        ("Credentialed", bi("MIMIC-IV", "MIMIC-IV"), bi("De-identified ICU records from Beth Israel Deaconess. Requires PhysioNet credentialing and a short ethics course, worth doing once.", "เวชระเบียน ICU ที่ลบตัวตนแล้ว จาก Beth Israel Deaconess ต้องผ่านการรับรองจาก PhysioNet และคอร์สจริยธรรมสั้น ๆ คุ้มค่าที่จะทำครั้งหนึ่ง")),
+        ("Credentialed", bi("eICU Collaborative Research Database", "eICU Collaborative Research Database"), bi("Multi-centre ICU data from over 200 US hospitals, same PhysioNet credentialing as MIMIC.", "ข้อมูล ICU จากกว่า 200 โรงพยาบาลในสหรัฐฯ ใช้การรับรองแบบเดียวกับ MIMIC")),
+        ("Open", bi("PhysioNet Challenge datasets", "PhysioNet Challenge datasets"), bi("ECG and other waveform datasets released for open research challenges.", "ชุดข้อมูล ECG และสัญญาณอื่น ๆ ที่เปิดเผยสำหรับการแข่งขันวิจัยแบบเปิด")),
+        ("Aggregate", bi("Ministry of Public Health open data (data.go.th)", "ข้อมูลเปิดกระทรวงสาธารณสุข (data.go.th)"), bi("Thailand's own open government health statistics: disease surveillance, facility data, and more, at the population level.", "สถิติสุขภาพเปิดของรัฐบาลไทยเอง ทั้งการเฝ้าระวังโรค ข้อมูลสถานพยาบาล และอื่น ๆ ในระดับประชากร")),
+        ("Open", bi("Thai language corpora (VISTEC-AIResearch)", "คลังข้อมูลภาษาไทย (VISTEC-AIResearch)"), bi("Open Thai text corpora used to train Thai language models, a starting point for Thai clinical NLP work.", "คลังข้อความภาษาไทยแบบเปิดที่ใช้ฝึกโมเดลภาษาไทย จุดเริ่มต้นสำหรับงาน NLP คลินิกภาษาไทย")),
+    ]
+    trs = "".join(
+        f'<tr><td><span class="pill" style="font-size:.72rem">{status}</span></td><td><strong>{name}</strong></td><td>{desc}</td></tr>'
+        for status, name, desc in rows)
+    return f"""
+<section class="section">
+  <div class="container">
+    {head(bi("Public datasets to start on today", "ชุดข้อมูลสาธารณะที่เริ่มได้วันนี้"), bi("You do not need to wait for access to begin.", "ไม่ต้องรอสิทธิ์เข้าถึงก็เริ่มได้"), bi("Real, widely used datasets the global and Thai research community already works on. Some are open immediately, some need a short, free credentialing step. None require you to touch a real patient's record before you are ready.", "ชุดข้อมูลจริงที่ชุมชนวิจัยทั้งไทยและทั่วโลกใช้กันอยู่แล้ว บางชุดเปิดใช้ได้ทันที บางชุดต้องผ่านขั้นตอนรับรองสั้น ๆ ฟรี ไม่มีชุดไหนที่ต้องแตะเวชระเบียนผู้ป่วยจริงก่อนที่คุณจะพร้อม"))}
+    <div class="card reveal" style="padding:0;overflow-x:auto">
+      <table class="lb" style="min-width:640px">
+        <thead><tr><th>{bi("Access", "การเข้าถึง")}</th><th>{bi("Dataset", "ชุดข้อมูล")}</th><th>{bi("What it is", "คืออะไร")}</th></tr></thead>
+        <tbody>{trs}</tbody>
+      </table>
+    </div>
+    <p class="muted mt4 reveal" style="font-size:.85rem">{bi("This list sits alongside the club's own governed, Thai clinical datasets above. Start on the open ones in the Academy, move to credentialed access as your project grows.", "รายการนี้อยู่ควบคู่กับชุดข้อมูลคลินิกไทยของชมรมเองด้านบน เริ่มจากชุดข้อมูลเปิดในอคาเดมี แล้วขยับไปสู่การเข้าถึงแบบมีการรับรองเมื่อโปรเจกต์ของคุณโตขึ้น")}</p>
+  </div>
+</section>"""
 
 # ===========================================================================
 # PLATFORM / MARKETPLACE
@@ -1168,7 +1287,9 @@ def platform(prefix, ctx):
         ctx['card']('shield', bi('Governed data', 'ข้อมูลที่กำกับดูแล'), bi('Every dataset ships with its source, licence, and a lawful basis under the PDPA.', 'ทุกชุดข้อมูลมาพร้อมแหล่งที่มา สัญญาอนุญาต และฐานทางกฎหมายตาม PDPA'), None, '', prefix) +
         '</div>')
 
-    return hero + tiles + moment("network-people.jpg", prefix, bi("One community, many problems", "หนึ่งชุมชน หลายโจทย์")) + datasets + tasks + lb + matching + engine + jobs
+    return (hero + tiles + platform_ecosystem(prefix)
+            + moment("network-people.jpg", prefix, bi("One community, many problems", "หนึ่งชุมชน หลายโจทย์"))
+            + datasets + public_datasets(prefix) + tasks + lb + matching + engine + jobs)
 
 def ds_card(tone, icon, title, kind, status, stat, prefix=""):
     """data.gov.sg-style dataset card: coloured icon chip, bold title, mono stat line."""
@@ -1323,17 +1444,17 @@ def portal_body(prefix):
     return f"""
 <section class="section">
   <div class="container">
-    <span class="eyebrow reveal">Fellowship portal</span>
-    <h1 class="reveal mt3" data-d="1" style="max-width:16ch">Welcome back, fellow.</h1>
-    <p class="lead reveal measure" data-d="2">This is the private workspace for current fellows and mentors. Cohort resources, project tracking, and data access guides live here.</p>
+    <span class="eyebrow reveal">{bi("Fellowship portal", "พอร์ทัลเฟลโลว์ชิป")}</span>
+    <h1 class="reveal mt3" data-d="1" style="max-width:18ch">{bi("Welcome back, fellow.", "ยินดีต้อนรับกลับมา เฟลโลว์")}</h1>
+    <p class="lead reveal measure" data-d="2">{bi("This is the private workspace for current fellows and mentors. Cohort resources, project tracking, and data access guides live here.", "นี่คือพื้นที่ทำงานส่วนตัวสำหรับเฟลโลว์และเมนเทอร์ปัจจุบัน ทรัพยากรของรุ่น การติดตามโปรเจกต์ และคู่มือการเข้าถึงข้อมูล อยู่ที่นี่")}</p>
     <div class="grid grid-3 mt5">
-      <div class="card reveal"><h3>Cohort handbook</h3><p>Schedule, expectations, and your mentor pairing.</p></div>
-      <div class="card reveal" data-d="1"><h3>Data access</h3><p>How to request and use supervised clinical data safely.</p></div>
-      <div class="card reveal" data-d="2"><h3>Project board</h3><p>Track your build, reviews, and deployment milestones.</p></div>
+      <div class="card reveal"><h3>{bi("Cohort handbook", "คู่มือประจำรุ่น")}</h3><p>{bi("Schedule, expectations, and your mentor pairing.", "ตารางเวลา ความคาดหวัง และการจับคู่เมนเทอร์ของคุณ")}</p></div>
+      <div class="card reveal" data-d="1"><h3>{bi("Data access", "การเข้าถึงข้อมูล")}</h3><p>{bi("How to request and use supervised clinical data safely.", "วิธีขอและใช้ข้อมูลคลินิกที่มีการกำกับดูแลอย่างปลอดภัย")}</p></div>
+      <div class="card reveal" data-d="2"><h3>{bi("Project board", "กระดานโปรเจกต์")}</h3><p>{bi("Track your build, reviews, and deployment milestones.", "ติดตามการสร้าง การรีวิว และก้าวสำคัญของการนำไปใช้จริง")}</p></div>
     </div>
     <div class="btn-row mt5">
-      <a class="btn btn--ghost" href="{prefix}academy/learn/index.html">Open the curriculum</a>
-      <a class="btn btn--ghost" href="{prefix}fellowship.html" data-signout="fellowship">Sign out</a>
+      <a class="btn btn--ghost" href="{prefix}academy/learn/index.html">{bi("Open the curriculum", "เปิดหลักสูตร")}</a>
+      <a class="btn btn--ghost" href="{prefix}fellowship.html" data-signout="fellowship">{bi("Sign out", "ออกจากระบบ")}</a>
     </div>
   </div>
 </section>"""
@@ -1512,6 +1633,57 @@ def _tool(icon, state_en, state_th, build, title, desc, for_en, for_th):
             f'<h3>{title}</h3><p>{desc}</p>'
             f'<div class="tool__for">{bi(for_en, for_th)}</div></div>')
 
+def tools_funnel(prefix):
+    """Fifth signature sketch: the toolkit as a funnel, distinct in shape from
+    the path, the trail, the orbit, and the hub. Wide and messy at the top
+    (raw Thai clinical reality), narrow and trustworthy at the bottom (what a
+    student or faculty member actually gets to use)."""
+    bands = [
+        (60, 520, 70, bi("Raw reality", "ความจริงดิบ"), bi("Messy Thai notes, no labels, no structure", "โน้ตภาษาไทยที่ยุ่งเหยิง ไม่มีป้ายกำกับ ไม่มีโครงสร้าง")),
+        (140, 440, 150, bi("De-identify & ground", "ลบตัวตนและอ้างอิง"), bi("PDPA-safe text, answers tied to real guidelines", "ข้อความปลอดภัยตาม PDPA คำตอบอ้างอิงแนวปฏิบัติจริง")),
+        (220, 360, 230, bi("Evaluate honestly", "ประเมินอย่างตรงไปตรงมา"), bi("A report card with the denominator shown", "รายงานผลที่แสดงตัวหารเสมอ")),
+        (280, 320, 310, bi("Routed to you", "ส่งตรงถึงคุณ"), bi("The Learning Navigator hands you the next step", "เนวิเกเตอร์การเรียนรู้ยื่นก้าวถัดไปให้คุณ")),
+    ]
+    trapezoids = ""
+    for i in range(len(bands) - 1):
+        x1a, x1b, y1, _, _ = bands[i]
+        x2a, x2b, y2, _, _ = bands[i + 1]
+        trapezoids += f'<path class="tf-band" d="M {x1a} {y1} L {x1b} {y1} L {x2b} {y2} L {x2a} {y2} Z"/>'
+    labels = ""
+    for xa, xb, y, lab, cap in bands:
+        cx = (xa + xb) / 2
+        labels += (f'<text class="l-en tf-lab" x="{cx}" y="{y-10}" text-anchor="middle">{lab}</text>'
+                   f'<text class="l-th tf-lab" x="{cx}" y="{y-10}" text-anchor="middle">{lab}</text>'
+                   f'<text class="l-en tf-cap" x="{cx}" y="{y+16}" text-anchor="middle">{cap}</text>'
+                   f'<text class="l-th tf-cap" x="{cx}" y="{y+16}" text-anchor="middle">{cap}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 600 380" role="img" aria-label="The toolkit, as a funnel from raw text to a routed answer" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch5" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="2" seed="31" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+      </filter>
+      <linearGradient id="tf-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </linearGradient>
+    </defs>
+    <g filter="url(#sketch5)" fill="url(#tf-grad)" fill-opacity="0.10" stroke="url(#tf-grad)" stroke-width="1.6">
+      {trapezoids}
+    </g>
+    {labels}
+    <text class="fa-hand" x="360" y="60" transform="rotate(3 360 60)">this is the whole job</text>
+    <path class="fa-hand-arrow" d="M400 68 q 16 18 8 40"/>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">Every tool below does one part of this narrowing: from messy reality to one trustworthy, routed answer.</span>
+    <span class="l-th">เครื่องมือแต่ละชิ้นด้านล่างทำหน้าที่หนึ่งช่วงของการค่อย ๆ กลั่นนี้ จากความจริงที่ยุ่งเหยิง สู่คำตอบเดียวที่เชื่อถือได้และส่งตรงถึงคุณ</span>
+  </div>
+</div>"""
+    return (f'<section class="section"><div class="container">'
+            f'{head(bi("How the toolkit works", "ชุดเครื่องมือทำงานอย่างไร"), bi("Narrowing from raw text to one routed answer.", "ค่อย ๆ กลั่นจากข้อความดิบ สู่คำตอบเดียวที่ส่งตรงถึงคุณ"))}'
+            f'{svg}</div></section>')
+
 def tools(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
@@ -1559,7 +1731,7 @@ def tools(prefix, ctx):
         f'<a class="btn btn--ghost btn--on-dark" href="{prefix}platform.html">{bi("See the Platform", "ดูแพลตฟอร์ม")}</a></div>'
         f'</div></div>')
 
-    return hero + grid + cta
+    return hero + tools_funnel(prefix) + grid + cta
 
 # ===========================================================================
 # SCIENCE OF SCIENCE
@@ -1588,6 +1760,11 @@ MARKETING = [
     ("about/conduct.html", "Code of Conduct - DHA Club", "", conduct_page),
     ("about/privacy.html", "Privacy - DHA Club", "", privacy_page),
 ]
+_INSIGHT_PLAIN_TITLES = {
+    "governance-as-design": "Governance is a design material, not a checkpoint",
+    "fhir-in-plain-language": "FHIR, in plain language",
+    "train-builders-not-buyers": "Why Thailand should train builders, not just buyers",
+}
 for _slug in INSIGHT_ARTICLES:
-    MARKETING.append((f"insights/{_slug}.html", f"{INSIGHT_ARTICLES[_slug][1]} - Insights",
+    MARKETING.append((f"insights/{_slug}.html", f"{_INSIGHT_PLAIN_TITLES[_slug]} - Insights",
                       "insights/index.html", insight_article(_slug)))

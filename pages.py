@@ -106,28 +106,51 @@ def esc_txt(s):
 # ===========================================================================
 # HOME
 # ===========================================================================
+def _sketch_figure(cx, ground_y, cls="vf-figure", halo=False):
+    """A simple standing figure, drawn from two shapes: a head and a coat.
+    Not a photo, a sketch, the same register as every other diagram on the
+    site. When halo is set, a small ring of circuit-dots orbits the head,
+    the visual shorthand for 'augmented, still human.'"""
+    head_r = 10
+    head_cy = ground_y - 74
+    body = (f"M {cx-15} {ground_y} L {cx-18} {ground_y-40} "
+            f"Q {cx} {ground_y-52} {cx+18} {ground_y-40} L {cx+15} {ground_y} Z")
+    out = (f'<circle class="{cls}__head" cx="{cx}" cy="{head_cy}" r="{head_r}"/>'
+           f'<path class="{cls}__body" d="{body}"/>')
+    if halo:
+        import math
+        dots = ""
+        for k in range(5):
+            a = k * (2 * math.pi / 5)
+            hx, hy = cx + 24 * math.cos(a), head_cy + 24 * math.sin(a)
+            dots += f'<circle class="vf-halo-dot" cx="{hx:.1f}" cy="{hy:.1f}" r="2.6"/>'
+        out += f'<circle class="vf-halo-ring" cx="{cx}" cy="{head_cy}" r="24"/>' + dots
+    return out
+
 def vision_dawn():
     """Seventh signature sketch, the homepage's vision statement: a dawn arc
     rising from a ground line, distinct in shape from the path, trail, orbit,
-    hub, funnel, scatter chart, and comb already used elsewhere. Four
-    waypoints climb from rooted, everyday care toward a gradient sun at the
-    peak: the digital doctor, still tethered to the ground it rose from."""
+    hub, funnel, scatter chart, and comb already used elsewhere. Three sketched
+    figures climb it, the same person, drawn three times: rooted in everyday
+    care, learning to build, then standing at the peak as the digital doctor,
+    augmented but still recognisably themselves, still tethered to the ground."""
     waypoints = [
-        (110, 322, "Rooted in care", "หยั่งรากในการดูแล"),
-        (350, 220, "Learns to build", "เรียนรู้ที่จะสร้าง"),
-        (580, 140, "Becomes the digital doctor", "กลายเป็นแพทย์ยุคดิจิทัล"),
-        (760, 85, "Shapes the future, keeps the culture", "กำหนดอนาคต รักษาวัฒนธรรม"),
+        (110, 322, "Rooted in care", "หยั่งรากในการดูแล", False),
+        (350, 220, "Learns to build", "เรียนรู้ที่จะสร้าง", False),
+        (580, 140, "Becomes the digital doctor", "กลายเป็นแพทย์ยุคดิจิทัล", True),
     ]
     d = "M 110 322 C 200 300, 260 240, 350 220 C 440 200, 500 160, 580 140 C 650 120, 700 100, 760 85"
-    nodes, labels = "", ""
-    for i, (x, y, en, th) in enumerate(waypoints):
-        yoff = -18 if i < 3 else -26
-        nodes += f'<circle class="vd-node{" vd-node--sun" if i == 3 else ""}" cx="{x}" cy="{y}" r="{7 if i < 3 else 16}"/>'
-        labels += (f'<text class="l-en vd-lab" x="{x}" y="{y+yoff}" text-anchor="{"end" if i == 3 else "middle"}">{en}</text>'
-                   f'<text class="l-th vd-lab" x="{x}" y="{y+yoff}" text-anchor="{"end" if i == 3 else "middle"}">{th}</text>')
+    figures, labels = "", ""
+    for i, (x, y, en, th, halo) in enumerate(waypoints):
+        figures += _sketch_figure(x, y, halo=halo)
+        yoff = -70
+        labels += (f'<text class="l-en vd-lab" x="{x}" y="{y+yoff}" text-anchor="middle">{en}</text>'
+                   f'<text class="l-th vd-lab" x="{x}" y="{y+yoff}" text-anchor="middle">{th}</text>')
+    labels += (f'<text class="l-en vd-lab" x="785" y="70" text-anchor="end">Shapes the future, keeps the culture</text>'
+               f'<text class="l-th vd-lab" x="785" y="70" text-anchor="end">กำหนดอนาคต รักษาวัฒนธรรม</text>')
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 900 400" role="img" aria-label="A dawn arc rising from a ground line, four waypoints from rooted clinical care to the digital doctor" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 900 400" role="img" aria-label="Three sketched figures climbing a dawn arc, from a clinician rooted in care to the digital doctor, augmented and reaching a gradient sun" preserveAspectRatio="xMidYMid meet">
     <defs>
       <filter id="sketch8" x="-8%" y="-8%" width="116%" height="116%">
         <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="61" result="n"/>
@@ -140,15 +163,16 @@ def vision_dawn():
     <g filter="url(#sketch8)">
       <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
       <path class="vd-arc" d="{d}" fill="none"/>
-      {nodes}
+      {figures}
+      <circle class="vd-node vd-node--sun" cx="760" cy="85" r="16"/>
     </g>
     {labels}
-    <text class="fa-hand" x="560" y="290" transform="rotate(-3 560 290)">the same person, further along</text>
-    <path class="fa-hand-arrow" d="M600 300 q 10 -22 -6 -40"/>
+    <text class="fa-hand" x="530" y="330" transform="rotate(-3 530 330)">the same person, further along</text>
+    <path class="fa-hand-arrow" d="M570 340 q 10 -22 -6 -40"/>
   </svg>
   <div class="flow-art__legend">
-    <span class="l-en">Four waypoints, one climb. Nobody is left behind at the ground, and nobody who rises forgets what the ground was for.</span>
-    <span class="l-th">สี่จุดพัก หนึ่งการไต่ระดับ ไม่มีใครถูกทิ้งไว้ที่พื้น และไม่มีใครที่ขึ้นไปแล้วลืมว่าพื้นนั้นมีไว้เพื่ออะไร</span>
+    <span class="l-en">Three sketches, one person. Nobody is left behind at the ground, and nobody who rises forgets what the ground was for.</span>
+    <span class="l-th">สามภาพร่าง หนึ่งคน ไม่มีใครถูกทิ้งไว้ที่พื้น และไม่มีใครที่ขึ้นไปแล้วลืมว่าพื้นนั้นมีไว้เพื่ออะไร</span>
   </div>
 </div>"""
     return svg

@@ -248,7 +248,7 @@ strong { color: var(--ink); font-weight: 600; }
 @media (max-width: 900px) { .hero-line { width: 62vw; opacity: .18; } }
 @media (prefers-reduced-motion: reduce) { .hero-line__path { animation: none; stroke-dashoffset: 0; } }
 
-.hero h1 { font-size: var(--step-5); max-width: 16ch; position: relative; z-index: 1; }
+.hero h1 { font-size: var(--step-5); max-width: 19ch; position: relative; z-index: 1; font-weight: 300; font-style: italic; font-optical-sizing: auto; letter-spacing: -0.01em; }
 .hero .lead, .hero .btn-row, .hero .hero__meta, .hero .eyebrow { position: relative; z-index: 1; }
 .hero .lead { margin-top: var(--s4); max-width: 54ch; }
 .hero .btn-row { margin-top: var(--s5); }
@@ -666,8 +666,9 @@ strong { color: var(--ink); font-weight: 600; }
 /* Lead paragraphs read as a serif standfirst, the way a journal opens a piece. */
 .lead { font-family: var(--font-serif); font-optical-sizing: auto; font-weight: 400; }
 
-/* Hero headline gets optical-size character and a touch of warmth. */
-.hero h1 { font-weight: 500; }
+/* Hero headline: Fraunces Light Italic, an editorial standfirst voice, not a
+   bold shout. font-optical-sizing lets the low weight stay crisp at display size. */
+.hero h1 { font-weight: 300; font-style: italic; }
 
 /* Pull quotes: serif italic, the classic journal voice (Sequoia / YC lineage). */
 .pq { font-family: var(--font-editorial); font-weight: 400; font-style: italic; font-optical-sizing: auto; letter-spacing: -0.01em; }
@@ -817,6 +818,17 @@ strong { color: var(--ink); font-weight: 600; }
 .vd-node--sun { fill: url(#vd-grad); stroke: none; }
 .vd-lab { font-family: var(--font-mono); font-size: 12.5px; fill: var(--ink-soft); letter-spacing: .01em; }
 [data-lang="th"] .vd-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 13px; }
+
+/* Sketched figures on the vision-dawn diagram: two shapes, head and coat. */
+.vf-figure__head, .vf-figure__body { fill: none; stroke: currentColor; stroke-width: 2; opacity: .75; stroke-linejoin: round; }
+.vf-halo-ring { fill: none; stroke: url(#vd-grad); stroke-width: 1.4; stroke-dasharray: 3 4; opacity: .8; }
+.vf-halo-dot { fill: url(#vd-grad); animation: vf-pulse 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.vf-halo-dot:nth-child(2) { animation-delay: .2s; }
+.vf-halo-dot:nth-child(3) { animation-delay: .4s; }
+.vf-halo-dot:nth-child(4) { animation-delay: .6s; }
+.vf-halo-dot:nth-child(5) { animation-delay: .8s; }
+@keyframes vf-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .vf-halo-dot { animation: none; } }
 
 /* ============================================================================
    Editorial refinement. Rams: as little design as possible. Ive: air + clarity.

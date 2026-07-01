@@ -144,7 +144,7 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 <link rel="icon" href="{prefix}{av('favicon.png')}"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="{prefix}{av('dha.css')}"/>
 <script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('dha-lang')||'th';document.documentElement.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l);}}catch(e){{}}}})();</script>
 </head>

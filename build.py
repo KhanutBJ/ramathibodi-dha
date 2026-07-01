@@ -149,6 +149,7 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 <script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('dha-lang')||'th';document.documentElement.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l);}}catch(e){{}}}})();</script>
 </head>
 <body{(' ' + body_attr) if body_attr else ''}>
+<div class="ink-rail" aria-hidden="true"><span class="ink-rail__track"></span><span class="ink-rail__fill" data-ink-fill></span><span class="ink-rail__dot" data-ink-dot></span></div>
 <header class="nav">
   <div class="nav__inner">
     <a class="nav__logo" href="{prefix}index.html" aria-label="{esc(SITE['name'])}">

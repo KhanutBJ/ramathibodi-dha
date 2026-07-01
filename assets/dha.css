@@ -864,3 +864,47 @@ strong { color: var(--ink); font-weight: 600; }
 [data-lang="th"] .nest-label { font-family: "Noto Sans Thai", sans-serif; text-transform: none; }
 .nest-hand { font-family: var(--font-hand); font-weight: 600; font-size: 23px; fill: var(--accent); }
 [data-lang="th"] .nest-hand { font-family: "Noto Serif Thai", serif; font-size: 15px; }
+
+/* ---- Real partner marks -------------------------------------------------- */
+.logos--mark { align-items: center; }
+.logo-mark { height: 46px; width: auto; filter: none; }
+[data-theme="dark"] .logo-mark { background: #fff; border-radius: 8px; padding: 3px 6px; }
+.logo-word { font-family: var(--font-mono); font-size: .82rem; letter-spacing: .06em; color: var(--ink-faint); border: 1px solid var(--line); border-radius: 999px; padding: .3rem .8rem; }
+.logo-word b { color: var(--ink-soft); font-weight: 600; }
+
+/* ============================================================================
+   Signature motion: the ink rail. A hand-drawn reading line grows down the
+   left margin as you move through a page, ending in a small drawn dot, the
+   way a reader's finger traces a page. Ours; not a stock progress bar.
+   ========================================================================== */
+.ink-rail {
+  position: fixed; left: 0; top: 0; bottom: 0; width: 3px; z-index: 90;
+  pointer-events: none; transform: translateZ(0);
+}
+.ink-rail__track { position: absolute; inset: 0; background: var(--line-soft); opacity: .6; }
+.ink-rail__fill {
+  position: absolute; left: 0; top: 0; width: 100%; height: 0%;
+  background: linear-gradient(180deg, #fd6502, #91386e 55%, #2a1bd6);
+  transition: height .12s linear;
+}
+.ink-rail__dot {
+  position: absolute; left: -3.5px; width: 10px; height: 10px; border-radius: 50%;
+  background: #2a1bd6; top: 0%; transform: translateY(-50%);
+  box-shadow: 0 0 0 3px var(--bg);
+  transition: top .12s linear;
+}
+@media (max-width: 760px) { .ink-rail { display: none; } }
+@media (prefers-reduced-motion: reduce) { .ink-rail__fill, .ink-rail__dot { transition: none; } }
+
+/* Nav links draw an ink underline instead of a filled pill: quieter, ours. */
+.nav__link {
+  background: none; position: relative; padding-bottom: .35rem;
+}
+.nav__link::after {
+  content: ""; position: absolute; left: .85rem; right: .85rem; bottom: .1rem; height: 1.5px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform .32s var(--ease);
+}
+.nav__link:hover { background: none; }
+.nav__link:hover::after, .nav__link.is-active::after { transform: scaleX(1); }
+.nav__link.is-active { color: var(--ink); }

@@ -121,10 +121,9 @@ def home(prefix, ctx):
 <section class="hero">
   <div class="hero__glow"></div>
   <div class="container">
-    <p class="annot reveal" style="margin-bottom:.6rem">{bi('a new school of thought', 'สำนักคิดใหม่')}</p>
     <span class="eyebrow reveal">Ramathibodi Digital Health &amp; AI Club</span>
     <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>
-    <p class="lead reveal measure" data-d="2">{bi("A club, an academy, and a fellowship built inside one of Thailand's leading medical schools. We turn clinicians, engineers, and scientists into builders who can take medical AI from idea to patient care, safely.", "คลับ อคาเดมี และเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย เราเปลี่ยนแพทย์ วิศวกร และนักวิทยาศาสตร์ ให้เป็นผู้สร้างที่นำ AI ทางการแพทย์จากไอเดียไปสู่การดูแลผู้ป่วยได้จริงอย่างปลอดภัย")}</p>
+    <p class="lead reveal measure" data-d="2">{bi("A club, an academy, and a fellowship built inside one of Thailand's leading medical schools.", "คลับ อคาเดมี และเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Explore the Academy", "สำรวจอคาเดมี")} {I['arrow']}</a>
       <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Apply for the Fellowship", "สมัครเฟลโลว์ชิป")}</a>
@@ -140,8 +139,9 @@ def home(prefix, ctx):
     proof = sec(
         '<div class="reveal" style="display:flex;flex-direction:column;gap:1.4rem">'
         '<span class="eyebrow">Built inside the system, with partners who build</span>'
-        '<div class="logos">'
-        '<span>Ramathibodi</span><span>Mahidol University</span>'
+        '<div class="logos logos--mark">'
+        f'<img class="logo-mark" src="{prefix}assets/partners/ramathibodi-seal.svg" alt="Faculty of Medicine Ramathibodi Hospital, Mahidol University"/>'
+        '<span class="logo-word">MIND <b>Center</b></span>'
         '<span>Google Developer Groups on Campus</span><span>BOTNOI Academy</span>'
         '</div>'
         '<div class="logos muted" style="font-size:.85rem">'
@@ -459,7 +459,7 @@ def what_we_do(prefix, ctx):
     {note_hand("one path, four parts", "หนึ่งเส้นทาง สี่ส่วน")}
     <span class="eyebrow reveal">{bi("What we do", "สิ่งที่เราทำ")}</span>
     <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("One pipeline, from first principles to the patient.", "หนึ่งเส้นทาง จากพื้นฐานสู่ผู้ป่วย")}</h1>
-    <p class="lead reveal measure" data-d="2">{bi("Learn the craft, prove it on real problems, turn the best of it into products, and help institutions stand up their own capability. Four parts that feed each other.", "เรียนวิชาชีพ พิสูจน์บนโจทย์จริง เปลี่ยนงานที่ดีที่สุดให้เป็นผลิตภัณฑ์ และช่วยสถาบันสร้างขีดความสามารถของตนเอง สี่ส่วนที่ป้อนกันและกัน")}</p>
+    <p class="lead reveal measure" data-d="2">{bi("Learn. Prove it. Build the product. Four parts, one pipeline.", "เรียนรู้ พิสูจน์ฝีมือ สร้างผลิตภัณฑ์ สี่ส่วน หนึ่งเส้นทาง")}</p>
   </div>
 </section>"""
 
@@ -682,7 +682,7 @@ def academy(prefix, ctx):
     {note_hand("read, run, build", "อ่าน ลงมือทำ สร้าง")}
     <span class="eyebrow reveal">{bi("The Academy", "อคาเดมี")}</span>
     <h1 class="reveal" data-d="1" style="max-width:19ch">{bi("The open curriculum for medical AI in Thailand.", "หลักสูตรเปิดด้าน AI การแพทย์ สำหรับประเทศไทย")}</h1>
-    <p class="lead reveal measure" data-d="2">{bi("From what a model is to how it reaches a patient safely. Free to start, taught with real clinical data and real code. Open to clinicians, students, and engineers alike.", "ตั้งแต่โมเดลคืออะไร ไปจนถึงการนำไปสู่ผู้ป่วยอย่างปลอดภัย เริ่มเรียนฟรี สอนด้วยข้อมูลคลินิกจริงและโค้ดจริง เปิดสำหรับแพทย์ นักศึกษา และวิศวกรเท่าเทียมกัน")}</p>
+    <p class="lead reveal measure" data-d="2">{bi("From what a model is, to a patient it safely reaches. Free to start.", "ตั้งแต่โมเดลคืออะไร ถึงผู้ป่วยที่มันไปถึงอย่างปลอดภัย เริ่มเรียนฟรี")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}academy/gate.html">{bi("Enter the Academy", "เข้าสู่อคาเดมี")} {I['arrow']}</a>
       <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Or apply for the Fellowship", "หรือสมัครเฟลโลว์ชิป")}</a>
@@ -751,7 +751,7 @@ def fellowship(prefix, ctx):
     {note_hand("a year, in residence", "หนึ่งปี ประจำในสถานที่")}
     <span class="eyebrow reveal">{bi("The Fellowship", "เฟลโลว์ชิป")}</span>
     <h1 class="reveal" data-d="1" style="max-width:17ch">{bi("A year to build something that reaches a patient.", "หนึ่งปี เพื่อสร้างสิ่งที่ไปถึงผู้ป่วย")}</h1>
-    <p class="lead reveal measure" data-d="2">{bi("The Fellowship is small on purpose. A handful of people, real clinical problems, supervised data, and the faculty of Ramathibodi behind them. You leave with a deployed tool and the judgement to build more.", "เฟลโลว์ชิปตั้งใจให้เล็ก คนไม่กี่คน โจทย์คลินิกจริง ข้อมูลที่มีการกำกับ และคณาจารย์รามาธิบดีหนุนหลัง คุณจากไปพร้อมเครื่องมือที่ deploy แล้ว และวิจารณญาณที่จะสร้างต่อ")}</p>
+    <p class="lead reveal measure" data-d="2">{bi("Small on purpose. Real problems, real data, Ramathibodi behind you.", "ตั้งใจให้เล็ก โจทย์จริง ข้อมูลจริง มีรามาธิบดีหนุนหลัง")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}fellowship/apply.html">{bi("Apply", "สมัคร")} {I['arrow']}</a>
       <a class="btn btn--ghost btn--lg" href="{prefix}fellowship/stories.html">{bi("Read fellow stories", "อ่านเรื่องราวเฟลโลว์")}</a>
@@ -1027,7 +1027,7 @@ def platform(prefix, ctx):
   {note_hand("where work finds people", "ที่ที่งานเจอคน")}
   <span class="eyebrow reveal">{bi("The Platform", "แพลตฟอร์ม")}</span>
   <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("Where problems, data, and people find each other.", "ที่ที่โจทย์ ข้อมูล และคนมาเจอกัน")}</h1>
-  <p class="lead reveal measure" data-d="2">{bi("One place to post a real clinical problem, find the dataset to work on it, benchmark your model, and match with the team or mentor who can help. This is the connective tissue of the club.", "พื้นที่เดียวสำหรับโพสต์โจทย์จริงจากคลินิก ค้นหาชุดข้อมูลเพื่อลงมือทำ วัดผลโมเดลของคุณ และจับคู่กับทีมหรือเมนเทอร์ที่ช่วยได้ นี่คือเนื้อเยื่อที่เชื่อมคลับเข้าด้วยกัน")}</p>
+  <p class="lead reveal measure" data-d="2">{bi("Problems, data, and people, in one place. The connective tissue of the club.", "โจทย์ ข้อมูล และคน อยู่ในที่เดียว นี่คือเนื้อเยื่อที่เชื่อมคลับเข้าด้วยกัน")}</p>
 </div></section>"""
 
     tiles = sec(
@@ -1313,7 +1313,7 @@ def venture(prefix, ctx):
   {note_hand("past the demo", "ให้ไกลกว่าเดโม")}
   <span class="eyebrow reveal">{bi("Venture Studio", "เวนเจอร์สตูดิโอ")}</span>
   <h1 class="reveal" data-d="1" style="max-width:17ch">{bi("The best work should not stop at a demo.", "งานที่ดีที่สุดไม่ควรหยุดแค่เดโม")}</h1>
-  <p class="lead reveal measure" data-d="2">{bi("When a fellowship or member project proves it helps, the studio helps it become a product a hospital can adopt: real engineering, a regulatory path for Software as a Medical Device, clinical evidence, and a route to market, in step with the National Innovation Agency.", "เมื่อโปรเจกต์เฟลโลว์ชิปหรือสมาชิกพิสูจน์ว่าช่วยได้จริง สตูดิโอช่วยให้มันกลายเป็นผลิตภัณฑ์ที่โรงพยาบาลรับไปใช้ได้ ทั้งวิศวกรรมจริง เส้นทางกฎระเบียบสำหรับ Software as a Medical Device หลักฐานทางคลินิก และเส้นทางสู่ตลาด สอดคล้องกับสำนักงานนวัตกรรมแห่งชาติ")}</p>
+  <p class="lead reveal measure" data-d="2">{bi("Proof becomes product: engineering, regulation, evidence, market.", "จากพิสูจน์แล้วสู่ผลิตภัณฑ์ วิศวกรรม กฎระเบียบ หลักฐาน และตลาด")}</p>
 </div></section>"""
 
     what = sec(
@@ -1369,7 +1369,7 @@ def team(prefix, ctx):
   {note_hand("who is in the room", "ใครอยู่ในห้องนี้")}
   <span class="eyebrow reveal">{bi("The team", "ทีมงาน")}</span>
   <h1 class="reveal" data-d="1" style="max-width:16ch">{bi("The people behind the line.", "คนเบื้องหลังเส้นสายเดียวนั้น")}</h1>
-  <p class="lead reveal measure" data-d="2">{bi("Clinicians, engineers, and students who decided that Thailand should build its own medical AI, not just buy it. This is who is in the room.", "แพทย์ วิศวกร และนักศึกษา ที่เชื่อว่าประเทศไทยควรสร้าง AI การแพทย์ของตนเอง ไม่ใช่แค่ซื้อมาใช้ นี่คือคนที่อยู่ในห้องนี้")}</p>
+  <p class="lead reveal measure" data-d="2">{bi("People who decided Thailand should build its own medical AI.", "คนที่เชื่อว่าประเทศไทยควรสร้าง AI การแพทย์ของตนเอง")}</p>
 </div></section>"""
 
     lead = sec(
@@ -1481,7 +1481,7 @@ def tools(prefix, ctx):
   {note_hand("small, sharp instruments", "เครื่องมือเล็กแต่คม")}
   <span class="eyebrow reveal">{bi("Tools", "เครื่องมือ")}</span>
   <h1 class="reveal" data-d="1" style="max-width:15ch">{bi("Tools we build so the work gets easier.", "เครื่องมือที่เราสร้าง เพื่อให้งานง่ายขึ้น")}</h1>
-  <p class="lead reveal measure" data-d="2">{bi("Small, sharp instruments for medical students and faculty. Each one removes a real chore in clinical AI work: cleaning data, finding evidence, reporting a model honestly, designing a study. Built Thai-first, under our own governance.", "เครื่องมือเล็กแต่คมสำหรับนักศึกษาแพทย์และอาจารย์ แต่ละชิ้นช่วยตัดงานน่าเบื่อในงาน AI ทางคลินิกออกไป ทั้งการทำความสะอาดข้อมูล ค้นหาหลักฐาน รายงานโมเดลอย่างตรงไปตรงมา และออกแบบงานวิจัย สร้างแบบไทยเป็นหลัก ภายใต้ธรรมาภิบาลของเราเอง")}</p>
+  <p class="lead reveal measure" data-d="2">{bi("Small instruments. Real chores removed. Built Thai-first.", "เครื่องมือเล็กแต่คม ตัดงานน่าเบื่อออกไป สร้างแบบไทยเป็นหลัก")}</p>
 </div></section>"""
 
     grid = sec(

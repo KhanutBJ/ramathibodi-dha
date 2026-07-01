@@ -922,7 +922,12 @@ strong { color: var(--ink); font-weight: 600; }
 
 /* ---- Real partner marks -------------------------------------------------- */
 .logo-mark { height: 46px; width: auto; filter: none; }
-[data-theme="dark"] .logo-mark { background: #fff; border-radius: 8px; padding: 3px 6px; }
+/* Dark-inked marks need to stay visible on the dark navy strip. Instead of a
+   white background chip (which read as a UI mistake), invert lightness only
+   while the mark is already grayscale, so a dark line-art logo becomes a
+   light one with no colour to distort. Hover always shows true colour. */
+[data-theme="dark"] .logo-mark { filter: grayscale(1) invert(1) opacity(.7); }
+[data-theme="dark"] .logo-mark:hover { filter: grayscale(0) invert(0) opacity(1); }
 
 /* Nav links draw an ink underline instead of a filled pill: quieter, ours. */
 .nav__link {

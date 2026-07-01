@@ -1015,11 +1015,11 @@ def fellowship(prefix, ctx):
 
     tracks = sec(
         head(bi("Tracks", "แทร็ก"), bi("Pick the work, not just the topic.", "เลือกที่งาน ไม่ใช่แค่หัวข้อ")) +
-        '<div class="rows">' +
-        row("Clinical AI", bi("Decision support and risk", "decision support และความเสี่ยง"), bi("Models that help clinicians decide, evaluated against real outcomes and real workflows.", "โมเดลที่ช่วยแพทย์ตัดสินใจ ประเมินเทียบกับผลลัพธ์จริงและเวิร์กโฟลว์จริง")) +
-        row("Imaging", bi("Vision for diagnosis", "vision เพื่อการวินิจฉัย"), bi("Radiology and pathology tools, from data pipeline to a validated, deployable model.", "เครื่องมือด้านรังสีวิทยาและพยาธิวิทยา ตั้งแต่ data pipeline จนถึงโมเดลที่ตรวจสอบและ deploy ได้")) +
-        row("Health Data", bi("FHIR and interoperability", "FHIR และ interoperability"), bi("The plumbing of a modern health system, and the AI that rides on top of it.", "ระบบท่อของระบบสุขภาพสมัยใหม่ และ AI ที่ทำงานอยู่บนมัน")) +
-        row("Agents", bi("Operational intelligence", "ปัญญาด้านปฏิบัติการ"), bi("Agentic systems for the administrative and operational load that slows care down.", "agentic systems สำหรับภาระงานธุรการและปฏิบัติการที่ทำให้การดูแลช้าลง")) +
+        '<div class="grid grid-2">' +
+        task_card('pulse', "Clinical AI", bi("Decision support and risk", "decision support และความเสี่ยง"), bi("Models that help clinicians decide, evaluated against real outcomes and real workflows.", "โมเดลที่ช่วยแพทย์ตัดสินใจ ประเมินเทียบกับผลลัพธ์จริงและเวิร์กโฟลว์จริง"), ctx, 1) +
+        task_card('doc', "Imaging", bi("Vision for diagnosis", "vision เพื่อการวินิจฉัย"), bi("Radiology and pathology tools, from data pipeline to a validated, deployable model.", "เครื่องมือด้านรังสีวิทยาและพยาธิวิทยา ตั้งแต่ data pipeline จนถึงโมเดลที่ตรวจสอบและ deploy ได้"), ctx, 2) +
+        task_card('node', "Health Data", bi("FHIR and interoperability", "FHIR และ interoperability"), bi("The plumbing of a modern health system, and the AI that rides on top of it.", "ระบบท่อของระบบสุขภาพสมัยใหม่ และ AI ที่ทำงานอยู่บนมัน"), ctx, 1) +
+        task_card('flask', "Agents", bi("Operational intelligence", "ปัญญาด้านปฏิบัติการ"), bi("Agentic systems for the administrative and operational load that slows care down.", "agentic systems สำหรับภาระงานธุรการและปฏิบัติการที่ทำให้การดูแลช้าลง"), ctx, 2) +
         '</div>' +
         f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}fellowship/apply.html">{bi("See eligibility and apply", "ดูคุณสมบัติและสมัคร")} {I["arrow"]}</a></div>')
 
@@ -1419,11 +1419,11 @@ def platform(prefix, ctx):
     # Task board
     tasks = sec(
         head(bi("Task board", "กระดานโจทย์"), bi("Real problems, waiting for you.", "โจทย์จริง ที่รอคุณอยู่"), bi("Departments post problems worth solving. Pick one, form a team, and build it as an Academy project or a Fellowship.", "หน่วยงานโพสต์โจทย์ที่ควรแก้ เลือกสักโจทย์ ตั้งทีม แล้วสร้างเป็นโปรเจกต์ในอคาเดมีหรือเฟลโลว์ชิป")) +
-        '<div class="rows">' +
-        task_row("Emergency", bi("Triage support for the ED", "ระบบช่วยคัดกรองที่ห้องฉุกเฉิน"), bi("Reduce time to prioritise walk-in patients safely.", "ลดเวลาในการจัดลำดับผู้ป่วยที่เดินเข้ามาอย่างปลอดภัย")) +
-        task_row("Radiology", bi("Flag urgent chest films", "ตั้งค่าสถานะฟิล์มทรวงอกเร่งด่วน"), bi("Surface likely-abnormal chest X-rays for faster reads.", "ดึงภาพเอกซเรย์ทรวงอกที่น่าจะผิดปกติขึ้นมา เพื่อการอ่านที่เร็วขึ้น")) +
-        task_row("Pharmacy", bi("Thai drug interaction assistant", "ผู้ช่วยตรวจปฏิกิริยาระหว่างยาภาษาไทย"), bi("A grounded assistant to check interactions on the ward.", "ผู้ช่วยที่อ้างอิงแหล่งข้อมูล ตรวจปฏิกิริยาระหว่างยาบนหอผู้ป่วย")) +
-        task_row("Outpatient", bi("Line follow-up bot", "บอทติดตามอาการผ่าน Line"), bi("Automate preparation and follow-up messages safely.", "ส่งข้อความเตรียมตัวและติดตามอาการอัตโนมัติอย่างปลอดภัย")) +
+        '<div class="grid grid-2">' +
+        task_card('pulse', bi("Emergency", "ฉุกเฉิน"), bi("Triage support for the ED", "ระบบช่วยคัดกรองที่ห้องฉุกเฉิน"), bi("Reduce time to prioritise walk-in patients safely.", "ลดเวลาในการจัดลำดับผู้ป่วยที่เดินเข้ามาอย่างปลอดภัย"), ctx, 1) +
+        task_card('doc', bi("Radiology", "รังสีวิทยา"), bi("Flag urgent chest films", "ตั้งค่าสถานะฟิล์มทรวงอกเร่งด่วน"), bi("Surface likely-abnormal chest X-rays for faster reads.", "ดึงภาพเอกซเรย์ทรวงอกที่น่าจะผิดปกติขึ้นมา เพื่อการอ่านที่เร็วขึ้น"), ctx, 2) +
+        task_card('flask', bi("Pharmacy", "เภสัชกรรม"), bi("Thai drug interaction assistant", "ผู้ช่วยตรวจปฏิกิริยาระหว่างยาภาษาไทย"), bi("A grounded assistant to check interactions on the ward.", "ผู้ช่วยที่อ้างอิงแหล่งข้อมูล ตรวจปฏิกิริยาระหว่างยาบนหอผู้ป่วย"), ctx, 1) +
+        task_card('node', bi("Outpatient", "ผู้ป่วยนอก"), bi("Line follow-up bot", "บอทติดตามอาการผ่าน Line"), bi("Automate preparation and follow-up messages safely.", "ส่งข้อความเตรียมตัวและติดตามอาการอัตโนมัติอย่างปลอดภัย"), ctx, 2) +
         '</div>' +
         f'<div class="btn-row mt5 reveal"><a class="btn btn--grad" href="{prefix}contact.html">{bi("Post a problem", "โพสต์โจทย์ของคุณ")} {I["arrow"]}</a><a class="btn btn--ghost" href="{prefix}academy.html">{bi("Pick one up", "รับโจทย์ไปทำ")}</a></div>')
 
@@ -1504,6 +1504,14 @@ def ds_card(tone, icon, title, kind, status, stat, prefix=""):
             f'<span class="ds-card__ic">{icon}</span>'
             f'<span class="ds-card__title">{title}</span>'
             f'<span class="ds-card__stat">{kind} / {status} / {stat}</span></a>')
+
+def task_card(icon, dept, title, desc, ctx, d=0):
+    dd = f' data-d="{d}"' if d else ""
+    return f"""<div class="card reveal"{dd}>
+  <div class="card__icon">{ctx['ICON'][icon]}</div>
+  <span class="pill" style="margin-bottom:.7rem">{dept}</span>
+  <h3>{title}</h3><p>{desc}</p>
+</div>"""
 
 def task_row(tag, title, desc):
     return (f'<div class="row reveal"><div class="row__num">{tag}</div>'
@@ -1675,21 +1683,33 @@ def portal_body(prefix):
 def venture(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
-<section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
+<section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div>
+  {hero_line_art()}
+  <div class="container">
   {note_hand("past the demo", "ให้ไกลกว่าเดโม")}
   <span class="eyebrow reveal">{bi("Venture Studio", "เวนเจอร์สตูดิโอ")}</span>
   <h1 class="reveal" data-d="1" style="max-width:17ch">{bi("The best work should not stop at a demo.", "งานที่ดีที่สุดไม่ควรหยุดแค่เดโม")}</h1>
   <p class="lead reveal measure" data-d="2">{bi("Proof becomes product: engineering, regulation, evidence, market.", "จากพิสูจน์แล้วสู่ผลิตภัณฑ์ วิศวกรรม กฎระเบียบ หลักฐาน และตลาด")}</p>
 </div></section>"""
 
-    what = sec(
-        head(bi("What the studio adds", "สิ่งที่สตูดิโอเสริม"), bi("Four things a demo is missing.", "สี่สิ่งที่เดโมยังขาด")) +
-        '<div class="grid grid-2">' +
-        ctx['card']('rocket', bi("Product engineering", "วิศวกรรมผลิตภัณฑ์"), bi("Reliability, monitoring, and the unglamorous work that makes a prototype safe to run every day.", "ความน่าเชื่อถือ การเฝ้าติดตาม และงานเบื้องหลังที่ทำให้ต้นแบบปลอดภัยพอจะใช้ได้ทุกวัน"), None, '', prefix) +
-        ctx['card']('shield', bi("Regulatory navigation", "การนำทางกฎระเบียบ"), bi("The Thai FDA pathway for AI as Software as a Medical Device, mapped and walked with you.", "เส้นทาง อย. สำหรับ AI ในฐานะ Software as a Medical Device ที่วางแผนและเดินไปด้วยกัน"), None, '', prefix) +
-        ctx['card']('pulse', bi("Clinical evidence", "หลักฐานทางคลินิก"), bi("Study design and validation so the claims hold up to review, not just a good demo day.", "การออกแบบงานวิจัยและการตรวจสอบ เพื่อให้ข้อกล่าวอ้างผ่านการตรวจทาน ไม่ใช่แค่วันเดโมที่ดูดี"), None, '', prefix) +
-        ctx['card']('compass', bi("Route to market", "เส้นทางสู่ตลาด"), bi("Pilots, procurement, and the move from research to venture through the Thai HealthTech ecosystem.", "การนำร่อง การจัดซื้อ และการเปลี่ยนจากงานวิจัยสู่เวนเจอร์ผ่านระบบนิเวศเฮลท์เทคไทย"), None, '', prefix) +
-        '</div>')
+    what = f"""
+<section class="section">
+  <div class="container">
+    <div class="band reveal">
+      <div class="band__glow"></div>
+      <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
+        <span class="eyebrow" style="color:#cbd5ef">{bi("What the studio adds", "สิ่งที่สตูดิโอเสริม")}</span>
+        <h2 class="mt3" style="color:#fff">{bi("Four things a demo is missing.", "สี่สิ่งที่เดโมยังขาด")}</h2>
+        <div class="grid grid-2 mt5">
+          <div class="card reveal" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['rocket']}</div><h3 style="color:#fff">{bi("Product engineering", "วิศวกรรมผลิตภัณฑ์")}</h3><p style="color:#aeb9d0">{bi("Reliability, monitoring, and the unglamorous work that makes a prototype safe to run every day.", "ความน่าเชื่อถือ การเฝ้าติดตาม และงานเบื้องหลังที่ทำให้ต้นแบบปลอดภัยพอจะใช้ได้ทุกวัน")}</p></div>
+          <div class="card reveal" data-d="1" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['shield']}</div><h3 style="color:#fff">{bi("Regulatory navigation", "การนำทางกฎระเบียบ")}</h3><p style="color:#aeb9d0">{bi("The Thai FDA pathway for AI as Software as a Medical Device, mapped and walked with you.", "เส้นทาง อย. สำหรับ AI ในฐานะ Software as a Medical Device ที่วางแผนและเดินไปด้วยกัน")}</p></div>
+          <div class="card reveal" data-d="2" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['pulse']}</div><h3 style="color:#fff">{bi("Clinical evidence", "หลักฐานทางคลินิก")}</h3><p style="color:#aeb9d0">{bi("Study design and validation so the claims hold up to review, not just a good demo day.", "การออกแบบงานวิจัยและการตรวจสอบ เพื่อให้ข้อกล่าวอ้างผ่านการตรวจทาน ไม่ใช่แค่วันเดโมที่ดูดี")}</p></div>
+          <div class="card reveal" data-d="3" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['compass']}</div><h3 style="color:#fff">{bi("Route to market", "เส้นทางสู่ตลาด")}</h3><p style="color:#aeb9d0">{bi("Pilots, procurement, and the move from research to venture through the Thai HealthTech ecosystem.", "การนำร่อง การจัดซื้อ และการเปลี่ยนจากงานวิจัยสู่เวนเจอร์ผ่านระบบนิเวศเฮลท์เทคไทย")}</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>"""
 
     path = sec(
         head(bi("From research to venture", "จากงานวิจัยสู่เวนเจอร์"), bi("A path, not a leap.", "เส้นทาง ไม่ใช่การกระโดด")) +
@@ -1702,10 +1722,10 @@ def venture(prefix, ctx):
 
     portfolio = sec(
         head(bi("Portfolio", "พอร์ตโฟลิโอ"), bi("What comes out of it.", "สิ่งที่ออกมาจากมัน"), bi("Illustrative examples of the kind of product the studio exists to build.", "ตัวอย่างประเภทของผลิตภัณฑ์ที่สตูดิโอมีไว้เพื่อสร้าง")) +
-        '<div class="rows">' +
-        task_row(bi("Radiology", "รังสีวิทยา"), bi("Chest X-ray triage, adopted by a department", "คัดกรองเอกซเรย์ทรวงอก ที่หน่วยงานรับไปใช้"), bi("From teaching set to a supervised pilot on the ward.", "จากชุดสอนสู่การนำร่องแบบมีการกำกับบนหอผู้ป่วย")) +
-        task_row(bi("Pharmacy", "เภสัชกรรม"), bi("Thai drug-interaction assistant", "ผู้ช่วยตรวจปฏิกิริยาระหว่างยาภาษาไทย"), bi("A grounded assistant with a clear evidence base.", "ผู้ช่วยที่อ้างอิงแหล่งข้อมูล บนฐานหลักฐานที่ชัดเจน")) +
-        task_row(bi("Outpatient", "ผู้ป่วยนอก"), bi("Line follow-up product", "ผลิตภัณฑ์ติดตามอาการผ่าน Line"), bi("From a bot to a maintained service with governance.", "จากบอทสู่บริการที่ดูแลต่อเนื่องพร้อมธรรมาภิบาล")) +
+        '<div class="grid grid-3">' +
+        task_card('doc', bi("Radiology", "รังสีวิทยา"), bi("Chest X-ray triage, adopted by a department", "คัดกรองเอกซเรย์ทรวงอก ที่หน่วยงานรับไปใช้"), bi("From teaching set to a supervised pilot on the ward.", "จากชุดสอนสู่การนำร่องแบบมีการกำกับบนหอผู้ป่วย"), ctx, 1) +
+        task_card('flask', bi("Pharmacy", "เภสัชกรรม"), bi("Thai drug-interaction assistant", "ผู้ช่วยตรวจปฏิกิริยาระหว่างยาภาษาไทย"), bi("A grounded assistant with a clear evidence base.", "ผู้ช่วยที่อ้างอิงแหล่งข้อมูล บนฐานหลักฐานที่ชัดเจน"), ctx, 2) +
+        task_card('node', bi("Outpatient", "ผู้ป่วยนอก"), bi("Line follow-up product", "ผลิตภัณฑ์ติดตามอาการผ่าน Line"), bi("From a bot to a maintained service with governance.", "จากบอทสู่บริการที่ดูแลต่อเนื่องพร้อมธรรมาภิบาล"), ctx, 3) +
         '</div>' +
         f'<p class="muted mt4 reveal" style="font-size:.82rem">{bi("Illustrative. Real portfolio entries publish as pilots mature.", "เป็นตัวอย่าง พอร์ตจริงจะเผยแพร่เมื่อการนำร่องเติบโต")}</p>')
 

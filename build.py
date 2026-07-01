@@ -492,6 +492,8 @@ ACADEMY_TOC = [
     ]),
     ("6 / Strategy & Governance", [
         ("curriculum/governance", "curriculum/governance.md"),
+        ("curriculum/governance/org-strategy", "curriculum/governance/org-strategy.md"),
+        ("curriculum/governance/stewardship", "curriculum/governance/stewardship.md"),
     ]),
     ("Pathways", [
         ("pathways/startup", "pathways/startup.md"),

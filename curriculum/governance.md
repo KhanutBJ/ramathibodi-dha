@@ -133,7 +133,11 @@ table.
 
 ## Where this goes next
 
-You now hold the whole craft, from idea to a tool with a path to real use. Choose
-where it lands: the [Startup pathway](../pathways/startup.md) to build a product,
-or the [Hospital information pathway](../pathways/hospital.md) to strengthen the
+You now hold the regulatory path. Two more competencies complete the picture:
+the organisational judgment to decide whether a tool should even be built or
+bought, in [Deciding where AI belongs](governance/org-strategy.md), and the
+discipline of watching over a tool for years after launch, in
+[Being a steward](governance/stewardship.md). Then choose where it lands: the
+[Startup pathway](../pathways/startup.md) to build a product, or the
+[Hospital information pathway](../pathways/hospital.md) to strengthen the
 system from inside.

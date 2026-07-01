@@ -826,6 +826,7 @@ strong { color: var(--ink); font-weight: 600; }
 /* Vision motif: many thin threads from different starting points, converging
    into one bold gradient line rising toward a bright point. Abstract, not
    figurative: a workforce is many people who choose to rise together. */
+.vd-ground { stroke: currentColor; stroke-width: 1.6; opacity: .25; }
 .vd-thread {
   stroke: var(--ink-faint); stroke-width: 1.4; stroke-linecap: round; opacity: .5;
   stroke-dasharray: 540; stroke-dashoffset: 540; animation: vd-draw 1.8s var(--ease) forwards;

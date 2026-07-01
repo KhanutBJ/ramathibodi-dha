@@ -154,6 +154,63 @@ def vision_dawn():
 </div>"""
     return svg
 
+def workforce_rising():
+    """The homepage's original vision sketch, kept and moved rather than
+    deleted. The vision section now argues medicine and AI are one craft;
+    this older diagram argues something true at a different altitude, that
+    no one learns or practices that craft alone. Many thin threads, each
+    starting from a different point, converge into one bold gradient line
+    rising toward the future. Reuses the .vd-* visual grammar, but with its
+    own filter and gradient ids so two instances of this motif can safely
+    share a page without duplicate SVG ids; the gradient is applied inline
+    per element since the shared CSS classes point at the vision section's
+    #vd-grad by default."""
+    starts = [70, 150, 230, 310, 390]
+    merge = (560, 175)
+    threads = ""
+    for i, sx in enumerate(starts):
+        cx1 = sx + 90 + i * 6
+        cy1 = 330 - i * 8
+        cx2 = merge[0] - 110
+        cy2 = merge[1] + 40 - i * 4
+        d = f"M {sx} 360 C {cx1} {cy1}, {cx2} {cy2}, {merge[0]} {merge[1]}"
+        threads += f'<path class="vd-thread" d="{d}" fill="none" style="animation-delay:{i*0.12:.2f}s"/>'
+    d_main = f"M {merge[0]} {merge[1]} C 650 130, 720 90, 810 55"
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 900 400" role="img" aria-label="Many individual threads, each starting from a different point on the ground, converging into one bright line rising toward the future" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch8b" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="61" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/>
+      </filter>
+      <linearGradient id="wr-grad" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#3412d1"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#fd6502"/>
+      </linearGradient>
+    </defs>
+    <g filter="url(#sketch8b)">
+      <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
+      {threads}
+      <path class="vd-arc" d="{d_main}" fill="none" style="stroke:url(#wr-grad)"/>
+      <circle class="vd-node vd-node--sun" cx="810" cy="55" r="15" style="fill:url(#wr-grad)"/>
+    </g>
+    <circle class="vd-merge-ring" cx="{merge[0]}" cy="{merge[1]}" r="20" style="stroke:url(#wr-grad)"/>
+    <text class="l-en vd-lab" x="70" y="345">Many starting points</text>
+    <text class="l-th vd-lab" x="70" y="345">จุดเริ่มต้นที่ต่างกัน</text>
+    <text class="l-en vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">One workforce</text>
+    <text class="l-th vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">หนึ่งกำลังคน</text>
+    <text class="l-en vd-lab" x="835" y="30" text-anchor="end">The future of Thai care</text>
+    <text class="l-th vd-lab" x="835" y="30" text-anchor="end">อนาคตการดูแลสุขภาพไทย</text>
+    <text class="fa-hand" x="120" y="215" transform="rotate(-4 120 215)">not one hero, a whole generation</text>
+    <path class="fa-hand-arrow" d="M170 224 q 30 8 54 22"/>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">A workforce is not one brilliant person. It is many people, starting from different places, who choose to rise together.</span>
+    <span class="l-th">กำลังคนไม่ใช่คนเก่งเพียงคนเดียว แต่คือคนจำนวนมาก ที่เริ่มจากจุดต่างกัน แล้วเลือกที่จะเติบโตไปด้วยกัน</span>
+  </div>
+</div>"""
+    return svg
+
 def hero_line_art():
     """The hero's signature mark: the club's actual brain mark, traced from
     its real outer-contour path data (extracted from the official brand
@@ -272,6 +329,14 @@ def home(prefix, ctx):
         '</div>' +
         f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}insights/index.html">{bi("All insights", "บทความทั้งหมด")} {I["arrow"]}</a></div>')
 
+    movement = f"""
+<section class="section">
+  <div class="container">
+    {head(bi("Not one hero", "ไม่ใช่วีรบุรุษคนเดียว"), bi("A whole generation, rising together.", "คนทั้งรุ่น ที่เติบโตไปด้วยกัน"), bi("The craft is learned by one person at a time. The workforce it becomes belongs to everyone who starts, wherever they start from.", "วิชาชีพนี้เรียนรู้ทีละคน แต่กำลังคนที่มันจะกลายเป็น เป็นของทุกคนที่เริ่มต้น ไม่ว่าจะเริ่มจากจุดไหน"))}
+    {workforce_rising()}
+  </div>
+</section>"""
+
     cta = f"""
 <section class="section">
   <div class="container center stack reveal">
@@ -366,7 +431,7 @@ def home(prefix, ctx):
             + problem
             + moment("hero-clinician.jpg", prefix, bi("AI at the bedside", "AI ข้างเตียงผู้ป่วย") + " / Ramathibodi")
             + whymed + what + path + journey + band + quote + insights
-            + ctx["community_block"](prefix) + cta)
+            + ctx["community_block"](prefix) + movement + cta)
 
 def entry(meta, title, body, href, tone="a", img=None, prefix=""):
     return (f'<a class="entry reveal" href="{href}">'

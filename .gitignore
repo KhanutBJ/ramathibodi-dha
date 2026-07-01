@@ -7,3 +7,5 @@ __pycache__/
 
 # local agent config
 .claude/
+.vercel
+.env*.local

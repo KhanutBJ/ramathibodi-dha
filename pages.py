@@ -1135,11 +1135,11 @@ def platform(prefix, ctx):
   </div>
 </section>"""
 
-    # Opportunity board (canvas / kanban)
+    # Job board (canvas / kanban)
     jobs = f"""
 <section class="section"><div class="container">
-  {head(bi("Opportunity board", "กระดานโอกาส"), bi("Post a role. Find the people who build.", "ประกาศงาน หาคนที่ลงมือสร้าง"), bi("A recruiting board for the club and its partners. Post a fellowship, a research assistant role, an internship, or a job, and reach members who can actually build. Browse the lanes below.", "กระดานรับสมัครสำหรับชมรมและพันธมิตร ประกาศเฟลโลว์ชิป ผู้ช่วยวิจัย ฝึกงาน หรือตำแหน่งงาน แล้วเข้าถึงสมาชิกที่สร้างได้จริง เลื่อนดูตามเลนด้านล่าง"))}
-  <div class="board reveal" role="list" aria-label="Opportunity board">
+  {head(bi("Job board", "กระดานงาน"), bi("Post a role. Find the people who build.", "ประกาศงาน หาคนที่ลงมือสร้าง"), bi("A recruiting board for the club and its partners. Post a fellowship, a research assistant role, an internship, or a job, and reach members who can actually build. Browse the lanes below.", "กระดานรับสมัครสำหรับชมรมและพันธมิตร ประกาศเฟลโลว์ชิป ผู้ช่วยวิจัย ฝึกงาน หรือตำแหน่งงาน แล้วเข้าถึงสมาชิกที่สร้างได้จริง เลื่อนดูตามเลนด้านล่าง"))}
+  <div class="board reveal" role="list" aria-label="Job board">
     {board_lane(I, "grad", bi("Fellowship", "เฟลโลว์ชิป"), 2, [
         board_card("open", bi("Digital Health & AI Fellow", "เฟลโลว์สุขภาพดิจิทัลและ AI"), bi("The in-residence programme. Build one real system to the bedside.", "โปรแกรมในสถานที่ สร้างระบบจริงหนึ่งชิ้นให้ถึงข้างเตียง"), bi("Rolling", "รับต่อเนื่อง"), bi("12 months", "12 เดือน"), prefix + "fellowship/apply.html"),
         board_card("open", bi("Clinician Fellow (part-time)", "เฟลโลว์แพทย์ (พาร์ทไทม์)"), bi("For practising clinicians who want to build alongside their service.", "สำหรับแพทย์ที่ยังทำงานคลินิกและอยากสร้างงานควบคู่กัน"), bi("Rolling", "รับต่อเนื่อง"), bi("Flexible", "ยืดหยุ่น"), prefix + "fellowship/apply.html"),

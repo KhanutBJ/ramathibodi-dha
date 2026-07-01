@@ -1,36 +1,58 @@
-# ระยะที่ 4: Capstone
+# Capstone
 
-<p class="dha-eyebrow">Weeks 7-8 / Capstone</p>
+This is the last stage: turn everything you have learned into a real piece of
+work. A working prototype, released for actual people to try, built with
+ethics and safety carried through from the first design decision rather than
+bolted on at the end.
 
-<p class="dha-lead">ระยะสุดท้ายคือการรวมทุกอย่างที่เรียนมาเป็นผลงานจริง สร้างต้นแบบที่ทำงานได้ ปล่อยให้คนใช้จริง โดยคำนึงถึงจริยธรรมและความปลอดภัยตลอดทาง</p>
+```{note}
+**Level** All levels, applying everything before it. **Prerequisite** At least
+one full domain (most people arrive here after Deployment).
+**Time** ~2 weeks, self-paced. **Sessions** 2 (Ethics, then Deployment).
+**Before you start** A project idea, ideally one that solves a real annoyance
+from your own clinical or academic work.
+```
 
-<div class="dha-grid dha-grid--2">
-  <div class="dha-card">
-    <span class="dha-card__num">7</span>
-    <div class="dha-card__icon dha-card__icon--coral">⚖️</div>
-    <h3>AI Ethics</h3>
-    <p>อคติใน AI, ความยินยอมและลิขสิทธิ์ข้อมูล การจัดการความเสี่ยง และการพัฒนาเทคโนโลยีอย่างรับผิดชอบ</p>
-    <a class="dha-card__link" href="ethics.html">เรียนรู้ →</a>
-  </div>
-  <div class="dha-card">
-    <span class="dha-card__num">8</span>
-    <div class="dha-card__icon dha-card__icon--green">🚀</div>
-    <h3>Deployment</h3>
-    <p>แปลง Notebook เป็นเว็บแอป, deploy บน Hugging Face Spaces และทำให้คนเข้าถึงได้จริง</p>
-    <a class="dha-card__link" href="deployment.html">เรียนรู้ →</a>
-  </div>
-</div>
+## What you will be able to do
 
----
+1. Run a responsible-AI check on your own project before you ship it.
+2. Turn a working notebook into a shareable app.
+3. Present a finished project clearly, in a form that a reviewer, a mentor, or
+   a future employer can evaluate quickly.
 
-## Capstone Project
+## The two sessions
 
-ผู้เรียนทุกคนสร้างโปรเจกต์จบที่แก้ปัญหาสุขภาพจริง โดยจับคู่กับโจทย์จาก [Dataset & Task Marketplace](../../platform/dataset-marketplace.md) และนำเสนอใน [Showcase](../../community/showcase.md)
+| # | Session | What it covers |
+|---|---|---|
+| 7 | [AI Ethics](ethics.md) | Bias, consent, data rights, accountability, and a risk framework you apply to your own project |
+| 8 | [Deployment](deployment.md) | Turning a notebook into a working app, and shipping it |
 
-<div class="dha-cta">
-  <div>
-    <h3>โปรเจกต์ที่ดีที่สุดได้ไปต่อ</h3>
-    <p>ทีมที่โดดเด่นมีโอกาสเข้าสู่ Fellowship และ Venture Builder เพื่อพัฒนาเป็นผลิตภัณฑ์จริง</p>
-  </div>
-  <a class="dha-btn dha-btn--primary" href="../../venture/overview.html">ดู Venture Builder →</a>
-</div>
+## The capstone project
+
+Everyone finishing the Academy builds a capstone project that solves a real
+health problem. Bring your own problem, or pick one from the
+[Platform](../../platform.html), where departments and mentors post real
+problems worth solving.
+
+```{tip}
+The strongest capstones do not try to be the most technically impressive.
+They are the ones with the clearest problem, the most honest evaluation, and a
+working prototype a real person actually tried. Depth beats breadth here.
+```
+
+## What happens to the best projects
+
+A capstone is not the end of the line. The strongest projects have a route
+forward:
+
+- Present your work in the club's community channels and to your cohort.
+- Apply what you built as the seed of a [Fellowship](../../fellowship.html)
+  project, with supervised data and mentorship to take it further.
+- If it has genuine product potential, the [Venture Studio](../../venture.html)
+  helps carry it toward a regulatory and market path.
+
+## Where this goes next
+
+Start with [AI Ethics](ethics.md), the discipline that should already have
+shaped every project you built up to this point, then finish in
+[Deployment](deployment.md).

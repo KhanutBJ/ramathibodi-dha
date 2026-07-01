@@ -1,59 +1,132 @@
-# Medical Imaging: AI กับภาพถ่ายทางการแพทย์
+# Medical imaging: AI and clinical images
 
-<p class="dha-eyebrow">Digital Health / Imaging</p>
+X-rays, CT, MRI, and pathology slides are one of the areas where AI has made
+the most real difference. This lesson teaches you to work with the actual
+format medical images come in, DICOM, and the deep learning tasks built on top
+of it, plus the pitfalls that are specific to imaging and nowhere else.
 
-<p class="dha-lead">ภาพถ่ายทางการแพทย์, X-ray, CT, MRI, พยาธิวิทยา เป็นหนึ่งในพื้นที่ที่ AI สร้างผลกระทบได้มากที่สุด โมดูลนี้สอนการทำงานกับข้อมูล DICOM และสร้างโมเดล deep learning สำหรับภาพ</p>
+```{note}
+**Level** Intermediate. **Prerequisite** [Deep AI](../deep-ai.md).
+**Time** ~4 hours. **Sessions** 2.
+**Before you start** Basic familiarity with numpy arrays.
+```
 
----
+## What you will be able to do
 
-## รูปแบบข้อมูล DICOM
+1. Read a DICOM file in Python and extract its pixel data and metadata.
+2. Name the four core medical imaging tasks and give a clinical example of each.
+3. Identify class imbalance and annotation cost as risks specific to imaging
+   projects.
+4. Explain why transfer learning is usually the right starting point for
+   medical imaging.
 
-ภาพทางการแพทย์ไม่ใช่ไฟล์ JPG ทั่วไป แต่เป็น **DICOM** ที่ฝังข้อมูล metadata ทางคลินิกไว้ด้วย
+## Sessions
+
+| # | Session | Format | Time | You finish |
+|---|---|---|---|---|
+| 1 | DICOM and the four imaging tasks | Read + hands-on | ~2 hrs | A DICOM file read and normalised |
+| 2 | Pitfalls and transfer learning | Read | ~2 hrs | A plan using a pretrained model |
+
+## DICOM: not just a picture
+
+A medical image is not a plain JPEG. It is **DICOM** (Digital Imaging and
+Communications in Medicine), a format that carries clinical metadata alongside
+the pixels: the modality, the body part, the acquisition settings, and often
+patient information that must be handled under the same PDPA rules covered in
+[Digital Health](../digital-health.md).
 
 ```python
 import pydicom
 
 ds = pydicom.dcmread("chest_ct.dcm")
-print("Modality:", ds.Modality)          # CT, MR, CR, ...
+print("Modality:", ds.Modality)                          # CT, MR, CR, ...
 print("Body part:", ds.get("BodyPartExamined", "-"))
 print("Pixel shape:", ds.pixel_array.shape)
 
-# แปลงเป็น array สำหรับ deep learning
+# Convert to an array ready for deep learning
 import numpy as np
 img = ds.pixel_array.astype(np.float32)
-img = (img - img.min()) / (img.max() - img.min())   # normalize
+img = (img - img.min()) / (img.max() - img.min())   # normalise to 0-1
 ```
 
----
+```{warning}
+DICOM headers can carry patient name, ID, and date of birth embedded directly
+in the file's metadata, separate from the pixel data itself. Before any image
+leaves a supervised environment, that metadata must be stripped as part of
+de-identification, not just the visible parts of the image.
+```
 
-## งานหลักใน Medical Imaging
+## The four core tasks
 
-| งาน | คำอธิบาย | ตัวอย่าง |
+| Task | Description | Example |
 |---|---|---|
-| **Classification** | จำแนกว่าภาพมีความผิดปกติหรือไม่ | ปอดอักเสบจาก X-ray |
-| **Detection** | ระบุตำแหน่งความผิดปกติ | ก้อนเนื้อใน CT |
-| **Segmentation** | วาดขอบเขตอวัยวะ/รอยโรค | แบ่งเขตเนื้องอกใน MRI |
-| **Registration** | จัดภาพหลายช่วงเวลาให้ตรงกัน | เปรียบเทียบก่อน/หลังรักษา |
+| **Classification** | Decide whether an image shows an abnormality | Pneumonia from a chest X-ray |
+| **Detection** | Locate where an abnormality is | A nodule in a CT scan |
+| **Segmentation** | Draw the exact boundary of an organ or lesion | Outlining a tumour in an MRI |
+| **Registration** | Align images from different times or modalities | Comparing before and after treatment |
 
----
+Each is a genuinely different modelling problem with different architectures
+and different evaluation metrics. Classification gives you a label,
+segmentation gives you a pixel-level mask, and confusing the two when scoping a
+project is a common early mistake.
 
-## ข้อควรระวังเฉพาะทางภาพการแพทย์
+## Pitfalls specific to imaging
 
-<div class="dha-grid dha-grid--2">
-  <div class="dha-card">
-    <div class="dha-card__icon dha-card__icon--coral">⚠️</div>
-    <h3>Class Imbalance</h3>
-    <p>โรคหายากมีตัวอย่างน้อยมาก ต้องใช้เทคนิคจัดการข้อมูลไม่สมดุล</p>
-  </div>
-  <div class="dha-card">
-    <div class="dha-card__icon dha-card__icon--violet">🏷️</div>
-    <h3>Annotation Cost</h3>
-    <p>การ label ต้องใช้รังสีแพทย์ ใช้เวลาและงบสูง พิจารณา semi-supervised</p>
-  </div>
-</div>
+| Risk | Why it happens | What helps |
+|---|---|---|
+| **Class imbalance** | Rare diseases have very few positive examples | Weighted loss functions, oversampling, careful metric choice (not plain accuracy) |
+| **Annotation cost** | Labelling requires a radiologist's time, which is expensive and scarce | Semi-supervised learning, active learning, starting with a smaller expert-labelled set |
+| **Shortcut learning** | Models can latch onto scanner artefacts, text burned into the image, or positioning cues instead of the actual pathology | Multi-site data, saliency checks (see [Deep AI](../deep-ai.md) on explainability) |
 
-```{tip} Transfer Learning ช่วยได้มาก
-ข้อมูลภาพการแพทย์มักมีจำกัด การเริ่มจากโมเดลที่ pretrain มาแล้ว (เช่น ImageNet หรือ RadImageNet) แล้ว fine-tune มักได้ผลดีกว่าการ train จากศูนย์
+```{important}
+A chest X-ray classifier that performs suspiciously well can sometimes be
+reading the hospital name printed in the corner of images from a site that
+happens to see sicker patients, not the lung findings themselves. Always ask
+what else in the image could explain the model's performance before you trust
+it.
 ```
 
-> 📓 ฝึกสร้าง classifier ภาพการแพทย์ที่ [Notebook: Medical Image Classification](../../notebooks/03-medical-imaging.html)
+## Transfer learning: your default starting point
+
+```{tip}
+Medical imaging datasets are almost always small relative to what deep
+learning normally wants. Starting from a model pretrained on a large dataset
+(ImageNet, or a medical-specific one like RadImageNet) and fine-tuning it on
+your smaller, specific dataset usually beats training from scratch, often by a
+wide margin. Default to transfer learning unless you have a specific reason not
+to.
+```
+
+## Common mistakes
+
+- **Treating DICOM like a JPEG.** You lose clinically important metadata and
+  risk mishandling embedded patient information.
+- **Confusing classification with segmentation when scoping a project.** Decide
+  which task you actually need before you pick an architecture.
+- **Training from scratch on a small dataset** when a pretrained model would
+  have done better with a fraction of the data and compute.
+- **Not checking for shortcut learning.** A suspiciously good result deserves
+  suspicion, not celebration.
+
+## Check yourself
+
+- [ ] I can read a DICOM file and extract both metadata and pixel data.
+- [ ] I can describe classification, detection, segmentation, and registration
+      with a distinct clinical example for each.
+- [ ] I can name one technique for class imbalance and one for annotation cost.
+- [ ] I can explain, in one sentence, why transfer learning usually wins for
+      medical imaging.
+
+## What you build
+
+Work through [Notebook: Medical Image Classification](../../notebooks/03-medical-imaging.ipynb)
+to build a real image classifier starting from a pretrained model, and note one
+shortcut the model could plausibly be taking instead of learning the real
+pathology.
+
+## Where this goes next
+
+You now have one deep, applied modality. Return to
+[Digital Health](../digital-health.md) for the data standards that carry
+imaging studies through a hospital, or continue to
+[Deployment](../deployment.md) to put a trained classifier in front of users.

@@ -259,23 +259,10 @@ strong { color: var(--ink); font-weight: 600; }
 .card__link svg { width: 14px; height: 14px; transition: transform .25s var(--ease); }
 .card:hover .card__link svg { transform: translateX(3px); }
 .card--feature { padding: var(--s5); }
-.card--num { position: relative; }
-.card--num .num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); letter-spacing: .1em; }
 
 /* tag / pill */
 .pill { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--step--1); font-weight: 500; padding: 0.3rem 0.8rem; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-soft); }
 .pill-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-
-/* leaderboard table */
-.lb { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-.lb th, .lb td { text-align: left; padding: 0.7rem 1.1rem; border-bottom: 1px solid var(--line); }
-.lb th { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
-.lb td:last-child, .lb th:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
-.lb tbody tr:hover { background: var(--bg-elev); }
-
-/* logo strip */
-.logos { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3) var(--s5); }
-.logos span { font-weight: 600; color: var(--ink-faint); font-size: 0.95rem; }
 
 /* ---- Feature band (accent) ----------------------------------------------- */
 .band { background: var(--navy); color: #eaf0fb; border-radius: var(--radius-lg); overflow: hidden; position: relative; }
@@ -535,7 +522,6 @@ strong { color: var(--ink); font-weight: 600; }
 .muted { color: var(--ink-faint); }
 .mt0 { margin-top: 0; } .mt2 { margin-top: var(--s2); } .mt3 { margin-top: var(--s3); } .mt4 { margin-top: var(--s4); } .mt5 { margin-top: var(--s5); }
 .maxw { max-width: 70ch; }
-.accent-rule { height: 3px; width: 56px; background: var(--grad); border-radius: 2px; }
 
 /* callouts (markdown admonitions) */
 .callout { background: var(--bg-elev); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: var(--s3); margin: 1.4rem 0; }
@@ -720,16 +706,6 @@ strong { color: var(--ink); font-weight: 600; }
 .tool p { margin-top: .5rem; font-size: .95rem; }
 .tool__for { margin-top: auto; padding-top: var(--s3); font-family: var(--font-mono); font-size: .7rem; letter-spacing: .04em; color: var(--ink-faint); }
 
-/* ---- Science of Science engine diagram ----------------------------------- */
-.scisci-loop { display: grid; grid-template-columns: 1fr; gap: var(--s2); margin-top: var(--s5); counter-reset: loop; }
-@media (min-width: 760px) { .scisci-loop { grid-template-columns: repeat(5, 1fr); align-items: stretch; } }
-.loop-step { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3); }
-.loop-step__k { font-family: var(--font-mono); font-size: .72rem; color: var(--accent); letter-spacing: .06em; }
-.loop-step h4 { font-size: 1rem; color: var(--ink); margin-top: .4rem; }
-.loop-step p { font-size: .84rem; margin-top: .4rem; }
-.loop-step::after { content: "\2192"; position: absolute; color: var(--ink-faint); font-size: 1.2rem; }
-@media (min-width: 760px) { .loop-step::after { right: -0.85rem; top: 50%; transform: translateY(-50%); } .loop-step:last-child::after { content: "\21ba"; right: 50%; bottom: -1.9rem; top: auto; transform: translateX(50%); } }
-@media (max-width: 759px) { .loop-step::after { bottom: -0.85rem; left: 50%; transform: translateX(-50%) rotate(90deg); } .loop-step:last-child::after { content: ""; } }
 
 /* Markdown tables must not push the page wide on mobile; scroll them locally. */
 .prose table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -831,11 +807,6 @@ strong { color: var(--ink); font-weight: 600; }
   transition: opacity .85s var(--ease), transform .85s var(--ease), filter .85s var(--ease); }
 .reveal.is-in { opacity: 1; transform: none; filter: none; }
 
-/* A drawn accent rule that grows in when its section arrives. */
-.accent-rule { transform-origin: left; }
-.reveal .accent-rule, .accent-rule.reveal { transform: scaleX(0); transition: transform .7s var(--ease) .1s; }
-.reveal.is-in .accent-rule, .accent-rule.reveal.is-in { transform: scaleX(1); }
-
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; filter: none; transition: none; }
 }
@@ -843,18 +814,6 @@ strong { color: var(--ink); font-weight: 600; }
 /* Handwritten marginalia on the sketch diagram: narrative, in our own hand. */
 .fa-hand { font-family: var(--font-hand); font-weight: 600; font-size: 27px; fill: var(--accent); }
 .fa-hand-arrow { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; opacity: .7; }
-
-/* Hand-drawn circle around one earned word per page (Sequoia/annotation move). */
-.circle-word { position: relative; display: inline-block; }
-.circle-ink {
-  position: absolute; left: -14%; top: -28%; width: 128%; height: 156%;
-  fill: none; stroke: var(--accent); stroke-width: 3; opacity: .8;
-  pointer-events: none; z-index: -1;
-  stroke-dasharray: 620; stroke-dashoffset: 620;
-  transition: stroke-dashoffset 1s var(--ease) .3s;
-}
-.reveal.is-in .circle-ink, .is-in .circle-ink { stroke-dashoffset: 0; }
-@media (prefers-reduced-motion: reduce) { .circle-ink { stroke-dashoffset: 0; transition: none; } }
 
 /* Minimal hand-drawn "nested system" motif (Who We Are). Ink rings, one gradient. */
 .motif { color: var(--ink); display: grid; place-items: center; }
@@ -868,11 +827,8 @@ strong { color: var(--ink); font-weight: 600; }
 [data-lang="th"] .nest-hand { font-family: "Noto Serif Thai", serif; font-size: 15px; }
 
 /* ---- Real partner marks -------------------------------------------------- */
-.logos--mark { align-items: center; }
 .logo-mark { height: 46px; width: auto; filter: none; }
 [data-theme="dark"] .logo-mark { background: #fff; border-radius: 8px; padding: 3px 6px; }
-.logo-word { font-family: var(--font-mono); font-size: .82rem; letter-spacing: .06em; color: var(--ink-faint); border: 1px solid var(--line); border-radius: 999px; padding: .3rem .8rem; }
-.logo-word b { color: var(--ink-soft); font-weight: 600; }
 
 /* Nav links draw an ink underline instead of a filled pill: quieter, ours. */
 .nav__link {
@@ -889,11 +845,8 @@ strong { color: var(--ink); font-weight: 600; }
 
 /* ---- Partner strip (data.gov.sg-style: grayscale, evenly spaced, colour on hover) */
 .partner-strip { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; text-align: center; }
-.logos--center { justify-content: center; }
 .logo-mark { filter: grayscale(1) opacity(.62); transition: filter .3s var(--ease); }
 .logo-mark:hover { filter: grayscale(0) opacity(1); }
-.logo-word { filter: grayscale(1); opacity: .68; transition: opacity .3s var(--ease), filter .3s var(--ease); }
-.logo-word:hover { filter: grayscale(0); opacity: 1; }
 
 /* ---- Dataset cards (data.gov.sg-inspired: tinted panel, colour-chip cards) */
 .ds-panel {
@@ -925,12 +878,20 @@ strong { color: var(--ink); font-weight: 600; }
 .ds-card__title { font-weight: 600; color: var(--ink); font-size: .98rem; line-height: 1.25; }
 .ds-card__stat { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); letter-spacing: .01em; }
 
-/* ---- Partner logo row (static, no animation) ------------------------------ */
-.logo-row {
-  margin-top: var(--s5); display: flex; flex-wrap: wrap; align-items: center;
-  justify-content: center; gap: clamp(2rem, 5vw, 3.6rem);
+/* ---- Partner logo marquee (slide animation, edge-fade, pause on hover) --- */
+.logo-marquee {
+  margin-top: var(--s5); overflow: hidden; width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
 }
-.logo-row .logo-mark { height: 44px; width: auto; flex: none; }
+.logo-marquee__track {
+  display: flex; align-items: center; gap: clamp(2.5rem, 6vw, 4.5rem);
+  width: max-content; animation: marquee 28s linear infinite;
+}
+.logo-marquee:hover .logo-marquee__track { animation-play-state: paused; }
+.logo-marquee .logo-mark { height: 44px; width: auto; flex: none; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .logo-marquee__track { animation: none; } }
 
 /* Fellowship orbit motif: one year as a closed loop, ink-wobbled. */
 .fo-orbit { stroke: currentColor; stroke-width: 2; opacity: .3; }

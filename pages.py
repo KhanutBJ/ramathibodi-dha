@@ -25,15 +25,6 @@ def note_hand(en, th):
     typeset headline begins."""
     return f'<p class="annot reveal" style="margin-bottom:.6rem">{bi(en, th)}</p>'
 
-def circle(text):
-    """Wrap a word in a hand-drawn circle, ink-wobbled, the Sequoia/annotation
-    move: one word per page earns the mark, never more."""
-    return (f'<span class="circle-word">{text}'
-            f'<svg class="circle-ink" viewBox="0 0 220 90" preserveAspectRatio="none" aria-hidden="true">'
-            f'<path d="M14 46 C10 20, 40 8, 110 7 C182 6, 210 16, 206 42 '
-            f'C210 70, 176 84, 108 84 C42 84, 10 72, 14 46 Z"/>'
-            f'</svg></span>')
-
 def flow(steps, icons):
     """Horizontal 'one line' stepper diagram. steps=[(k,title,desc)], icons=[icon,...]."""
     out = '<div class="flow reveal">'
@@ -147,7 +138,7 @@ def home(prefix, ctx):
     proof = sec(
         '<div class="reveal partner-strip">'
         '<span class="eyebrow center">Built inside the system, with partners who build</span>'
-        f'<div class="logo-row">{_marks_html}</div>'
+        f'<div class="logo-marquee"><div class="logo-marquee__track">{_marks_html}{_marks_html}</div></div>'
         '<p class="muted center" style="font-size:.82rem;margin-top:1.4rem">Aligned with MOPH Digital Health, NHSO, Thai FDA, and Thai HealthTech</p>'
         '</div>', "section section--tight")
 
@@ -160,25 +151,6 @@ def home(prefix, ctx):
         ctx['card']('rocket', bi('Venture Studio', 'เวนเจอร์สตูดิโอ'), bi('We help the best fellowship work become deployable products, with engineering, regulatory, and go-to-market support.', 'เราช่วยให้ผลงานเฟลโลว์ชิปที่ดีที่สุดกลายเป็นผลิตภัณฑ์ที่ใช้งานได้จริง ด้วยการสนับสนุนด้านวิศวกรรม กฎระเบียบ และการออกสู่ตลาด'), 'venture.html', bi('How it works', 'ทำงานอย่างไร'), prefix, 1) +
         ctx['card']('compass', bi('Consulting', 'ที่ปรึกษานวัตกรรม'), bi('We advise hospitals and agencies building their own AI capability, so the workforce we train has somewhere to land.', 'เราให้คำปรึกษาแก่โรงพยาบาลและหน่วยงานที่กำลังสร้างขีดความสามารถด้าน AI ของตนเอง เพื่อให้คนที่เราฝึกมีที่ไปที่แข็งแรง'), 'what-we-do.html', bi('Work with us', 'ร่วมงานกับเรา'), prefix, 2) +
         '</div>')
-
-    why = f"""
-<section class="section">
-  <div class="container">
-    {head("Why us, why now", "The gap in Thai medical AI is not models. It is people.")}
-    <div class="split">
-      <div class="stack reveal">
-        <p class="lead">The models are here. National policy is here. What is missing is a generation of people who can hold a clinical problem in one hand and a model in the other, and ship something a hospital can trust.</p>
-        <p>Thailand's digital health agenda runs through the Ministry of Public Health, the National Health Security Office, the Thai FDA's pathway for Software as a Medical Device, and the National Innovation Agency. Each of them needs the same thing: trained builders. We exist to produce them, inside a hospital, on real problems, with governance built in from the first line of code.</p>
-        <a class="btn btn--ghost" href="{prefix}who-we-are.html">Read our position {I['arrow']}</a>
-      </div>
-      <div class="stack">
-        <div class="card reveal"><div class="card--num"><span class="num">01 / Why here</span></div><h3 class="mt2">Inside the clinic</h3><p>We are part of Ramathibodi, not a bootcamp bolted onto it. Real data, real supervision, real patients.</p></div>
-        <div class="card reveal" data-d="1"><div class="card--num"><span class="num">02 / Why now</span></div><h3 class="mt2">The threshold crossed</h3><p>AI has reached clinical usefulness while the country is actively writing the rules. The window to train people well is open now.</p></div>
-        <div class="card reveal" data-d="2"><div class="card--num"><span class="num">03 / Why this way</span></div><h3 class="mt2">Learn by shipping</h3><p>Apprenticeship over lectures. You build, you are reviewed, you deploy. Safety and evaluation are the curriculum, not an afterthought.</p></div>
-      </div>
-    </div>
-  </div>
-</section>"""
 
     band = f"""
 <section class="section">
@@ -1592,56 +1564,6 @@ def tools(prefix, ctx):
 # ===========================================================================
 # SCIENCE OF SCIENCE
 # ===========================================================================
-def _loop(k, title, desc):
-    return f'<div class="loop-step reveal"><div class="loop-step__k">{k}</div><h4>{title}</h4><p>{desc}</p></div>'
-
-def science_of_science(prefix, ctx):
-    I = ctx["ICON"]
-    hero = f"""
-<section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">{bi("Science of Science", "ศาสตร์แห่งศาสตร์")}</span>
-  <h1 class="reveal" data-d="1" style="max-width:17ch">{bi("A club that learns what to build next.", "ชมรมที่เรียนรู้ว่าควรสร้างอะไรต่อไป")}</h1>
-  <p class="lead reveal measure" data-d="2">{bi("Every project leaves a trace: the problem it chose, the method it used, whether it reached the bedside, and what it changed. We mine those traces with AI to guide what the club builds next, and who should build it. The system gets smarter with every project.", "ทุกโปรเจกต์ทิ้งร่องรอยไว้ ทั้งโจทย์ที่เลือก วิธีที่ใช้ ว่าไปถึงข้างเตียงผู้ป่วยหรือไม่ และเปลี่ยนอะไรไป เราใช้ AI ขุดร่องรอยเหล่านั้นเพื่อชี้นำว่าชมรมควรสร้างอะไรต่อไป และใครควรเป็นคนสร้าง ระบบฉลาดขึ้นทุกครั้งที่มีโปรเจกต์ใหม่")}</p>
-</div></section>"""
-
-    loop = sec(
-        head(bi("The learning loop", "วงจรการเรียนรู้"), bi("Metascience, made operational.", "เมตาไซแอนซ์ ที่ใช้งานได้จริง"), bi("This is the loop the engine watches. Each turn adds data, and the recommendations sharpen.", "นี่คือวงจรที่เอนจินเฝ้าดู แต่ละรอบเพิ่มข้อมูล และคำแนะนำก็คมขึ้น")) +
-        '<div class="scisci-loop">' +
-        _loop("01", bi("Problem", "โจทย์"), bi("A real clinical need is posted and framed.", "โจทย์จริงจากคลินิกถูกโพสต์และตีกรอบ")) +
-        _loop("02", bi("Build", "สร้าง"), bi("A team builds against it with governed data.", "ทีมลงมือสร้างด้วยข้อมูลที่กำกับดูแล")) +
-        _loop("03", bi("Evaluate", "ประเมิน"), bi("Honest metrics: calibration, fairness, denominator.", "ตัวชี้วัดที่ตรงไปตรงมา calibration ความเป็นธรรม ตัวหาร")) +
-        _loop("04", bi("Deploy", "นำไปใช้"), bi("The best work is carried toward the bedside.", "งานที่ดีที่สุดถูกนำไปสู่ข้างเตียงผู้ป่วย")) +
-        _loop("05", bi("Measure", "วัดผล"), bi("Outcomes feed back in and train the engine.", "ผลลัพธ์ถูกป้อนกลับและฝึกเอนจิน")) +
-        '</div>')
-
-    what = sec(
-        head(bi("What the engine recommends", "สิ่งที่เอนจินแนะนำ"), bi("Three questions, answered with evidence.", "สามคำถาม ตอบด้วยหลักฐาน")) +
-        '<div class="grid grid-3">' +
-        ctx['card']('compass', bi("What to build next", "ควรสร้างอะไรต่อไป"), bi("Which clinical problems are high-need, tractable, and underserved, ranked from the club’s own outcome data.", "โจทย์คลินิกใดที่จำเป็นสูง ทำได้จริง และยังขาดคนทำ จัดอันดับจากข้อมูลผลลัพธ์ของชมรมเอง"), None, '', prefix) +
-        ctx['card']('users', bi("Who should build it", "ใครควรเป็นคนสร้าง"), bi("Match a problem to the people and mentors whose past work predicts they can ship it.", "จับคู่โจทย์กับคนและเมนเทอร์ที่ผลงานที่ผ่านมาบ่งชี้ว่าทำสำเร็จได้"), None, '', prefix) +
-        ctx['card']('shield', bi("What is likely to fail", "อะไรที่น่าจะล้มเหลว"), bi("Flag patterns that stall before the bedside, so effort goes where it counts.", "ชี้รูปแบบที่มักหยุดชะงักก่อนถึงข้างเตียง เพื่อให้ทุ่มแรงในที่ที่คุ้มค่า"), None, '', prefix) +
-        '</div>')
-
-    moat = sec(
-        f'<div class="split">'
-        f'<div class="stack reveal"><span class="eyebrow">{bi("Why it is a moat", "ทำไมจึงเป็นข้อได้เปรียบ")}</span>'
-        f'<h2>{bi("Research, product, and method in one.", "งานวิจัย ผลิตภัณฑ์ และวิธีการ ในสิ่งเดียว")}</h2>'
-        f'<p class="lead">{bi("Nobody else has this data: the record of which Thai clinical AI projects were tried, how they were built, and whether they helped. That corpus is a publishable metascience program, a product feature that guides members, and the one method most worth protecting.", "ไม่มีใครมีข้อมูลชุดนี้ บันทึกว่าโปรเจกต์ AI คลินิกไทยใดถูกลองทำ สร้างอย่างไร และช่วยได้จริงหรือไม่ คลังข้อมูลนั้นคือทั้งงานวิจัยเมตาไซแอนซ์ที่ตีพิมพ์ได้ ฟีเจอร์ที่ชี้นำสมาชิก และวิธีการที่ควรปกป้องที่สุด")}</p></div>'
-        f'<div class="stack reveal">'
-        f'<div class="callout"><strong>{bi("Publishable", "ตีพิมพ์ได้")}</strong>{bi("A metascience research line on how medical AI actually reaches care in Thailand.", "แนววิจัยเมตาไซแอนซ์ว่าด้วย AI การแพทย์ไปถึงการดูแลผู้ป่วยในไทยได้อย่างไรจริง ๆ")}</div>'
-        f'<div class="callout callout--tip"><strong>{bi("Product", "ผลิตภัณฑ์")}</strong>{bi("A recommendation layer built into the platform that members use every day.", "ชั้นคำแนะนำที่ฝังในแพลตฟอร์มซึ่งสมาชิกใช้ทุกวัน")}</div>'
-        f'<div class="callout callout--important"><strong>{bi("Protectable method", "วิธีการที่ปกป้องได้")}</strong>{bi("A candidate for a novelty filing through Mahidol’s IP office: outcome-weighted prioritisation from a hospital deployment loop.", "ผู้สมัครสำหรับการยื่นจดสิทธิบัตรผ่านสำนักงานทรัพย์สินทางปัญญามหิดล การจัดลำดับความสำคัญแบบถ่วงน้ำหนักด้วยผลลัพธ์จากวงจรการนำไปใช้ในโรงพยาบาล")}</div>'
-        f'</div></div>')
-
-    cta = sec(
-        f'<div class="band reveal"><div class="band__glow"></div><div class="container" style="padding-block:clamp(3rem,6vw,5rem)">'
-        f'<h2 style="color:#fff;max-width:22ch">{bi("Bring a problem, and let the engine point you at the work that matters.", "นำโจทย์มา แล้วให้เอนจินชี้ทางไปยังงานที่สำคัญ")}</h2>'
-        f'<div class="btn-row" style="margin-top:2rem"><a class="btn btn--grad" href="{prefix}platform.html">{bi("See the Platform", "ดูแพลตฟอร์ม")} {I["arrow"]}</a>'
-        f'<a class="btn btn--ghost btn--on-dark" href="{prefix}tools.html">{bi("Our tools", "เครื่องมือของเรา")}</a></div>'
-        f'</div></div>')
-
-    return hero + loop + what + moat + cta
-
 MARKETING = [
     ("index.html", "Ramathibodi Digital Health & AI Club", "", home),
     ("who-we-are.html", "Who We Are - DHA Club", "who-we-are.html", who_we_are),

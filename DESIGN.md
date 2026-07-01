@@ -84,13 +84,20 @@ underline.** Navigation and inline links do not get a filled pill on hover.
 A thin line draws itself in underneath, the way you would underline something
 by hand to mark it as important.
 
-We tried a second invented motion, a scroll-progress "ink rail," and a sliding
-partner-logo marquee, and pulled both back out. Motion that runs on its own
-timer, unprompted by the reader, stopped feeling calm and started feeling like
-noise. The lesson stays even though the feature didn't: prefer motion the
-reader causes (a hover, a scroll into view) over motion that runs regardless.
+We tried a second invented motion, a scroll-progress "ink rail" fixed to the
+page edge, and pulled it back out. It was chrome, not content: it moved
+constantly, competed with the reveals, and added noise to a system built on
+calm. The lesson stays: prefer motion the reader causes (a hover, a scroll
+into view) over motion that runs on its own timer, unprompted, for the whole
+visit.
 
-Everything else (reveals, the diagram stroke-draw, the accent-rule grow-in) is
+The one exception is the partner logo strip on the home page, a slow (28s),
+pausable, edge-faded slide. It earns the exception because it is a single,
+contained, expected pattern (the same move data.gov.sg and countless
+credibility strips use), not novel page chrome, and it stops the moment a
+reader's cursor arrives.
+
+Everything else (reveals, the diagram stroke-draw) is
 quiet, reader-triggered, and single-purpose: it confirms you arrived, then
 gets out of the way.
 
@@ -109,8 +116,9 @@ gets out of the way.
 5. **Whitespace is content.** Sections breathe. We would rather cut a paragraph
    than crowd one.
 6. **Motion with a reason.** Things arrive once, quietly, triggered by the
-   reader. No carousels, no marquees, no parallax theatre, nothing that moves
-   on its own timer.
+   reader. No carousels, no parallax theatre, no scroll-linked page chrome.
+   The one deliberate exception is the partner logo slide: contained, slow,
+   pausable, and never asked to carry meaning on its own.
 7. **Honesty over polish.** We show the denominator, the confidence interval, the
    population a model was tested on. Trust is a design material.
 8. **No slop.** No em dashes, no middle dots, no filler. Human prose, or nothing.

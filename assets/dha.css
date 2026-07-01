@@ -764,6 +764,21 @@ strong { color: var(--ink); font-weight: 600; }
   .fa-token { display: none; }
 }
 
+/* Academy learning-trail motif (was missing entirely: unstyled <path>/<circle>
+   fell back to SVG defaults, filling solid black in every theme). */
+.lt-path { fill: none; stroke: url(#lt-grad); stroke-width: 2.4; stroke-linecap: round;
+  stroke-dasharray: 2200; stroke-dashoffset: 2200; animation: lt-draw 2.4s var(--ease) forwards; }
+.lt-node { fill: var(--card); stroke: url(#lt-grad); stroke-width: 2; }
+.lt-num { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--ink); }
+.lt-lab { font-family: var(--font-mono); font-size: 13px; fill: var(--ink-soft); letter-spacing: .02em; }
+[data-lang="th"] .lt-lab { font-family: "Noto Sans Thai", sans-serif; }
+.lt-token { fill: #fd6502; filter: drop-shadow(0 0 5px rgba(247,98,5,.6)); }
+@keyframes lt-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .lt-path { animation: none; stroke-dashoffset: 0; }
+  .lt-token { display: none; }
+}
+
 /* ============================================================================
    Editorial refinement. Rams: as little design as possible. Ive: air + clarity.
    Appended last so it settles the whole system toward a book/journal feel.

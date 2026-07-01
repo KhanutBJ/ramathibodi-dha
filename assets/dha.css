@@ -115,9 +115,7 @@ strong { color: var(--ink); font-weight: 600; }
   color: var(--ink-faint);
   display: inline-flex; align-items: center; gap: 0.6rem;
 }
-.eyebrow::before {
-  content: ""; width: 1.6rem; height: 1px; background: var(--accent); opacity: .8;
-}
+.eyebrow::before { content: none; }
 .lead { font-size: var(--step-1); color: var(--ink-soft); line-height: 1.5; font-weight: 400; }
 .gradient-text {
   background: var(--grad); -webkit-background-clip: text; background-clip: text;
@@ -804,8 +802,9 @@ strong { color: var(--ink); font-weight: 600; }
 .hand { font-family: var(--font-hand); font-weight: 600; }
 
 /* Marginalia: a handwritten aside, tilted like a real note in the margin. */
-.annot { font-family: var(--font-hand); font-weight: 600; font-size: 1.6rem;
-  line-height: 1.05; color: var(--accent); display: inline-block; transform: rotate(-3.5deg); }
+.annot { font-family: var(--font-hand); font-weight: 600; font-size: 1.7rem;
+  line-height: 1.05; color: var(--accent); display: block; width: fit-content;
+  transform: rotate(-3deg); transform-origin: left center; }
 [data-lang="th"] .annot { font-family: "Noto Sans Thai", sans-serif; font-weight: 600;
   font-size: 1.05rem; transform: none; }
 
@@ -854,3 +853,14 @@ strong { color: var(--ink); font-weight: 600; }
 }
 .reveal.is-in .circle-ink, .is-in .circle-ink { stroke-dashoffset: 0; }
 @media (prefers-reduced-motion: reduce) { .circle-ink { stroke-dashoffset: 0; transition: none; } }
+
+/* Minimal hand-drawn "nested system" motif (Who We Are). Ink rings, one gradient. */
+.motif { color: var(--ink); display: grid; place-items: center; }
+.motif svg { width: 100%; height: auto; max-width: 440px; overflow: visible; }
+.nest-ring { stroke: currentColor; }
+.nest-ring--o { stroke-width: 1.6; opacity: .26; }
+.nest-ring--m { stroke-width: 1.8; opacity: .5; }
+.nest-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; fill: var(--ink-faint); }
+[data-lang="th"] .nest-label { font-family: "Noto Sans Thai", sans-serif; text-transform: none; }
+.nest-hand { font-family: var(--font-hand); font-weight: 600; font-size: 23px; fill: var(--accent); }
+[data-lang="th"] .nest-hand { font-family: "Noto Serif Thai", serif; font-size: 15px; }

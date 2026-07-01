@@ -331,10 +331,15 @@ def who_we_are(prefix, ctx):
 <section class="hero" style="padding-bottom:3rem">
   <div class="hero__glow"></div>
   <div class="container">
-    {note_hand("built inside a hospital", "สร้างขึ้นในโรงพยาบาล")}
-    <span class="eyebrow reveal">{bi("Who we are", "เกี่ยวกับเรา")}</span>
-    <h1 class="reveal" data-d="1" style="max-width:20ch">{bi("A club with the discipline of an institution and the speed of a startup.", "คลับที่มีวินัยของสถาบัน และความเร็วของสตาร์ตอัป")}</h1>
-    <p class="lead reveal measure" data-d="2">{bi("We are the Ramathibodi Digital Health and AI Club. We sit inside the Faculty of Medicine Ramathibodi Hospital, Mahidol University, and we are building the people who will modernise Thai healthcare from within.", "เราคือ Ramathibodi Digital Health and AI Club อยู่ภายในคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล และเรากำลังสร้างคนที่จะพลิกโฉมระบบสุขภาพไทยจากภายใน")}</p>
+    <div class="split">
+      <div>
+        {note_hand("built inside a hospital", "สร้างขึ้นในโรงพยาบาล")}
+        <span class="eyebrow reveal">{bi("Who we are", "เกี่ยวกับเรา")}</span>
+        <h1 class="reveal" data-d="1" style="max-width:14ch;margin-top:var(--s3)">{bi("The discipline of an institution, the speed of a startup.", "วินัยของสถาบัน ความเร็วของสตาร์ตอัป")}</h1>
+        <p class="lead reveal measure mt4" data-d="2">{bi("We sit inside Ramathibodi, and we build the people who will modernise Thai healthcare from within.", "เราอยู่ภายในรามาธิบดี และสร้างคนที่จะพลิกโฉมระบบสุขภาพไทยจากภายใน")}</p>
+      </div>
+      {nested_system()}
+    </div>
   </div>
 </section>"""
 
@@ -453,7 +458,7 @@ def what_we_do(prefix, ctx):
   <div class="container">
     {note_hand("one path, four parts", "หนึ่งเส้นทาง สี่ส่วน")}
     <span class="eyebrow reveal">{bi("What we do", "สิ่งที่เราทำ")}</span>
-    <h1 class="reveal" data-d="1" style="max-width:18ch">{bi(f"One pipeline, from first principles to the {circle('patient')}.", "หนึ่งเส้นทาง จากพื้นฐานสู่ผู้ป่วย")}</h1>
+    <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("One pipeline, from first principles to the patient.", "หนึ่งเส้นทาง จากพื้นฐานสู่ผู้ป่วย")}</h1>
     <p class="lead reveal measure" data-d="2">{bi("Learn the craft, prove it on real problems, turn the best of it into products, and help institutions stand up their own capability. Four parts that feed each other.", "เรียนวิชาชีพ พิสูจน์บนโจทย์จริง เปลี่ยนงานที่ดีที่สุดให้เป็นผลิตภัณฑ์ และช่วยสถาบันสร้างขีดความสามารถของตนเอง สี่ส่วนที่ป้อนกันและกัน")}</p>
   </div>
 </section>"""
@@ -584,6 +589,36 @@ def step(k, title, body):
     return (f'<div class="step reveal"><div class="step__k">{k}</div>'
             f'<div><h3>{title}</h3><p class="mt2">{body}</p></div></div>')
 
+def nested_system():
+    """Who We Are motif: the club, inside Ramathibodi, inside the Thai health
+    system. Concentric hand-drawn rings, one gradient at the centre. Minimal,
+    Rams-clean, drawn by our own hand."""
+    return """
+<div class="motif reveal">
+  <svg viewBox="0 0 400 420" role="img" aria-label="The club, inside Ramathibodi, inside the Thai health system">
+    <defs>
+      <filter id="sk-nest" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="4" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.6"/>
+      </filter>
+      <linearGradient id="nest-grad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="1" stop-color="#2a1bd6"/>
+      </linearGradient>
+    </defs>
+    <g filter="url(#sk-nest)" fill="none">
+      <circle class="nest-ring nest-ring--o" cx="200" cy="220" r="182"/>
+      <circle class="nest-ring nest-ring--m" cx="200" cy="220" r="120"/>
+      <circle class="nest-ring--i" cx="200" cy="220" r="60" stroke="url(#nest-grad)" stroke-width="3" fill="none"/>
+      <circle cx="200" cy="220" r="7" fill="url(#nest-grad)" stroke="none"/>
+    </g>
+    <text class="l-en nest-label" x="200" y="62" text-anchor="middle">Thai health system</text>
+    <text class="l-th nest-label" x="200" y="62" text-anchor="middle">ระบบสุขภาพไทย</text>
+    <text class="nest-label" x="200" y="124" text-anchor="middle">Ramathibodi</text>
+    <text class="l-en nest-hand" x="200" y="258" text-anchor="middle">the club</text>
+    <text class="l-th nest-hand" x="200" y="258" text-anchor="middle">ชมรม</text>
+  </svg>
+</div>"""
+
 # ===========================================================================
 # ACADEMY (public overview)
 # ===========================================================================
@@ -646,7 +681,7 @@ def academy(prefix, ctx):
   <div class="container">
     {note_hand("read, run, build", "อ่าน ลงมือทำ สร้าง")}
     <span class="eyebrow reveal">{bi("The Academy", "อคาเดมี")}</span>
-    <h1 class="reveal" data-d="1" style="max-width:19ch">{bi(f"The open curriculum for medical AI in {circle('Thailand')}.", "หลักสูตรเปิดด้าน AI การแพทย์ สำหรับประเทศไทย")}</h1>
+    <h1 class="reveal" data-d="1" style="max-width:19ch">{bi("The open curriculum for medical AI in Thailand.", "หลักสูตรเปิดด้าน AI การแพทย์ สำหรับประเทศไทย")}</h1>
     <p class="lead reveal measure" data-d="2">{bi("From what a model is to how it reaches a patient safely. Free to start, taught with real clinical data and real code. Open to clinicians, students, and engineers alike.", "ตั้งแต่โมเดลคืออะไร ไปจนถึงการนำไปสู่ผู้ป่วยอย่างปลอดภัย เริ่มเรียนฟรี สอนด้วยข้อมูลคลินิกจริงและโค้ดจริง เปิดสำหรับแพทย์ นักศึกษา และวิศวกรเท่าเทียมกัน")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}academy/gate.html">{bi("Enter the Academy", "เข้าสู่อคาเดมี")} {I['arrow']}</a>
@@ -715,7 +750,7 @@ def fellowship(prefix, ctx):
   <div class="container">
     {note_hand("a year, in residence", "หนึ่งปี ประจำในสถานที่")}
     <span class="eyebrow reveal">{bi("The Fellowship", "เฟลโลว์ชิป")}</span>
-    <h1 class="reveal" data-d="1" style="max-width:17ch">{bi(f"A year to build something that reaches a {circle('patient')}.", "หนึ่งปี เพื่อสร้างสิ่งที่ไปถึงผู้ป่วย")}</h1>
+    <h1 class="reveal" data-d="1" style="max-width:17ch">{bi("A year to build something that reaches a patient.", "หนึ่งปี เพื่อสร้างสิ่งที่ไปถึงผู้ป่วย")}</h1>
     <p class="lead reveal measure" data-d="2">{bi("The Fellowship is small on purpose. A handful of people, real clinical problems, supervised data, and the faculty of Ramathibodi behind them. You leave with a deployed tool and the judgement to build more.", "เฟลโลว์ชิปตั้งใจให้เล็ก คนไม่กี่คน โจทย์คลินิกจริง ข้อมูลที่มีการกำกับ และคณาจารย์รามาธิบดีหนุนหลัง คุณจากไปพร้อมเครื่องมือที่ deploy แล้ว และวิจารณญาณที่จะสร้างต่อ")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}fellowship/apply.html">{bi("Apply", "สมัคร")} {I['arrow']}</a>

@@ -1088,29 +1088,32 @@ def platform_ecosystem(prefix):
     import math
     cx, cy, r = 300, 200, 148
     stations = [
-        (bi("Datasets", "ชุดข้อมูล"), bi("Learn from real, governed data", "เรียนรู้จากข้อมูลจริงที่กำกับดูแล")),
-        (bi("Task board", "กระดานโจทย์"), bi("Pick up a real clinical problem", "รับโจทย์คลินิกจริงไปทำ")),
-        (bi("Showcase", "โชว์เคส"), bi("Show what you built, honestly scored", "แสดงผลงาน วัดผลตรงไปตรงมา")),
-        (bi("Matching", "จับคู่"), bi("Find a mentor, a team, a partner", "หาเมนเทอร์ ทีม หรือพันธมิตร")),
-        (bi("Job board", "กระดานงาน"), bi("Turn a project into a role", "เปลี่ยนโปรเจกต์เป็นตำแหน่งงาน")),
-        (bi("Academy & Fellowship", "อคาเดมีและเฟลโลว์ชิป"), bi("Where the skill to use all this comes from", "ที่มาของทักษะที่ใช้สิ่งเหล่านี้")),
+        ("Datasets", "ชุดข้อมูล", "Learn from real, governed data", "เรียนรู้จากข้อมูลจริงที่กำกับดูแล"),
+        ("Task board", "กระดานโจทย์", "Pick up a real clinical problem", "รับโจทย์คลินิกจริงไปทำ"),
+        ("Showcase", "โชว์เคส", "Show what you built, honestly scored", "แสดงผลงาน วัดผลตรงไปตรงมา"),
+        ("Matching", "จับคู่", "Find a mentor, a team, a partner", "หาเมนเทอร์ ทีม หรือพันธมิตร"),
+        ("Job board", "กระดานงาน", "Turn a project into a role", "เปลี่ยนโปรเจกต์เป็นตำแหน่งงาน"),
+        ("Academy & Fellowship", "อคาเดมีและเฟลโลว์ชิป", "Where the skill to use all this comes from", "ที่มาของทักษะที่ใช้สิ่งเหล่านี้"),
     ]
     def pt(i, n):
         a = -math.pi/2 + i * (2*math.pi/n)
         return (cx + r*math.cos(a), cy + r*math.sin(a))
     nodes, spokes = "", ""
     n = len(stations)
-    for i, (label, cap) in enumerate(stations):
+    for i, (lab_en, lab_th, cap_en, cap_th) in enumerate(stations):
         x, y = pt(i, n)
         anchor = "middle"
         xoff, yoff = 0, (-30 if y < cy - 20 else (46 if y > cy + 20 else 0))
         if abs(y - cy) <= 20:
             anchor = "start" if x > cx else "end"
             xoff = 18 if x > cx else -18
+        lx, ly, cyoff = x + xoff, y + yoff, y + yoff + 16
         spokes += f'<line class="pe-spoke" x1="{cx:.0f}" y1="{cy:.0f}" x2="{x:.0f}" y2="{y:.0f}"/>'
         nodes += (f'<circle class="pe-node" cx="{x:.0f}" cy="{y:.0f}" r="10"/>'
-                  f'<text class="pe-lab" x="{x+xoff:.0f}" y="{y+yoff:.0f}" text-anchor="{anchor}">{label}</text>'
-                  f'<text class="pe-cap" x="{x+xoff:.0f}" y="{y+yoff+16:.0f}" text-anchor="{anchor}">{cap}</text>')
+                  f'<text class="l-en pe-lab" x="{lx:.0f}" y="{ly:.0f}" text-anchor="{anchor}">{lab_en}</text>'
+                  f'<text class="l-th pe-lab" x="{lx:.0f}" y="{ly:.0f}" text-anchor="{anchor}">{lab_th}</text>'
+                  f'<text class="l-en pe-cap" x="{lx:.0f}" y="{cyoff:.0f}" text-anchor="{anchor}">{cap_en}</text>'
+                  f'<text class="l-th pe-cap" x="{lx:.0f}" y="{cyoff:.0f}" text-anchor="{anchor}">{cap_th}</text>')
     svg = f"""
 <div class="flow-art reveal">
   <svg viewBox="0 0 600 400" role="img" aria-label="The Platform, as a hub with six stations" preserveAspectRatio="xMidYMid meet">
@@ -1639,23 +1642,23 @@ def tools_funnel(prefix):
     (raw Thai clinical reality), narrow and trustworthy at the bottom (what a
     student or faculty member actually gets to use)."""
     bands = [
-        (60, 520, 70, bi("Raw reality", "ความจริงดิบ"), bi("Messy Thai notes, no labels, no structure", "โน้ตภาษาไทยที่ยุ่งเหยิง ไม่มีป้ายกำกับ ไม่มีโครงสร้าง")),
-        (140, 440, 150, bi("De-identify & ground", "ลบตัวตนและอ้างอิง"), bi("PDPA-safe text, answers tied to real guidelines", "ข้อความปลอดภัยตาม PDPA คำตอบอ้างอิงแนวปฏิบัติจริง")),
-        (220, 360, 230, bi("Evaluate honestly", "ประเมินอย่างตรงไปตรงมา"), bi("A report card with the denominator shown", "รายงานผลที่แสดงตัวหารเสมอ")),
-        (280, 320, 310, bi("Routed to you", "ส่งตรงถึงคุณ"), bi("The Learning Navigator hands you the next step", "เนวิเกเตอร์การเรียนรู้ยื่นก้าวถัดไปให้คุณ")),
+        (60, 520, 70, "Raw reality", "ความจริงดิบ", "Messy Thai notes, no labels, no structure", "โน้ตภาษาไทยที่ยุ่งเหยิง ไม่มีป้ายกำกับ ไม่มีโครงสร้าง"),
+        (140, 440, 150, "De-identify & ground", "ลบตัวตนและอ้างอิง", "PDPA-safe text, answers tied to real guidelines", "ข้อความปลอดภัยตาม PDPA คำตอบอ้างอิงแนวปฏิบัติจริง"),
+        (220, 360, 230, "Evaluate honestly", "ประเมินอย่างตรงไปตรงมา", "A report card with the denominator shown", "รายงานผลที่แสดงตัวหารเสมอ"),
+        (280, 320, 310, "Routed to you", "ส่งตรงถึงคุณ", "The Learning Navigator hands you the next step", "เนวิเกเตอร์การเรียนรู้ยื่นก้าวถัดไปให้คุณ"),
     ]
     trapezoids = ""
     for i in range(len(bands) - 1):
-        x1a, x1b, y1, _, _ = bands[i]
-        x2a, x2b, y2, _, _ = bands[i + 1]
+        x1a, x1b, y1, *_ = bands[i]
+        x2a, x2b, y2, *_ = bands[i + 1]
         trapezoids += f'<path class="tf-band" d="M {x1a} {y1} L {x1b} {y1} L {x2b} {y2} L {x2a} {y2} Z"/>'
     labels = ""
-    for xa, xb, y, lab, cap in bands:
+    for xa, xb, y, lab_en, lab_th, cap_en, cap_th in bands:
         cx = (xa + xb) / 2
-        labels += (f'<text class="l-en tf-lab" x="{cx}" y="{y-10}" text-anchor="middle">{lab}</text>'
-                   f'<text class="l-th tf-lab" x="{cx}" y="{y-10}" text-anchor="middle">{lab}</text>'
-                   f'<text class="l-en tf-cap" x="{cx}" y="{y+16}" text-anchor="middle">{cap}</text>'
-                   f'<text class="l-th tf-cap" x="{cx}" y="{y+16}" text-anchor="middle">{cap}</text>')
+        labels += (f'<text class="l-en tf-lab" x="{cx}" y="{y-10}" text-anchor="middle">{lab_en}</text>'
+                   f'<text class="l-th tf-lab" x="{cx}" y="{y-10}" text-anchor="middle">{lab_th}</text>'
+                   f'<text class="l-en tf-cap" x="{cx}" y="{y+16}" text-anchor="middle">{cap_en}</text>'
+                   f'<text class="l-th tf-cap" x="{cx}" y="{y+16}" text-anchor="middle">{cap_th}</text>')
     svg = f"""
 <div class="flow-art reveal">
   <svg viewBox="0 0 600 380" role="img" aria-label="The toolkit, as a funnel from raw text to a routed answer" preserveAspectRatio="xMidYMid meet">

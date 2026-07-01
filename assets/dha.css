@@ -333,6 +333,70 @@ strong { color: var(--ink); font-weight: 600; }
 .entry h3 { font-size: var(--step-1); margin-top: 0.6rem; }
 .entry p { margin-top: 0.5rem; font-size: 0.95rem; }
 
+/* ---- Flow diagram (one continuous line) ----------------------------------- */
+.flow { display: grid; gap: var(--s4); position: relative; }
+@media (min-width: 760px) { .flow { grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0; } }
+.flow__step { position: relative; text-align: left; padding: 0 var(--s3); }
+@media (min-width: 760px) { .flow__step { text-align: center; padding: 0 var(--s2); } }
+.flow__dot {
+  width: 60px; height: 60px; border-radius: 999px; border: 1.5px solid var(--line);
+  background: var(--card); display: grid; place-items: center; position: relative; z-index: 2;
+  font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink); margin-bottom: var(--s3);
+}
+.flow__dot svg { width: 26px; height: 26px; color: var(--accent); }
+@media (min-width: 760px) { .flow__dot { margin: 0 auto var(--s3); } }
+/* the single flowing line behind the dots */
+@media (min-width: 760px) {
+  .flow::before {
+    content: ""; position: absolute; top: 30px; left: 8%; right: 8%; height: 2px; z-index: 1;
+    background: linear-gradient(90deg, transparent, var(--orange), var(--purple), var(--indigo), transparent);
+    opacity: .7;
+  }
+}
+@media (max-width: 759px) {
+  .flow__step::before {
+    content: ""; position: absolute; left: 30px; top: -18px; height: 18px; width: 2px;
+    background: linear-gradient(180deg, transparent, var(--purple)); opacity: .6;
+  }
+  .flow__step:first-child::before { display: none; }
+}
+.flow__k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.flow__step h3 { font-size: var(--step-1); margin-top: 0.4rem; }
+.flow__step p { font-size: 0.92rem; margin-top: 0.4rem; }
+
+/* ---- Course catalog (Neuromatch-style) ------------------------------------ */
+.catalog { display: grid; gap: var(--s3); grid-template-columns: 1fr; }
+@media (min-width: 680px) { .catalog { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .catalog { grid-template-columns: 1fr 1fr 1fr; } }
+.course {
+  position: relative; display: flex; flex-direction: column; gap: 0.6rem;
+  border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--s4);
+  background: var(--card); overflow: hidden; transition: transform .35s var(--ease), border-color .3s, box-shadow .35s;
+}
+.course:hover { transform: translateY(-4px); border-color: var(--ink-faint); box-shadow: var(--shadow); }
+.course__num { font-family: var(--font-mono); font-size: 3.4rem; font-weight: 400; line-height: 1; color: var(--line); position: absolute; top: 0.8rem; right: 1.1rem; }
+[data-theme="dark"] .course__num { color: var(--line-soft); }
+.course__ic { width: 42px; height: 42px; border-radius: 11px; background: var(--bg-elev); display: grid; place-items: center; color: var(--accent); }
+.course__ic svg { width: 22px; height: 22px; }
+.course h3 { font-size: var(--step-1); margin-top: 0.4rem; }
+.course p { font-size: 0.92rem; flex: 1; }
+.course__meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.4rem; }
+.tagx { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint); border: 1px solid var(--line); border-radius: 999px; padding: 0.24rem 0.6rem; }
+.course__go { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.88rem; color: var(--ink); margin-top: 0.5rem; }
+.course__go svg { width: 14px; height: 14px; transition: transform .25s var(--ease); }
+.course:hover .course__go svg { transform: translateX(3px); }
+.course__bar { height: 3px; background: var(--grad); border-radius: 2px; width: 0; transition: width .5s var(--ease); position: absolute; left: 0; bottom: 0; }
+.course:hover .course__bar { width: 100%; }
+
+/* ---- Journey map (the single line through the curriculum) ------------------ */
+.journey { position: relative; padding-left: 2.2rem; }
+.journey::before { content: ""; position: absolute; left: 9px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--orange), var(--purple), var(--indigo)); opacity: .5; }
+.journey__node { position: relative; padding: 0.7rem 0; }
+.journey__node::before { content: ""; position: absolute; left: -2.2rem; top: 1.05rem; width: 20px; height: 20px; border-radius: 999px; border: 2px solid var(--accent); background: var(--bg); }
+.journey__node .k { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); }
+.journey__node h3 { font-size: var(--step-1); margin-top: 0.1rem; }
+.journey__node p { font-size: 0.9rem; margin-top: 0.2rem; }
+
 /* ---- Footer --------------------------------------------------------------- */
 .footer { border-top: 1px solid var(--line); padding-block: var(--s6) var(--s4); margin-top: var(--s6); }
 .footer__grid { display: grid; gap: var(--s5); grid-template-columns: 1fr; }

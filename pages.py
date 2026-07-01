@@ -14,6 +14,24 @@ def bi(en, th):
 def sec(inner, cls="section"):
     return f'<section class="{cls}"><div class="container">{inner}</div></section>'
 
+def flow(steps, icons):
+    """Horizontal 'one line' stepper diagram. steps=[(k,title,desc)], icons=[icon,...]."""
+    out = '<div class="flow reveal">'
+    for i, (k, title, desc) in enumerate(steps):
+        out += (f'<div class="flow__step"><div class="flow__dot">{icons[i]}</div>'
+                f'<div class="flow__k">{k}</div><h3>{title}</h3><p>{desc}</p></div>')
+    return out + '</div>'
+
+def course_card(num, icon, title, desc, tags, href, prefix, label):
+    tag_html = "".join(f'<span class="tagx">{t}</span>' for t in tags)
+    return (f'<a class="course reveal" href="{prefix}{href}">'
+            f'<span class="course__num">{num}</span>'
+            f'<span class="course__ic">{icon}</span>'
+            f'<h3>{title}</h3><p>{desc}</p>'
+            f'<div class="course__meta">{tag_html}</div>'
+            f'<span class="course__go">{label} <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>'
+            f'<span class="course__bar"></span></a>')
+
 def moment(img, prefix, label, ratio="ratio-21x9"):
     """Full-width photographic band, editorial style."""
     return (f'<section class="section--tight"><div class="container">'
@@ -354,12 +372,12 @@ def what_we_do(prefix, ctx):
 
     method = sec(
         head(bi("How a person moves through it", "คนคนหนึ่งเดินผ่านมันอย่างไร"), bi("The path is the product.", "เส้นทางคือผลิตภัณฑ์")) +
-        '<div class="steps">' +
-        step("Step 01", bi("Learn", "เรียน"), bi("Start in the Academy. Build the foundations and the clinical context, free and at your own pace.", "เริ่มที่อคาเดมี สร้างพื้นฐานและบริบททางคลินิก ฟรีและตามจังหวะของคุณเอง")) +
-        step("Step 02", bi("Apply", "สมัคร"), bi("Bring a real problem to the Fellowship, or join a project team. Get matched with a mentor and supervised data.", "นำโจทย์จริงมาที่เฟลโลว์ชิป หรือเข้าร่วมทีมโปรเจกต์ จับคู่กับเมนเทอร์และข้อมูลที่มีการกำกับ")) +
-        step("Step 03", bi("Build", "สร้าง"), bi("Ship a reviewed, evaluated tool into a real clinical workflow. Governance and safety are part of the grade.", "ส่งเครื่องมือที่ผ่านการรีวิวและประเมิน เข้าสู่เวิร์กโฟลว์คลินิกจริง ธรรมาภิบาลและความปลอดภัยเป็นส่วนหนึ่งของการวัดผล")) +
-        step("Step 04", bi("Scale", "ขยายผล"), bi("If it deserves to live, the studio helps it become a product, with a regulatory and market path.", "หากมันคู่ควรที่จะอยู่ต่อ สตูดิโอช่วยให้มันกลายเป็นผลิตภัณฑ์ พร้อมเส้นทางกฎระเบียบและตลาด")) +
-        '</div>')
+        flow([
+            (bi("Step 01", "ขั้นที่ 01"), bi("Learn", "เรียน"), bi("Start in the Academy. Build the foundations and the clinical context, free and at your own pace.", "เริ่มที่อคาเดมี สร้างพื้นฐานและบริบททางคลินิก ฟรีและตามจังหวะของคุณเอง")),
+            (bi("Step 02", "ขั้นที่ 02"), bi("Apply", "สมัคร"), bi("Bring a real problem to the Fellowship, or join a project team. Get matched with a mentor and data.", "นำโจทย์จริงมาที่เฟลโลว์ชิป หรือเข้าร่วมทีม จับคู่กับเมนเทอร์และข้อมูล")),
+            (bi("Step 03", "ขั้นที่ 03"), bi("Build", "สร้าง"), bi("Ship a reviewed, evaluated tool into a real clinical workflow. Governance is part of the grade.", "ส่งเครื่องมือที่ผ่านการรีวิวและประเมินเข้าสู่เวิร์กโฟลว์คลินิกจริง ธรรมาภิบาลเป็นส่วนหนึ่งของการวัดผล")),
+            (bi("Step 04", "ขั้นที่ 04"), bi("Scale", "ขยายผล"), bi("If it deserves to live, the studio helps it become a product, with a regulatory and market path.", "หากมันคู่ควรที่จะอยู่ต่อ สตูดิโอช่วยให้กลายเป็นผลิตภัณฑ์ พร้อมเส้นทางกฎระเบียบและตลาด")),
+        ], [I["brain"], I["flask"], I["shield"], I["rocket"]]))
 
     return hero + parts + method
 
@@ -387,17 +405,23 @@ def academy(prefix, ctx):
   </div>
 </section>"""
 
+    lv_all = bi("All levels", "ทุกระดับ")
+    lv_int = bi("Intermediate", "ระดับกลาง")
+    hands = bi("Hands-on", "ลงมือทำ")
+    openc = bi("Open course", "เปิดคอร์ส")
+    courses = [
+        ("01", I["brain"], bi("Basics", "พื้นฐาน"), bi("No-code and vibe coding, Git, documentation, APIs, and the cloud. Start from zero, lose the fear of the blank screen.", "No-code และ vibe coding, Git, เอกสาร, API และคลาวด์ เริ่มจากศูนย์ ทิ้งความกลัวหน้าจอเปล่า"), [lv_all, hands], "academy/learn/curriculum__basics.html"),
+        ("02", I["node"], bi("AI Agent", "AI Agent"), bi("LLMs, hallucination, guardrails, RAG, speech, and real agents on Line, n8n, and Cloud Run.", "LLM, hallucination, guardrails, RAG, speech และ agent จริงบน Line, n8n และ Cloud Run"), [lv_int, hands], "academy/learn/curriculum__ai-agent.html"),
+        ("03", I["pulse"], bi("Deep AI", "Deep AI"), bi("Deep learning for images, signals, sound, and tables, plus explainability that a clinician can read.", "Deep learning สำหรับภาพ สัญญาณ เสียง และตาราง พร้อม explainability ที่แพทย์อ่านเข้าใจ"), [lv_int, hands], "academy/learn/curriculum__deep-ai.html"),
+        ("04", I["doc"], bi("Digital Health", "สุขภาพดิจิทัล"), bi("HIS, EMR and PHR, ICD-10, HL7 and FHIR, PDPA, Genomics Thailand, and NHSO claims data.", "HIS, EMR และ PHR, ICD-10, HL7 และ FHIR, PDPA, Genomics Thailand และข้อมูลเคลม NHSO"), [lv_all, hands], "academy/learn/curriculum__digital-health.html"),
+        ("05", I["rocket"], bi("Deployment", "Deployment"), bi("Dashboards, web prototyping, cloud and on-premise, and statistics that hold up in front of clinicians.", "แดชบอร์ด web prototyping คลาวด์และ on-premise และสถิติที่เชื่อถือได้ต่อหน้าแพทย์"), [lv_int, hands], "academy/learn/curriculum__deployment.html"),
+        ("06", I["shield"], bi("Strategy & Governance", "กลยุทธ์และธรรมาภิบาล"), bi("Thai FDA, AI as Software as a Medical Device, ISO, and the regulatory path from prototype to approval.", "อย. AI ในฐานะ Software as a Medical Device, ISO และเส้นทางกฎระเบียบจากต้นแบบสู่การอนุมัติ"), [lv_all], "academy/learn/curriculum__governance.html"),
+    ]
+    cat = "".join(course_card(n, ic, t, d, tg, h, prefix, openc) for n, ic, t, d, tg, h in courses)
     modules = sec(
-        head(bi("The curriculum", "หลักสูตร"), bi("Six tracks, one through-line.", "หกโดเมน หนึ่งเส้นทางเชื่อมโยง"),
-             bi("Each track is hands-on. You write code, read clinical data, and build something that runs. Notebooks open in the browser or in Colab.", "ทุกโดเมนเน้นลงมือทำ คุณเขียนโค้ด อ่านข้อมูลคลินิก และสร้างสิ่งที่รันได้จริง เปิด notebook ในเบราว์เซอร์หรือใน Colab")) +
-        '<div class="grid grid-3">' +
-        ctx['card']('brain', bi('Foundations', 'พื้นฐาน'), bi('What AI and machine learning are, how to think about them, datasets, and how to evaluate a model honestly.', 'AI และ machine learning คืออะไร คิดกับมันอย่างไร datasets และการประเมินโมเดลอย่างตรงไปตรงมา'), None, '', prefix) +
-        ctx['card']('pulse', bi('Clinical AI', 'AI ทางคลินิก'), bi('Applying models to real clinical tasks: risk prediction, triage, and decision support, with the pitfalls named.', 'นำโมเดลไปใช้กับงานคลินิกจริง การทำนายความเสี่ยง การคัดกรอง และ decision support พร้อมชี้กับดักที่ต้องระวัง'), None, '', prefix) +
-        ctx['card']('doc', bi('Health Data and FHIR', 'ข้อมูลสุขภาพและ FHIR'), bi('HIS, EMR, HL7 and FHIR. How health data actually moves, and how to build on it.', 'HIS, EMR, HL7 และ FHIR ข้อมูลสุขภาพเคลื่อนที่จริงอย่างไร และสร้างงานบนมันอย่างไร'), None, '', prefix) +
-        ctx['card']('node', bi('Medical Imaging', 'ภาพทางการแพทย์'), bi('Computer vision for radiology and pathology, from preprocessing to a working classifier.', 'Computer vision สำหรับรังสีวิทยาและพยาธิวิทยา ตั้งแต่ preprocessing จนถึง classifier ที่ใช้ได้'), None, '', prefix) +
-        ctx['card']('rocket', bi('Agents and Deep AI', 'Agents และ Deep AI'), bi('Modern deep learning and agentic systems, and where they help or harm in a clinical setting.', 'deep learning สมัยใหม่และ agentic systems และจุดที่มันช่วยหรือทำร้ายในบริบทคลินิก'), None, '', prefix) +
-        ctx['card']('shield', bi('Deployment and Governance', 'Deployment และธรรมาภิบาล'), bi('Shipping safely: evaluation, monitoring, privacy, and the Software as a Medical Device pathway.', 'การส่งมอบอย่างปลอดภัย การประเมิน การติดตาม ความเป็นส่วนตัว และเส้นทาง Software as a Medical Device'), None, '', prefix) +
-        '</div>')
+        head(bi("The curriculum", "หลักสูตร"), bi("Six courses, one through-line.", "หกคอร์ส หนึ่งเส้นทางเชื่อมโยง"),
+             bi("Each course is hands-on. You write code, read clinical data, and build something that runs. Notebooks open in the browser or in Colab.", "ทุกคอร์สเน้นลงมือทำ คุณเขียนโค้ด อ่านข้อมูลคลินิก และสร้างสิ่งที่รันได้จริง เปิด notebook ในเบราว์เซอร์หรือใน Colab")) +
+        f'<div class="catalog">{cat}</div>')
 
     fmt = f"""
 <section class="section">

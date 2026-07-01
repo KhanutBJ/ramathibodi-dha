@@ -182,7 +182,7 @@ def footer(prefix):
     socials = "".join(
         f'<a class="social" href="{url}" target="_blank" rel="noopener" aria-label="{name}">{ICON[ic]}</a>'
         for ic, name, url in [
-            ("x", "X", "#"), ("linkedin", "LinkedIn", "#"), ("facebook", "Facebook", "#"),
+            ("linkedin", "LinkedIn", "#"), ("facebook", "Facebook", "#"),
             ("github", "GitHub", "#"), ("youtube", "YouTube", "#"),
         ])
 

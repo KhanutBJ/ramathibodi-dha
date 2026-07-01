@@ -192,7 +192,7 @@ def home(prefix, ctx):
   {hero_line_art()}
   <div class="container">
     <span class="eyebrow reveal">Ramathibodi Digital Health &amp; AI Club</span>
-    <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>
+    <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="hero-mark"><span class="gradient-text">AI to the bedside</span></span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="hero-mark"><span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></span></h1>
     <p class="lead reveal measure" data-d="2">{bi("A club, an academy, and a fellowship built inside one of Thailand's leading medical schools.", "คลับ อคาเดมี และเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Explore the Academy", "สำรวจอคาเดมี")} {I['arrow']}</a>
@@ -208,9 +208,9 @@ def home(prefix, ctx):
 
     _partner_marks = (
         (f'{prefix}assets/partners/ramathibodi-seal.svg', 'Faculty of Medicine Ramathibodi Hospital, Mahidol University'),
-        (f'{prefix}assets/partners/mind-center.svg', 'MIND Center, Ramathibodi'),
-        (f'{prefix}assets/partners/gdg-bangkok.svg', 'Google Developer Group Bangkok'),
-        (f'{prefix}assets/partners/botnoi-academy.svg', 'Botnoi Academy'),
+        (f'{prefix}assets/partners/mind-center.png', 'MIND Center, Ramathibodi'),
+        (f'{prefix}assets/partners/gdg-bangkok.png', 'Google Developer Group Bangkok'),
+        (f'{prefix}assets/partners/botnoi-academy.png', 'Botnoi Academy'),
     )
     _marks_html = "".join(f'<img class="logo-mark" src="{src}" alt="{alt}" loading="lazy"/>' for src, alt in _partner_marks)
     proof = sec(
@@ -223,7 +223,7 @@ def home(prefix, ctx):
     vision = f"""
 <section class="section">
   <div class="container">
-    {head(bi("The vision", "วิสัยทัศน์"), bi("A new kind of doctor, rising from the same ground.", "แพทย์แบบใหม่ ที่งอกจากรากเดิม"), bi("Not a replacement for the clinician Thailand already trusts. An evolution of them: rooted in the same care, risen with a new instrument, still carrying the culture that made the care mean something.", "ไม่ใช่การแทนที่แพทย์ที่ประเทศไทยไว้ใจอยู่แล้ว แต่คือวิวัฒนาการของพวกเขา หยั่งรากในการดูแลแบบเดิม เติบโตขึ้นด้วยเครื่องมือใหม่ และยังคงแบกวัฒนธรรมที่ทำให้การดูแลนั้นมีความหมาย"))}
+    {head(bi("The vision", "วิสัยทัศน์"), bi("Medicine and AI are not two skills to balance. They are one craft.", "การแพทย์กับ AI ไม่ใช่สองทักษะที่ต้องแบ่งเวลา แต่เป็นวิชาชีพเดียวกัน"), bi("Most people treat this as an add-on: learn medicine, then bolt on a coding course. We think that produces the wrong kind of graduate. The clinicians who matter in twenty years will not have learned AI on the side. They will never have learned medicine without it.", "คนส่วนใหญ่มองเรื่องนี้เป็นแค่ของเสริม เรียนแพทย์ให้จบก่อน แล้วค่อยต่อด้วยคอร์สเขียนโค้ด เราคิดว่าวิธีนี้สร้างบัณฑิตผิดแบบ แพทย์ที่จะสำคัญในอีกยี่สิบปีข้างหน้า จะไม่ใช่คนที่เรียน AI แทรกไปด้วย แต่คือคนที่ไม่เคยเรียนแพทย์แบบที่ไม่มี AI อยู่ในนั้นเลย"))}
     {vision_dawn()}
   </div>
 </section>"""
@@ -564,11 +564,11 @@ def who_we_are(prefix, ctx):
              bi("We work with the people who train builders and ship technology.", "เราทำงานร่วมกับผู้ที่ฝึกคนสร้างและส่งมอบเทคโนโลยี")) +
         f"""<div class="partner-row reveal">
           <a class="partner-mark" href="{prefix}contact.html">
-            <img src="{prefix}assets/partners/gdg-bangkok.svg" alt="Google Developer Groups on Campus, Bangkok"/>
+            <img src="{prefix}assets/partners/gdg-bangkok.png" alt="Google Developer Groups on Campus, Bangkok"/>
             <span class="partner-mark__cap">{bi('Google Cloud and AI tooling for our hands-on work', 'เครื่องมือ Google Cloud และ AI สำหรับงานภาคปฏิบัติ')}</span>
           </a>
           <a class="partner-mark" href="{prefix}contact.html">
-            <img src="{prefix}assets/partners/botnoi-academy.svg" alt="BOTNOI Academy"/>
+            <img src="{prefix}assets/partners/botnoi-academy.png" alt="BOTNOI Academy"/>
             <span class="partner-mark__cap">{bi('Thai speech and language for the curriculum', 'เสียงและภาษาไทยสำหรับหลักสูตร')}</span>
           </a>
         </div>""" +

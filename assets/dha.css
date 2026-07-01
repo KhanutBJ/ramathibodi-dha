@@ -886,7 +886,7 @@ strong { color: var(--ink); font-weight: 600; }
 }
 .logo-marquee__track {
   display: flex; align-items: center; gap: clamp(2.5rem, 6vw, 4.5rem);
-  width: max-content; animation: marquee 28s linear infinite;
+  width: max-content; animation: marquee 14s linear infinite;
 }
 .logo-marquee:hover .logo-marquee__track { animation-play-state: paused; }
 .logo-marquee .logo-mark { height: 44px; width: auto; flex: none; }

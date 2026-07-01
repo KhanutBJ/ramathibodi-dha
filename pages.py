@@ -7,15 +7,34 @@ Voice: plain, confident, human. No em dashes, no middle dots, no filler.
 # ---------------------------------------------------------------------------
 # small builders
 # ---------------------------------------------------------------------------
+def bi(en, th):
+    """Inline bilingual span. CSS shows one per active [data-lang]."""
+    return f'<span class="l-en">{en}</span><span class="l-th">{th}</span>'
+
 def sec(inner, cls="section"):
     return f'<section class="{cls}"><div class="container">{inner}</div></section>'
+
+def moment(img, prefix, label, ratio="ratio-21x9"):
+    """Full-width photographic band, editorial style."""
+    return (f'<section class="section--tight"><div class="container">'
+            f'<div class="frame frame--photo reveal"><div class="ratio {ratio}">'
+            f'<img src="{prefix}assets/photos/{img}" alt="{esc_txt(label)}" loading="lazy"/>'
+            f'<span class="frame__tint"></span>'
+            f'<span class="frame__label">{label}</span>'
+            f'</div></div></div></section>')
 
 def head(eyebrow, title, sub=None):
     s = f'<p class="lead measure mt3">{sub}</p>' if sub else ""
     return f'<div class="section-head reveal"><span class="eyebrow">{eyebrow}</span><h2>{title}</h2>{s}</div>'
 
-def frame(label, ratio="ratio-16x9", tone="a"):
-    # branded abstract media frame (placeholder for real photography / footage)
+def frame(label, ratio="ratio-16x9", tone="a", img=None, prefix=""):
+    # Real photography when img is given, branded gradient otherwise.
+    if img:
+        return (f'<div class="frame frame--photo reveal"><div class="ratio {ratio}">'
+                f'<img src="{prefix}assets/photos/{img}" alt="{esc_txt(label)}" loading="lazy"/>'
+                f'<span class="frame__tint"></span>'
+                f'<span class="frame__label">{label}</span>'
+                f'</div></div>')
     grads = {
         "a": "radial-gradient(60% 80% at 20% 10%, rgba(247,98,5,.5), transparent 60%), radial-gradient(60% 80% at 90% 90%, rgba(52,18,209,.55), transparent 60%), #0e1728",
         "b": "radial-gradient(60% 80% at 80% 10%, rgba(88,34,166,.55), transparent 60%), radial-gradient(60% 80% at 10% 90%, rgba(1,0,252,.45), transparent 60%), #0e1728",
@@ -25,6 +44,10 @@ def frame(label, ratio="ratio-16x9", tone="a"):
             f'style="background:{grads.get(tone, grads["a"])}">'
             f'<div style="position:absolute;inset:auto auto 1rem 1.2rem;font-family:var(--font-mono);'
             f'font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.7)">{label}</div></div></div>')
+
+def esc_txt(s):
+    import re as _re
+    return _re.sub(r"<[^>]+>", "", str(s))
 
 # ===========================================================================
 # HOME
@@ -125,13 +148,13 @@ def home(prefix, ctx):
 </section>"""
 
     insights = sec(
-        head("Insights", "Thinking from the club.") +
+        head(bi("Insights", "บทความ"), bi("Thinking from the club.", "มุมมองจากคนที่ลงมือทำจริง")) +
         '<div class="grid grid-3">' +
-        entry("Field note", "Governance is a design material, not a checkpoint", "Why we teach evaluation and safety as part of building, from the first commit.", prefix + "insights/governance-as-design.html", "b") +
-        entry("Explainer", "FHIR, in plain language", "The data standard every clinical AI builder in Thailand should know, and why.", prefix + "insights/fhir-in-plain-language.html", "a") +
-        entry("Position", "Why Thailand should train builders, not just buyers", "The case for a homegrown medical AI workforce inside the health system.", prefix + "insights/train-builders-not-buyers.html", "c") +
+        entry("Field note", "Governance is a design material, not a checkpoint", "Why we teach evaluation and safety as part of building, from the first commit.", prefix + "insights/governance-as-design.html", "b", "code.jpg", prefix) +
+        entry("Explainer", "FHIR, in plain language", "The data standard every clinical AI builder in Thailand should know, and why.", prefix + "insights/fhir-in-plain-language.html", "a", "analytics.jpg", prefix) +
+        entry("Position", "Why Thailand should train builders, not just buyers", "The case for a homegrown medical AI workforce inside the health system.", prefix + "insights/train-builders-not-buyers.html", "c", "network-people.jpg", prefix) +
         '</div>' +
-        f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}insights/index.html">All insights {I["arrow"]}</a></div>')
+        f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}insights/index.html">{bi("All insights", "บทความทั้งหมด")} {I["arrow"]}</a></div>')
 
     cta = f"""
 <section class="section">
@@ -146,11 +169,13 @@ def home(prefix, ctx):
   </div>
 </section>"""
 
-    return hero + proof + '<hr class="divider"/>' + what + why + band + insights + cta
+    return (hero + proof
+            + moment("hero-clinician.jpg", prefix, bi("AI at the bedside", "AI ข้างเตียงผู้ป่วย") + " / Ramathibodi")
+            + what + why + band + insights + cta)
 
-def entry(meta, title, body, href, tone="a"):
+def entry(meta, title, body, href, tone="a", img=None, prefix=""):
     return (f'<a class="entry reveal" href="{href}">'
-            f'{frame(meta, "ratio-4x3", tone)}'
+            f'{frame(meta, "ratio-4x3", tone, img, prefix)}'
             f'<div class="entry__meta">{meta}</div>'
             f'<h3>{title}</h3><p>{body}</p></a>')
 
@@ -303,6 +328,7 @@ def what_we_do(prefix, ctx):
          "We advise hospitals, agencies, and health technology companies setting up their own AI capability. We are an innovation partner for the next generation of the healthcare workforce, so the people we train have strong places to land.",
          ["Capability and team design", "AI governance and evaluation frameworks", "Workforce training programmes", "Project and deployment advisory"]),
     ]
+    photos = ["woman-work.jpg", "doctor.jpg", "analytics.jpg", "meeting.jpg"]
     for i, (name, icon, kicker, href, cta, body, bullets) in enumerate(blocks):
         rev = "split--rev" if i % 2 else ""
         bl = "".join(f'<li class="pill">{b}</li>' for b in bullets)
@@ -317,7 +343,7 @@ def what_we_do(prefix, ctx):
         <ul class="pill-row" style="margin-top:.5rem">{bl}</ul>
         <div class="btn-row"><a class="btn btn--grad" href="{prefix}{href}">{cta} {I['arrow']}</a></div>
       </div>
-      {frame(name + " / Ramathibodi", "ratio-4x3", ["a","b","c","a"][i])}
+      {frame(name, "ratio-4x3", "a", photos[i], prefix)}
     </div>
   </div>
 </section>"""
@@ -676,6 +702,119 @@ def contact(prefix, ctx):
     return body
 
 # ===========================================================================
+# PLATFORM / MARKETPLACE
+# ===========================================================================
+def platform(prefix, ctx):
+    I = ctx["ICON"]
+    hero = f"""
+<section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
+  <span class="eyebrow reveal">{bi("The Platform", "แพลตฟอร์ม")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("Where problems, data, and people find each other.", "ที่ที่โจทย์ ข้อมูล และคนมาเจอกัน")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("One place to post a real clinical problem, find the dataset to work on it, benchmark your model, and match with the team or mentor who can help. This is the connective tissue of the club.", "พื้นที่เดียวสำหรับโพสต์โจทย์จริงจากคลินิก ค้นหาชุดข้อมูลเพื่อลงมือทำ วัดผลโมเดลของคุณ และจับคู่กับทีมหรือเมนเทอร์ที่ช่วยได้ นี่คือเนื้อเยื่อที่เชื่อมคลับเข้าด้วยกัน")}</p>
+</div></section>"""
+
+    tiles = sec(
+        '<div class="grid grid-4">' +
+        ctx['card']('doc', bi('Dataset marketplace', 'ตลาดชุดข้อมูล'), bi('Governed, de-identified datasets to learn and build on.', 'ชุดข้อมูลที่กำกับดูแลและลบตัวตนแล้ว สำหรับเรียนรู้และสร้างงาน'), None, '', prefix) +
+        ctx['card']('flask', bi('Task board', 'กระดานโจทย์'), bi('Real clinical problems posted by departments, waiting for a builder.', 'โจทย์จริงจากคลินิกที่หน่วยงานโพสต์ไว้ รอคนมาลงมือทำ'), None, '', prefix) +
+        ctx['card']('pulse', bi('Model leaderboard', 'ลีดเดอร์บอร์ดโมเดล'), bi('Benchmark models on shared tasks, in the open, honestly.', 'วัดผลโมเดลบนโจทย์กลางอย่างเปิดเผยและตรงไปตรงมา'), None, '', prefix) +
+        ctx['card']('users', bi('Matching', 'จับคู่'), bi('Match people to teams, mentors, and problems.', 'จับคู่คนเข้ากับทีม เมนเทอร์ และโจทย์'), None, '', prefix) +
+        '</div>')
+
+    # Dataset marketplace
+    datasets = f"""
+<section class="section">
+  <div class="container">
+    {head(bi("Dataset marketplace", "ตลาดชุดข้อมูล"), bi("Data you can actually learn on.", "ข้อมูลที่คุณเรียนรู้ได้จริง"), bi("Governed and de-identified, released under clear terms and a PDPA basis. You never touch raw patient data without supervision.", "กำกับดูแลและลบตัวตนแล้ว เผยแพร่ภายใต้เงื่อนไขที่ชัดเจนและฐานทางกฎหมาย PDPA คุณจะไม่แตะข้อมูลผู้ป่วยดิบโดยไม่มีการกำกับ"))}
+    <div class="rows">
+      {ds_row("Thai Clinical Tabular", "Tabular", bi("De-identified labs, vitals, and outcomes for risk modelling.", "แล็บ สัญญาณชีพ และผลลัพธ์ที่ลบตัวตนแล้ว สำหรับสร้างโมเดลความเสี่ยง"), "Open")}
+      {ds_row("Chest X-ray (teaching set)", "Image", bi("Curated radiographs with labels, for imaging practice.", "ภาพเอกซเรย์ทรวงอกที่คัดสรรพร้อมป้ายกำกับ สำหรับฝึกงานภาพ"), "Open")}
+      {ds_row("Thai Clinical Notes (synthetic)", "Text", bi("Synthetic Thai clinical text for NLP without privacy risk.", "ข้อความคลินิกภาษาไทยสังเคราะห์ สำหรับงาน NLP โดยไม่มีความเสี่ยงด้านความเป็นส่วนตัว"), "Open")}
+      {ds_row("ECG Rhythm Strips", "Signal", bi("Labelled ECG segments for signal model practice.", "สัญญาณ ECG พร้อมป้ายกำกับ สำหรับฝึกโมเดลสัญญาณ"), "On request")}
+    </div>
+    <p class="muted mt4 reveal" style="font-size:.88rem">{bi("Every dataset lists its source, its licence, and the lawful basis for use. Access to sensitive sets is supervised.", "ทุกชุดข้อมูลระบุแหล่งที่มา สัญญาอนุญาต และฐานทางกฎหมายในการใช้งาน การเข้าถึงข้อมูลอ่อนไหวจะมีการกำกับดูแล")}</p>
+  </div>
+</section>"""
+
+    # Task board
+    tasks = sec(
+        head(bi("Task board", "กระดานโจทย์"), bi("Real problems, waiting for you.", "โจทย์จริง ที่รอคุณอยู่"), bi("Departments post problems worth solving. Pick one, form a team, and build it as an Academy project or a Fellowship.", "หน่วยงานโพสต์โจทย์ที่ควรแก้ เลือกสักโจทย์ ตั้งทีม แล้วสร้างเป็นโปรเจกต์ในอคาเดมีหรือเฟลโลว์ชิป")) +
+        '<div class="rows">' +
+        task_row("Emergency", bi("Triage support for the ED", "ระบบช่วยคัดกรองที่ห้องฉุกเฉิน"), bi("Reduce time to prioritise walk-in patients safely.", "ลดเวลาในการจัดลำดับผู้ป่วยที่เดินเข้ามาอย่างปลอดภัย")) +
+        task_row("Radiology", bi("Flag urgent chest films", "ตั้งค่าสถานะฟิล์มทรวงอกเร่งด่วน"), bi("Surface likely-abnormal chest X-rays for faster reads.", "ดึงภาพเอกซเรย์ทรวงอกที่น่าจะผิดปกติขึ้นมา เพื่อการอ่านที่เร็วขึ้น")) +
+        task_row("Pharmacy", bi("Thai drug interaction assistant", "ผู้ช่วยตรวจปฏิกิริยาระหว่างยาภาษาไทย"), bi("A grounded assistant to check interactions on the ward.", "ผู้ช่วยที่อ้างอิงแหล่งข้อมูล ตรวจปฏิกิริยาระหว่างยาบนหอผู้ป่วย")) +
+        task_row("Outpatient", bi("Line follow-up bot", "บอทติดตามอาการผ่าน Line"), bi("Automate preparation and follow-up messages safely.", "ส่งข้อความเตรียมตัวและติดตามอาการอัตโนมัติอย่างปลอดภัย")) +
+        '</div>' +
+        f'<div class="btn-row mt5 reveal"><a class="btn btn--grad" href="{prefix}contact.html">{bi("Post a problem", "โพสต์โจทย์ของคุณ")} {I["arrow"]}</a><a class="btn btn--ghost" href="{prefix}academy.html">{bi("Pick one up", "รับโจทย์ไปทำ")}</a></div>')
+
+    # Leaderboard
+    lb = f"""
+<section class="section">
+  <div class="container">
+    <div class="split">
+      <div class="stack reveal">
+        <span class="eyebrow">{bi("Open model leaderboard", "ลีดเดอร์บอร์ดโมเดลแบบเปิด")}</span>
+        <h2>{bi("Benchmark in the open.", "วัดผลอย่างเปิดเผย")}</h2>
+        <p class="lead">{bi("Shared tasks with a fixed test set and honest metrics. Submit a model, see where it stands, and read how the top entries were built. Ranking rewards calibration and fairness, not just accuracy.", "โจทย์กลางที่มีชุดทดสอบตายตัวและตัวชี้วัดที่ตรงไปตรงมา ส่งโมเดล ดูว่ายืนอยู่ตรงไหน และอ่านว่าอันดับต้นสร้างมาอย่างไร การจัดอันดับให้ค่ากับ calibration และความเป็นธรรม ไม่ใช่แค่ความแม่นยำ")}</p>
+      </div>
+      <div class="card reveal" style="padding:0;overflow:hidden">
+        <table class="lb">
+          <thead><tr><th>#</th><th>{bi("Team", "ทีม")}</th><th>{bi("Task", "โจทย์")}</th><th>AUROC</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Ward 7</td><td>Sepsis</td><td>0.86</td></tr>
+            <tr><td>2</td><td>RadLab</td><td>CXR</td><td>0.83</td></tr>
+            <tr><td>3</td><td>NoteAI</td><td>Coding</td><td>0.81</td></tr>
+            <tr><td>4</td><td>VitalsTeam</td><td>Deterioration</td><td>0.79</td></tr>
+          </tbody>
+        </table>
+        <p class="muted" style="padding:.9rem 1.1rem;font-size:.78rem;border-top:1px solid var(--line)">{bi("Illustrative. Live boards open with the first cohort.", "เป็นตัวอย่าง บอร์ดจริงจะเปิดพร้อมรุ่นแรก")}</p>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+    # Matching
+    matching = f"""
+<section class="section">
+  <div class="container">
+    <div class="band reveal"><div class="band__glow"></div>
+      <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
+        <span class="eyebrow" style="color:#cbd5ef">{bi("Partner and team matching", "จับคู่ทีมและพันธมิตร")}</span>
+        <h2 class="mt3">{bi("The right people around the right problem.", "คนที่ใช่ รอบโจทย์ที่ใช่")}</h2>
+        <div class="grid grid-3 mt5">
+          <div><div class="stat__num" style="color:#fff">{bi("Mentor match", "จับคู่เมนเทอร์")}</div><p style="color:#9fb0d4" class="mt2">{bi("Pair with a clinician and an engineer who fit your problem.", "จับคู่กับแพทย์และวิศวกรที่เหมาะกับโจทย์ของคุณ")}</p></div>
+          <div><div class="stat__num" style="color:#fff">{bi("Team match", "จับคู่ทีม")}</div><p style="color:#9fb0d4" class="mt2">{bi("Find teammates with the skills yours is missing.", "หาเพื่อนร่วมทีมที่มีทักษะที่ทีมคุณยังขาด")}</p></div>
+          <div><div class="stat__num" style="color:#fff">{bi("Partner match", "จับคู่พันธมิตร")}</div><p style="color:#9fb0d4" class="mt2">{bi("Connect a hospital or company to a team that can build.", "เชื่อมโรงพยาบาลหรือบริษัทเข้ากับทีมที่สร้างได้จริง")}</p></div>
+        </div>
+        <div class="btn-row" style="margin-top:2rem"><a class="btn btn--grad" href="{prefix}contact.html">{bi("Get matched", "ขอจับคู่")} {I['arrow']}</a></div>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+    # Opportunity board
+    jobs = sec(
+        head(bi("Opportunity board", "กระดานโอกาส"), bi("Where the work leads.", "ปลายทางของงาน"), bi("Fellowships, research assistant roles, internships, and openings from our partners and the Thai HealthTech ecosystem.", "เฟลโลว์ชิป ผู้ช่วยวิจัย ฝึกงาน และตำแหน่งงานจากพันธมิตรและระบบนิเวศเฮลท์เทคไทย")) +
+        '<div class="rows">' +
+        task_row(bi("Fellowship", "เฟลโลว์ชิป"), bi("Digital Health & AI Fellow", "เฟลโลว์ด้านสุขภาพดิจิทัลและ AI"), bi("The in-residence programme. Rolling applications.", "โปรแกรมในสถานที่ รับสมัครต่อเนื่อง")) +
+        task_row(bi("Research", "วิจัย"), bi("Research assistant, clinical AI", "ผู้ช่วยวิจัย AI ทางคลินิก"), bi("Support live projects with data and evaluation.", "สนับสนุนโปรเจกต์จริงด้านข้อมูลและการประเมินผล")) +
+        task_row(bi("Partner", "พันธมิตร"), bi("Roles from GDG and BOTNOI", "ตำแหน่งจาก GDG และ BOTNOI"), bi("Openings shared by our partner network.", "ตำแหน่งงานจากเครือข่ายพันธมิตรของเรา")) +
+        '</div>' +
+        f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}careers.html">{bi("See careers", "ดูตำแหน่งงาน")} {I["arrow"]}</a></div>')
+
+    return hero + tiles + moment("network-people.jpg", prefix, bi("One community, many problems", "หนึ่งชุมชน หลายโจทย์")) + datasets + tasks + lb + matching + jobs
+
+def ds_row(title, kind, desc, status):
+    return (f'<div class="row reveal" style="grid-template-columns:1fr auto"><div>'
+            f'<h3 style="font-size:var(--step-1)">{title} <span class="pill" style="margin-left:.4rem">{kind}</span></h3>'
+            f'<p style="font-size:.95rem;margin-top:.3rem">{desc}</p></div>'
+            f'<div class="mono muted" style="font-size:.8rem;white-space:nowrap">{status}</div></div>')
+
+def task_row(tag, title, desc):
+    return (f'<div class="row reveal"><div class="row__num">{tag}</div>'
+            f'<h3 style="font-size:var(--step-1)">{title}</h3><p style="font-size:.95rem">{desc}</p></div>')
+
+# ===========================================================================
 # GATE + PORTAL
 # ===========================================================================
 def gate_body(prefix, scope, target, eyebrow, headline, hint):
@@ -721,6 +860,7 @@ MARKETING = [
     ("who-we-are.html", "Who We Are - DHA Club", "who-we-are.html", who_we_are),
     ("what-we-do.html", "What We Do - DHA Club", "what-we-do.html", what_we_do),
     ("academy.html", "Academy - DHA Club", "academy.html", academy),
+    ("platform.html", "Platform - DHA Club", "platform.html", platform),
     ("fellowship.html", "Fellowship - DHA Club", "fellowship.html", fellowship),
     ("fellowship/apply.html", "Apply - Fellowship", "fellowship.html", fellowship_apply),
     ("fellowship/stories.html", "Stories - Fellowship", "fellowship.html", fellowship_stories),

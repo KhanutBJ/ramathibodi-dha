@@ -23,6 +23,26 @@
     }
   });
 
+  /* ---- Language (EN / TH) -------------------------------------------- */
+  var storedLang = null;
+  try { storedLang = localStorage.getItem("dha-lang"); } catch (e) {}
+  if (!storedLang) {
+    storedLang = (navigator.language || "").toLowerCase().indexOf("th") === 0 ? "th" : "en";
+  }
+  root.setAttribute("data-lang", storedLang);
+  root.setAttribute("lang", storedLang);
+
+  function setLang(l) {
+    root.setAttribute("data-lang", l);
+    root.setAttribute("lang", l);
+    try { localStorage.setItem("dha-lang", l); } catch (e) {}
+  }
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("[data-lang-toggle]")) {
+      setLang(root.getAttribute("data-lang") === "th" ? "en" : "th");
+    }
+  });
+
   /* ---- Nav scroll state ---------------------------------------------- */
   var nav = document.querySelector(".nav");
   function onScroll() {

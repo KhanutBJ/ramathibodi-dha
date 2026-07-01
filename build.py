@@ -43,12 +43,13 @@ SITE = {
 }
 
 NAV = [
-    ("Who We Are", "who-we-are.html"),
-    ("What We Do", "what-we-do.html"),
-    ("Academy", "academy.html"),
-    ("Fellowship", "fellowship.html"),
-    ("Insights", "insights/index.html"),
-    ("Careers", "careers.html"),
+    ("Who We Are", "เกี่ยวกับเรา", "who-we-are.html"),
+    ("What We Do", "สิ่งที่เราทำ", "what-we-do.html"),
+    ("Academy", "อคาเดมี", "academy.html"),
+    ("Platform", "แพลตฟอร์ม", "platform.html"),
+    ("Fellowship", "เฟลโลว์ชิป", "fellowship.html"),
+    ("Insights", "บทความ", "insights/index.html"),
+    ("Careers", "ร่วมงานกับเรา", "careers.html"),
 ]
 
 # ----------------------------------------------------------------------------
@@ -77,15 +78,19 @@ ICON = {
 # ----------------------------------------------------------------------------
 def esc(s): return html.escape(s, quote=True)
 
+def bi(en, th):
+    """Inline bilingual span. CSS shows one per active [data-lang]."""
+    return f'<span class="l-en">{en}</span><span class="l-th">{th}</span>'
+
 def nav_links(prefix, active):
     out = []
-    for label, href in NAV:
+    for en, th, href in NAV:
         cls = "nav__link is-active" if active == href else "nav__link"
-        out.append(f'<a class="{cls}" href="{prefix}{href}">{label}</a>')
+        out.append(f'<a class="{cls}" href="{prefix}{href}">{bi(en, th)}</a>')
     return "\n".join(out)
 
 def mobile_links(prefix):
-    return "\n".join(f'<a href="{prefix}{href}">{label}</a>' for label, href in NAV)
+    return "\n".join(f'<a href="{prefix}{href}">{bi(en, th)}</a>' for en, th, href in NAV)
 
 def shell(title, body, prefix="", active="", desc=None, body_attr=""):
     desc = desc or SITE["tagline"]
@@ -99,9 +104,9 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 <link rel="icon" href="{prefix}assets/favicon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="{prefix}assets/dha.css"/>
-<script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);}}catch(e){{}}}})();</script>
+<script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('dha-lang')||((navigator.language||'').toLowerCase().indexOf('th')===0?'th':'en');document.documentElement.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l);}}catch(e){{}}}})();</script>
 </head>
 <body{(' ' + body_attr) if body_attr else ''}>
 <header class="nav">
@@ -114,17 +119,20 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
       {nav_links(prefix, active)}
     </nav>
     <div class="nav__actions">
+      <button class="lang-toggle" data-lang-toggle aria-label="Switch language">
+        <span class="l-en">TH</span><span class="l-th">EN</span>
+      </button>
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle colour theme">
         <span class="sun">{ICON['sun']}</span><span class="moon">{ICON['moon']}</span>
       </button>
-      <a class="btn btn--primary" href="{prefix}contact.html" style="padding:.6rem 1.1rem">Contact</a>
+      <a class="btn btn--primary" href="{prefix}contact.html" style="padding:.6rem 1.1rem">{bi('Contact', 'ติดต่อ')}</a>
       <button class="nav__burger" data-burger aria-label="Open menu">{ICON['menu']}</button>
     </div>
   </div>
 </header>
 <div class="mobile-menu">
   {mobile_links(prefix)}
-  <a href="{prefix}contact.html">Contact</a>
+  <a href="{prefix}contact.html">{bi('Contact', 'ติดต่อเรา')}</a>
 </div>
 <main id="top">
 {body}
@@ -136,31 +144,31 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 
 def footer(prefix):
     cols = [
-        ("Club", [("Who We Are", "who-we-are.html"), ("What We Do", "what-we-do.html"),
-                  ("Careers", "careers.html"), ("Contact", "contact.html")]),
-        ("Programmes", [("Academy", "academy.html"), ("Fellowship", "fellowship.html"),
-                        ("Publications", "fellowship/publications.html"), ("Stories", "fellowship/stories.html")]),
-        ("Resources", [("Insights", "insights/index.html"), ("News", "news/index.html"),
-                       ("FAQ", "fellowship/faq.html")]),
+        (("Club", "คลับ"), [(("Who We Are", "เกี่ยวกับเรา"), "who-we-are.html"), (("What We Do", "สิ่งที่เราทำ"), "what-we-do.html"),
+                  (("Careers", "ร่วมงานกับเรา"), "careers.html"), (("Contact", "ติดต่อ"), "contact.html")]),
+        (("Programmes", "โปรแกรม"), [(("Academy", "อคาเดมี"), "academy.html"), (("Fellowship", "เฟลโลว์ชิป"), "fellowship.html"),
+                        (("Publications", "ผลงานตีพิมพ์"), "fellowship/publications.html"), (("Stories", "เรื่องราว"), "fellowship/stories.html")]),
+        (("Resources", "แหล่งข้อมูล"), [(("Insights", "บทความ"), "insights/index.html"), (("News", "ข่าวสาร"), "news/index.html"),
+                       (("FAQ", "คำถามที่พบบ่อย"), "fellowship/faq.html")]),
     ]
     col_html = ""
-    for h4, links in cols:
-        items = "".join(f'<li><a href="{prefix}{href}">{label}</a></li>' for label, href in links)
-        col_html += f'<div><h4>{h4}</h4><ul>{items}</ul></div>'
+    for (h_en, h_th), links in cols:
+        items = "".join(f'<li><a href="{prefix}{href}">{bi(l_en, l_th)}</a></li>' for (l_en, l_th), href in links)
+        col_html += f'<div><h4>{bi(h_en, h_th)}</h4><ul>{items}</ul></div>'
     return f"""<footer class="footer">
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
         <img class="light-only" src="{prefix}assets/dha-logo-light.png" alt="{esc(SITE['name'])}"/>
         <img class="dark-only" src="{prefix}assets/dha-logo-dark.png" alt="{esc(SITE['name'])}" style="display:none"/>
-        <p>{esc(SITE['tagline'])}</p>
+        <p>{bi(esc(SITE['tagline']), 'ผู้บุกเบิกการผสานปัญญาประดิษฐ์กับการแพทย์ เพื่อสุขภาพที่ดีกว่า')}</p>
         <p class="muted" style="font-size:.82rem">{esc(SITE['org_en'])}<br/>{esc(SITE['org_th'])}</p>
       </div>
       {col_html}
     </div>
     <div class="footer__bottom">
       <span>© {YEAR} {esc(SITE['name'])}</span>
-      <span>Built in Bangkok for Thailand's health system.</span>
+      <span>{bi("Built in Bangkok for Thailand's health system.", "สร้างในกรุงเทพ เพื่อระบบสุขภาพของไทย")}</span>
     </div>
   </div>
 </footer>"""

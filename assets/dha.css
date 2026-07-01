@@ -948,3 +948,24 @@ strong { color: var(--ink); font-weight: 600; }
 [data-theme="dark"] .ds-card--blue .ds-card__ic { color: #85b7eb; }
 .ds-card__title { font-weight: 600; color: var(--ink); font-size: .98rem; line-height: 1.25; }
 .ds-card__stat { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); letter-spacing: .01em; }
+
+/* ---- Partner logo marquee (slide animation, edge-fade, pause on hover) --- */
+.logo-marquee {
+  margin-top: var(--s5); overflow: hidden; width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+.logo-marquee__track {
+  display: flex; align-items: center; gap: clamp(2.5rem, 6vw, 4.5rem);
+  width: max-content; animation: marquee 28s linear infinite;
+}
+.logo-marquee:hover .logo-marquee__track { animation-play-state: paused; }
+.logo-marquee .logo-mark { height: 44px; width: auto; flex: none; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .logo-marquee__track { animation: none; } }
+
+/* Fellowship orbit motif: one year as a closed loop, ink-wobbled. */
+.fo-orbit { stroke: currentColor; stroke-width: 2; opacity: .3; }
+.fo-node { fill: var(--card); stroke: currentColor; stroke-width: 2; opacity: .55; }
+.fo-lab { font-family: var(--font-mono); font-size: 13px; fill: var(--ink-soft); letter-spacing: .02em; }
+[data-lang="th"] .fo-lab { font-family: "Noto Sans Thai", sans-serif; }

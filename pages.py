@@ -136,15 +136,19 @@ def home(prefix, ctx):
   </div>
 </section>"""
 
+    _partner_marks = (
+        (f'{prefix}assets/partners/ramathibodi-seal.svg', 'Faculty of Medicine Ramathibodi Hospital, Mahidol University'),
+        (f'{prefix}assets/partners/mind-center.svg', 'MIND Center, Ramathibodi'),
+        (f'{prefix}assets/partners/nia-thailand.svg', 'National Innovation Agency, Thailand'),
+        (f'{prefix}assets/partners/gdg-bangkok.svg', 'Google Developer Group Bangkok'),
+        (f'{prefix}assets/partners/botnoi-academy.svg', 'Botnoi Academy'),
+    )
+    _marks_html = "".join(f'<img class="logo-mark" src="{src}" alt="{alt}" loading="lazy"/>' for src, alt in _partner_marks)
     proof = sec(
         '<div class="reveal partner-strip">'
         '<span class="eyebrow center">Built inside the system, with partners who build</span>'
-        '<div class="logos logos--mark logos--center">'
-        f'<img class="logo-mark" src="{prefix}assets/partners/ramathibodi-seal.svg" alt="Faculty of Medicine Ramathibodi Hospital, Mahidol University"/>'
-        f'<img class="logo-mark" src="{prefix}assets/partners/mind-center.svg" alt="MIND Center, Ramathibodi"/>'
-        f'<img class="logo-mark" src="{prefix}assets/partners/nia-thailand.svg" alt="National Innovation Agency, Thailand"/>'
-        f'<img class="logo-mark" src="{prefix}assets/partners/gdg-bangkok.svg" alt="Google Developer Group Bangkok"/>'
-        f'<img class="logo-mark" src="{prefix}assets/partners/botnoi-academy.svg" alt="Botnoi Academy"/>'
+        '<div class="logo-marquee">'
+        f'<div class="logo-marquee__track">{_marks_html}{_marks_html}</div>'
         '</div>'
         '<p class="muted center" style="font-size:.82rem;margin-top:1.4rem">Aligned with MOPH Digital Health, NHSO, Thai FDA, and Thai HealthTech</p>'
         '</div>', "section section--tight")
@@ -673,6 +677,65 @@ def learning_trail(prefix):
             f'{head(bi("The trail", "เส้นทาง"), bi("Six waypoints, one climb.", "หกจุดพัก หนึ่งการไต่ระดับ"), bi("This is not six separate courses. It is one trail. Each waypoint changes what you can see from the next.", "นี่ไม่ใช่หกคอร์สที่แยกกัน แต่เป็นเส้นทางเดียว แต่ละจุดพักเปลี่ยนมุมมองที่คุณเห็นจากจุดถัดไป"))}'
             f'{svg}</div></section>')
 
+def fellowship_orbit(prefix):
+    """Third signature sketch: one year as a single orbit, four waypoints
+    around it, one gradient mark at the centre where the year's work lands
+    on a patient. Distinct shape from the trail (hiking map) and the
+    hospital-flow (clinical path): this one is a closed loop, a year that
+    returns to the same place changed."""
+    cx, cy, r = 260, 175, 128
+    import math
+    stops = [
+        (0, "Match", "จับคู่"),
+        (1, "Build", "สร้าง"),
+        (2, "Evaluate", "ประเมิน"),
+        (3, "Ship", "ส่งมอบ"),
+    ]
+    def pt(i):
+        a = -math.pi/2 + i * (math.pi/2)
+        return (cx + r*math.cos(a), cy + r*math.sin(a))
+    nodes = ""
+    for i, en, th in stops:
+        x, y = pt(i)
+        anchor = "middle"
+        yoff = -22 if y < cy else 34
+        xoff = 0
+        if abs(x - cx) > 40:
+            anchor = "start" if x > cx else "end"
+            xoff = 16 if x > cx else -16
+            yoff = 5
+        nodes += (f'<circle class="fo-node" cx="{x:.0f}" cy="{y:.0f}" r="8"/>'
+                  f'<text class="l-en fo-lab" x="{x+xoff:.0f}" y="{y+yoff:.0f}" text-anchor="{anchor}">{en}</text>'
+                  f'<text class="l-th fo-lab" x="{x+xoff:.0f}" y="{y+yoff:.0f}" text-anchor="{anchor}">{th}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 520 360" role="img" aria-label="The Fellowship year, as one orbit" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch3" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="19" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+      </filter>
+      <radialGradient id="fo-grad" cx="50%" cy="50%" r="60%">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.55" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </radialGradient>
+    </defs>
+    <g filter="url(#sketch3)" fill="none">
+      <circle class="fo-orbit" cx="{cx}" cy="{cy}" r="{r}"/>
+      {nodes}
+    </g>
+    <circle cx="{cx}" cy="{cy}" r="15" fill="url(#fo-grad)"/>
+    <text class="fa-hand" x="{cx-46}" y="{cy+56}" transform="rotate(-3 {cx-46} {cy+56})">one patient, one year</text>
+    <path class="fa-hand-arrow" d="M{cx-10} {cy+40} q -14 -10 -18 -22"/>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">A year is not a line. It is a loop you complete once, closely watched, and it changes where you land.</span>
+    <span class="l-th">หนึ่งปีไม่ใช่เส้นตรง แต่เป็นวงที่คุณเดินให้ครบหนึ่งรอบ ภายใต้การดูแลอย่างใกล้ชิด และมันเปลี่ยนจุดที่คุณจะไปถึง</span>
+  </div>
+</div>"""
+    return (f'<section class="section"><div class="container">'
+            f'{head(bi("The year", "หนึ่งปี"), bi("One loop, four waypoints.", "หนึ่งวงจร สี่จุดพัก"))}'
+            f'{svg}</div></section>')
+
 def academy(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
@@ -759,6 +822,8 @@ def fellowship(prefix, ctx):
   </div>
 </section>"""
 
+    orbit = fellowship_orbit(prefix)
+
     quote = sec(
         '<blockquote class="prose reveal" style="max-width:34ch;margin-inline:auto;text-align:center;border:0;font-size:var(--step-3);padding:0">'
         + bi('"The point is not to learn about medical AI. The point is to build it, well enough that a hospital will use it."',
@@ -791,7 +856,7 @@ def fellowship(prefix, ctx):
         ctx['card']('compass', bi('FAQ', 'คำถามที่พบบ่อย'), bi('Eligibility, time commitment, funding, and how selection works.', 'คุณสมบัติ เวลาที่ต้องใช้ ทุน และการคัดเลือกทำงานอย่างไร'), 'fellowship/faq.html', bi('Read', 'อ่าน'), prefix) +
         '</div>')
 
-    return hero + quote + pillars + tracks + links
+    return hero + orbit + quote + pillars + tracks + links
 
 def fellowship_apply(prefix, ctx):
     I = ctx["ICON"]

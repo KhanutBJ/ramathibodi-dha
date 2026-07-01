@@ -1,12 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" role="img" aria-label="MIND Center, Ramathibodi">
-  <g fill="none" stroke="#2c3fa0" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M28 150 L28 88 L100 88 L100 46"/>
-    <path d="M100 46 L138 46 L138 84 L100 84"/>
-    <circle cx="28" cy="168" r="15"/>
-    <circle cx="138" cy="28" r="15"/>
-  </g>
-  <text x="150" y="150" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="54" letter-spacing="1">
-    <tspan fill="#2c3fa0">M</tspan><tspan fill="#f0631f">IN</tspan><tspan fill="#2c3fa0">D</tspan>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 420" role="img" aria-label="MIND Center, Ramathibodi">
+  <path d="M60 320 L60 175 L145 175 L145 75 L280 75" fill="none" stroke="#2f3d99" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="60" cy="320" r="24" fill="none" stroke="#2f3d99" stroke-width="11"/>
+  <circle cx="280" cy="75" r="24" fill="none" stroke="#2f3d99" stroke-width="11"/>
+  <text x="195" y="225" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="80" letter-spacing="1">
+    <tspan fill="#2f3d99">M</tspan><tspan fill="#f26522">IN</tspan><tspan fill="#2f3d99">D</tspan>
   </text>
-  <text x="24" y="205" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="24" letter-spacing="3" fill="#2c3fa0">RAMATHIBODI</text>
+  <text x="60" y="290" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="30" letter-spacing="2.2" fill="#f26522">RAMATHIBODI</text>
 </svg>

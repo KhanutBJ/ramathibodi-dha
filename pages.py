@@ -241,7 +241,7 @@ def home(prefix, ctx):
   {hero_line_art()}
   <div class="container">
     <span class="eyebrow reveal">Ramathibodi Digital Health &amp; AI Club</span>
-    <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="hero-mark"><span class="gradient-text">AI to the bedside</span></span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="hero-mark"><span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></span></h1>
+    <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>
     <p class="lead reveal measure" data-d="2">{bi("A club, an academy, and a fellowship built inside one of Thailand's leading medical schools.", "คลับ อคาเดมี และเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Explore the Academy", "สำรวจอคาเดมี")} {I['arrow']}</a>
@@ -739,19 +739,19 @@ def hospital_flow(prefix):
     def box(x):
         return f'<rect class="fa-box" x="{x-64}" y="96" width="128" height="72" rx="12"/>'
     def ai_shape(x):
-        return (f'<line class="fa-link" x1="{x}" y1="168" x2="{x}" y2="250"/>'
+        return (f'<line class="fa-link" x1="{x}" y1="168" x2="{x}" y2="260"/>'
                 f'<circle class="fa-node" cx="{x}" cy="168" r="4.5"/>'
-                f'<rect class="fa-ai" x="{x-92}" y="250" width="184" height="76" rx="14"/>')
+                f'<rect class="fa-ai" x="{x-92}" y="260" width="184" height="80" rx="14"/>')
     def st_text(x, en, th):
         return (f'<text class="l-en fa-st" x="{x}" y="150" text-anchor="middle">{en}</text>'
                 f'<text class="l-th fa-st" x="{x}" y="150" text-anchor="middle">{th}</text>')
     def ai_text(x, en, th):
-        return (f'<circle class="fa-pulse" cx="{x-72}" cy="270" r="7"/>'
-                f'<text class="fa-tag" x="{x-72}" y="274" text-anchor="middle">AI</text>'
-                f'<text class="l-en fa-cap" x="{x+6}" y="268" text-anchor="middle">{en[0]}</text>'
-                f'<text class="l-en fa-cap" x="{x+6}" y="286" text-anchor="middle">{en[1]}</text>'
-                f'<text class="l-th fa-cap" x="{x+6}" y="268" text-anchor="middle">{th[0]}</text>'
-                f'<text class="l-th fa-cap" x="{x+6}" y="286" text-anchor="middle">{th[1]}</text>')
+        return (f'<circle class="fa-pulse" cx="{x-72}" cy="282" r="7"/>'
+                f'<text class="fa-tag" x="{x-72}" y="286" text-anchor="middle">AI</text>'
+                f'<text class="l-en fa-cap" x="{x+6}" y="280" text-anchor="middle">{en[0]}</text>'
+                f'<text class="l-en fa-cap" x="{x+6}" y="298" text-anchor="middle">{en[1]}</text>'
+                f'<text class="l-th fa-cap" x="{x+6}" y="280" text-anchor="middle">{th[0]}</text>'
+                f'<text class="l-th fa-cap" x="{x+6}" y="298" text-anchor="middle">{th[1]}</text>')
     xs = [110, 320, 530, 740, 950]
     stations = [
         ("Arrival", "มาถึง"), ("Triage", "คัดกรอง"), ("Diagnosis", "วินิจฉัย"),
@@ -771,7 +771,7 @@ def hospital_flow(prefix):
     path = f"M {xs[0]} 132 C 210 118, 220 146, {xs[1]} 132 S 430 118, {xs[2]} 132 S 640 146, {xs[3]} 132 S 850 118, {xs[4]} 132"
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 1060 360" role="img" aria-label="How AI improves the hospital workflow" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 1060 420" role="img" aria-label="How AI improves the hospital workflow" preserveAspectRatio="xMidYMid meet">
     <defs>
       <filter id="sketch" x="-6%" y="-6%" width="112%" height="112%">
         <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="2" seed="7" result="n"/>
@@ -792,8 +792,8 @@ def hospital_flow(prefix):
     {ai_texts}
     <text class="fa-hand" x="118" y="64" transform="rotate(-4 118 64)">one line, one patient</text>
     <path class="fa-hand-arrow" d="M150 74 q 6 22 -18 44"/>
-    <text class="fa-hand" x="612" y="356" transform="rotate(-2.5 612 356)">a clinician still decides</text>
-    <path class="fa-hand-arrow" d="M742 344 q -30 6 -70 8"/>
+    <text class="fa-hand" x="530" y="400" text-anchor="middle" transform="rotate(-1.5 530 400)">a clinician still decides</text>
+    <path class="fa-hand-arrow" d="M660 388 q 40 -10 60 -20"/>
   </svg>
   <div class="flow-art__legend">
     <span class="l-en">A patient’s journey, drawn by hand. The dot is the patient. Where it glows, an agent is quietly doing the heavy lifting.</span>
@@ -952,30 +952,57 @@ def fellowship_orbit(prefix):
             f'{svg}</div></section>')
 
 def competency_spine():
-    """The four-pillar competency spine: Fluency, Builder, Strategist,
-    Steward. A clean typographic panel, not a hand-sketch, because this is
-    information architecture, not narrative. Each row's accent bar samples
-    one stop of the brand gradient, so four rows read as one family rather
-    than four arbitrary colours."""
+    """The four-pillar competency spine, redrawn as a hand-sketch staircase:
+    four ascending steps, one gradient stop each, climbing left to right,
+    so the shape itself says "climb" instead of a plain bordered list."""
     pillars = [
-        ("#3412d1", "I", bi("Fluency", "ความเข้าใจพื้นฐาน"), bi("Read, question, and evaluate the AI tools a graduate meets at work.", "อ่าน ตั้งคำถาม และประเมินเครื่องมือ AI ที่บัณฑิตจะเจอในการทำงาน")),
-        ("#7a2ba8", "II", bi("Builder", "ผู้สร้าง"), bi("Design, train, and evaluate a model, then ship it into a real workflow.", "ออกแบบ ฝึกโมเดล ประเมินผล แล้วนำไปใช้จริงในเวิร์กโฟลว์")),
-        ("#b0507a", "III", bi("Strategist", "นักกลยุทธ์"), bi("Decide build, buy, or wait, and manage the change an institution needs.", "ตัดสินใจสร้าง ซื้อ หรือรอ และบริหารการเปลี่ยนแปลงที่สถาบันต้องการ")),
-        ("#fd6502", "IV", bi("Steward", "ผู้ดูแลระยะยาว"), bi("Watch over a tool for years: monitor drift, audit bias, know when to retire it.", "ดูแลเครื่องมือในระยะยาว เฝ้าระวังความคลาดเคลื่อน ตรวจสอบอคติ และรู้ว่าเมื่อไรควรเลิกใช้")),
+        ("#3412d1", "I", ("Fluency", "ความเข้าใจพื้นฐาน"), bi("Read and question the tools you will meet.", "อ่านและตั้งคำถามต่อเครื่องมือที่จะเจอ")),
+        ("#7a2ba8", "II", ("Builder", "ผู้สร้าง"), bi("Design, train, and ship into a real workflow.", "ออกแบบ ฝึกโมเดล และนำไปใช้จริง")),
+        ("#b0507a", "III", ("Strategist", "นักกลยุทธ์"), bi("Decide build, buy, or wait.", "ตัดสินใจสร้าง ซื้อ หรือรอ")),
+        ("#fd6502", "IV", ("Steward", "ผู้ดูแลระยะยาว"), bi("Watch over a tool for years.", "ดูแลเครื่องมือในระยะยาว")),
     ]
-    rows = "".join(
-        f'<div class="spine-row" style="border-left-color:{color}">'
-        f'<span class="spine-row__num" style="color:{color}">{num}</span>'
-        f'<div class="spine-row__body"><h3>{title}</h3><p>{desc}</p></div>'
-        f'</div>'
+    n = len(pillars)
+    step_w, gap = 220, 20
+    base_y, top_y = 300, 90
+    steps_svg = ""
+    for i, (color, num, (t_en, t_th), desc) in enumerate(pillars):
+        x = 40 + i * (step_w + gap)
+        h = 60 + i * ((base_y - top_y - 60) / (n - 1))
+        y = base_y - h
+        steps_svg += (f'<rect class="spine-step" x="{x}" y="{y:.0f}" width="{step_w}" height="{h:.0f}" rx="10" '
+                      f'style="fill:{color}22;stroke:{color}"/>'
+                      f'<text class="spine-num" x="{x+22}" y="{y+38:.0f}" style="fill:{color}">{num}</text>'
+                      f'<text class="l-en spine-title" x="{x+22}" y="{y+66:.0f}">{t_en}</text>'
+                      f'<text class="l-th spine-title" x="{x+22}" y="{y+66:.0f}">{t_th}</text>')
+    dots = "".join(f'<circle class="spine-dot" cx="{40+i*(step_w+gap)+step_w-18}" cy="{base_y-(60+i*((base_y-top_y-60)/(n-1)))+22:.0f}" r="5"/>' for i in range(n))
+    captions = "".join(
+        f'<div class="spine-caption" style="border-top-color:{color}"><span class="mono">{num}</span><h4>{bi(*title)}</h4><p>{desc}</p></div>'
         for color, num, title, desc in pillars)
+    svg_w = 40 * 2 + n * step_w + (n - 1) * gap
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 {svg_w} 340" role="img" aria-label="The four-pillar competency spine, climbing" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch-spine" x="-6%" y="-6%" width="112%" height="112%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="23" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+      </filter>
+    </defs>
+    <line x1="20" y1="{base_y}" x2="{svg_w-20}" y2="{base_y}" class="spine-ground"/>
+    <g filter="url(#sketch-spine)" stroke-width="2">
+      {steps_svg}
+    </g>
+    {dots}
+  </svg>
+</div>
+<div class="spine-captions reveal mt4">{captions}</div>"""
     return f"""
 <section class="section section--tight">
   <div class="container">
     <span class="eyebrow reveal">{bi("The four-pillar competency spine", "แกนกลางสี่เสาหลักของทักษะ")}</span>
     <h2 class="reveal mt3">{bi("Everyone climbs the same spine.", "ทุกคนไต่บันไดเดียวกัน")}</h2>
-    <p class="lead reveal mt3 measure">{bi("The six courses teach the craft. This is the judgement the craft is for: from reading a tool honestly, to building one, to deciding where it belongs, to watching over it for years.", "หกคอร์สสอนวิชาชีพ นี่คือวิจารณญาณที่วิชาชีพนั้นมีไว้เพื่อ ตั้งแต่อ่านเครื่องมืออย่างตรงไปตรงมา ไปจนถึงสร้างมันขึ้นมา ตัดสินใจว่ามันควรอยู่ตรงไหน และดูแลมันในระยะยาว")}</p>
-    <div class="spine reveal mt5">{rows}</div>
+    <p class="lead reveal mt3 measure">{bi("The six courses teach the craft. This is the judgement it is for.", "หกคอร์สสอนวิชาชีพ นี่คือวิจารณญาณที่วิชาชีพนั้นมีไว้เพื่อ")}</p>
+    {svg}
   </div>
 </section>"""
 

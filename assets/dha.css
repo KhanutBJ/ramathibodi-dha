@@ -251,17 +251,6 @@ strong { color: var(--ink); font-weight: 600; }
 .hero h1 { font-size: var(--step-5); max-width: 16ch; position: relative; z-index: 1; }
 /* The signature mark: a single hand-drawn stroke under the phrase that
    matters, drawn once, on our own gradient. Not a font swap, a gesture. */
-.hero-mark { position: relative; display: inline-block; }
-.hero-mark::after {
-  content: "";
-  position: absolute; left: -0.06em; right: -0.08em; bottom: -0.1em; height: 0.24em;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 20'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23fd6502'/%3E%3Cstop offset='0.5' stop-color='%2391386e'/%3E%3Cstop offset='1' stop-color='%232a1bd6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 12 C 40 3, 70 19, 110 10 S 180 2, 220 11 S 280 17, 298 8' fill='none' stroke='url(%23g)' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-size: 100% 100%;
-  transform: scaleX(0); transform-origin: left center; pointer-events: none;
-}
-.reveal.is-in .hero-mark::after { animation: hero-mark-draw 1s var(--ease) .55s forwards; }
-@keyframes hero-mark-draw { to { transform: scaleX(1); } }
-@media (prefers-reduced-motion: reduce) { .hero-mark::after { animation: none; transform: scaleX(1); } }
 .hero .lead, .hero .btn-row, .hero .hero__meta, .hero .eyebrow { position: relative; z-index: 1; }
 .hero .lead { margin-top: var(--s4); max-width: 54ch; }
 .hero .btn-row { margin-top: var(--s5); }
@@ -851,13 +840,19 @@ strong { color: var(--ink); font-weight: 600; }
   .vd-merge-ring { animation: none; opacity: .3; }
 }
 
-/* Four-pillar competency spine: a clean typographic panel, not a sketch. */
-.spine { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--card); }
-.spine-row { display: flex; gap: var(--s4); padding: var(--s4) var(--s4); border-left: 4px solid; border-bottom: 1px solid var(--line); }
-.spine-row:last-child { border-bottom: 0; }
-.spine-row__num { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 600; line-height: 1; flex: 0 0 auto; padding-top: 0.15rem; }
-.spine-row__body h3 { font-size: var(--step-1); }
-.spine-row__body p { margin-top: 0.4rem; font-size: 0.95rem; }
+/* Four-pillar competency spine: a hand-sketch ascending staircase. */
+.spine-ground { stroke: var(--line); stroke-width: 2; }
+.spine-step { transition: transform .25s var(--ease); }
+.spine-num { font-family: var(--font-mono); font-size: 22px; font-weight: 700; }
+.spine-title { font-family: var(--font-editorial); font-optical-sizing: auto; font-weight: 600; font-size: 22px; fill: var(--ink); }
+[data-lang="th"] .spine-title { font-family: "Noto Serif Thai", serif; font-size: 18px; }
+.spine-dot { fill: var(--ink); opacity: .5; }
+.spine-captions { display: grid; grid-template-columns: 1fr; gap: var(--s3); }
+@media (min-width: 760px) { .spine-captions { grid-template-columns: repeat(4, 1fr); } }
+.spine-caption { border-top: 3px solid; padding-top: .9rem; }
+.spine-caption .mono { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-faint); }
+.spine-caption h4 { margin-top: .3rem; font-size: 1.02rem; }
+.spine-caption p { margin-top: .35rem; font-size: .88rem; }
 
 /* ============================================================================
    Editorial refinement. Rams: as little design as possible. Ive: air + clarity.
@@ -980,11 +975,15 @@ strong { color: var(--ink); font-weight: 600; }
 .ds-panel {
   margin-top: var(--s5); padding: clamp(1.4rem, 3vw, 2.2rem);
   border-radius: var(--radius-lg);
-  background: radial-gradient(60% 90% at 10% 0%, rgba(29,158,117,.10), transparent 60%),
-              radial-gradient(60% 90% at 90% 100%, rgba(88,34,166,.10), transparent 60%),
-              var(--bg-sunk);
+  background:
+    radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0 / 22px 22px,
+    radial-gradient(60% 90% at 10% 0%, rgba(29,158,117,.14), transparent 60%),
+    radial-gradient(60% 90% at 90% 100%, rgba(88,34,166,.14), transparent 60%),
+    var(--bg-sunk);
   border: 1px solid var(--line);
 }
+[data-theme="dark"] .ds-panel { border-color: var(--line-soft); }
+[data-theme="dark"] .ds-card { box-shadow: 0 1px 0 rgba(255,255,255,.03) inset; }
 .ds-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 @media (min-width: 640px) { .ds-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 980px) { .ds-grid { grid-template-columns: repeat(4, 1fr); } }

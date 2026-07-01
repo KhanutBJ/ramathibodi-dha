@@ -107,29 +107,20 @@ def esc_txt(s):
 # HOME
 # ===========================================================================
 def vision_dawn():
-    """Seventh signature sketch, the homepage's vision statement. Not literal
-    figures (tried, looked like clip art, cut). Instead: a workforce is many
-    people, so the diagram is many thin threads, each starting from a
-    different point on the ground, each on its own path, all converging into
-    one bold gradient line, the way the whole site's 'one continuous line'
-    idea actually works at the scale of a country. Abstract, but the meaning
-    is exact: nobody rises alone, and the many become one movement without
-    losing their individual starting points."""
-    import math
-    starts = [70, 150, 230, 310, 390]
+    """Seventh signature sketch, the homepage's vision statement. The copy
+    argues medicine and AI are not two skills held side by side, they are
+    one craft. So the diagram is not many threads (that was the old,
+    workforce-shaped version). It is two: one line for medicine, one for
+    AI, starting apart, crossing through each other rather than politely
+    merging, and continuing onward as a single bold gradient stroke. The
+    crossing is the point: not a handoff, a fusion."""
     merge = (560, 175)
-    threads = ""
-    for i, sx in enumerate(starts):
-        cx1 = sx + 90 + i * 6
-        cy1 = 330 - i * 8
-        cx2 = merge[0] - 110
-        cy2 = merge[1] + 40 - i * 4
-        d = f"M {sx} 360 C {cx1} {cy1}, {cx2} {cy2}, {merge[0]} {merge[1]}"
-        threads += f'<path class="vd-thread" d="{d}" fill="none" style="animation-delay:{i*0.12:.2f}s"/>'
+    med = f"M 70 90 C 250 90, 350 260, {merge[0]} {merge[1]}"
+    ai = f"M 70 270 C 250 270, 350 90, {merge[0]} {merge[1]}"
     d_main = f"M {merge[0]} {merge[1]} C 650 130, 720 90, 810 55"
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 900 400" role="img" aria-label="Many individual threads, each starting from a different point on the ground, converging into one bright line rising toward the future" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 900 400" role="img" aria-label="Two lines, one for medicine and one for AI, crossing through each other and continuing as a single bright line" preserveAspectRatio="xMidYMid meet">
     <defs>
       <filter id="sketch8" x="-8%" y="-8%" width="116%" height="116%">
         <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="61" result="n"/>
@@ -140,24 +131,25 @@ def vision_dawn():
       </linearGradient>
     </defs>
     <g filter="url(#sketch8)">
-      <line class="vd-ground" x1="40" y1="360" x2="860" y2="360"/>
-      {threads}
+      <path class="vd-thread" d="{med}" fill="none"/>
+      <path class="vd-thread" d="{ai}" fill="none" style="animation-delay:.15s"/>
       <path class="vd-arc" d="{d_main}" fill="none"/>
       <circle class="vd-node vd-node--sun" cx="810" cy="55" r="15"/>
     </g>
     <circle class="vd-merge-ring" cx="{merge[0]}" cy="{merge[1]}" r="20"/>
-    <text class="l-en vd-lab" x="70" y="345">Many starting points</text>
-    <text class="l-th vd-lab" x="70" y="345">จุดเริ่มต้นที่ต่างกัน</text>
-    <text class="l-en vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">One workforce</text>
-    <text class="l-th vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">หนึ่งกำลังคน</text>
+    <text class="l-en vd-lab" x="70" y="75">Medicine</text>
+    <text class="l-th vd-lab" x="70" y="75">การแพทย์</text>
+    <text class="vd-lab" x="70" y="300">AI</text>
+    <text class="l-en vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">One craft</text>
+    <text class="l-th vd-lab" x="{merge[0]}" y="{merge[1]-32}" text-anchor="middle">หนึ่งวิชาชีพ</text>
     <text class="l-en vd-lab" x="835" y="30" text-anchor="end">The future of Thai care</text>
     <text class="l-th vd-lab" x="835" y="30" text-anchor="end">อนาคตการดูแลสุขภาพไทย</text>
-    <text class="fa-hand" x="120" y="215" transform="rotate(-4 120 215)">not one hero, a whole generation</text>
-    <path class="fa-hand-arrow" d="M170 224 q 30 8 54 22"/>
+    <text class="fa-hand" x="270" y="70" transform="rotate(-4 270 70)">not two skills, one craft</text>
+    <path class="fa-hand-arrow" d="M300 82 q 10 40 15 75"/>
   </svg>
   <div class="flow-art__legend">
-    <span class="l-en">A workforce is not one brilliant person. It is many people, starting from different places, who choose to rise together.</span>
-    <span class="l-th">กำลังคนไม่ใช่คนเก่งเพียงคนเดียว แต่คือคนจำนวนมาก ที่เริ่มจากจุดต่างกัน แล้วเลือกที่จะเติบโตไปด้วยกัน</span>
+    <span class="l-en">Not medicine, then AI bolted on after. Learned together from the start, until asking where one ends and the other begins stops making sense.</span>
+    <span class="l-th">ไม่ใช่เรียนแพทย์ก่อนแล้วค่อยเสริม AI ทีหลัง แต่เรียนไปด้วยกันตั้งแต่ต้น จนถามไม่ได้อีกต่อไปว่าอะไรคือแพทย์ อะไรคือ AI</span>
   </div>
 </div>"""
     return svg

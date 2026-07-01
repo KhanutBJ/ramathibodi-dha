@@ -188,9 +188,9 @@ def who_we_are(prefix, ctx):
 <section class="hero" style="padding-bottom:3rem">
   <div class="hero__glow"></div>
   <div class="container">
-    <span class="eyebrow reveal">Who we are</span>
-    <h1 class="reveal" data-d="1" style="max-width:18ch">A club with the discipline of an institution and the speed of a startup.</h1>
-    <p class="lead reveal measure" data-d="2">We are the Ramathibodi Digital Health and AI Club. We sit inside the Faculty of Medicine Ramathibodi Hospital, Mahidol University, and we are building the people who will modernise Thai healthcare from within.</p>
+    <span class="eyebrow reveal">{bi("Who we are", "เกี่ยวกับเรา")}</span>
+    <h1 class="reveal" data-d="1" style="max-width:20ch">{bi("A club with the discipline of an institution and the speed of a startup.", "คลับที่มีวินัยของสถาบัน และความเร็วของสตาร์ตอัป")}</h1>
+    <p class="lead reveal measure" data-d="2">{bi("We are the Ramathibodi Digital Health and AI Club. We sit inside the Faculty of Medicine Ramathibodi Hospital, Mahidol University, and we are building the people who will modernise Thai healthcare from within.", "เราคือ Ramathibodi Digital Health and AI Club อยู่ภายในคณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล และเรากำลังสร้างคนที่จะพลิกโฉมระบบสุขภาพไทยจากภายใน")}</p>
   </div>
 </section>"""
 
@@ -199,52 +199,52 @@ def who_we_are(prefix, ctx):
   <div class="container">
     <div class="grid grid-2">
       <div class="card card--feature reveal">
-        <span class="eyebrow">Mission</span>
-        <h2 class="mt3" style="font-size:var(--step-2)">Produce a generation of healthcare builders.</h2>
-        <p class="mt3">We train clinicians, engineers, and scientists to design, evaluate, and deploy trustworthy medical AI, and we give them real problems to prove it on. Our measure is not graduates. It is working tools in clinical use.</p>
+        <span class="eyebrow">{bi("Mission", "พันธกิจ")}</span>
+        <h2 class="mt3" style="font-size:var(--step-2)">{bi("Produce a generation of healthcare builders.", "สร้างคนรุ่นใหม่ที่เป็นผู้สร้างในวงการสุขภาพ")}</h2>
+        <p class="mt3">{bi("We train clinicians, engineers, and scientists to design, evaluate, and deploy trustworthy medical AI, and we give them real problems to prove it on. Our measure is not graduates. It is working tools in clinical use.", "เราฝึกแพทย์ วิศวกร และนักวิทยาศาสตร์ ให้ออกแบบ ประเมิน และนำ AI ทางการแพทย์ที่น่าเชื่อถือไปใช้จริง พร้อมโจทย์จริงให้พิสูจน์ฝีมือ ตัวชี้วัดของเราไม่ใช่จำนวนผู้จบหลักสูตร แต่คือเครื่องมือที่ใช้งานจริงในคลินิก")}</p>
       </div>
       <div class="card card--feature reveal" data-d="1">
-        <span class="eyebrow">Vision</span>
-        <h2 class="mt3" style="font-size:var(--step-2)">Every Thai institution staffed to build its own AI.</h2>
-        <p class="mt3">A health system where hospitals and agencies do not wait to buy AI from elsewhere, because they have people who can build, vet, and run it responsibly. We want to be the place that workforce comes from.</p>
+        <span class="eyebrow">{bi("Vision", "วิสัยทัศน์")}</span>
+        <h2 class="mt3" style="font-size:var(--step-2)">{bi("Every Thai institution staffed to build its own AI.", "ทุกสถาบันของไทยมีคนที่สร้าง AI ของตัวเองได้")}</h2>
+        <p class="mt3">{bi("A health system where hospitals and agencies do not wait to buy AI from elsewhere, because they have people who can build, vet, and run it responsibly. We want to be the place that workforce comes from.", "ระบบสุขภาพที่โรงพยาบาลและหน่วยงานไม่ต้องรอซื้อ AI จากที่อื่น เพราะมีคนที่สร้าง ตรวจสอบ และดูแลมันได้อย่างรับผิดชอบ เราอยากเป็นที่มาของกำลังคนเหล่านั้น")}</p>
       </div>
     </div>
   </div>
 </section>"""
 
     values = sec(
-        head("How we work", "Five principles we do not bend on.") +
+        head(bi("How we work", "วิธีการทำงานของเรา"), bi("Five principles we do not bend on.", "ห้าหลักการที่เราไม่ยอมประนีประนอม")) +
         '<div class="rows">' +
-        row("01", "Clinic first", "Every project starts from a real clinical question, with a clinician in the room. Technology serves care, never the other way around.") +
-        row("02", "Governance as a material", "Safety, evaluation, privacy, and regulation are part of how we build, present from the first design decision, not bolted on at the end.") +
-        row("03", "Build to learn", "We learn by shipping. Reviewed work, real deployment, measured outcomes. Lectures support the build, not the other way around.") +
-        row("04", "Open where we can, selective where it counts", "The Academy is open to anyone in Thailand. The Fellowship is small on purpose, so depth is possible.") +
-        row("05", "Of the system, for the system", "We design to plug into the national health agenda, so the people we train have a country ready to receive them.") +
+        row("01", bi("Clinic first", "คลินิกมาก่อน"), bi("Every project starts from a real clinical question, with a clinician in the room. Technology serves care, never the other way around.", "ทุกโปรเจกต์เริ่มจากคำถามทางคลินิกจริง โดยมีแพทย์อยู่ในทีม เทคโนโลยีรับใช้การดูแลผู้ป่วย ไม่ใช่ทางกลับกัน")) +
+        row("02", bi("Governance as a material", "ธรรมาภิบาลเป็นวัสดุในการสร้าง"), bi("Safety, evaluation, privacy, and regulation are part of how we build, present from the first design decision, not bolted on at the end.", "ความปลอดภัย การประเมินผล ความเป็นส่วนตัว และกฎระเบียบ เป็นส่วนหนึ่งของการสร้างตั้งแต่การตัดสินใจออกแบบครั้งแรก ไม่ใช่มาแปะทีหลัง")) +
+        row("03", bi("Build to learn", "เรียนรู้ด้วยการลงมือสร้าง"), bi("We learn by shipping. Reviewed work, real deployment, measured outcomes. Lectures support the build, not the other way around.", "เราเรียนรู้ด้วยการส่งงานจริง งานที่ผ่านการรีวิว การนำไปใช้จริง และผลลัพธ์ที่วัดได้ การบรรยายสนับสนุนการสร้าง ไม่ใช่ทางกลับกัน")) +
+        row("04", bi("Open where we can, selective where it counts", "เปิดกว้างเท่าที่ทำได้ คัดสรรในจุดที่สำคัญ"), bi("The Academy is open to anyone in Thailand. The Fellowship is small on purpose, so depth is possible.", "อคาเดมีเปิดให้ทุกคนในประเทศไทย เฟลโลว์ชิปตั้งใจให้เล็ก เพื่อให้เกิดความลึกได้จริง")) +
+        row("05", bi("Of the system, for the system", "จากระบบ เพื่อระบบ"), bi("We design to plug into the national health agenda, so the people we train have a country ready to receive them.", "เราออกแบบให้เชื่อมกับวาระสุขภาพของชาติ เพื่อให้คนที่เราฝึกมีประเทศที่พร้อมรองรับ")) +
         '</div>')
 
     position = f"""
 <section class="section">
   <div class="container">
-    {head("Our position", "What no one else is offering, and why it has to be us.")}
+    {head(bi("Our position", "จุดยืนของเรา"), bi("What no one else is offering, and why it has to be us.", "สิ่งที่ไม่มีใครให้ได้ และทำไมต้องเป็นเรา"))}
     <div class="split">
       <div class="stack reveal">
-        <p class="lead">Thailand has talent, data, and a clear national direction. What it lacks is a place that turns clinical insight into deployable AI and trains the next workforce while doing it, inside a hospital.</p>
-        <p>Pure universities teach theory without deployment. Pure startups deploy without clinical depth or a teaching mission. Vendors sell finished products and leave no capability behind. We are deliberately the thing in the middle: an academic home with a builder's studio and a fellowship, accountable to patients and to the public health system at the same time.</p>
-        <p>That is why this works here and not as a side project somewhere else. We have the clinical reality of Ramathibodi, the academic standing of Mahidol, and a mandate to teach. The result is a pipeline that produces both people and products the country can trust.</p>
+        <p class="lead">{bi("Thailand has talent, data, and a clear national direction. What it lacks is a place that turns clinical insight into deployable AI and trains the next workforce while doing it, inside a hospital.", "ประเทศไทยมีคนเก่ง มีข้อมูล และมีทิศทางระดับชาติที่ชัดเจน สิ่งที่ยังขาดคือที่ที่เปลี่ยนความเข้าใจทางคลินิกให้เป็น AI ที่ใช้ได้จริง และฝึกกำลังคนรุ่นต่อไปไปพร้อมกัน โดยทำอยู่ภายในโรงพยาบาล")}</p>
+        <p>{bi("Pure universities teach theory without deployment. Pure startups deploy without clinical depth or a teaching mission. Vendors sell finished products and leave no capability behind. We are deliberately the thing in the middle: an academic home with a builder's studio and a fellowship, accountable to patients and to the public health system at the same time.", "มหาวิทยาลัยล้วนๆ สอนทฤษฎีแต่ไม่ได้นำไปใช้จริง สตาร์ตอัปล้วนๆ นำไปใช้แต่ขาดความลึกทางคลินิกและพันธกิจการสอน ผู้ขายขายผลิตภัณฑ์สำเร็จรูปแต่ไม่ทิ้งขีดความสามารถไว้ให้ เราตั้งใจอยู่ตรงกลาง เป็นบ้านทางวิชาการที่มีทั้งสตูดิโอของผู้สร้างและเฟลโลว์ชิป รับผิดชอบต่อผู้ป่วยและต่อระบบสุขภาพสาธารณะไปพร้อมกัน")}</p>
+        <p>{bi("That is why this works here and not as a side project somewhere else. We have the clinical reality of Ramathibodi, the academic standing of Mahidol, and a mandate to teach. The result is a pipeline that produces both people and products the country can trust.", "นี่คือเหตุผลที่สิ่งนี้เกิดขึ้นได้ที่นี่ ไม่ใช่โปรเจกต์เสริมที่อื่น เรามีความจริงทางคลินิกของรามาธิบดี สถานะทางวิชาการของมหิดล และหน้าที่ในการสอน ผลลัพธ์คือเส้นทางที่ผลิตทั้งคนและผลิตภัณฑ์ที่ประเทศไว้วางใจได้")}</p>
       </div>
       <div class="stack">
-        <div class="card reveal"><h3>Universities</h3><p>Deep theory, little deployment. Knowledge that rarely reaches a ward.</p></div>
-        <div class="card reveal" data-d="1"><h3>Startups</h3><p>Fast deployment, thin clinical grounding, no teaching mandate.</p></div>
-        <div class="card reveal" data-d="2"><h3>Vendors</h3><p>Finished products, no capability left behind in the institution.</p></div>
-        <div class="card reveal" data-d="3" style="border-color:var(--accent)"><h3 class="gradient-text">The Club</h3><p>Clinical depth, real deployment, and a workforce produced on the way. All three, in one place.</p></div>
+        <div class="card reveal"><h3>{bi("Universities", "มหาวิทยาลัย")}</h3><p>{bi("Deep theory, little deployment. Knowledge that rarely reaches a ward.", "ทฤษฎีลึก แต่แทบไม่ได้นำไปใช้ ความรู้ที่ไม่ค่อยไปถึงหอผู้ป่วย")}</p></div>
+        <div class="card reveal" data-d="1"><h3>{bi("Startups", "สตาร์ตอัป")}</h3><p>{bi("Fast deployment, thin clinical grounding, no teaching mandate.", "นำไปใช้เร็ว แต่รากฐานทางคลินิกบาง และไม่มีพันธกิจการสอน")}</p></div>
+        <div class="card reveal" data-d="2"><h3>{bi("Vendors", "ผู้ขายเทคโนโลยี")}</h3><p>{bi("Finished products, no capability left behind in the institution.", "ผลิตภัณฑ์สำเร็จรูป แต่ไม่ทิ้งขีดความสามารถไว้ในสถาบัน")}</p></div>
+        <div class="card reveal" data-d="3" style="border-color:var(--accent)"><h3 class="gradient-text">{bi("The Club", "คลับของเรา")}</h3><p>{bi("Clinical depth, real deployment, and a workforce produced on the way. All three, in one place.", "ความลึกทางคลินิก การนำไปใช้จริง และกำลังคนที่เกิดขึ้นระหว่างทาง ครบทั้งสามในที่เดียว")}</p></div>
       </div>
     </div>
   </div>
 </section>"""
 
     eco = sec(
-        head("Where we fit nationally", "Designed to plug into Thailand's health agenda.",
-             "We do not work around the system. We build toward the goals the country has already set, so our graduates and tools have a place to go.") +
+        head(bi("Where we fit nationally", "เราอยู่ตรงไหนในระดับชาติ"), bi("Designed to plug into Thailand's health agenda.", "ออกแบบให้เสียบเข้ากับวาระสุขภาพของไทย"),
+             bi("We do not work around the system. We build toward the goals the country has already set, so our graduates and tools have a place to go.", "เราไม่ได้ทำงานเลี่ยงระบบ เราสร้างไปในทิศทางเป้าหมายที่ประเทศตั้งไว้แล้ว เพื่อให้ผู้จบและเครื่องมือของเรามีที่ไป")) +
         '<div class="grid grid-3">' +
         ctx['card']('shield', 'Ministry of Public Health', 'The MOPH Digital Health agenda sets the direction for a connected, data-driven health system. We train the workforce that direction requires.', None, '', prefix) +
         ctx['card']('users', 'NHSO', 'The National Health Security Office runs universal coverage. AI that improves access and efficiency has to meet its real-world constraints.', None, '', prefix) +
@@ -255,13 +255,13 @@ def who_we_are(prefix, ctx):
         '</div>')
 
     partners = sec(
-        head("Partners", "We do not build alone.",
-             "We work with the people who train builders and ship technology, and we align with the bodies that set Thailand's health agenda.") +
+        head(bi("Partners", "พันธมิตร"), bi("We do not build alone.", "เราไม่ได้สร้างเพียงลำพัง"),
+             bi("We work with the people who train builders and ship technology, and we align with the bodies that set Thailand's health agenda.", "เราทำงานร่วมกับผู้ที่ฝึกคนสร้างและส่งมอบเทคโนโลยี และเชื่อมกับหน่วยงานที่กำหนดวาระสุขภาพของไทย")) +
         '<div class="grid grid-2">' +
-        ctx['card']('node', 'Google Developer Groups on Campus', 'A community of student developers and the Google Cloud and AI tooling our hands-on work runs on. Our Basics and Deployment domains lean on this stack.', None, '', prefix) +
-        ctx['card']('users', 'BOTNOI Academy', 'A Thai leader in AI education and voice technology. A natural partner for the speech and language parts of the curriculum, taught for Thai data.', None, '', prefix) +
+        ctx['card']('node', 'Google Developer Groups on Campus', bi('A community of student developers and the Google Cloud and AI tooling our hands-on work runs on. Our Basics and Deployment domains lean on this stack.', 'ชุมชนนักพัฒนานักศึกษา และเครื่องมือ Google Cloud และ AI ที่งานภาคปฏิบัติของเราใช้ โดเมน Basics และ Deployment ของเราพึ่งพาชุดเครื่องมือนี้'), None, '', prefix) +
+        ctx['card']('users', 'BOTNOI Academy', bi('A Thai leader in AI education and voice technology. A natural partner for the speech and language parts of the curriculum, taught for Thai data.', 'ผู้นำไทยด้านการศึกษา AI และเทคโนโลยีเสียง เป็นพันธมิตรที่เหมาะกับส่วน speech และภาษาในหลักสูตร ที่สอนบนข้อมูลภาษาไทย'), None, '', prefix) +
         '</div>' +
-        '<p class="muted mt4 reveal" style="font-size:.9rem">We design to align with the Ministry of Public Health digital health agenda, the National Health Security Office, the Thai FDA pathway for Software as a Medical Device, the National Innovation Agency, and the Thai HealthTech ecosystem.</p>')
+        '<p class="muted mt4 reveal" style="font-size:.9rem">' + bi("We design to align with the Ministry of Public Health digital health agenda, the National Health Security Office, the Thai FDA pathway for Software as a Medical Device, the National Innovation Agency, and the Thai HealthTech ecosystem.", "เราออกแบบให้สอดคล้องกับวาระสุขภาพดิจิทัลของกระทรวงสาธารณสุข สำนักงานหลักประกันสุขภาพแห่งชาติ (NHSO) แนวทาง Software as a Medical Device ของ อย. สำนักงานนวัตกรรมแห่งชาติ (NIA) และระบบนิเวศ HealthTech ไทย") + '</p>')
 
     consulting = f"""
 <section class="section">
@@ -271,15 +271,15 @@ def who_we_are(prefix, ctx):
       <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
         <div class="split">
           <div class="stack">
-            <span class="eyebrow" style="color:#cbd5ef">Innovation consulting</span>
-            <h2>An innovation partner for the next-generation healthcare workforce.</h2>
-            <p>Beyond teaching and the fellowship, we advise hospitals, agencies, and health technology companies that are standing up their own AI capability. We design teams, governance, and training programmes, so the people we train have strong places to land and the system gains capability it keeps. This is how a club becomes infrastructure.</p>
-            <div class="btn-row"><a class="btn btn--grad" href="{prefix}what-we-do.html">How we work {I['arrow']}</a><a class="btn btn--ghost" href="{prefix}contact.html" style="color:#fff;border-color:rgba(255,255,255,.25)">Work with us</a></div>
+            <span class="eyebrow" style="color:#cbd5ef">{bi("Innovation consulting", "ที่ปรึกษานวัตกรรม")}</span>
+            <h2>{bi("An innovation partner for the next-generation healthcare workforce.", "พันธมิตรด้านนวัตกรรม เพื่อกำลังคนสุขภาพรุ่นใหม่")}</h2>
+            <p>{bi("Beyond teaching and the fellowship, we advise hospitals, agencies, and health technology companies that are standing up their own AI capability. We design teams, governance, and training programmes, so the people we train have strong places to land and the system gains capability it keeps. This is how a club becomes infrastructure.", "นอกเหนือจากการสอนและเฟลโลว์ชิป เราให้คำปรึกษาแก่โรงพยาบาล หน่วยงาน และบริษัทเทคโนโลยีสุขภาพ ที่กำลังสร้างขีดความสามารถด้าน AI ของตนเอง เราออกแบบทีม ธรรมาภิบาล และโปรแกรมฝึกอบรม เพื่อให้คนที่เราฝึกมีที่ไปที่แข็งแรง และระบบได้ขีดความสามารถที่คงอยู่ นี่คือวิธีที่คลับกลายเป็นโครงสร้างพื้นฐาน")}</p>
+            <div class="btn-row"><a class="btn btn--grad" href="{prefix}what-we-do.html">{bi("How we work", "วิธีการทำงาน")} {I['arrow']}</a><a class="btn btn--ghost" href="{prefix}contact.html" style="color:#fff;border-color:rgba(255,255,255,.25)">{bi("Work with us", "ร่วมงานกับเรา")}</a></div>
           </div>
           <div class="grid" style="gap:1rem">
-            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">Capability design</span>', '<span style="color:#9fb0d4">Teams, not just tools</span>')}</div>
-            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">Governance</span>', '<span style="color:#9fb0d4">Evaluation and SaMD readiness</span>')}</div>
-            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">Workforce</span>', '<span style="color:#9fb0d4">Training programmes that stick</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Capability design','ออกแบบขีดความสามารถ')+'</span>', '<span style="color:#9fb0d4">'+bi('Teams, not just tools','ทีม ไม่ใช่แค่เครื่องมือ')+'</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Governance','ธรรมาภิบาล')+'</span>', '<span style="color:#9fb0d4">'+bi('Evaluation and SaMD readiness','การประเมินและความพร้อม SaMD')+'</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Workforce','กำลังคน')+'</span>', '<span style="color:#9fb0d4">'+bi('Training programmes that stick','โปรแกรมฝึกที่ได้ผลจริง')+'</span>')}</div>
           </div>
         </div>
       </div>
@@ -288,9 +288,9 @@ def who_we_are(prefix, ctx):
 </section>"""
 
     team = sec(
-        head("People", "Faculty, builders, and clinicians in one room.",
-             "The club brings together attending physicians, machine learning engineers, data scientists, and health policy people. Profiles and the founding team are published as the club grows.") +
-        f'<div class="btn-row reveal"><a class="btn btn--ghost" href="{prefix}careers.html">Join the team {I["arrow"]}</a><a class="btn btn--ghost" href="{prefix}contact.html">Partner with us</a></div>')
+        head(bi("People", "ทีมงาน"), bi("Faculty, builders, and clinicians in one room.", "อาจารย์ ผู้สร้าง และแพทย์ ในห้องเดียวกัน"),
+             bi("The club brings together attending physicians, machine learning engineers, data scientists, and health policy people. Profiles and the founding team are published as the club grows.", "คลับรวมแพทย์ประจำ วิศวกร machine learning นักวิทยาศาสตร์ข้อมูล และคนด้านนโยบายสุขภาพไว้ด้วยกัน โปรไฟล์และทีมผู้ก่อตั้งจะเผยแพร่เมื่อคลับเติบโตขึ้น")) +
+        f'<div class="btn-row reveal"><a class="btn btn--ghost" href="{prefix}careers.html">{bi("Join the team", "ร่วมทีม")} {I["arrow"]}</a><a class="btn btn--ghost" href="{prefix}contact.html">{bi("Partner with us", "เป็นพันธมิตร")}</a></div>')
 
     return hero + mv + values + position + eco + partners + consulting + team
 
@@ -307,26 +307,30 @@ def what_we_do(prefix, ctx):
 <section class="hero" style="padding-bottom:3rem">
   <div class="hero__glow"></div>
   <div class="container">
-    <span class="eyebrow reveal">What we do</span>
-    <h1 class="reveal" data-d="1" style="max-width:16ch">One pipeline, from first principles to the patient.</h1>
-    <p class="lead reveal measure" data-d="2">Learn the craft, prove it on real problems, turn the best of it into products, and help institutions stand up their own capability. Four parts that feed each other.</p>
+    <span class="eyebrow reveal">{bi("What we do", "สิ่งที่เราทำ")}</span>
+    <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("One pipeline, from first principles to the patient.", "หนึ่งเส้นทาง จากพื้นฐานสู่ผู้ป่วย")}</h1>
+    <p class="lead reveal measure" data-d="2">{bi("Learn the craft, prove it on real problems, turn the best of it into products, and help institutions stand up their own capability. Four parts that feed each other.", "เรียนวิชาชีพ พิสูจน์บนโจทย์จริง เปลี่ยนงานที่ดีที่สุดให้เป็นผลิตภัณฑ์ และช่วยสถาบันสร้างขีดความสามารถของตนเอง สี่ส่วนที่ป้อนกันและกัน")}</p>
   </div>
 </section>"""
 
     parts = ""
     blocks = [
-        ("Academy", "brain", "Learn the craft", "academy.html", "Enter the Academy",
-         "An open, practical curriculum in AI and digital health. It runs from what a model is, through clinical data standards like FHIR, medical imaging, and agentic systems, to deployment and governance. Built to be free to start and rigorous enough to matter. Anyone in Thailand can learn here.",
-         ["Foundations of AI and machine learning", "Clinical data, HL7 and FHIR, EMR systems", "Medical imaging and clinical NLP", "Evaluation, safety, and deployment"]),
-        ("Fellowship", "flask", "Prove it on real problems", "fellowship.html", "See the Fellowship",
-         "A selective, in-residence programme for a small cohort. Fellows are placed on genuine clinical problems with Ramathibodi faculty, supervised data access, and patients in view. The output is reviewed work that ships into a real workflow.",
-         ["In-residence at Ramathibodi", "Mentored by clinicians and engineers", "Supervised access to clinical data", "Ends in a deployed, evaluated project"]),
-        ("Venture Studio", "rocket", "Turn work into product", "fellowship.html", "Build with us",
-         "The strongest fellowship and member projects do not stop at a demo. The studio adds engineering, regulatory navigation for Software as a Medical Device, and go-to-market support, in step with the National Innovation Agency's path from research to venture.",
-         ["Product engineering and reliability", "Thai FDA SaMD pathway navigation", "Clinical validation and evidence", "Routes to pilot and to market"]),
-        ("Consulting", "compass", "Build capability in institutions", "contact.html", "Work with us",
-         "We advise hospitals, agencies, and health technology companies setting up their own AI capability. We are an innovation partner for the next generation of the healthcare workforce, so the people we train have strong places to land.",
-         ["Capability and team design", "AI governance and evaluation frameworks", "Workforce training programmes", "Project and deployment advisory"]),
+        (bi("Academy", "อคาเดมี"), "brain", bi("Learn the craft", "เรียนวิชาชีพ"), "academy.html", bi("Enter the Academy", "เข้าสู่อคาเดมี"),
+         bi("An open, practical curriculum in AI and digital health. It runs from what a model is, through clinical data standards like FHIR, medical imaging, and agentic systems, to deployment and governance. Built to be free to start and rigorous enough to matter. Anyone in Thailand can learn here.",
+            "หลักสูตรเปิดที่เน้นภาคปฏิบัติ ด้าน AI และสุขภาพดิจิทัล ตั้งแต่โมเดลคืออะไร ผ่านมาตรฐานข้อมูลคลินิกอย่าง FHIR, medical imaging และ agentic systems ไปจนถึง deployment และธรรมาภิบาล ออกแบบให้เริ่มเรียนได้ฟรีและเข้มข้นพอที่จะมีความหมาย ทุกคนในไทยเรียนได้"),
+         [bi("Foundations of AI and machine learning", "พื้นฐาน AI และ machine learning"), bi("Clinical data, HL7 and FHIR, EMR systems", "ข้อมูลคลินิก HL7 และ FHIR ระบบ EMR"), bi("Medical imaging and clinical NLP", "Medical imaging และ clinical NLP"), bi("Evaluation, safety, and deployment", "การประเมิน ความปลอดภัย และ deployment")]),
+        (bi("Fellowship", "เฟลโลว์ชิป"), "flask", bi("Prove it on real problems", "พิสูจน์บนโจทย์จริง"), "fellowship.html", bi("See the Fellowship", "ดูเฟลโลว์ชิป"),
+         bi("A selective, in-residence programme for a small cohort. Fellows are placed on genuine clinical problems with Ramathibodi faculty, supervised data access, and patients in view. The output is reviewed work that ships into a real workflow.",
+            "โปรแกรมแบบคัดสรรและประจำในสถานที่ สำหรับกลุ่มเล็ก เฟลโลว์ได้ทำงานกับโจทย์คลินิกจริง ร่วมกับอาจารย์รามาธิบดี เข้าถึงข้อมูลแบบมีการกำกับ และมีผู้ป่วยอยู่ในสายตา ผลลัพธ์คืองานที่ผ่านการรีวิวและนำไปใช้ในเวิร์กโฟลว์จริง"),
+         [bi("In-residence at Ramathibodi", "ประจำที่รามาธิบดี"), bi("Mentored by clinicians and engineers", "มีเมนเทอร์เป็นแพทย์และวิศวกร"), bi("Supervised access to clinical data", "เข้าถึงข้อมูลคลินิกแบบมีการกำกับ"), bi("Ends in a deployed, evaluated project", "จบด้วยโปรเจกต์ที่ deploy และประเมินแล้ว")]),
+        (bi("Venture Studio", "เวนเจอร์สตูดิโอ"), "rocket", bi("Turn work into product", "เปลี่ยนงานเป็นผลิตภัณฑ์"), "fellowship.html", bi("Build with us", "สร้างไปกับเรา"),
+         bi("The strongest fellowship and member projects do not stop at a demo. The studio adds engineering, regulatory navigation for Software as a Medical Device, and go-to-market support, in step with the National Innovation Agency's path from research to venture.",
+            "โปรเจกต์เฟลโลว์ชิปและสมาชิกที่แข็งแกร่งที่สุดไม่หยุดแค่ demo สตูดิโอเสริมด้านวิศวกรรม การนำทางกฎระเบียบสำหรับ Software as a Medical Device และการออกสู่ตลาด สอดคล้องกับเส้นทางจากงานวิจัยสู่เวนเจอร์ของ NIA"),
+         [bi("Product engineering and reliability", "วิศวกรรมผลิตภัณฑ์และความน่าเชื่อถือ"), bi("Thai FDA SaMD pathway navigation", "นำทางเส้นทาง SaMD ของ อย."), bi("Clinical validation and evidence", "การตรวจสอบทางคลินิกและหลักฐาน"), bi("Routes to pilot and to market", "เส้นทางสู่การนำร่องและสู่ตลาด")]),
+        (bi("Consulting", "ที่ปรึกษานวัตกรรม"), "compass", bi("Build capability in institutions", "สร้างขีดความสามารถในสถาบัน"), "contact.html", bi("Work with us", "ร่วมงานกับเรา"),
+         bi("We advise hospitals, agencies, and health technology companies setting up their own AI capability. We are an innovation partner for the next generation of the healthcare workforce, so the people we train have strong places to land.",
+            "เราให้คำปรึกษาแก่โรงพยาบาล หน่วยงาน และบริษัทเทคโนโลยีสุขภาพ ที่กำลังสร้างขีดความสามารถ AI ของตนเอง เราเป็นพันธมิตรนวัตกรรมเพื่อกำลังคนสุขภาพรุ่นใหม่ เพื่อให้คนที่เราฝึกมีที่ไปที่แข็งแรง"),
+         [bi("Capability and team design", "ออกแบบขีดความสามารถและทีม"), bi("AI governance and evaluation frameworks", "กรอบธรรมาภิบาลและการประเมิน AI"), bi("Workforce training programmes", "โปรแกรมฝึกกำลังคน"), bi("Project and deployment advisory", "ที่ปรึกษาโปรเจกต์และการ deploy")]),
     ]
     photos = ["woman-work.jpg", "doctor.jpg", "analytics.jpg", "meeting.jpg"]
     for i, (name, icon, kicker, href, cta, body, bullets) in enumerate(blocks):
@@ -349,12 +353,12 @@ def what_we_do(prefix, ctx):
 </section>"""
 
     method = sec(
-        head("How a person moves through it", "The path is the product.") +
+        head(bi("How a person moves through it", "คนคนหนึ่งเดินผ่านมันอย่างไร"), bi("The path is the product.", "เส้นทางคือผลิตภัณฑ์")) +
         '<div class="steps">' +
-        step("Step 01", "Learn", "Start in the Academy. Build the foundations and the clinical context, free and at your own pace.") +
-        step("Step 02", "Apply", "Bring a real problem to the Fellowship, or join a project team. Get matched with a mentor and supervised data.") +
-        step("Step 03", "Build", "Ship a reviewed, evaluated tool into a real clinical workflow. Governance and safety are part of the grade.") +
-        step("Step 04", "Scale", "If it deserves to live, the studio helps it become a product, with a regulatory and market path.") +
+        step("Step 01", bi("Learn", "เรียน"), bi("Start in the Academy. Build the foundations and the clinical context, free and at your own pace.", "เริ่มที่อคาเดมี สร้างพื้นฐานและบริบททางคลินิก ฟรีและตามจังหวะของคุณเอง")) +
+        step("Step 02", bi("Apply", "สมัคร"), bi("Bring a real problem to the Fellowship, or join a project team. Get matched with a mentor and supervised data.", "นำโจทย์จริงมาที่เฟลโลว์ชิป หรือเข้าร่วมทีมโปรเจกต์ จับคู่กับเมนเทอร์และข้อมูลที่มีการกำกับ")) +
+        step("Step 03", bi("Build", "สร้าง"), bi("Ship a reviewed, evaluated tool into a real clinical workflow. Governance and safety are part of the grade.", "ส่งเครื่องมือที่ผ่านการรีวิวและประเมิน เข้าสู่เวิร์กโฟลว์คลินิกจริง ธรรมาภิบาลและความปลอดภัยเป็นส่วนหนึ่งของการวัดผล")) +
+        step("Step 04", bi("Scale", "ขยายผล"), bi("If it deserves to live, the studio helps it become a product, with a regulatory and market path.", "หากมันคู่ควรที่จะอยู่ต่อ สตูดิโอช่วยให้มันกลายเป็นผลิตภัณฑ์ พร้อมเส้นทางกฎระเบียบและตลาด")) +
         '</div>')
 
     return hero + parts + method
@@ -372,27 +376,27 @@ def academy(prefix, ctx):
 <section class="hero" style="padding-bottom:3rem">
   <div class="hero__glow"></div>
   <div class="container">
-    <span class="eyebrow reveal">The Academy</span>
-    <h1 class="reveal" data-d="1" style="max-width:17ch">The open curriculum for medical AI in Thailand.</h1>
-    <p class="lead reveal measure" data-d="2">From what a model is to how it reaches a patient safely. Free to start, taught with real clinical data and real code. Open to clinicians, students, and engineers alike.</p>
+    <span class="eyebrow reveal">{bi("The Academy", "อคาเดมี")}</span>
+    <h1 class="reveal" data-d="1" style="max-width:19ch">{bi("The open curriculum for medical AI in Thailand.", "หลักสูตรเปิดด้าน AI การแพทย์ สำหรับประเทศไทย")}</h1>
+    <p class="lead reveal measure" data-d="2">{bi("From what a model is to how it reaches a patient safely. Free to start, taught with real clinical data and real code. Open to clinicians, students, and engineers alike.", "ตั้งแต่โมเดลคืออะไร ไปจนถึงการนำไปสู่ผู้ป่วยอย่างปลอดภัย เริ่มเรียนฟรี สอนด้วยข้อมูลคลินิกจริงและโค้ดจริง เปิดสำหรับแพทย์ นักศึกษา และวิศวกรเท่าเทียมกัน")}</p>
     <div class="btn-row reveal" data-d="3">
-      <a class="btn btn--grad btn--lg" href="{prefix}academy/gate.html">Enter the Academy {I['arrow']}</a>
-      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">Or apply for the Fellowship</a>
+      <a class="btn btn--grad btn--lg" href="{prefix}academy/gate.html">{bi("Enter the Academy", "เข้าสู่อคาเดมี")} {I['arrow']}</a>
+      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Or apply for the Fellowship", "หรือสมัครเฟลโลว์ชิป")}</a>
     </div>
-    <p class="muted mt4" style="font-size:.85rem">{I['lock']} Curriculum is open to enrolled members. Ask your programme lead for the access code.</p>
+    <p class="muted mt4" style="font-size:.85rem">{I['lock']} {bi("Curriculum is open to enrolled members. Ask your programme lead for the access code.", "หลักสูตรเปิดสำหรับสมาชิกที่ลงทะเบียน ขอรหัสเข้าใช้งานจากผู้ดูแลโปรแกรมของคุณ")}</p>
   </div>
 </section>"""
 
     modules = sec(
-        head("The curriculum", "Six tracks, one through-line.",
-             "Each track is hands-on. You write code, read clinical data, and build something that runs. Notebooks open in the browser or in Colab.") +
+        head(bi("The curriculum", "หลักสูตร"), bi("Six tracks, one through-line.", "หกโดเมน หนึ่งเส้นทางเชื่อมโยง"),
+             bi("Each track is hands-on. You write code, read clinical data, and build something that runs. Notebooks open in the browser or in Colab.", "ทุกโดเมนเน้นลงมือทำ คุณเขียนโค้ด อ่านข้อมูลคลินิก และสร้างสิ่งที่รันได้จริง เปิด notebook ในเบราว์เซอร์หรือใน Colab")) +
         '<div class="grid grid-3">' +
-        ctx['card']('brain', 'Foundations', 'What AI and machine learning are, how to think about them, datasets, and how to evaluate a model honestly.', None, '', prefix) +
-        ctx['card']('pulse', 'Clinical AI', 'Applying models to real clinical tasks: risk prediction, triage, and decision support, with the pitfalls named.', None, '', prefix) +
-        ctx['card']('doc', 'Health Data and FHIR', 'HIS, EMR, HL7 and FHIR. How health data actually moves, and how to build on it.', None, '', prefix) +
-        ctx['card']('node', 'Medical Imaging', 'Computer vision for radiology and pathology, from preprocessing to a working classifier.', None, '', prefix) +
-        ctx['card']('rocket', 'Agents and Deep AI', 'Modern deep learning and agentic systems, and where they help or harm in a clinical setting.', None, '', prefix) +
-        ctx['card']('shield', 'Deployment and Governance', 'Shipping safely: evaluation, monitoring, privacy, and the Software as a Medical Device pathway.', None, '', prefix) +
+        ctx['card']('brain', bi('Foundations', 'พื้นฐาน'), bi('What AI and machine learning are, how to think about them, datasets, and how to evaluate a model honestly.', 'AI และ machine learning คืออะไร คิดกับมันอย่างไร datasets และการประเมินโมเดลอย่างตรงไปตรงมา'), None, '', prefix) +
+        ctx['card']('pulse', bi('Clinical AI', 'AI ทางคลินิก'), bi('Applying models to real clinical tasks: risk prediction, triage, and decision support, with the pitfalls named.', 'นำโมเดลไปใช้กับงานคลินิกจริง การทำนายความเสี่ยง การคัดกรอง และ decision support พร้อมชี้กับดักที่ต้องระวัง'), None, '', prefix) +
+        ctx['card']('doc', bi('Health Data and FHIR', 'ข้อมูลสุขภาพและ FHIR'), bi('HIS, EMR, HL7 and FHIR. How health data actually moves, and how to build on it.', 'HIS, EMR, HL7 และ FHIR ข้อมูลสุขภาพเคลื่อนที่จริงอย่างไร และสร้างงานบนมันอย่างไร'), None, '', prefix) +
+        ctx['card']('node', bi('Medical Imaging', 'ภาพทางการแพทย์'), bi('Computer vision for radiology and pathology, from preprocessing to a working classifier.', 'Computer vision สำหรับรังสีวิทยาและพยาธิวิทยา ตั้งแต่ preprocessing จนถึง classifier ที่ใช้ได้'), None, '', prefix) +
+        ctx['card']('rocket', bi('Agents and Deep AI', 'Agents และ Deep AI'), bi('Modern deep learning and agentic systems, and where they help or harm in a clinical setting.', 'deep learning สมัยใหม่และ agentic systems และจุดที่มันช่วยหรือทำร้ายในบริบทคลินิก'), None, '', prefix) +
+        ctx['card']('shield', bi('Deployment and Governance', 'Deployment และธรรมาภิบาล'), bi('Shipping safely: evaluation, monitoring, privacy, and the Software as a Medical Device pathway.', 'การส่งมอบอย่างปลอดภัย การประเมิน การติดตาม ความเป็นส่วนตัว และเส้นทาง Software as a Medical Device'), None, '', prefix) +
         '</div>')
 
     fmt = f"""
@@ -401,12 +405,12 @@ def academy(prefix, ctx):
     <div class="band reveal">
       <div class="band__glow"></div>
       <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
-        <span class="eyebrow" style="color:#cbd5ef">How it runs</span>
-        <h2 class="mt3">Read, run, build. In that order.</h2>
+        <span class="eyebrow" style="color:#cbd5ef">{bi("How it runs", "หลักสูตรทำงานอย่างไร")}</span>
+        <h2 class="mt3">{bi("Read, run, build. In that order.", "อ่าน รัน สร้าง ตามลำดับนั้น")}</h2>
         <div class="grid grid-3 mt5">
-          <div><div class="stat__num" style="color:#fff">Self-paced</div><p style="color:#9fb0d4" class="mt2">Open the curriculum any time. Notebooks run in the browser or Google Colab.</p></div>
-          <div><div class="stat__num" style="color:#fff">Project-based</div><p style="color:#9fb0d4" class="mt2">Every track ends in something you built and can show, not a multiple-choice quiz.</p></div>
-          <div><div class="stat__num" style="color:#fff">Pathways</div><p style="color:#9fb0d4" class="mt2">Routes for clinicians and for engineers, meeting in the middle on real cases.</p></div>
+          <div><div class="stat__num" style="color:#fff">{bi("Self-paced", "เรียนตามจังหวะตัวเอง")}</div><p style="color:#9fb0d4" class="mt2">{bi("Open the curriculum any time. Notebooks run in the browser or Google Colab.", "เปิดหลักสูตรได้ทุกเวลา notebook รันในเบราว์เซอร์หรือ Google Colab")}</p></div>
+          <div><div class="stat__num" style="color:#fff">{bi("Project-based", "เน้นโปรเจกต์")}</div><p style="color:#9fb0d4" class="mt2">{bi("Every track ends in something you built and can show, not a multiple-choice quiz.", "ทุกโดเมนจบด้วยสิ่งที่คุณสร้างและโชว์ได้ ไม่ใช่ข้อสอบปรนัย")}</p></div>
+          <div><div class="stat__num" style="color:#fff">{bi("Pathways", "เส้นทาง")}</div><p style="color:#9fb0d4" class="mt2">{bi("Routes for clinicians and for engineers, meeting in the middle on real cases.", "เส้นทางสำหรับแพทย์และวิศวกร มาบรรจบกันตรงกลางบนเคสจริง")}</p></div>
         </div>
       </div>
     </div>
@@ -416,10 +420,10 @@ def academy(prefix, ctx):
     cta = f"""
 <section class="section">
   <div class="container center stack reveal">
-    <h2 class="measure" style="margin-inline:auto">Ready to start building?</h2>
-    <p class="lead measure" style="margin-inline:auto">The whole curriculum is one login away.</p>
+    <h2 class="measure" style="margin-inline:auto">{bi("Ready to start building?", "พร้อมเริ่มสร้างหรือยัง")}</h2>
+    <p class="lead measure" style="margin-inline:auto">{bi("The whole curriculum is one login away.", "หลักสูตรทั้งหมดอยู่ห่างแค่การเข้าสู่ระบบครั้งเดียว")}</p>
     <div class="btn-row" style="justify-content:center">
-      <a class="btn btn--grad btn--lg" href="{prefix}academy/gate.html">Enter the Academy {I['arrow']}</a>
+      <a class="btn btn--grad btn--lg" href="{prefix}academy/gate.html">{bi("Enter the Academy", "เข้าสู่อคาเดมี")} {I['arrow']}</a>
     </div>
   </div>
 </section>"""
@@ -434,45 +438,46 @@ def fellowship(prefix, ctx):
 <section class="hero" style="padding-bottom:2rem">
   <div class="hero__glow"></div>
   <div class="container">
-    <span class="eyebrow reveal">The Fellowship</span>
-    <h1 class="reveal" data-d="1" style="max-width:15ch">A year to build something that reaches a patient.</h1>
-    <p class="lead reveal measure" data-d="2">The Fellowship is small on purpose. A handful of people, real clinical problems, supervised data, and the faculty of Ramathibodi behind them. You leave with a deployed tool and the judgement to build more.</p>
+    <span class="eyebrow reveal">{bi("The Fellowship", "เฟลโลว์ชิป")}</span>
+    <h1 class="reveal" data-d="1" style="max-width:17ch">{bi("A year to build something that reaches a patient.", "หนึ่งปี เพื่อสร้างสิ่งที่ไปถึงผู้ป่วย")}</h1>
+    <p class="lead reveal measure" data-d="2">{bi("The Fellowship is small on purpose. A handful of people, real clinical problems, supervised data, and the faculty of Ramathibodi behind them. You leave with a deployed tool and the judgement to build more.", "เฟลโลว์ชิปตั้งใจให้เล็ก คนไม่กี่คน โจทย์คลินิกจริง ข้อมูลที่มีการกำกับ และคณาจารย์รามาธิบดีหนุนหลัง คุณจากไปพร้อมเครื่องมือที่ deploy แล้ว และวิจารณญาณที่จะสร้างต่อ")}</p>
     <div class="btn-row reveal" data-d="3">
-      <a class="btn btn--grad btn--lg" href="{prefix}fellowship/apply.html">Apply {I['arrow']}</a>
-      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship/stories.html">Read fellow stories</a>
+      <a class="btn btn--grad btn--lg" href="{prefix}fellowship/apply.html">{bi("Apply", "สมัคร")} {I['arrow']}</a>
+      <a class="btn btn--ghost btn--lg" href="{prefix}fellowship/stories.html">{bi("Read fellow stories", "อ่านเรื่องราวเฟลโลว์")}</a>
     </div>
   </div>
 </section>"""
 
     quote = sec(
-        '<blockquote class="prose reveal" style="max-width:30ch;margin-inline:auto;text-align:center;border:0;font-size:var(--step-3);padding:0">'
-        '"The point is not to learn about medical AI. The point is to build it, well enough that a hospital will use it."'
-        '</blockquote>', "section")
+        '<blockquote class="prose reveal" style="max-width:34ch;margin-inline:auto;text-align:center;border:0;font-size:var(--step-3);padding:0">'
+        + bi('"The point is not to learn about medical AI. The point is to build it, well enough that a hospital will use it."',
+             '"เป้าหมายไม่ใช่แค่เรียนรู้เรื่อง AI การแพทย์ แต่คือการสร้างมัน ให้ดีพอที่โรงพยาบาลจะใช้จริง"')
+        + '</blockquote>', "section")
 
     pillars = sec(
-        head("What a fellow gets", "Everything you need to do real work.") +
+        head(bi("What a fellow gets", "เฟลโลว์ได้อะไร"), bi("Everything you need to do real work.", "ทุกอย่างที่คุณต้องมีเพื่อทำงานจริง")) +
         '<div class="grid grid-2">' +
-        ctx['card']('flask', 'A real problem', 'You are matched to a live clinical question that a department actually wants solved, not a toy dataset.', None, '', prefix) +
-        ctx['card']('users', 'Mentorship', 'A clinician and an engineer in your corner, plus a cohort building alongside you.', None, '', prefix) +
-        ctx['card']('shield', 'Supervised data', 'Governed access to clinical data, with privacy and evaluation handled the right way.', None, '', prefix) +
-        ctx['card']('rocket', 'A route to scale', 'If your work deserves it, the venture studio helps it become a product with a regulatory path.', None, '', prefix) +
+        ctx['card']('flask', bi('A real problem', 'โจทย์จริง'), bi('You are matched to a live clinical question that a department actually wants solved, not a toy dataset.', 'คุณถูกจับคู่กับคำถามคลินิกจริงที่หน่วยงานอยากแก้จริง ไม่ใช่ dataset ของเล่น'), None, '', prefix) +
+        ctx['card']('users', bi('Mentorship', 'การเป็นเมนเทอร์'), bi('A clinician and an engineer in your corner, plus a cohort building alongside you.', 'แพทย์และวิศวกรอยู่ข้างคุณ พร้อมเพื่อนร่วมรุ่นที่สร้างไปด้วยกัน'), None, '', prefix) +
+        ctx['card']('shield', bi('Supervised data', 'ข้อมูลที่มีการกำกับ'), bi('Governed access to clinical data, with privacy and evaluation handled the right way.', 'การเข้าถึงข้อมูลคลินิกที่มีการกำกับ พร้อมจัดการความเป็นส่วนตัวและการประเมินอย่างถูกวิธี'), None, '', prefix) +
+        ctx['card']('rocket', bi('A route to scale', 'เส้นทางสู่การขยายผล'), bi('If your work deserves it, the venture studio helps it become a product with a regulatory path.', 'หากงานของคุณคู่ควร เวนเจอร์สตูดิโอช่วยให้มันเป็นผลิตภัณฑ์พร้อมเส้นทางกฎระเบียบ'), None, '', prefix) +
         '</div>')
 
     tracks = sec(
-        head("Tracks", "Pick the work, not just the topic.") +
+        head(bi("Tracks", "แทร็ก"), bi("Pick the work, not just the topic.", "เลือกที่งาน ไม่ใช่แค่หัวข้อ")) +
         '<div class="rows">' +
-        row("Clinical AI", "Decision support and risk", "Models that help clinicians decide, evaluated against real outcomes and real workflows.") +
-        row("Imaging", "Vision for diagnosis", "Radiology and pathology tools, from data pipeline to a validated, deployable model.") +
-        row("Health Data", "FHIR and interoperability", "The plumbing of a modern health system, and the AI that rides on top of it.") +
-        row("Agents", "Operational intelligence", "Agentic systems for the administrative and operational load that slows care down.") +
+        row("Clinical AI", bi("Decision support and risk", "decision support และความเสี่ยง"), bi("Models that help clinicians decide, evaluated against real outcomes and real workflows.", "โมเดลที่ช่วยแพทย์ตัดสินใจ ประเมินเทียบกับผลลัพธ์จริงและเวิร์กโฟลว์จริง")) +
+        row("Imaging", bi("Vision for diagnosis", "vision เพื่อการวินิจฉัย"), bi("Radiology and pathology tools, from data pipeline to a validated, deployable model.", "เครื่องมือด้านรังสีวิทยาและพยาธิวิทยา ตั้งแต่ data pipeline จนถึงโมเดลที่ตรวจสอบและ deploy ได้")) +
+        row("Health Data", bi("FHIR and interoperability", "FHIR และ interoperability"), bi("The plumbing of a modern health system, and the AI that rides on top of it.", "ระบบท่อของระบบสุขภาพสมัยใหม่ และ AI ที่ทำงานอยู่บนมัน")) +
+        row("Agents", bi("Operational intelligence", "ปัญญาด้านปฏิบัติการ"), bi("Agentic systems for the administrative and operational load that slows care down.", "agentic systems สำหรับภาระงานธุรการและปฏิบัติการที่ทำให้การดูแลช้าลง")) +
         '</div>' +
-        f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}fellowship/apply.html">See eligibility and apply {I["arrow"]}</a></div>')
+        f'<div class="btn-row mt5 reveal"><a class="btn btn--ghost" href="{prefix}fellowship/apply.html">{bi("See eligibility and apply", "ดูคุณสมบัติและสมัคร")} {I["arrow"]}</a></div>')
 
     links = sec(
         '<div class="grid grid-3">' +
-        ctx['card']('doc', 'Publications', 'Papers, technical reports, and open releases from fellows and the club.', 'fellowship/publications.html', 'Read', prefix) +
-        ctx['card']('users', 'Stories', 'How fellows chose their problem and what they built.', 'fellowship/stories.html', 'Read', prefix) +
-        ctx['card']('compass', 'FAQ', 'Eligibility, time commitment, funding, and how selection works.', 'fellowship/faq.html', 'Read', prefix) +
+        ctx['card']('doc', bi('Publications', 'ผลงานตีพิมพ์'), bi('Papers, technical reports, and open releases from fellows and the club.', 'บทความ รายงานเทคนิค และการเผยแพร่แบบเปิดจากเฟลโลว์และคลับ'), 'fellowship/publications.html', bi('Read', 'อ่าน'), prefix) +
+        ctx['card']('users', bi('Stories', 'เรื่องราว'), bi('How fellows chose their problem and what they built.', 'เฟลโลว์เลือกโจทย์อย่างไร และสร้างอะไรขึ้นมา'), 'fellowship/stories.html', bi('Read', 'อ่าน'), prefix) +
+        ctx['card']('compass', bi('FAQ', 'คำถามที่พบบ่อย'), bi('Eligibility, time commitment, funding, and how selection works.', 'คุณสมบัติ เวลาที่ต้องใช้ ทุน และการคัดเลือกทำงานอย่างไร'), 'fellowship/faq.html', bi('Read', 'อ่าน'), prefix) +
         '</div>')
 
     return hero + quote + pillars + tracks + links
@@ -644,25 +649,25 @@ def careers(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
-  <span class="eyebrow reveal">Careers</span>
-  <h1 class="reveal" data-d="1" style="max-width:16ch">Help build the workforce that builds the future of care.</h1>
-  <p class="lead reveal measure" data-d="2">We are assembling a small team of clinicians, engineers, scientists, and operators who want their work measured in patients helped, not slides shipped.</p>
-  <div class="btn-row reveal" data-d="3"><a class="btn btn--grad btn--lg" href="{prefix}contact.html">Introduce yourself {I['arrow']}</a></div>
+  <span class="eyebrow reveal">{bi("Careers", "ร่วมงานกับเรา")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("Help build the workforce that builds the future of care.", "มาร่วมสร้างกำลังคนที่จะสร้างอนาคตของการดูแลสุขภาพ")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("We are assembling a small team of clinicians, engineers, scientists, and operators who want their work measured in patients helped, not slides shipped.", "เรากำลังรวมทีมเล็กๆ ของแพทย์ วิศวกร นักวิทยาศาสตร์ และคนปฏิบัติการ ที่อยากให้งานของตนวัดด้วยจำนวนผู้ป่วยที่ได้รับการช่วยเหลือ ไม่ใช่จำนวนสไลด์ที่ส่ง")}</p>
+  <div class="btn-row reveal" data-d="3"><a class="btn btn--grad btn--lg" href="{prefix}contact.html">{bi("Introduce yourself", "แนะนำตัวกับเรา")} {I['arrow']}</a></div>
 </div></section>"""
     roles = sec(
-        head("Open directions", "We hire for trajectory. If you fit one of these, write to us.") +
+        head(bi("Open directions", "ทิศทางที่เปิดรับ"), bi("We hire for trajectory. If you fit one of these, write to us.", "เรารับคนที่มีแนวโน้มเติบโต หากคุณเข้ากับข้อใดข้อหนึ่ง เขียนมาหาเรา")) +
         '<div class="rows">' +
-        row("Faculty / Clinical", "Clinical leads and mentors", "Attending physicians who want to teach, supervise fellows, and shape real projects.") +
-        row("Engineering", "ML and platform engineers", "People who can build reliable, evaluated clinical tools and the platform under them.") +
-        row("Curriculum", "Educators and content leads", "Builders who can teach, turning real practice into Academy material and notebooks.") +
-        row("Operations", "Programme and partnerships", "Operators who can run cohorts, manage partners, and keep the machine moving.") +
+        row(bi("Faculty / Clinical", "อาจารย์ / คลินิก"), bi("Clinical leads and mentors", "หัวหน้าคลินิกและเมนเทอร์"), bi("Attending physicians who want to teach, supervise fellows, and shape real projects.", "แพทย์ประจำที่อยากสอน กำกับเฟลโลว์ และกำหนดทิศทางโปรเจกต์จริง")) +
+        row(bi("Engineering", "วิศวกรรม"), bi("ML and platform engineers", "วิศวกร ML และแพลตฟอร์ม"), bi("People who can build reliable, evaluated clinical tools and the platform under them.", "คนที่สร้างเครื่องมือคลินิกที่เชื่อถือได้และผ่านการประเมิน พร้อมแพลตฟอร์มที่รองรับ")) +
+        row(bi("Curriculum", "หลักสูตร"), bi("Educators and content leads", "นักการศึกษาและหัวหน้าเนื้อหา"), bi("Builders who can teach, turning real practice into Academy material and notebooks.", "ผู้สร้างที่สอนได้ เปลี่ยนการปฏิบัติจริงให้เป็นเนื้อหาอคาเดมีและ notebook")) +
+        row(bi("Operations", "ปฏิบัติการ"), bi("Programme and partnerships", "โปรแกรมและพันธมิตร"), bi("Operators who can run cohorts, manage partners, and keep the machine moving.", "คนปฏิบัติการที่ดูแลรุ่น จัดการพันธมิตร และทำให้ทุกอย่างเดินหน้า")) +
         '</div>')
     why = sec(
-        head("Why join", "What you get that you cannot get elsewhere.") +
+        head(bi("Why join", "ทำไมต้องมาร่วม"), bi("What you get that you cannot get elsewhere.", "สิ่งที่คุณได้ที่หาจากที่อื่นไม่ได้")) +
         '<div class="grid grid-3">' +
-        ctx['card']('pulse', 'Real stakes', 'Work that reaches patients, inside a leading medical school, not a sandbox.', None, '', prefix) +
-        ctx['card']('users', 'Rare room', 'Clinicians and engineers building together, every day, on the same problems.', None, '', prefix) +
-        ctx['card']('compass', 'Build a field', 'Help define how Thailand trains its medical AI workforce, from the start.', None, '', prefix) +
+        ctx['card']('pulse', bi('Real stakes', 'เดิมพันจริง'), bi('Work that reaches patients, inside a leading medical school, not a sandbox.', 'งานที่ไปถึงผู้ป่วย ภายในโรงเรียนแพทย์ชั้นนำ ไม่ใช่แค่ sandbox'), None, '', prefix) +
+        ctx['card']('users', bi('Rare room', 'ห้องที่หายาก'), bi('Clinicians and engineers building together, every day, on the same problems.', 'แพทย์และวิศวกรสร้างงานด้วยกันทุกวัน บนโจทย์เดียวกัน'), None, '', prefix) +
+        ctx['card']('compass', bi('Build a field', 'สร้างวงการ'), bi('Help define how Thailand trains its medical AI workforce, from the start.', 'ร่วมกำหนดว่าประเทศไทยจะฝึกกำลังคน AI การแพทย์อย่างไร ตั้งแต่เริ่มต้น'), None, '', prefix) +
         '</div>')
     return hero + roles + why
 
@@ -676,24 +681,24 @@ def contact(prefix, ctx):
   <div class="container">
     <div class="split">
       <div class="stack reveal">
-        <span class="eyebrow">Contact</span>
-        <h1 style="font-size:var(--step-4)">Let us talk.</h1>
-        <p class="lead measure">Whether you want to learn, apply, partner, or hire us to build capability, this is the door. Tell us who you are and what you want to do.</p>
+        <span class="eyebrow">{bi("Contact", "ติดต่อ")}</span>
+        <h1 style="font-size:var(--step-4)">{bi("Let us talk.", "มาคุยกัน")}</h1>
+        <p class="lead measure">{bi("Whether you want to learn, apply, partner, or hire us to build capability, this is the door. Tell us who you are and what you want to do.", "ไม่ว่าคุณอยากเรียน สมัคร เป็นพันธมิตร หรือจ้างเราสร้างขีดความสามารถ นี่คือประตู บอกเราว่าคุณเป็นใครและอยากทำอะไร")}</p>
         <div class="rows" style="border-top:1px solid var(--line);margin-top:1rem">
-          <div class="row" style="grid-template-columns:1fr"><div><div class="step__k">Apply</div><p class="mt2">Academy and Fellowship enquiries</p></div></div>
-          <div class="row" style="grid-template-columns:1fr"><div><div class="step__k">Partner</div><p class="mt2">Hospitals, agencies, and health technology companies</p></div></div>
-          <div class="row" style="grid-template-columns:1fr"><div><div class="step__k">Where</div><p class="mt2">{ctx['SITE']['org_en']}<br/>{ctx['SITE']['org_th']}</p></div></div>
+          <div class="row" style="grid-template-columns:1fr"><div><div class="step__k">{bi("Apply", "สมัคร")}</div><p class="mt2">{bi("Academy and Fellowship enquiries", "สอบถามอคาเดมีและเฟลโลว์ชิป")}</p></div></div>
+          <div class="row" style="grid-template-columns:1fr"><div><div class="step__k">{bi("Partner", "พันธมิตร")}</div><p class="mt2">{bi("Hospitals, agencies, and health technology companies", "โรงพยาบาล หน่วยงาน และบริษัทเทคโนโลยีสุขภาพ")}</p></div></div>
+          <div class="row" style="grid-template-columns:1fr"><div><div class="step__k">{bi("Where", "ที่ตั้ง")}</div><p class="mt2">{ctx['SITE']['org_en']}<br/>{ctx['SITE']['org_th']}</p></div></div>
         </div>
       </div>
       <div class="card card--feature reveal" data-d="1">
-        <h3>Send a message</h3>
-        <form onsubmit="event.preventDefault();this.querySelector('.gate__msg').textContent='Thank you. This is a static demo form. Wire it to your inbox or a form service before launch.';">
-          <div class="field"><label>Name</label><input type="text" required placeholder="Your name"/></div>
-          <div class="field"><label>Email</label><input type="email" required placeholder="you@hospital.org"/></div>
-          <div class="field"><label>I want to</label><input type="text" placeholder="learn / apply / partner / hire"/></div>
-          <div class="field"><label>Message</label><input type="text" placeholder="A sentence about what you have in mind"/></div>
+        <h3>{bi("Send a message", "ส่งข้อความ")}</h3>
+        <form onsubmit="event.preventDefault();this.querySelector('.gate__msg').textContent=(document.documentElement.getAttribute('data-lang')==='th'?'ขอบคุณครับ นี่คือฟอร์มสาธิต เชื่อมต่ออีเมลหรือบริการฟอร์มก่อนเปิดใช้จริง':'Thank you. This is a static demo form. Wire it to your inbox or a form service before launch.');">
+          <div class="field"><label>{bi("Name", "ชื่อ")}</label><input type="text" required placeholder="{bi('Your name', 'ชื่อของคุณ')}"/></div>
+          <div class="field"><label>{bi("Email", "อีเมล")}</label><input type="email" required placeholder="you@hospital.org"/></div>
+          <div class="field"><label>{bi("I want to", "ฉันต้องการ")}</label><input type="text" placeholder="{bi('learn / apply / partner / hire', 'เรียน / สมัคร / เป็นพันธมิตร / จ้าง')}"/></div>
+          <div class="field"><label>{bi("Message", "ข้อความ")}</label><input type="text" placeholder="{bi('A sentence about what you have in mind', 'ประโยคเดียวเกี่ยวกับสิ่งที่คุณคิดไว้')}"/></div>
           <div class="gate__msg" style="color:var(--accent)"></div>
-          <div class="btn-row mt3"><button class="btn btn--grad btn--lg" type="submit">Send {I['arrow']}</button></div>
+          <div class="btn-row mt3"><button class="btn btn--grad btn--lg" type="submit">{bi("Send", "ส่ง")} {I['arrow']}</button></div>
         </form>
       </div>
     </div>

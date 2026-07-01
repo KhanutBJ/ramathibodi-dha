@@ -218,6 +218,8 @@ strong { color: var(--ink); font-weight: 600; }
 .btn--primary:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn--ghost:hover { border-color: var(--ink); }
+.btn--on-dark { color: #fff; border-color: rgba(255,255,255,.4); }
+.btn--on-dark:hover { border-color: #fff; background: rgba(255,255,255,.08); }
 .btn--grad { background: var(--grad); color: #fff; background-size: 160% 100%; background-position: 0 0; }
 .btn--grad:hover { background-position: 100% 0; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(88,34,166,.3); }
 .btn--lg { padding: 1.05rem 1.8rem; font-size: 1rem; }

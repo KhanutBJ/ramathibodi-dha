@@ -143,8 +143,8 @@ def home(prefix, ctx):
         f'<img class="logo-mark" src="{prefix}assets/partners/ramathibodi-seal.svg" alt="Faculty of Medicine Ramathibodi Hospital, Mahidol University"/>'
         f'<img class="logo-mark" src="{prefix}assets/partners/mind-center.svg" alt="MIND Center, Ramathibodi"/>'
         f'<img class="logo-mark" src="{prefix}assets/partners/nia-thailand.svg" alt="National Innovation Agency, Thailand"/>'
-        '<span class="logo-word">Google Developer Groups <b>on Campus</b></span>'
-        '<span class="logo-word">BOTNOI <b>Academy</b></span>'
+        f'<img class="logo-mark" src="{prefix}assets/partners/gdg-bangkok.svg" alt="Google Developer Group Bangkok"/>'
+        f'<img class="logo-mark" src="{prefix}assets/partners/botnoi-academy.svg" alt="Botnoi Academy"/>'
         '</div>'
         '<p class="muted center" style="font-size:.82rem;margin-top:1.4rem">Aligned with MOPH Digital Health, NHSO, Thai FDA, and Thai HealthTech</p>'
         '</div>', "section section--tight")

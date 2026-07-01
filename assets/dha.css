@@ -874,30 +874,6 @@ strong { color: var(--ink); font-weight: 600; }
 .logo-word { font-family: var(--font-mono); font-size: .82rem; letter-spacing: .06em; color: var(--ink-faint); border: 1px solid var(--line); border-radius: 999px; padding: .3rem .8rem; }
 .logo-word b { color: var(--ink-soft); font-weight: 600; }
 
-/* ============================================================================
-   Signature motion: the ink rail. A hand-drawn reading line grows down the
-   left margin as you move through a page, ending in a small drawn dot, the
-   way a reader's finger traces a page. Ours; not a stock progress bar.
-   ========================================================================== */
-.ink-rail {
-  position: fixed; left: 0; top: 0; bottom: 0; width: 3px; z-index: 90;
-  pointer-events: none; transform: translateZ(0);
-}
-.ink-rail__track { position: absolute; inset: 0; background: var(--line-soft); opacity: .6; }
-.ink-rail__fill {
-  position: absolute; left: 0; top: 0; width: 100%; height: 0%;
-  background: linear-gradient(180deg, #fd6502, #91386e 55%, #2a1bd6);
-  transition: height .12s linear;
-}
-.ink-rail__dot {
-  position: absolute; left: -3.5px; width: 10px; height: 10px; border-radius: 50%;
-  background: #2a1bd6; top: 0%; transform: translateY(-50%);
-  box-shadow: 0 0 0 3px var(--bg);
-  transition: top .12s linear;
-}
-@media (max-width: 760px) { .ink-rail { display: none; } }
-@media (prefers-reduced-motion: reduce) { .ink-rail__fill, .ink-rail__dot { transition: none; } }
-
 /* Nav links draw an ink underline instead of a filled pill: quieter, ours. */
 .nav__link {
   background: none; position: relative; padding-bottom: .35rem;
@@ -949,20 +925,12 @@ strong { color: var(--ink); font-weight: 600; }
 .ds-card__title { font-weight: 600; color: var(--ink); font-size: .98rem; line-height: 1.25; }
 .ds-card__stat { font-family: var(--font-mono); font-size: .72rem; color: var(--ink-faint); letter-spacing: .01em; }
 
-/* ---- Partner logo marquee (slide animation, edge-fade, pause on hover) --- */
-.logo-marquee {
-  margin-top: var(--s5); overflow: hidden; width: 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+/* ---- Partner logo row (static, no animation) ------------------------------ */
+.logo-row {
+  margin-top: var(--s5); display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: center; gap: clamp(2rem, 5vw, 3.6rem);
 }
-.logo-marquee__track {
-  display: flex; align-items: center; gap: clamp(2.5rem, 6vw, 4.5rem);
-  width: max-content; animation: marquee 28s linear infinite;
-}
-.logo-marquee:hover .logo-marquee__track { animation-play-state: paused; }
-.logo-marquee .logo-mark { height: 44px; width: auto; flex: none; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .logo-marquee__track { animation: none; } }
+.logo-row .logo-mark { height: 44px; width: auto; flex: none; }
 
 /* Fellowship orbit motif: one year as a closed loop, ink-wobbled. */
 .fo-orbit { stroke: currentColor; stroke-width: 2; opacity: .3; }

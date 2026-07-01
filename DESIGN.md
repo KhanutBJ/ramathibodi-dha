@@ -77,19 +77,22 @@ as earned colour above): present, but not shouting for attention next to our
 own brand. Where no official asset exists, we use a clean typographic chip in
 our own system rather than fabricate or approximate someone else's mark.
 
-## Motion, invented, not borrowed
+## Motion, invented, not borrowed, and used sparingly
 
-Two moments are ours specifically, not a template's default:
+One moment is ours specifically, not a template's default: **the drawn
+underline.** Navigation and inline links do not get a filled pill on hover.
+A thin line draws itself in underneath, the way you would underline something
+by hand to mark it as important.
 
-- **The ink rail.** A hand-drawn reading-progress line, fixed to the left edge,
-  that fills as you move through a page and ends in a small drawn dot. A
-  reader's finger tracing the page, made physical.
-- **The drawn underline.** Navigation and inline links do not get a filled pill
-  on hover. A thin line draws itself in underneath, the way you would underline
-  something by hand to mark it as important.
+We tried a second invented motion, a scroll-progress "ink rail," and a sliding
+partner-logo marquee, and pulled both back out. Motion that runs on its own
+timer, unprompted by the reader, stopped feeling calm and started feeling like
+noise. The lesson stays even though the feature didn't: prefer motion the
+reader causes (a hover, a scroll into view) over motion that runs regardless.
 
 Everything else (reveals, the diagram stroke-draw, the accent-rule grow-in) is
-quiet and single-purpose: it confirms you arrived, then gets out of the way.
+quiet, reader-triggered, and single-purpose: it confirms you arrived, then
+gets out of the way.
 
 ## The rules
 
@@ -105,9 +108,9 @@ quiet and single-purpose: it confirms you arrived, then gets out of the way.
    instead of a paragraph, it should be. Cut before you add.
 5. **Whitespace is content.** Sections breathe. We would rather cut a paragraph
    than crowd one.
-6. **Motion with a reason.** Things arrive once, quietly, and our two invented
-   moments (the ink rail, the drawn underline) are the only motion that calls
-   attention to itself. No carousels, no parallax theatre.
+6. **Motion with a reason.** Things arrive once, quietly, triggered by the
+   reader. No carousels, no marquees, no parallax theatre, nothing that moves
+   on its own timer.
 7. **Honesty over polish.** We show the denominator, the confidence interval, the
    population a model was tested on. Trust is a design material.
 8. **No slop.** No em dashes, no middle dots, no filler. Human prose, or nothing.

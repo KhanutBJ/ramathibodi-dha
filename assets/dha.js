@@ -63,22 +63,6 @@
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  /* ---- Ink rail (signature reading-progress motion) -------------------- */
-  var inkFill = document.querySelector("[data-ink-fill]");
-  var inkDot = document.querySelector("[data-ink-dot]");
-  if (inkFill && inkDot) {
-    function paintInk() {
-      var doc = document.documentElement;
-      var max = doc.scrollHeight - doc.clientHeight;
-      var pct = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      inkFill.style.height = (pct * 100) + "%";
-      inkDot.style.top = (pct * 100) + "%";
-    }
-    paintInk();
-    window.addEventListener("scroll", paintInk, { passive: true });
-    window.addEventListener("resize", paintInk);
-  }
-
   /* ---- Mobile menu ---------------------------------------------------- */
   var burger = document.querySelector("[data-burger]");
   var menu = document.querySelector(".mobile-menu");

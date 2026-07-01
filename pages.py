@@ -147,9 +147,7 @@ def home(prefix, ctx):
     proof = sec(
         '<div class="reveal partner-strip">'
         '<span class="eyebrow center">Built inside the system, with partners who build</span>'
-        '<div class="logo-marquee">'
-        f'<div class="logo-marquee__track">{_marks_html}{_marks_html}</div>'
-        '</div>'
+        f'<div class="logo-row">{_marks_html}</div>'
         '<p class="muted center" style="font-size:.82rem;margin-top:1.4rem">Aligned with MOPH Digital Health, NHSO, Thai FDA, and Thai HealthTech</p>'
         '</div>', "section section--tight")
 

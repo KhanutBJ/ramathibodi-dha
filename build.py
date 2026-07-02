@@ -496,6 +496,7 @@ ACADEMY_TOC = [
     ]),
     ("1 / Basics", [
         ("curriculum/basics", "curriculum/basics.md"),
+        ("notebooks/00-basics-first-steps", "notebooks/00-basics-first-steps.ipynb"),
         ("curriculum/foundation/what-is-ai", "curriculum/foundation/what-is-ai.md"),
         ("curriculum/foundation/how-to-ai", "curriculum/foundation/how-to-ai.md"),
         ("curriculum/foundation/datasets", "curriculum/foundation/datasets.md"),
@@ -521,6 +522,7 @@ ACADEMY_TOC = [
     ]),
     ("5 / Deployment", [
         ("curriculum/deployment", "curriculum/deployment.md"),
+        ("notebooks/05-deployment-metrics", "notebooks/05-deployment-metrics.ipynb"),
     ]),
     ("6 / Strategy & Governance", [
         ("curriculum/governance", "curriculum/governance.md"),
@@ -535,6 +537,9 @@ ACADEMY_TOC = [
         ("curriculum/capstone/index", "curriculum/capstone/index.md"),
         ("curriculum/capstone/deployment", "curriculum/capstone/deployment.md"),
         ("curriculum/capstone/ethics", "curriculum/capstone/ethics.md"),
+    ]),
+    ("Graduation", [
+        ("curriculum/graduation", "curriculum/graduation.md"),
     ]),
 ]
 

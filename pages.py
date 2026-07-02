@@ -1072,6 +1072,19 @@ def academy(prefix, ctx):
   </div>
 </section>"""
 
+    faq_qa = [
+        (bi("Is the Academy really free?", "อคาเดมีเรียนฟรีจริงไหม"), bi("Yes. Every course, notebook, and lesson is free to enrolled members. You need a member access code, not a payment.", "ใช่ ทุกคอร์ส notebook และบทเรียนฟรีสำหรับสมาชิกที่ลงทะเบียน คุณต้องใช้รหัสสมาชิกในการเข้าถึง ไม่ใช่การจ่ายเงิน")),
+        (bi("Do I need to know how to code first?", "ต้องเขียนโค้ดเป็นก่อนไหม"), bi("No. Basics assumes you have never written a line and gets you to a working tool before you feel like a programmer.", "ไม่ต้อง Basics ออกแบบมาสำหรับคนที่ไม่เคยเขียนโค้ดเลย และพาคุณไปถึงเครื่องมือที่ใช้ได้จริง ก่อนที่คุณจะรู้สึกว่าตัวเองเป็นโปรแกรมเมอร์")),
+        (bi("Self-paced or cohort, which should I pick?", "เรียนตามจังหวะตัวเองหรือรุ่น ควรเลือกแบบไหน"), bi("Self-paced if you want full control of your schedule. Cohort if you want a pod, live sessions, and a fixed calendar. Both lead to the same graduation requirements.", "เรียนตามจังหวะตัวเองถ้าอยากคุมตารางเองทั้งหมด เรียนแบบรุ่นถ้าอยากมีกลุ่มเพื่อน คลาสสด และตารางตายตัว ทั้งสองแบบนำไปสู่เกณฑ์จบเดียวกัน")),
+        (bi("Do I get a certificate?", "จะได้ใบรับรองไหม"), bi("No accredited certificate. What you leave with is a reviewed portfolio of real work, which we think carries more weight. The full answer is in Graduation requirements.", "ไม่มีใบรับรองที่ได้รับการรับรองอย่างเป็นทางการ สิ่งที่คุณได้คือพอร์ตโฟลิโอผลงานจริงที่ผ่านการรีวิว ซึ่งเราคิดว่ามีน้ำหนักมากกว่า คำตอบเต็มอยู่ที่หน้าเกณฑ์การจบหลักสูตร")),
+        (bi("What if I get stuck?", "ถ้าติดขัดจะทำอย่างไร"), bi("Post in the club's community channels, bring it to office hours, or check the domain's Common mistakes section, most stuck points are already answered there.", "โพสต์ในช่องทางชุมชนของชมรม นำไปถาม office hours หรือดูหัวข้อข้อผิดพลาดที่พบบ่อยของแต่ละโดเมน จุดที่คนส่วนใหญ่ติดขัดมักมีคำตอบอยู่แล้ว")),
+        (bi("How is this different from the Fellowship?", "ต่างจากเฟลโลว์ชิปอย่างไร"), bi("The Academy is open to everyone and teaches the craft. The Fellowship is selective, in-residence, and is where you prove that craft on a real clinical problem.", "อคาเดมีเปิดกว้างสำหรับทุกคนและสอนวิชาชีพ เฟลโลว์ชิปคัดสรรและประจำในสถานที่ เป็นที่ที่คุณพิสูจน์วิชาชีพนั้นบนโจทย์คลินิกจริง")),
+    ]
+    faq_items = "".join(
+        f'<details class="row reveal" style="display:block"><summary style="cursor:pointer;font-family:var(--font-display);font-weight:700;font-size:var(--step-1)">{q}</summary>'
+        f'<p class="mt3">{a}</p></details>' for q, a in faq_qa)
+    faq = sec(head(bi("FAQ", "คำถามที่พบบ่อย"), bi("Questions, answered plainly.", "คำถาม ตอบตรง ๆ")) + f'<div class="rows">{faq_items}</div>')
+
     cta = f"""
 <section class="section">
   <div class="container center stack reveal">
@@ -1082,7 +1095,7 @@ def academy(prefix, ctx):
     </div>
   </div>
 </section>"""
-    return hero + modules + fmt + cta
+    return hero + modules + fmt + faq + cta
 
 # ===========================================================================
 # FELLOWSHIP (Steve Jobs Archive inspired: quiet, generous, story-led)

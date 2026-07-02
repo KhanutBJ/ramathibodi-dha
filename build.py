@@ -56,14 +56,17 @@ SITE = {
 }
 
 NAV = [
-    ("Who We Are", "เกี่ยวกับเรา", "who-we-are.html"),
-    ("What We Do", "สิ่งที่เราทำ", "what-we-do.html"),
-    ("Academy", "อคาเดมี", "academy.html"),
-    ("Platform", "แพลตฟอร์ม", "platform.html"),
-    ("Tools", "เครื่องมือ", "tools.html"),
-    ("Fellowship", "เฟลโลว์ชิป", "fellowship.html"),
-    ("Venture Studio", "เวนเจอร์สตูดิโอ", "venture.html"),
-    ("Insights", "บทความ", "insights/index.html"),
+    ("Who We Are", "เกี่ยวกับเรา", "who-we-are.html", None),
+    ("What We Do", "สิ่งที่เราทำ", "what-we-do.html", [
+        ("Academy", "อคาเดมี", "academy.html"),
+        ("Platform", "แพลตฟอร์ม", "platform.html"),
+        ("Tools", "เครื่องมือ", "tools.html"),
+        ("Fellowship", "เฟลโลว์ชิป", "fellowship.html"),
+        ("Venture Studio", "เวนเจอร์สตูดิโอ", "venture.html"),
+    ]),
+    ("Insights", "บทความ", "insights/index.html", None),
+    ("News", "ข่าวสาร", "news/index.html", None),
+    ("Team", "ทีมงาน", "team.html", None),
 ]
 
 # ----------------------------------------------------------------------------
@@ -78,6 +81,7 @@ ICON = {
     "shield": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
     "node": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5" cy="12" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="19" cy="18" r="2.4"/><path d="M7.2 11l9.6-4M7.2 13l9.6 4"/></svg>',
     "doc": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg>',
+    "chevron": '<svg class="nav__caret" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" width="11" height="11"><path d="M4 6l4 4 4-4"/></svg>',
     "pulse": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
     "users": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6M15 20a6 6 0 0 0-1.5-4"/></svg>',
@@ -125,13 +129,34 @@ def ph(en, th):
 
 def nav_links(prefix, active):
     out = []
-    for en, th, href in NAV:
-        cls = "nav__link is-active" if active == href else "nav__link"
-        out.append(f'<a class="{cls}" href="{prefix}{href}">{bi(en, th)}</a>')
+    for en, th, href, children in NAV:
+        child_hrefs = [c[2] for c in children] if children else []
+        is_active = active == href or active in child_hrefs
+        cls = "nav__link is-active" if is_active else "nav__link"
+        if children:
+            sub = "".join(
+                f'<a class="nav__subitem{" is-active" if active == c_href else ""}" href="{prefix}{c_href}">{bi(c_en, c_th)}</a>'
+                for c_en, c_th, c_href in children)
+            out.append(
+                f'<div class="nav__item">'
+                f'<a class="{cls}" href="{prefix}{href}">{bi(en, th)}{ICON["chevron"]}</a>'
+                f'<div class="nav__submenu">{sub}</div>'
+                f'</div>')
+        else:
+            out.append(f'<a class="{cls}" href="{prefix}{href}">{bi(en, th)}</a>')
     return "\n".join(out)
 
 def mobile_links(prefix):
-    return "\n".join(f'<a href="{prefix}{href}">{bi(en, th)}</a>' for en, th, href in NAV)
+    out = []
+    for en, th, href, children in NAV:
+        if children:
+            sub = "".join(f'<a href="{prefix}{c_href}">{bi(c_en, c_th)}</a>' for c_en, c_th, c_href in children)
+            out.append(
+                f'<details class="mobile-sub"><summary>{bi(en, th)}{ICON["chevron"]}</summary>'
+                f'<div class="mobile-sub__list">{sub}</div></details>')
+        else:
+            out.append(f'<a href="{prefix}{href}">{bi(en, th)}</a>')
+    return "\n".join(out)
 
 def shell(title, body, prefix="", active="", desc=None, body_attr=""):
     desc = desc or SITE["tagline"]

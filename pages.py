@@ -1996,6 +1996,7 @@ def public_datasets(prefix):
 DATASETS = [
     dict(slug="thai-clinical-tabular", tone="teal", icon="doc",
          title=("Thai Clinical Tabular", "ตารางข้อมูลคลินิกไทย"),
+         agency=("Faculty of Medicine Ramathibodi Hospital", "คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี"), updated="2026-04-02",
          kind=("Tabular", "ตาราง"), status="open", stat="12 fields / n=4,200",
          desc=("De-identified emergency department visit records: demographics, vitals, triage level, disposition, and outcome, drawn from a teaching archive and released for research and coursework.",
                "ข้อมูลการมาห้องฉุกเฉินที่ลบตัวตนแล้ว ประกอบด้วยข้อมูลประชากร สัญญาณชีพ ระดับคัดกรอง การจำหน่าย และผลลัพธ์ จากคลังข้อมูลเพื่อการสอน เผยแพร่สำหรับงานวิจัยและการเรียน"),
@@ -2008,6 +2009,7 @@ DATASETS = [
                 "ลบตัวตนภายใต้ข้อยกเว้นเพื่อการวิจัยตาม PDPA พร้อมได้รับอนุมัติจริยธรรมสถาบันสำหรับการใช้ข้อมูลรอง")),
     dict(slug="chest-xray-teaching-set", tone="coral", icon="pulse",
          title=("Chest X-ray Teaching Set", "ชุดภาพเอกซเรย์ทรวงอกเพื่อการสอน"),
+         agency=("Faculty of Medicine Ramathibodi Hospital", "คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี"), updated="2026-02-18",
          kind=("Image", "ภาพ"), status="open", stat="9,100 films",
          desc=("De-identified frontal chest radiographs from a teaching archive, exported to PNG with weak labels for common findings. Built for training and evaluating imaging models, not for clinical use.",
                "ภาพเอกซเรย์ทรวงอกด้านหน้าที่ลบตัวตนแล้วจากคลังภาพเพื่อการสอน แปลงเป็น PNG พร้อมป้ายกำกับคร่าวๆ สำหรับความผิดปกติที่พบบ่อย สร้างขึ้นเพื่อฝึกและประเมินโมเดลภาพ ไม่ใช่เพื่อการใช้งานทางคลินิก"),
@@ -2018,6 +2020,7 @@ DATASETS = [
                 "มาจากคลังภาพเพื่อการสอนที่ลบตัวตนแล้ว ได้รับอนุมัติจากคณะกรรมการจริยธรรมสถาบันเพื่อการใช้เพื่อการศึกษา")),
     dict(slug="thai-clinical-notes", tone="purple", icon="brain",
          title=("Thai Clinical Notes (Synthetic)", "บันทึกทางคลินิกภาษาไทย (สังเคราะห์)"),
+         agency=("DHA Club", "ชมรม DHA"), updated="2026-05-27",
          kind=("Text / synthetic", "ข้อความ / สังเคราะห์"), status="open", stat="12k notes",
          desc=("Fully synthetic Thai-language clinical notes generated to mirror real documentation patterns: chief complaint, history, assessment, and plan. No real patient data was used to generate or train on.",
                "บันทึกทางคลินิกภาษาไทยที่สังเคราะห์ขึ้นทั้งหมด เลียนแบบรูปแบบการบันทึกจริง ได้แก่ อาการนำ ประวัติ การประเมิน และแผนการรักษา ไม่มีการใช้ข้อมูลผู้ป่วยจริงในการสร้างหรือฝึกโมเดล"),
@@ -2028,6 +2031,7 @@ DATASETS = [
                 "ข้อมูลสังเคราะห์ ไม่มีข้อมูลส่วนบุคคลเกี่ยวข้อง จึงไม่ต้องมีฐานทางกฎหมายตาม PDPA")),
     dict(slug="ecg-rhythm-strips", tone="blue", icon="pulse",
          title=("ECG Rhythm Strips", "แถบสัญญาณคลื่นไฟฟ้าหัวใจ"),
+         agency=("MIND Center, Ramathibodi", "ศูนย์ MIND รามาธิบดี"), updated="2026-01-30",
          kind=("Signal", "สัญญาณ"), status="request", stat="3,400 strips",
          desc=("De-identified single-lead ECG rhythm strips with cardiologist-reviewed arrhythmia labels. Because rhythm data carries more re-identification risk than tabular or imaging data, access is supervised.",
                "แถบสัญญาณคลื่นไฟฟ้าหัวใจแบบลีดเดียวที่ลบตัวตนแล้ว พร้อมป้ายกำกับภาวะหัวใจเต้นผิดจังหวะที่ตรวจสอบโดยแพทย์หทัยวิทยา เนื่องจากข้อมูลสัญญาณมีความเสี่ยงระบุตัวตนซ้ำมากกว่าข้อมูลตารางหรือภาพ การเข้าถึงจึงมีการกำกับดูแล"),
@@ -2060,6 +2064,12 @@ def dataset_detail(ds):
       <div class="dsd-msg" style="color:var(--accent);font-size:.85rem;min-height:1em"></div>
       <div class="btn-row mt3"><button class="btn btn--grad" type="submit">{bi("Request access", "ขอเข้าถึงข้อมูล")} {I['arrow']}</button></div>
     </form>"""
+        related = [d for d in DATASETS if d["slug"] != ds["slug"]]
+        related_cards = "".join(
+            ds_card(d["tone"], I[d["icon"]], bi(*d["title"]), d["kind"][0],
+                    "Open" if d["status"] == "open" else "On request", d["stat"],
+                    prefix, f"platform/datasets/{d['slug']}.html")
+            for d in related)
         return f"""
 <section class="section">
   <div class="container">
@@ -2068,6 +2078,7 @@ def dataset_detail(ds):
       <div class="stack reveal">
         <span class="eyebrow">{bi(*ds['kind'])} · {status_label}</span>
         <h1 style="font-size:var(--step-3)">{bi(*ds['title'])}</h1>
+        <p class="muted mt2" style="font-size:.85rem;font-family:var(--font-mono)">{bi(*ds['agency'])} · {bi("Updated", "อัปเดตล่าสุด")} {ds['updated']}</p>
         <p class="lead mt3">{bi(*ds['desc'])}</p>
         <div class="mt4">
           <h3 style="font-size:1rem">{bi("What's inside", "ข้อมูลภายใน")}</h3>
@@ -2086,6 +2097,10 @@ def dataset_detail(ds):
         <h3>{bi("Get this dataset", "รับชุดข้อมูลนี้")}</h3>
         {action}
       </div>
+    </div>
+    <div class="mt5">
+      <h3 style="font-size:1rem">{bi("Related datasets", "ชุดข้อมูลที่เกี่ยวข้อง")}</h3>
+      <div class="ds-grid mt3">{related_cards}</div>
     </div>
     <div class="btn-row" style="margin-top:3rem"><a class="btn btn--ghost" href="{prefix}platform.html">{I['arrow']} {bi("All datasets", "ชุดข้อมูลทั้งหมด")}</a></div>
   </div>

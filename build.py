@@ -63,9 +63,9 @@ NAV = [
         ("Tools", "เครื่องมือ", "tools.html"),
         ("Fellowship", "เฟลโลว์ชิป", "fellowship.html"),
         ("Venture Studio", "เวนเจอร์สตูดิโอ", "venture.html"),
+        ("Think Tank", "คลังสมอง", "think-tank.html"),
     ]),
     ("Insights", "บทความ", "insights/index.html", None),
-    ("News", "ข่าวสาร", "news/index.html", None),
     ("Events", "กิจกรรม", "events.html", None),
     ("Team", "ทีมงาน", "team.html", None),
 ]

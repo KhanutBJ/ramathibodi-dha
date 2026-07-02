@@ -285,13 +285,14 @@ def home(prefix, ctx):
 </section>"""
 
     what = sec(
-        head(bi("What we do", "สิ่งที่เราทำ"), bi("Four parts, one pipeline.", "สี่ส่วน หนึ่งเส้นทาง"),
+        head(bi("What we do", "สิ่งที่เราทำ"), bi("Five parts, one mission.", "ห้าส่วน หนึ่งพันธกิจ"),
              bi("Most programmes teach theory and stop. We carry a person all the way from first principles to a working clinical product, then help the strongest ideas become real.", "หลักสูตรส่วนใหญ่สอนทฤษฎีแล้วจบ เราพาคนคนหนึ่งไปตลอดทาง ตั้งแต่พื้นฐานจนถึงผลิตภัณฑ์ทางคลินิกที่ใช้ได้จริง แล้วช่วยให้ไอเดียที่ดีที่สุดเกิดขึ้นจริง")) +
-        '<div class="grid grid-2">' +
+        '<div class="grid grid-3">' +
         ctx['card']('brain', bi('Academy', 'อคาเดมี'), bi('An open curriculum in AI and digital health, from foundations to clinical deployment. Free to learn, practical from day one.', 'หลักสูตรเปิดด้าน AI และสุขภาพดิจิทัล ตั้งแต่พื้นฐานจนถึงการนำไปใช้ในคลินิก เรียนฟรี ลงมือทำได้ตั้งแต่วันแรก'), 'academy.html', bi('Start learning', 'เริ่มเรียน'), prefix, 1) +
         ctx['card']('flask', bi('Fellowship', 'เฟลโลว์ชิป'), bi('A selective, in-residence year. Fellows work on real clinical problems with Ramathibodi data, faculty, and patients.', 'หนึ่งปีแบบคัดสรรและประจำในสถานที่ เฟลโลว์ทำงานกับโจทย์คลินิกจริง ด้วยข้อมูล อาจารย์ และผู้ป่วยของรามาธิบดี'), 'fellowship.html', bi('See the Fellowship', 'ดูเฟลโลว์ชิป'), prefix, 2) +
         ctx['card']('rocket', bi('Venture Studio', 'เวนเจอร์สตูดิโอ'), bi('We help the best fellowship work become deployable products, with engineering, regulatory, and go-to-market support.', 'เราช่วยให้ผลงานเฟลโลว์ชิปที่ดีที่สุดกลายเป็นผลิตภัณฑ์ที่ใช้งานได้จริง ด้วยการสนับสนุนด้านวิศวกรรม กฎระเบียบ และการออกสู่ตลาด'), 'venture.html', bi('How it works', 'ทำงานอย่างไร'), prefix, 1) +
         ctx['card']('compass', bi('Consult', 'คอนซัลต์'), bi('Bring us a problem. We support students who need project support, faculty who need a digital solution, and partner hospitals pursuing digital transformation.', 'นำโจทย์มาหาเรา เราสนับสนุนนักศึกษาที่ต้องการความช่วยเหลือด้านโปรเจกต์ อาจารย์ที่ต้องการโซลูชันดิจิทัล และโรงพยาบาลพันธมิตรที่ต้องการการเปลี่ยนผ่านสู่ดิจิทัล'), 'what-we-do.html#consult', bi('Get support', 'ขอรับการสนับสนุน'), prefix, 2) +
+        ctx['card']('doc', bi('Think Tank', 'คลังสมอง'), bi('The fourth function that ships no product. We study what building medical AI at scale means for systems, economies, and institutions.', 'หน้าที่ที่สี่ซึ่งไม่ผลิตผลิตภัณฑ์ใด ๆ เราศึกษาว่าการสร้าง AI การแพทย์ในระดับใหญ่ ส่งผลอย่างไรต่อระบบ เศรษฐกิจ และสถาบัน'), 'think-tank.html', bi('Read our thinking', 'อ่านความคิดเรา'), prefix, 1) +
         '</div>')
 
     band = f"""
@@ -1894,6 +1895,105 @@ def public_datasets(prefix):
   </div>
 </section>"""
 
+DATASETS = [
+    dict(slug="thai-clinical-tabular", tone="teal", icon="doc",
+         title=("Thai Clinical Tabular", "ตารางข้อมูลคลินิกไทย"),
+         kind=("Tabular", "ตาราง"), status="open", stat="12 fields / n=4,200",
+         desc=("De-identified emergency department visit records: demographics, vitals, triage level, disposition, and outcome, drawn from a teaching archive and released for research and coursework.",
+               "ข้อมูลการมาห้องฉุกเฉินที่ลบตัวตนแล้ว ประกอบด้วยข้อมูลประชากร สัญญาณชีพ ระดับคัดกรอง การจำหน่าย และผลลัพธ์ จากคลังข้อมูลเพื่อการสอน เผยแพร่สำหรับงานวิจัยและการเรียน"),
+         fields=[("age_band", "ช่วงอายุ"), ("sex", "เพศ"), ("chief_complaint_icd10", "อาการนำ (ICD-10)"),
+                 ("vitals_bp_hr_rr_temp_spo2", "สัญญาณชีพ"), ("triage_level", "ระดับคัดกรอง"), ("disposition", "การจำหน่าย"),
+                 ("length_of_stay", "ระยะเวลาอยู่ รพ."), ("department", "แผนก"), ("admission_type", "ประเภทการรับไว้"),
+                 ("comorbidity_flags", "โรคร่วม"), ("outcome", "ผลลัพธ์"), ("visit_year_month", "ปี-เดือนที่มา")],
+         license=("CC BY-NC 4.0 · research and coursework use", "CC BY-NC 4.0 · ใช้เพื่อการวิจัยและการเรียนเท่านั้น"),
+         basis=("De-identified under a documented PDPA research exemption, with institutional ethics approval for secondary use.",
+                "ลบตัวตนภายใต้ข้อยกเว้นเพื่อการวิจัยตาม PDPA พร้อมได้รับอนุมัติจริยธรรมสถาบันสำหรับการใช้ข้อมูลรอง")),
+    dict(slug="chest-xray-teaching-set", tone="coral", icon="pulse",
+         title=("Chest X-ray Teaching Set", "ชุดภาพเอกซเรย์ทรวงอกเพื่อการสอน"),
+         kind=("Image", "ภาพ"), status="open", stat="9,100 films",
+         desc=("De-identified frontal chest radiographs from a teaching archive, exported to PNG with weak labels for common findings. Built for training and evaluating imaging models, not for clinical use.",
+               "ภาพเอกซเรย์ทรวงอกด้านหน้าที่ลบตัวตนแล้วจากคลังภาพเพื่อการสอน แปลงเป็น PNG พร้อมป้ายกำกับคร่าวๆ สำหรับความผิดปกติที่พบบ่อย สร้างขึ้นเพื่อฝึกและประเมินโมเดลภาพ ไม่ใช่เพื่อการใช้งานทางคลินิก"),
+         fields=[("image_png", "ไฟล์ภาพ PNG"), ("weak_label_normal_abnormal", "ป้ายกำกับคร่าวๆ ปกติ/ผิดปกติ"),
+                 ("finding_tags", "แท็กความผิดปกติ"), ("acquisition_year", "ปีที่ถ่ายภาพ"), ("age_band", "ช่วงอายุ"), ("sex", "เพศ")],
+         license=("CC BY-NC-SA 4.0", "CC BY-NC-SA 4.0"),
+         basis=("Sourced from a de-identified teaching archive, approved by the institutional ethics committee for educational use.",
+                "มาจากคลังภาพเพื่อการสอนที่ลบตัวตนแล้ว ได้รับอนุมัติจากคณะกรรมการจริยธรรมสถาบันเพื่อการใช้เพื่อการศึกษา")),
+    dict(slug="thai-clinical-notes", tone="purple", icon="brain",
+         title=("Thai Clinical Notes (Synthetic)", "บันทึกทางคลินิกภาษาไทย (สังเคราะห์)"),
+         kind=("Text / synthetic", "ข้อความ / สังเคราะห์"), status="open", stat="12k notes",
+         desc=("Fully synthetic Thai-language clinical notes generated to mirror real documentation patterns: chief complaint, history, assessment, and plan. No real patient data was used to generate or train on.",
+               "บันทึกทางคลินิกภาษาไทยที่สังเคราะห์ขึ้นทั้งหมด เลียนแบบรูปแบบการบันทึกจริง ได้แก่ อาการนำ ประวัติ การประเมิน และแผนการรักษา ไม่มีการใช้ข้อมูลผู้ป่วยจริงในการสร้างหรือฝึกโมเดล"),
+         fields=[("chief_complaint", "อาการนำ"), ("history_of_present_illness", "ประวัติการเจ็บป่วยปัจจุบัน"),
+                 ("assessment", "การประเมิน"), ("plan", "แผนการรักษา"), ("specialty_tag", "แผนกที่เกี่ยวข้อง")],
+         license=("CC0 · public domain", "CC0 · สาธารณสมบัติ"),
+         basis=("Synthetic data. No personal data is involved, so no PDPA basis is required.",
+                "ข้อมูลสังเคราะห์ ไม่มีข้อมูลส่วนบุคคลเกี่ยวข้อง จึงไม่ต้องมีฐานทางกฎหมายตาม PDPA")),
+    dict(slug="ecg-rhythm-strips", tone="blue", icon="pulse",
+         title=("ECG Rhythm Strips", "แถบสัญญาณคลื่นไฟฟ้าหัวใจ"),
+         kind=("Signal", "สัญญาณ"), status="request", stat="3,400 strips",
+         desc=("De-identified single-lead ECG rhythm strips with cardiologist-reviewed arrhythmia labels. Because rhythm data carries more re-identification risk than tabular or imaging data, access is supervised.",
+               "แถบสัญญาณคลื่นไฟฟ้าหัวใจแบบลีดเดียวที่ลบตัวตนแล้ว พร้อมป้ายกำกับภาวะหัวใจเต้นผิดจังหวะที่ตรวจสอบโดยแพทย์หทัยวิทยา เนื่องจากข้อมูลสัญญาณมีความเสี่ยงระบุตัวตนซ้ำมากกว่าข้อมูลตารางหรือภาพ การเข้าถึงจึงมีการกำกับดูแล"),
+         fields=[("strip_waveform", "รูปคลื่นสัญญาณ"), ("sampling_rate", "อัตราสุ่มสัญญาณ"),
+                 ("arrhythmia_label", "ป้ายกำกับภาวะหัวใจเต้นผิดจังหวะ"), ("lead_config", "การจัดวางลีด"), ("recording_duration", "ระยะเวลาบันทึก")],
+         license=("Restricted research licence · no redistribution", "สัญญาอนุญาตวิจัยแบบจำกัด · ห้ามเผยแพร่ต่อ"),
+         basis=("De-identified under a supervised data use agreement signed before access is granted.",
+                "ลบตัวตนภายใต้ข้อตกลงการใช้ข้อมูลแบบมีการกำกับ ซึ่งต้องลงนามก่อนได้รับสิทธิ์เข้าถึง")),
+]
+
+def dataset_detail(ds):
+    def fn(prefix, ctx):
+        I = ctx["ICON"]
+        is_open = ds["status"] == "open"
+        field_list = "".join(f'<li class="pill">{bi(en, th)}</li>' for en, th in ds["fields"])
+        status_label = (bi("Open · instant download", "เปิดเผย · ดาวน์โหลดได้ทันที") if is_open
+                         else bi("On request · supervised access", "ตามคำขอ · เข้าถึงแบบมีการกำกับ"))
+        if is_open:
+            action = f"""<form onsubmit="event.preventDefault();this.querySelector('.dsd-msg').textContent=(document.documentElement.getAttribute('data-lang')==='th'?'ส่งลิงก์ดาวน์โหลดไปที่อีเมลแล้วครับ ระบบสาธิต เชื่อมต่อไฟล์จริงก่อนเปิดใช้':'Download link sent. Demo form, wire it to a real file before launch.');">
+      <div class="field"><label>{bi("Email for the download link", "อีเมลสำหรับรับลิงก์ดาวน์โหลด")}</label><input type="email" required placeholder="you@hospital.org"/></div>
+      <div class="dsd-msg" style="color:var(--accent);font-size:.85rem;min-height:1em"></div>
+      <div class="btn-row mt3"><button class="btn btn--grad" type="submit">{bi("Get download link", "รับลิงก์ดาวน์โหลด")} {I['arrow']}</button></div>
+    </form>"""
+        else:
+            action = f"""<form onsubmit="event.preventDefault();this.querySelector('.dsd-msg').textContent=(document.documentElement.getAttribute('data-lang')==='th'?'ส่งคำขอแล้วครับ ทีมข้อมูลจะติดต่อกลับ ระบบสาธิต เชื่อมต่อกระบวนการจริงก่อนเปิดใช้':'Request sent. The data team will follow up. Demo form, wire it to a real workflow before launch.');">
+      <div class="field"><label>{bi("Name", "ชื่อ")}</label><input type="text" required {ph('Your name', 'ชื่อของคุณ')}/></div>
+      <div class="field"><label>{bi("Email", "อีเมล")}</label><input type="email" required placeholder="you@hospital.org"/></div>
+      <div class="field"><label>{bi("Institution", "หน่วยงาน")}</label><input type="text" required {ph('Hospital, university, or company', 'โรงพยาบาล มหาวิทยาลัย หรือบริษัท')}/></div>
+      <div class="field"><label>{bi("Intended use", "วัตถุประสงค์การใช้")}</label><input type="text" required {ph('One sentence on what you plan to build or study', 'หนึ่งประโยคว่าคุณจะสร้างหรือศึกษาอะไร')}/></div>
+      <div class="dsd-msg" style="color:var(--accent);font-size:.85rem;min-height:1em"></div>
+      <div class="btn-row mt3"><button class="btn btn--grad" type="submit">{bi("Request access", "ขอเข้าถึงข้อมูล")} {I['arrow']}</button></div>
+    </form>"""
+        return f"""
+<section class="section">
+  <div class="container">
+    <div class="crumb"><a href="{prefix}platform.html">{bi("Platform", "แพลตฟอร์ม")}</a> / {bi(*ds['title'])}</div>
+    <div class="split mt3">
+      <div class="stack reveal">
+        <span class="eyebrow">{bi(*ds['kind'])} · {status_label}</span>
+        <h1 style="font-size:var(--step-3)">{bi(*ds['title'])}</h1>
+        <p class="lead mt3">{bi(*ds['desc'])}</p>
+        <div class="mt4">
+          <h3 style="font-size:1rem">{bi("What's inside", "ข้อมูลภายใน")}</h3>
+          <ul class="pill-row" style="margin-top:.75rem">{field_list}</ul>
+        </div>
+        <div class="mt4">
+          <h3 style="font-size:1rem">{bi("Licence", "สัญญาอนุญาต")}</h3>
+          <p class="mt2">{bi(*ds['license'])}</p>
+        </div>
+        <div class="mt4">
+          <h3 style="font-size:1rem">{bi("Lawful basis", "ฐานทางกฎหมาย")}</h3>
+          <p class="mt2">{bi(*ds['basis'])}</p>
+        </div>
+      </div>
+      <div class="card card--feature reveal" data-d="1">
+        <h3>{bi("Get this dataset", "รับชุดข้อมูลนี้")}</h3>
+        {action}
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:3rem"><a class="btn btn--ghost" href="{prefix}platform.html">{I['arrow']} {bi("All datasets", "ชุดข้อมูลทั้งหมด")}</a></div>
+  </div>
+</section>"""
+    return fn
+
 # ===========================================================================
 # PLATFORM / MARKETPLACE
 # ===========================================================================
@@ -1922,10 +2022,9 @@ def platform(prefix, ctx):
     {head(bi("Dataset marketplace", "ตลาดชุดข้อมูล"), bi("Data you can actually learn on.", "ข้อมูลที่คุณเรียนรู้ได้จริง"), bi("Governed and de-identified. You never touch raw patient data without supervision.", "กำกับดูแลและลบตัวตนแล้ว คุณจะไม่แตะข้อมูลผู้ป่วยดิบโดยไม่มีการกำกับ"))}
     <div class="ds-panel reveal">
       <div class="ds-grid">
-        {ds_card("teal", I["doc"], "Thai Clinical Tabular", "Tabular", "Open", "12 fields / n=4,200", prefix)}
-        {ds_card("coral", I["pulse"], "Chest X-ray teaching set", "Image", "Open", "9,100 films", prefix)}
-        {ds_card("purple", I["brain"], "Thai Clinical Notes", "Text / synthetic", "Open", "12k notes", prefix)}
-        {ds_card("blue", I["pulse"], "ECG Rhythm Strips", "Signal", "On request", "3,400 strips", prefix)}
+        {"".join(ds_card(ds["tone"], I[ds["icon"]], bi(*ds["title"]), ds["kind"][0],
+                          "Open" if ds["status"] == "open" else "On request", ds["stat"],
+                          prefix, f"platform/datasets/{ds['slug']}.html") for ds in DATASETS)}
       </div>
     </div>
     <p class="muted mt4 reveal" style="font-size:.88rem">{bi("Every dataset lists its source, its licence, and the lawful basis for use. Access to sensitive sets is supervised.", "ทุกชุดข้อมูลระบุแหล่งที่มา สัญญาอนุญาต และฐานทางกฎหมายในการใช้งาน การเข้าถึงข้อมูลอ่อนไหวจะมีการกำกับดูแล")}</p>
@@ -2014,9 +2113,10 @@ def platform(prefix, ctx):
             + moment("network-people.jpg", prefix, bi("One community, many problems", "หนึ่งชุมชน หลายโจทย์"))
             + datasets + public_datasets(prefix) + tasks + lb + matching + engine + jobs)
 
-def ds_card(tone, icon, title, kind, status, stat, prefix=""):
+def ds_card(tone, icon, title, kind, status, stat, prefix="", href=None):
     """data.gov.sg-style dataset card: coloured icon chip, bold title, mono stat line."""
-    return (f'<a class="ds-card ds-card--{tone}" href="{prefix}contact.html">'
+    target = f"{prefix}{href}" if href else f"{prefix}contact.html"
+    return (f'<a class="ds-card ds-card--{tone}" href="{target}">'
             f'<span class="ds-card__ic">{icon}</span>'
             f'<span class="ds-card__title">{title}</span>'
             f'<span class="ds-card__stat">{kind} / {status} / {stat}</span></a>')
@@ -2557,3 +2657,6 @@ _INSIGHT_PLAIN_TITLES = {
 for _slug in INSIGHT_ARTICLES:
     MARKETING.append((f"insights/{_slug}.html", f"{_INSIGHT_PLAIN_TITLES[_slug]} - Insights",
                       "insights/index.html", insight_article(_slug)))
+for _ds in DATASETS:
+    MARKETING.append((f"platform/datasets/{_ds['slug']}.html", f"{_ds['title'][0]} - Datasets",
+                      "platform.html", dataset_detail(_ds)))

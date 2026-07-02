@@ -1604,6 +1604,138 @@ def news_row(date, title, body):
             f'<h3>{title}</h3><p>{body}</p></div>')
 
 # ===========================================================================
+# EVENTS
+# ===========================================================================
+EVENTS = [
+    dict(week=("Week 1", "สัปดาห์ที่ 1"), title=("Academy Cohort Kickoff", "เปิดรุ่นอคาเดมี"),
+         fmt=("Hybrid · Ramathibodi + Zoom", "ไฮบริด · รามาธิบดี + Zoom"), pos="above",
+         desc=("The new Academy cohort meets for the first time. Orientation, a tour of the curriculum, and time to find a study group.",
+               "รุ่นอคาเดมีใหม่พบกันครั้งแรก ปฐมนิเทศ พาชมหลักสูตร และเวลาสำหรับหากลุ่มติวด้วยกัน"),
+         who=("Open to anyone starting the Academy", "เปิดสำหรับทุกคนที่เริ่มเรียนอคาเดมี")),
+    dict(week=("Week 3", "สัปดาห์ที่ 3"), title=("Build Weekend", "สุดสัปดาห์แห่งการสร้าง"),
+         fmt=("In-person · Ramathibodi", "ออนไซต์ · รามาธิบดี"), pos="below",
+         desc=("A 48-hour build sprint. Bring a clinical problem or join a team. Mentors from the Fellowship and Studio are in the room the whole time.",
+               "สปรินต์สร้างงาน 48 ชั่วโมง นำโจทย์คลินิกมาเอง หรือเข้าร่วมทีม มีเมนเทอร์จากเฟลโลว์ชิปและสตูดิโออยู่ในห้องตลอดงาน"),
+         who=("Academy learners and members", "ผู้เรียนอคาเดมีและสมาชิก")),
+    dict(week=("Week 5", "สัปดาห์ที่ 5"), title=("Think Tank Roundtable", "วงเสวนาคลังสมอง"),
+         fmt=("Open · in-person + livestream", "เปิดกว้าง · ออนไซต์ + ไลฟ์สตรีม"), pos="above",
+         desc=("A termly open discussion on one live question about AI and society. This term: what happens to clinical judgement when a model is right more often than the clinician.",
+               "วงเสวนาเปิดทุกภาคการศึกษา หนึ่งคำถามที่กำลังเกิดขึ้นจริงเรื่อง AI กับสังคม ภาคนี้: จะเกิดอะไรขึ้นกับดุลยพินิจทางคลินิก เมื่อโมเดลถูกต้องบ่อยกว่าแพทย์"),
+         who=("Students, faculty, and the public", "นักศึกษา อาจารย์ และบุคคลทั่วไป")),
+    dict(week=("Week 8", "สัปดาห์ที่ 8"), title=("Guest Fireside", "พูดคุยกับแขกรับเชิญ"),
+         fmt=("In-person · Ramathibodi auditorium", "ออนไซต์ · ห้องประชุมรามาธิบดี"), pos="below",
+         desc=("A conversation with someone who has shipped medical AI into a real health system, followed by an open Q&A.",
+               "บทสนทนากับคนที่เคยนำ AI การแพทย์ไปใช้จริงในระบบสุขภาพ ตามด้วยช่วงถาม-ตอบแบบเปิด"),
+         who=("Open to all", "เปิดสำหรับทุกคน")),
+    dict(week=("Week 13", "สัปดาห์ที่ 13"), title=("Fellowship Demo Day", "วันนำเสนอผลงานเฟลโลว์ชิป"),
+         fmt=("In-person · Ramathibodi", "ออนไซต์ · รามาธิบดี"), pos="above",
+         desc=("The current Fellowship cohort presents a term of work to faculty, partner hospitals, and the public. The closing event of the term.",
+               "เฟลโลว์รุ่นปัจจุบันนำเสนอผลงานหนึ่งภาคการศึกษาต่ออาจารย์ โรงพยาบาลพันธมิตร และสาธารณะ งานปิดท้ายของภาคการศึกษา"),
+         who=("Open to all, priority seating for partners", "เปิดสำหรับทุกคน ที่นั่งสำรองสำหรับพันธมิตร")),
+]
+
+def events_timeline(prefix):
+    """Signature sketch for Events: a term timeline. One horizontal line
+    from term start to term end, five waypoints alternating above and
+    below so labels never collide, distinct in shape from every other
+    diagram (the only one that reads left-to-right as a calendar)."""
+    xs = [140, 340, 560, 780, 960]
+    y = 150
+    nodes = ""
+    for i, (x, ev) in enumerate(zip(xs, EVENTS)):
+        above = ev["pos"] == "above"
+        ly = y - 46 if above else y + 60
+        tie_y2 = y - 28 if above else y + 28
+        anchor = "middle"
+        nodes += (f'<line class="ev-tie" x1="{x}" y1="{y}" x2="{x}" y2="{tie_y2}"/>'
+                  f'<circle class="ev-node" cx="{x}" cy="{y}" r="8"/>'
+                  f'<text class="ev-num" x="{x}" y="{y+4}" text-anchor="middle">{i+1}</text>'
+                  f'<text class="l-en ev-week" x="{x}" y="{ly-20}" text-anchor="{anchor}">{ev["week"][0]}</text>'
+                  f'<text class="l-th ev-week" x="{x}" y="{ly-20}" text-anchor="{anchor}">{ev["week"][1]}</text>'
+                  f'<text class="l-en ev-title" x="{x}" y="{ly}" text-anchor="{anchor}">{ev["title"][0]}</text>'
+                  f'<text class="l-th ev-title" x="{x}" y="{ly}" text-anchor="{anchor}">{ev["title"][1]}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 1100 280" role="img" aria-label="A one-term timeline with five events" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch11" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="53" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+      </filter>
+      <linearGradient id="ev-grad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </linearGradient>
+    </defs>
+    <g filter="url(#sketch11)">
+      <line class="ev-line" x1="60" y1="{y}" x2="1040" y2="{y}"/>
+      {nodes}
+    </g>
+    <text class="l-en fa-cap" x="60" y="{y+56}" text-anchor="start">Term start</text>
+    <text class="l-th fa-cap" x="60" y="{y+56}" text-anchor="start">เปิดภาคการศึกษา</text>
+    <text class="l-en fa-cap" x="1040" y="{y+56}" text-anchor="end">Term end</text>
+    <text class="l-th fa-cap" x="1040" y="{y+56}" text-anchor="end">ปิดภาคการศึกษา</text>
+    <text class="fa-hand" x="760" y="30" transform="rotate(-2 760 30)">same room, different reasons to show up</text>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">Five fixed points every term. Everything else, office hours, study groups, is whenever a room and a problem are both free.</span>
+    <span class="l-th">ห้าจุดตายตัวในทุกภาคการศึกษา ส่วนที่เหลือ เช่น office hours หรือกลุ่มติว เกิดขึ้นเมื่อไหร่ก็ได้ที่ห้องและโจทย์ว่างพร้อมกัน</span>
+  </div>
+</div>"""
+    return (f'<section class="section"><div class="container">'
+            f'{head(bi("The term", "หนึ่งภาคการศึกษา"), bi("One line, five fixed points.", "หนึ่งเส้น ห้าจุดตายตัว"))}'
+            f'{svg}</div></section>')
+
+def event_card(i, ev, chevron):
+    d = f"ev-msg-{i}"
+    form = f"""<form onsubmit="event.preventDefault();this.querySelector('.{d}').textContent=(document.documentElement.getAttribute('data-lang')==='th'?'ลงทะเบียนแล้วครับ ระบบสาธิต เชื่อมต่อฟอร์มจริงก่อนเปิดใช้':'Registered. Demo form, wire it to a real list before launch.');">
+      <div class="field"><label>{bi("Name", "ชื่อ")}</label><input type="text" required {ph('Your name', 'ชื่อของคุณ')}/></div>
+      <div class="field"><label>{bi("Email", "อีเมล")}</label><input type="email" required placeholder="you@hospital.org"/></div>
+      <div class="{d}" style="color:var(--accent);font-size:.85rem;min-height:1em"></div>
+      <div class="btn-row mt3"><button class="btn btn--grad" type="submit">{bi("Register", "ลงทะเบียน")}</button></div>
+    </form>"""
+    return f"""
+<details class="evt reveal">
+  <summary>
+    <span class="evt__when"><span class="l-en">{ev['week'][0]}</span><span class="l-th">{ev['week'][1]}</span></span>
+    <span class="evt__title">{bi(*ev['title'])}</span>
+    <span class="evt__fmt">{bi(*ev['fmt'])}</span>
+    <span class="evt__toggle">{chevron}</span>
+  </summary>
+  <div class="evt__body">
+    <p>{bi(*ev['desc'])}</p>
+    <p class="muted" style="font-size:.85rem">{bi("Who it's for:", "เหมาะสำหรับ:")} {bi(*ev['who'])}</p>
+    {form}
+  </div>
+</details>"""
+
+def events(prefix, ctx):
+    I = ctx["ICON"]
+    hero = f"""
+<section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
+  {note_hand("same room, every term", "ห้องเดิม ทุกภาคการศึกษา")}
+  <span class="eyebrow reveal">{bi("Events", "กิจกรรม")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:16ch">{bi("Where the club meets in person.", "ที่ที่ชมรมพบกันตัวเป็นๆ")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("Five fixed points a term, open to whoever they say they are open to. View the details, register, show up.", "ห้าจุดตายตัวในแต่ละภาคการศึกษา เปิดให้ตรงตามที่ระบุไว้ ดูรายละเอียด ลงทะเบียน แล้วมาเจอกัน")}</p>
+</div></section>"""
+
+    timeline = events_timeline(prefix)
+
+    list_sec = sec(
+        head(bi("This term", "ภาคการศึกษานี้"), bi("View details, then register.", "ดูรายละเอียด แล้วลงทะเบียน")) +
+        '<div class="evt-list">' +
+        "".join(event_card(i, ev, I["chevron"]) for i, ev in enumerate(EVENTS)) +
+        '</div>' +
+        f'<p class="muted mt4 reveal" style="font-size:.82rem">{bi("Illustrative schedule. Real dates publish once the first cohort starts.", "ตารางเป็นตัวอย่าง วันที่จริงจะประกาศเมื่อรุ่นแรกเริ่มเรียน")}</p>')
+
+    cta = sec(
+        f'<div class="band reveal"><div class="band__glow"></div><div class="container" style="padding-block:clamp(3rem,6vw,5rem)">'
+        f'<h2 style="color:#fff;max-width:20ch">{bi("Want to propose or host an event?", "อยากเสนอหรือจัดกิจกรรมไหม?")}</h2>'
+        f'<div class="btn-row" style="margin-top:2rem"><a class="btn btn--grad" href="{prefix}contact.html">{bi("Talk to us", "คุยกับเรา")} {I["arrow"]}</a></div>'
+        f'</div></div>')
+
+    return hero + timeline + list_sec + cta
+
+# ===========================================================================
 # CAREERS
 # ===========================================================================
 def careers(prefix, ctx):
@@ -2409,6 +2541,7 @@ MARKETING = [
     ("insights/index.html", "Insights - DHA Club", "insights/index.html", insights_index),
     ("insights/digital-health-workforce-readiness.html", "What it takes to build Thailand's digital health workforce - Insights", "insights/index.html", insight_research_article),
     ("news/index.html", "News - DHA Club", "news/index.html", news_index),
+    ("events.html", "Events - DHA Club", "events.html", events),
     ("careers.html", "Careers - DHA Club", "careers.html", careers),
     ("contact.html", "Contact - DHA Club", "", contact),
     ("signin.html", "Sign in - DHA Club", "", signin),

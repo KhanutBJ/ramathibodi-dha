@@ -1113,6 +1113,34 @@ strong { color: var(--ink); font-weight: 600; }
 .tt-lab { font-family: var(--font-mono); font-size: 13px; font-weight: 500; fill: var(--ink-soft); letter-spacing: .01em; }
 [data-lang="th"] .tt-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 13.5px; }
 
+/* Events term-timeline motif: one line, five waypoints alternating above
+   and below so labels never collide. */
+.ev-line { fill: none; stroke: url(#ev-grad); stroke-width: 2.4; stroke-linecap: round; }
+.ev-tie { stroke: currentColor; stroke-width: 1.3; opacity: .4; }
+.ev-node { fill: var(--card); stroke: url(#ev-grad); stroke-width: 2; }
+.ev-num { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--ink); }
+.ev-week { font-family: var(--font-mono); font-size: 11.5px; fill: var(--ink-faint); letter-spacing: .04em; }
+.ev-title { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; fill: var(--ink); }
+[data-lang="th"] .ev-week { font-family: "Noto Sans Thai", sans-serif; }
+[data-lang="th"] .ev-title { font-family: "Noto Sans Thai", sans-serif; font-size: 14px; }
+
+/* Events accordion: view details, then register, inline. */
+.evt-list { display: flex; flex-direction: column; gap: .7rem; margin-top: 1.5rem; }
+.evt { border: 1px solid var(--line); border-radius: 16px; background: var(--card); overflow: hidden; }
+.evt summary {
+  list-style: none; cursor: pointer; padding: 1.1rem 1.3rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.evt summary::-webkit-details-marker { display: none; }
+.evt__when { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-faint); letter-spacing: .04em; min-width: 5.5rem; }
+.evt__title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; flex: 1; min-width: 12rem; }
+.evt__fmt { font-size: .85rem; color: var(--ink-soft); }
+.evt__toggle { display: grid; place-items: center; transition: transform .2s var(--ease); flex-shrink: 0; }
+.evt[open] .evt__toggle { transform: rotate(180deg); }
+.evt__body { padding: 0 1.3rem 1.3rem; border-top: 1px solid var(--line-soft); }
+.evt__body p { margin-top: 1rem; }
+.evt__body form { max-width: 26rem; margin-top: 1rem; }
+
 /* ---- Research article extras: inline citations + references list -------- */
 .cite { font-family: var(--font-mono); font-size: 0.78em; color: var(--accent); text-decoration: none; vertical-align: super; }
 .cite:hover { text-decoration: underline; }

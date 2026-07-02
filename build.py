@@ -66,6 +66,7 @@ NAV = [
     ]),
     ("Insights", "บทความ", "insights/index.html", None),
     ("News", "ข่าวสาร", "news/index.html", None),
+    ("Events", "กิจกรรม", "events.html", None),
     ("Team", "ทีมงาน", "team.html", None),
 ]
 
@@ -229,6 +230,7 @@ def footer(prefix):
             (("Think Tank", "คลังสมอง"), "think-tank.html"),
             (("Insights", "บทความ"), "insights/index.html"),
             (("News", "ข่าวสาร"), "news/index.html"),
+            (("Events", "กิจกรรม"), "events.html"),
             (("Team", "ทีมงาน"), "team.html"),
             (("Annual Report", "รายงานประจำปี"), "annual-report.html"),
             (("Publications", "ผลงานตีพิมพ์"), "fellowship/publications.html"),

@@ -1082,6 +1082,26 @@ strong { color: var(--ink); font-weight: 600; }
 .fo-lab { font-family: var(--font-mono); font-size: 13px; fill: var(--ink-soft); letter-spacing: .02em; }
 [data-lang="th"] .fo-lab { font-family: "Noto Sans Thai", sans-serif; }
 
+/* Fellowship hub motif: one fellow at the centre, four illustrated spokes. */
+.fh-spoke {
+  stroke: var(--ink-faint); stroke-width: 1.6; stroke-linecap: round; opacity: .5;
+  stroke-dasharray: 160; stroke-dashoffset: 160; animation: fh-draw 1s var(--ease) forwards;
+}
+.fh-node { fill: var(--card); stroke: url(#fh-grad); stroke-width: 2; }
+.fh-icon { color: var(--accent); }
+.fh-centre { fill: url(#fh-grad); stroke: none; }
+.fh-centre-lab { font-family: var(--font-display); font-weight: 700; font-size: 14px; fill: #fff; text-anchor: middle; }
+.fh-lab { font-family: var(--font-editorial); font-weight: 600; font-size: 15px; fill: var(--ink); }
+[data-lang="th"] .fh-lab { font-family: "Noto Serif Thai", serif; }
+@keyframes fh-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .fh-spoke { animation: none; stroke-dashoffset: 0; } }
+.fh-captions { display: grid; grid-template-columns: 1fr; gap: var(--s3); }
+@media (min-width: 640px) { .fh-captions { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .fh-captions { grid-template-columns: repeat(4, 1fr); } }
+.fh-caption { border-top: 3px solid; padding-top: .9rem; }
+.fh-caption h4 { font-size: 1.02rem; }
+.fh-caption p { margin-top: .35rem; font-size: .88rem; color: var(--ink-soft); }
+
 /* Platform ecosystem motif: a builder at the centre, six stations on spokes. */
 .pe-spoke { stroke: currentColor; stroke-width: 1.6; opacity: .28; }
 .pe-node { fill: var(--card); stroke: var(--accent); stroke-width: 2; opacity: .85; }

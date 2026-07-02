@@ -947,6 +947,58 @@ def fellowship_orbit(prefix):
             f'{head(bi("The year", "หนึ่งปี"), bi("One loop, four waypoints.", "หนึ่งวงจร สี่จุดพัก"))}'
             f'{svg}</div></section>')
 
+def fellowship_hub(icons):
+    """What a fellow gets, as a hub: one fellow at the centre, four spokes
+    reaching the things that actually surround them. Distinct shape from
+    the orbit above it (a closed loop, the year) and from every other
+    diagram: this is the only radial hub on the site, four short reaches
+    from one point rather than a path or a cycle."""
+    cx, cy, r = 340, 200, 132
+    import math
+    items = [
+        (0, "flask", ("A real problem", "โจทย์จริง"), ("A live clinical question a department actually wants solved, not a toy dataset.", "คำถามคลินิกจริงที่หน่วยงานอยากแก้จริง ไม่ใช่ dataset ของเล่น")),
+        (1, "users", ("Mentorship", "การเป็นเมนเทอร์"), ("A clinician and an engineer in your corner, plus a cohort building alongside you.", "แพทย์และวิศวกรอยู่ข้างคุณ พร้อมเพื่อนร่วมรุ่นที่สร้างไปด้วยกัน")),
+        (2, "shield", ("Supervised data", "ข้อมูลที่มีการกำกับ"), ("Governed access to clinical data, with privacy and evaluation handled the right way.", "การเข้าถึงข้อมูลคลินิกที่มีการกำกับ พร้อมจัดการความเป็นส่วนตัวและการประเมินอย่างถูกวิธี")),
+        (3, "rocket", ("A route to scale", "เส้นทางสู่การขยายผล"), ("If your work deserves it, the venture studio helps it become a product with a regulatory path.", "หากงานของคุณคู่ควร เวนเจอร์สตูดิโอช่วยให้มันเป็นผลิตภัณฑ์พร้อมเส้นทางกฎระเบียบ")),
+    ]
+    colors = ["#2a1bd6", "#91386e", "#c14e3b", "#fd6502"]
+    spokes, nodes, labels, captions = "", "", "", ""
+    for i, icon, (t_en, t_th), (d_en, d_th) in items:
+        a = -math.pi / 2 + i * (math.pi / 2)
+        x, y = cx + r * math.cos(a), cy + r * math.sin(a)
+        lab_y = y - 44 if y < cy else y + 56
+        spokes += f'<line class="fh-spoke" x1="{cx}" y1="{cy}" x2="{x:.0f}" y2="{y:.0f}" style="animation-delay:{i*0.12:.2f}s"/>'
+        nodes += f'<circle class="fh-node" cx="{x:.0f}" cy="{y:.0f}" r="30"/>{icons[icon]}'.replace(
+            '<svg', f'<svg x="{x-11:.0f}" y="{y-11:.0f}" width="22" height="22" class="fh-icon"', 1)
+        labels += (f'<text class="l-en fh-lab" x="{x:.0f}" y="{lab_y:.0f}" text-anchor="middle">{t_en}</text>'
+                   f'<text class="l-th fh-lab" x="{x:.0f}" y="{lab_y:.0f}" text-anchor="middle">{t_th}</text>')
+        captions += (f'<div class="fh-caption" style="border-top-color:{colors[i]}">'
+                     f'<h4>{bi(t_en, t_th)}</h4><p>{bi(d_en, d_th)}</p></div>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 680 460" role="img" aria-label="A fellow at the centre, with four spokes reaching a real problem, mentorship, supervised data, and a route to scale" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch-hub" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="2" seed="31" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+      </filter>
+      <radialGradient id="fh-grad" cx="50%" cy="50%" r="60%">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.55" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </radialGradient>
+    </defs>
+    <g filter="url(#sketch-hub)">
+      {spokes}
+      {nodes}
+      <circle class="fh-centre" cx="{cx}" cy="{cy}" r="34"/>
+    </g>
+    <text class="l-en fh-centre-lab" x="{cx}" y="{cy+5}" text-anchor="middle">You</text>
+    <text class="l-th fh-centre-lab" x="{cx}" y="{cy+5}" text-anchor="middle">คุณ</text>
+    {labels}
+  </svg>
+</div>
+<div class="fh-captions reveal mt4">{captions}</div>"""
+    return svg
+
 def competency_spine():
     """Workforce archetypes, redrawn as a hand-sketch staircase: five
     ascending steps, one gradient stop each, climbing left to right. Not our
@@ -1162,12 +1214,7 @@ def fellowship(prefix, ctx):
 
     pillars = sec(
         head(bi("What a fellow gets", "เฟลโลว์ได้อะไร"), bi("Everything you need to do real work.", "ทุกอย่างที่คุณต้องมีเพื่อทำงานจริง")) +
-        '<div class="grid grid-2">' +
-        ctx['card']('flask', bi('A real problem', 'โจทย์จริง'), bi('You are matched to a live clinical question that a department actually wants solved, not a toy dataset.', 'คุณถูกจับคู่กับคำถามคลินิกจริงที่หน่วยงานอยากแก้จริง ไม่ใช่ dataset ของเล่น'), None, '', prefix) +
-        ctx['card']('users', bi('Mentorship', 'การเป็นเมนเทอร์'), bi('A clinician and an engineer in your corner, plus a cohort building alongside you.', 'แพทย์และวิศวกรอยู่ข้างคุณ พร้อมเพื่อนร่วมรุ่นที่สร้างไปด้วยกัน'), None, '', prefix) +
-        ctx['card']('shield', bi('Supervised data', 'ข้อมูลที่มีการกำกับ'), bi('Governed access to clinical data, with privacy and evaluation handled the right way.', 'การเข้าถึงข้อมูลคลินิกที่มีการกำกับ พร้อมจัดการความเป็นส่วนตัวและการประเมินอย่างถูกวิธี'), None, '', prefix) +
-        ctx['card']('rocket', bi('A route to scale', 'เส้นทางสู่การขยายผล'), bi('If your work deserves it, the venture studio helps it become a product with a regulatory path.', 'หากงานของคุณคู่ควร เวนเจอร์สตูดิโอช่วยให้มันเป็นผลิตภัณฑ์พร้อมเส้นทางกฎระเบียบ'), None, '', prefix) +
-        '</div>')
+        fellowship_hub(I))
 
     tracks = sec(
         head(bi("Tracks", "แทร็ก"), bi("Pick the work, not just the topic.", "เลือกที่งาน ไม่ใช่แค่หัวข้อ")) +

@@ -296,7 +296,7 @@ strong { color: var(--ink); font-weight: 600; }
    standing in for the noise a card grid would add. Same elements as the
    left-aligned hero, only the arrangement changes. */
 .hero--centered { padding-top: clamp(6rem, 13vw, 10rem); padding-bottom: clamp(5rem, 10vw, 8rem); }
-.hero--centered .hero__inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.hero--centered .hero__inner { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
 .hero--centered h1 { max-width: 17ch; margin-inline: auto; }
 .hero--centered .lead { margin-inline: auto; }
 .hero__meta--divided {
@@ -308,12 +308,14 @@ strong { color: var(--ink); font-weight: 600; }
 /* Editorial hero: a masthead line, a book-style drop cap, and a footnote,
    so the page opens like a journal or a title page, not a landing page. */
 .hero__masthead {
+  display: flex; align-items: center; justify-content: center; gap: .65rem;
   font-family: var(--font-mono); font-size: .74rem; letter-spacing: .14em;
   text-transform: uppercase; color: var(--ink-faint);
   padding-block: .6rem; margin-bottom: var(--s4);
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  width: 100%; max-width: 30ch;
+  width: 100%; max-width: 34ch;
 }
+.hero__ornament { font-size: .55rem; color: var(--accent); opacity: .75; line-height: 1; }
 .hero--editorial h1 .l-en::first-letter {
   font-size: 1.5em; font-family: var(--font-editorial); font-weight: 600; line-height: 1;
 }
@@ -326,6 +328,33 @@ strong { color: var(--ink); font-weight: 600; }
   color: var(--ink-faint); max-width: 46ch; margin-inline: auto; margin-top: var(--s3);
 }
 [data-lang="th"] .hero__footnote { font-family: "Noto Serif Thai", serif; font-style: normal; }
+
+/* Khlang (ขลัง) treatment: a seal in place of a corner
+   ornament, a fine grain texture instead of a flat gradient glow, and a
+   vignette that draws the eye to the centre, the way an inscription or a
+   proclamation is lit, not a product screen. */
+.hero__seal { margin-bottom: var(--s5); }
+.hero__seal .hero-line {
+  position: static; transform: none; width: 72px; height: auto; opacity: .92;
+}
+.hero__seal .hero-line__path { animation-duration: 2.2s; }
+.hero__grain {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] .hero__grain { opacity: .09; mix-blend-mode: overlay; }
+.hero--khlang .hero__glow {
+  background:
+    radial-gradient(40rem 28rem at 78% -8%, rgba(52,18,209,.16), transparent 60%),
+    radial-gradient(34rem 26rem at 8% 6%, rgba(247,98,5,.10), transparent 58%),
+    radial-gradient(130% 95% at 50% 45%, transparent 50%, rgba(0,0,0,.05) 100%);
+}
+[data-theme="dark"] .hero--khlang .hero__glow {
+  background:
+    radial-gradient(40rem 28rem at 78% -8%, rgba(52,18,209,.24), transparent 60%),
+    radial-gradient(34rem 26rem at 8% 6%, rgba(247,98,5,.15), transparent 58%),
+    radial-gradient(130% 95% at 50% 45%, transparent 45%, rgba(0,0,0,.4) 100%);
+}
 
 /* ---- Stats ---------------------------------------------------------------- */
 .stat__num { font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); letter-spacing: -0.03em; line-height: 1; }

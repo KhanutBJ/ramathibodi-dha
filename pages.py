@@ -1387,8 +1387,11 @@ readiness. We should eventually be able to answer that question too.</li>
 <h2>Where we already stand</h2>
 <p>Checked against this evidence, more of the club&#39;s existing shape holds up
 than we expected. The Fluency, Builder, Strategist, Steward progression in
-the Academy is close to a direct match for OECD&#39;s tiered skill model and
-Australia&#39;s Three Horizons.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r5">[5]</a> Teaching AI and
+the Academy is close to a direct match for OECD&#39;s tiered skill model,
+Australia&#39;s Three Horizons, and the role-archetype structure (Users,
+Embedders, Creators, Drivers, Shapers) that England&#39;s national AI and
+Digital Healthcare Technologies Capability Framework uses to badge its own
+195 capability statements.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r5">[5]</a><a class="cite" href="#r8">[8]</a> Teaching AI and
 agentic systems as core courses, not electives, answers a gap the
 literature itself documents rather than assumes.<a class="cite" href="#r3">[3]</a> A model
 report-card tool that always shows the denominator, the confidence
@@ -1412,7 +1415,9 @@ twenty-year national strategic plan for public health that embeds digital
 skills.<a class="cite" href="#r4">[4]</a> Neither is named anywhere on this site.</li>
 <li><strong>The workforce is bigger than builders.</strong> Digital Champions,
 leadership, and administrative roles are named parts of the workforce in
-the literature.<a class="cite" href="#r5">[5]</a><a class="cite" href="#r2">[2]</a> Nursing and allied health sit entirely
+the literature, and England&#39;s framework gives management, leadership, and
+planning their own domain (Human Factors) alongside the technical
+ones.<a class="cite" href="#r5">[5]</a><a class="cite" href="#r2">[2]</a><a class="cite" href="#r8">[8]</a> Nursing and allied health sit entirely
 outside our current scope.</li>
 <li><strong>No rural or equity programme.</strong> Australia&#39;s answer to an
 uneven distribution problem is Rural Health Pro, a dedicated rural
@@ -1463,6 +1468,9 @@ Digital Health Capability Action Plan. Australian Government, 2021.</li>
 <li id="r7"><strong>Australian Digital Health Agency.</strong> A Snapshot of
 the National Digital Health Workforce and Education Roadmap. Australian
 Government, September 2020.</li>
+<li id="r8"><strong>Health Education England / University of Manchester.</strong>
+AI and Digital Healthcare Technologies Capability Framework. NHS England
+Digital Transformation, 2023.</li>
 </ol>
 <p class="muted" style="font-size:.85rem;margin-top:1rem">Figures and findings
 are drawn directly from the cited documents, with page references retained

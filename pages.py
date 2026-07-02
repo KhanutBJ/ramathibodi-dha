@@ -1359,22 +1359,27 @@ def insight_article(slug):
     return fn
 
 def insight_research_article(prefix, ctx):
-    """A research synthesis, not a field note: seven international sources
-    (WHO, OECD, JMIR, APEC, and Australia's national digital health trilogy)
-    read in full and distilled into what the evidence says a country needs
-    to build a digital health workforce, honestly checked against what this
-    club already does and does not yet have. Kept in English in the body,
-    like the curriculum, with the shell bilingual; the citation density
-    makes a full Thai pass a follow-up, not a first draft."""
+    """A research synthesis, not a field note: ten international sources
+    (WHO, OECD, JMIR, APEC, Australia's national digital health trilogy,
+    England's AI capability framework, and two further NHS reports on
+    clinician confidence in AI and on digital mental health) read in full
+    and distilled into what the evidence says a country needs to build a
+    digital health workforce, honestly checked against what this club
+    already does and does not yet have. Kept in English in the body, like
+    the curriculum, with the shell bilingual; the citation density makes a
+    full Thai pass a follow-up, not a first draft."""
     body = """
-<p>Seven documents. Roughly three hundred and fifteen pages. The World Health
+<p>Ten documents. Roughly four hundred and fifty pages. The World Health
 Organization&#39;s global digital health strategy, an OECD workforce report, a
 scoping review of thirty competency frameworks, an APEC workshop that
-includes Thailand&#39;s own delegate submission, and Australia&#39;s national
-digital health strategy, capability action plan, and workforce snapshot. Read
-together, they agree on more than you would expect, and they disagree with
-parts of how this club talks about itself. Both are useful. This is the
-honest version.</p>
+includes Thailand&#39;s own delegate submission, Australia&#39;s national
+digital health strategy, capability action plan, and workforce snapshot,
+England&#39;s AI and Digital Healthcare Technologies Capability Framework, and
+two further NHS reports: one asking what actually makes a clinician trust
+an AI system, the other asking the same question specifically for mental
+health. Read together, they agree on more than you would expect, and they
+disagree with parts of how this club talks about itself. Both are useful.
+This is the honest version.</p>
 
 <h2>The four layers every source agrees on</h2>
 <p>Strip away the differences in country and format, and building a digital
@@ -1392,7 +1397,7 @@ people have somewhere to land, and an honest look at who gets left out by
 geography.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r4">[4]</a></li>
 </ol>
 
-<h2>Seven insights that changed how we think about this</h2>
+<h2>Nine insights that changed how we think about this</h2>
 <ol>
 <li><strong>The real shortage is hybrids, not specialists.</strong> OECD&#39;s
 clinician-leader-technologist tier, Australia&#39;s &quot;Clinical and Technology
@@ -1427,6 +1432,19 @@ and Australia&#39;s capability plan all frame this explicitly as cross-sector
 work.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r2">[2]</a><a class="cite" href="#r6">[6]</a> A single hospital-based club
 claiming to close a national gap by itself would be a bigger claim than the
 evidence supports.</li>
+<li><strong>Confidence is not trust, and more of it is not always the goal.</strong>
+The NHS AI Lab and HEE distinguish trust (binary, placed in a system) from
+confidence (continuous, held in a specific output) and argue that high
+confidence in a given AI prediction is not always desirable: sometimes the
+right response to a model is doubt, not deference.<a class="cite" href="#r9">[9]</a> Teaching
+calibration, the gap between predicted risk and what actually happens, is
+teaching this skill directly, not just teaching statistics.</li>
+<li><strong>Even a well-resourced system found its own workforce unprepared.</strong>
+A 2017 survey of over a thousand UK GPs found that ninety-two percent had
+received no training in digital mental health tools, or did not know if
+they had, despite two-thirds already using one.<a class="cite" href="#r10">[10]</a> The gap this
+club exists to close is not a Thailand-specific failure. It shows up even
+where the money and the mandate already existed.</li>
 </ol>
 
 <h2>Seven principles we are building to</h2>
@@ -1451,17 +1469,20 @@ readiness. We should eventually be able to answer that question too.</li>
 
 <h2>Where we already stand</h2>
 <p>Checked against this evidence, more of the club&#39;s existing shape holds up
-than we expected. The Fluency, Builder, Strategist, Steward progression in
-the Academy is close to a direct match for OECD&#39;s tiered skill model,
-Australia&#39;s Three Horizons, and the role-archetype structure (Users,
+than we expected. We do not just echo the role-archetype structure (Users,
 Embedders, Creators, Drivers, Shapers) that England&#39;s national AI and
 Digital Healthcare Technologies Capability Framework uses to badge its own
-195 capability statements.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r5">[5]</a><a class="cite" href="#r8">[8]</a> Teaching AI and
+195 capability statements, we teach it directly, the same five roles, the
+same explicit reminder that they are not job titles and not mutually
+exclusive.<a class="cite" href="#r8">[8]</a> Teaching AI and
 agentic systems as core courses, not electives, answers a gap the
 literature itself documents rather than assumes.<a class="cite" href="#r3">[3]</a> A model
 report-card tool that always shows the denominator, the confidence
 interval, and subgroup performance is a working answer to what OECD and WHO
-both only recommend in the abstract.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r2">[2]</a> The Thai
+both only recommend in the abstract.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r2">[2]</a> Teaching calibration
+explicitly, the gap between a model&#39;s predicted risk and what actually
+happens, is a concrete answer to the NHS AI Lab&#39;s more abstract call to
+train clinicians in appropriate, not maximal, confidence.<a class="cite" href="#r9">[9]</a> The Thai
 clinical de-identifier and the Thai guideline assistant answer WHO&#39;s call to
 adapt global standards to local language and context, in the same spirit as
 Thailand&#39;s own precedents like Thai Chana and Mor Dee.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r4">[4]</a></p>
@@ -1495,6 +1516,13 @@ capacity.</li>
 <li><strong>No role in setting national interoperability standards.</strong> We
 teach FHIR. We are not yet connected to whoever sets Thailand&#39;s actual data
 standards.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r5">[5]</a></li>
+<li><strong>Mental health has no companion of its own.</strong> The NHS thought
+digital mental health important enough to commission a dedicated companion
+report to its main workforce review, asking what changes when the patient
+and the AI are both dealing with something as hard to measure as a
+mind.<a class="cite" href="#r10">[10]</a> Our curriculum has no equivalent depth for psychiatry
+or mental health specifically, it is folded into the general clinical
+domains like everything else.</li>
 </ol>
 
 <blockquote>The gap is people, but our job is to manufacture proof, not just people.</blockquote>
@@ -1536,6 +1564,12 @@ Government, September 2020.</li>
 <li id="r8"><strong>Health Education England / University of Manchester.</strong>
 AI and Digital Healthcare Technologies Capability Framework. NHS England
 Digital Transformation, 2023.</li>
+<li id="r9"><strong>NHS AI Lab &amp; Health Education England.</strong>
+Understanding Healthcare Workers&#39; Confidence in AI (Report 1 of 2). NHS AI
+Lab, May 2022.</li>
+<li id="r10"><strong>Foley, T. &amp; Woollard, J.</strong> The Digital Future of
+Mental Healthcare and Its Workforce: A Report on a Mental Health Stakeholder
+Engagement to Inform the Topol Review. Health Education England, 2019.</li>
 </ol>
 <p class="muted" style="font-size:.85rem;margin-top:1rem">Figures and findings
 are drawn directly from the cited documents, with page references retained
@@ -1550,7 +1584,7 @@ now, given the density of citation; a Thai pass follows.</p>
     <div style="max-width:70ch">
       <span class="eyebrow reveal">{bi("Research synthesis", "สังเคราะห์งานวิจัย")}</span>
       <h1 class="reveal mt3" data-d="1">{bi("What it takes to build Thailand&#39;s digital health workforce.", "สิ่งที่ต้องมีเพื่อสร้างกำลังคนสุขภาพดิจิทัลของไทย")}</h1>
-      <p class="lead reveal mt3" data-d="2">{bi("Seven international sources, read in full, checked honestly against what this club already has and does not.", "เจ็ดแหล่งข้อมูลระดับนานาชาติ อ่านครบทุกหน้า และตรวจสอบอย่างตรงไปตรงมากับสิ่งที่ชมรมนี้มีและยังไม่มี")}</p>
+      <p class="lead reveal mt3" data-d="2">{bi("Ten international sources, read in full, checked honestly against what this club already has and does not.", "สิบแหล่งข้อมูลระดับนานาชาติ อ่านครบทุกหน้า และตรวจสอบอย่างตรงไปตรงมากับสิ่งที่ชมรมนี้มีและยังไม่มี")}</p>
     </div>
     {frame(bi("Research synthesis", "สังเคราะห์งานวิจัย"), "ratio-16x9", "b", "analytics.jpg", prefix)}
     <article class="prose reveal" style="margin-top:2.5rem">{body}</article>

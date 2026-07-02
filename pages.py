@@ -1257,6 +1257,8 @@ def insights_index(prefix, ctx):
     tone = ["b", "a", "c"]
     for i, (slug, art) in enumerate(INSIGHT_ARTICLES.items()):
         cards += entry(art["meta"], art["title"], "", prefix + f"insights/{slug}.html", tone[i % 3])
+    cards += entry(bi("Research", "งานวิจัย"), bi("What it takes to build Thailand's digital health workforce", "สิ่งที่ต้องมีเพื่อสร้างกำลังคนสุขภาพดิจิทัลของไทย"), "",
+                    prefix + "insights/digital-health-workforce-readiness.html", "a", "analytics.jpg", prefix)
     feat = sec('<div class="grid grid-3">' + cards + '</div>')
     news = sec(
         head(bi("From the newsroom", "จากห้องข่าว"), bi("Announcements and milestones.", "ประกาศและก้าวสำคัญ")) +
@@ -1288,6 +1290,198 @@ def insight_article(slug):
   </div>
 </section>"""
     return fn
+
+def insight_research_article(prefix, ctx):
+    """A research synthesis, not a field note: seven international sources
+    (WHO, OECD, JMIR, APEC, and Australia's national digital health trilogy)
+    read in full and distilled into what the evidence says a country needs
+    to build a digital health workforce, honestly checked against what this
+    club already does and does not yet have. Kept in English in the body,
+    like the curriculum, with the shell bilingual; the citation density
+    makes a full Thai pass a follow-up, not a first draft."""
+    body = """
+<p>Seven documents. Roughly three hundred and fifteen pages. The World Health
+Organization&#39;s global digital health strategy, an OECD workforce report, a
+scoping review of thirty competency frameworks, an APEC workshop that
+includes Thailand&#39;s own delegate submission, and Australia&#39;s national
+digital health strategy, capability action plan, and workforce snapshot. Read
+together, they agree on more than you would expect, and they disagree with
+parts of how this club talks about itself. Both are useful. This is the
+honest version.</p>
+
+<h2>The four layers every source agrees on</h2>
+<p>Strip away the differences in country and format, and building a digital
+health workforce turns out to require the same four layers everywhere.</p>
+<ol>
+<li><strong>A competency framework</strong> that tiers skill by role, not a single
+list of things everyone must learn.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r5">[5]</a></li>
+<li><strong>A training pipeline</strong> embedded in core curricula, with real
+practice, not an elective bolted on the side.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r4">[4]</a></li>
+<li><strong>National infrastructure and governance</strong>: interoperability
+standards, data governance, AI regulation, a maturity-assessment tool, and a
+path to accreditation.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r5">[5]</a><a class="cite" href="#r6">[6]</a></li>
+<li><strong>Workforce-supply mechanics</strong>: funded career pathways so trained
+people have somewhere to land, and an honest look at who gets left out by
+geography.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r4">[4]</a></li>
+</ol>
+
+<h2>Seven insights that changed how we think about this</h2>
+<ol>
+<li><strong>The real shortage is hybrids, not specialists.</strong> OECD&#39;s
+clinician-leader-technologist tier, Australia&#39;s &quot;Clinical and Technology
+Bridging&quot; profile, and WHO&#39;s language of an &quot;intrinsically
+multidisciplinary&quot; workforce all converge on the same person: someone fluent
+in both clinical and technical worlds, not two specialists working
+alongside each other.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r5">[5]</a><a class="cite" href="#r1">[1]</a></li>
+<li><strong>Medicine is the field&#39;s own blind spot.</strong> Of thirty global
+competency frameworks reviewed, only four target medicine, against fourteen
+for nursing.<a class="cite" href="#r3">[3]</a> Training doctors specifically is not a
+niche choice. It fills a documented, worldwide gap.</li>
+<li><strong>There is no gold-standard AI curriculum to copy.</strong> The same
+review found AI and robotics competencies are the weakest part of nearly
+every existing framework.<a class="cite" href="#r3">[3]</a> There is no standard to fall
+behind on. There is one to help write.</li>
+<li><strong>Nobody has solved credentialing yet.</strong> An APEC survey of four
+economies, including Thailand, found none mandate a digital health
+credential.<a class="cite" href="#r4">[4]</a> This is an open frontier, not a deadline
+already missed.</li>
+<li><strong>Trust, not technology, is the ceiling.</strong> OECD estimates ten
+percent of patients are unnecessarily harmed because information does not
+reach the right person, and that the equivalent of eight percent of total
+OECD health spending is recoverable through better data and digital
+use.<a class="cite" href="#r2">[2]</a> The bottleneck is whether people and systems trust
+and correctly use what already works.</li>
+<li><strong>Thailand&#39;s own evidence names the shape of its problem.</strong>
+Thailand&#39;s delegate to the same APEC workshop cited a physician-to-population
+ratio of 576 to 1 in Bangkok against 1,700 to 1 nationally.<a class="cite" href="#r4">[4]</a>
+The geography question is not hypothetical.</li>
+<li><strong>Nobody expects one institution to do this alone.</strong> WHO, OECD,
+and Australia&#39;s capability plan all frame this explicitly as cross-sector
+work.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r2">[2]</a><a class="cite" href="#r6">[6]</a> A single hospital-based club
+claiming to close a national gap by itself would be a bigger claim than the
+evidence supports.</li>
+</ol>
+
+<h2>Seven principles we are building to</h2>
+<ol>
+<li>Optimise for the hybrid, not the specialist. Judge every course, project,
+and tool by whether it produces someone fluent in both worlds.</li>
+<li>Layer capability in horizons. Keep training now while the harder,
+systemic moves open in parallel, not as a blocker.</li>
+<li>Claim the frontier while it is open. Help define Thailand&#39;s standard
+rather than wait for one to arrive.</li>
+<li>Widen the workforce past the builder pipeline. Nurses, allied health, and
+administrators are part of the workforce the evidence describes, not an
+optional extension.</li>
+<li>Confront the map, not just the mission. A workforce claim that stays
+silent on geography repeats the pattern the data already shows.</li>
+<li>Partner for what requires institutional authority. Accreditation,
+national data governance, and standards-setting need backing no club can
+self-grant.</li>
+<li>Measure maturity, not just enrolment. The field&#39;s own tools track system
+readiness. We should eventually be able to answer that question too.</li>
+</ol>
+
+<h2>Where we already stand</h2>
+<p>Checked against this evidence, more of the club&#39;s existing shape holds up
+than we expected. The Fluency, Builder, Strategist, Steward progression in
+the Academy is close to a direct match for OECD&#39;s tiered skill model and
+Australia&#39;s Three Horizons.<a class="cite" href="#r2">[2]</a><a class="cite" href="#r5">[5]</a> Teaching AI and
+agentic systems as core courses, not electives, answers a gap the
+literature itself documents rather than assumes.<a class="cite" href="#r3">[3]</a> A model
+report-card tool that always shows the denominator, the confidence
+interval, and subgroup performance is a working answer to what OECD and WHO
+both only recommend in the abstract.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r2">[2]</a> The Thai
+clinical de-identifier and the Thai guideline assistant answer WHO&#39;s call to
+adapt global standards to local language and context, in the same spirit as
+Thailand&#39;s own precedents like Thai Chana and Mor Dee.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r4">[4]</a></p>
+
+<h2>The honest gaps</h2>
+<ol>
+<li><strong>No accreditation or CPD recognition.</strong> Self-assessment
+checklists are not the same as a credential that counts toward licensing or
+continuing education.<a class="cite" href="#r6">[6]</a></li>
+<li><strong>No maturity-assessment tool.</strong> WHO, Australia, and OECD each
+reference a maturity model for digital health readiness.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r6">[6]</a><a class="cite" href="#r2">[2]</a>
+No Thailand-specific version exists yet, and none is in our own tools.</li>
+<li><strong>No named link to Thailand&#39;s own digital-skills agency.</strong>
+Thailand already has DISDA, the Digital Skill Development Academy, and a
+twenty-year national strategic plan for public health that embeds digital
+skills.<a class="cite" href="#r4">[4]</a> Neither is named anywhere on this site.</li>
+<li><strong>The workforce is bigger than builders.</strong> Digital Champions,
+leadership, and administrative roles are named parts of the workforce in
+the literature.<a class="cite" href="#r5">[5]</a><a class="cite" href="#r2">[2]</a> Nursing and allied health sit entirely
+outside our current scope.</li>
+<li><strong>No rural or equity programme.</strong> Australia&#39;s answer to an
+uneven distribution problem is Rural Health Pro, a dedicated rural
+workforce hub.<a class="cite" href="#r7">[7]</a> We have not built an equivalent for Thailand&#39;s
+own documented disparity.</li>
+<li><strong>No workforce supply-and-demand link.</strong> Trained people need
+funded positions waiting for them or the pipeline breaks.<a class="cite" href="#r2">[2]</a> Our
+own Learning Navigator maps individual skill gaps, not hospital hiring
+capacity.</li>
+<li><strong>No role in setting national interoperability standards.</strong> We
+teach FHIR. We are not yet connected to whoever sets Thailand&#39;s actual data
+standards.<a class="cite" href="#r1">[1]</a><a class="cite" href="#r5">[5]</a></li>
+</ol>
+
+<blockquote>The gap is people, but our job is to manufacture proof, not just people.</blockquote>
+
+<h2>The vision</h2>
+<p>Standards, credentialing, funding, and distribution belong to national
+institutions: DISDA, the Ministry of Public Health, the Thai FDA, and the
+professional colleges. What a club inside one hospital can uniquely produce
+is credible, evaluated, real-world proof: a doctor who actually built
+something, a tool that actually worked on a ward, a governance habit that
+actually held under scrutiny. That proof is the raw material any serious
+national strategy needs and currently does not have. Every course, every
+fellowship project, and every tool here should be judged by whether it
+becomes evidence someone else, a ministry, a college, a funder, can point to
+and act on.</p>
+
+<h2>References</h2>
+<ol class="refs" style="margin-top:1.5rem">
+<li id="r1"><strong>World Health Organization.</strong> Global Strategy on
+Digital Health 2020&ndash;2025. Geneva: WHO, 2021. ISBN 978-92-4-002092-4.</li>
+<li id="r2"><strong>Socha-Dietrich, K. (OECD).</strong> Empowering the Health
+Workforce: Strategies to Make the Most of the Digital Revolution. Paris:
+OECD, 2020.</li>
+<li id="r3"><strong>Nazeha N, Pavagadhi D, Kyaw BM, Car J, Jimenez G, Tudor
+Car L.</strong> A Digitally Competent Health Workforce: Scoping Review of
+Educational Frameworks. Journal of Medical Internet Research,
+2020;22(11):e22706.</li>
+<li id="r4"><strong>APEC Human Resources Development Working Group.</strong>
+Empowering the Health Workforce through Digital Upskilling (Project Summary
+Report, APEC#223-HR-04.1). Prepared by Chinese Taipei for the APEC
+Secretariat, March 2023.</li>
+<li id="r5"><strong>Australian Digital Health Agency.</strong> National
+Digital Health Strategy 2023&ndash;2028. Australian Government, 2023.</li>
+<li id="r6"><strong>Australian Digital Health Agency.</strong> National
+Digital Health Capability Action Plan. Australian Government, 2021.</li>
+<li id="r7"><strong>Australian Digital Health Agency.</strong> A Snapshot of
+the National Digital Health Workforce and Education Roadmap. Australian
+Government, September 2020.</li>
+</ol>
+<p class="muted" style="font-size:.85rem;margin-top:1rem">Figures and findings
+are drawn directly from the cited documents, with page references retained
+in our internal research notes. This piece is written in English only for
+now, given the density of citation; a Thai pass follows.</p>
+"""
+    I = ctx["ICON"]
+    return f"""
+<section class="section">
+  <div class="container">
+    <div class="crumb"><a href="{prefix}insights/index.html">{bi("Insights", "บทความ")}</a> / {bi("Research", "งานวิจัย")}</div>
+    <div style="max-width:70ch">
+      <span class="eyebrow reveal">{bi("Research synthesis", "สังเคราะห์งานวิจัย")}</span>
+      <h1 class="reveal mt3" data-d="1">{bi("What it takes to build Thailand&#39;s digital health workforce.", "สิ่งที่ต้องมีเพื่อสร้างกำลังคนสุขภาพดิจิทัลของไทย")}</h1>
+      <p class="lead reveal mt3" data-d="2">{bi("Seven international sources, read in full, checked honestly against what this club already has and does not.", "เจ็ดแหล่งข้อมูลระดับนานาชาติ อ่านครบทุกหน้า และตรวจสอบอย่างตรงไปตรงมากับสิ่งที่ชมรมนี้มีและยังไม่มี")}</p>
+    </div>
+    {frame(bi("Research synthesis", "สังเคราะห์งานวิจัย"), "ratio-16x9", "b", "analytics.jpg", prefix)}
+    <article class="prose reveal" style="margin-top:2.5rem">{body}</article>
+    <div class="btn-row" style="margin-top:3rem"><a class="btn btn--ghost" href="{prefix}insights/index.html">{I['arrow']} {bi("All insights", "บทความทั้งหมด")}</a></div>
+  </div>
+</section>"""
 
 def news_index(prefix, ctx):
     hero = f"""
@@ -2068,6 +2262,7 @@ MARKETING = [
     ("fellowship/publications.html", "Publications - Fellowship", "fellowship.html", fellowship_publications),
     ("fellowship/faq.html", "FAQ - Fellowship", "fellowship.html", fellowship_faq),
     ("insights/index.html", "Insights - DHA Club", "insights/index.html", insights_index),
+    ("insights/digital-health-workforce-readiness.html", "What it takes to build Thailand's digital health workforce - Insights", "insights/index.html", insight_research_article),
     ("news/index.html", "News - DHA Club", "insights/index.html", news_index),
     ("careers.html", "Careers - DHA Club", "careers.html", careers),
     ("contact.html", "Contact - DHA Club", "", contact),

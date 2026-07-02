@@ -1044,3 +1044,11 @@ strong { color: var(--ink); font-weight: 600; }
 .tf-cap { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-faint); }
 [data-lang="th"] .tf-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 14px; }
 [data-lang="th"] .tf-cap { font-family: "Noto Sans Thai", sans-serif; font-size: 11px; }
+
+/* ---- Research article extras: inline citations + references list -------- */
+.cite { font-family: var(--font-mono); font-size: 0.78em; color: var(--accent); text-decoration: none; vertical-align: super; }
+.cite:hover { text-decoration: underline; }
+.prose .refs, .refs { list-style: none; padding-left: 0; counter-reset: refnum; }
+.prose .refs li, .refs li { position: relative; padding-left: 2.4rem; font-size: 0.92rem; color: var(--ink-soft); list-style: none; }
+.refs li::before { counter-increment: refnum; content: "[" counter(refnum) "]"; position: absolute; left: 0; font-family: var(--font-mono); color: var(--ink-faint); }
+.refs strong { color: var(--ink); }

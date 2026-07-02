@@ -243,18 +243,18 @@ def hero_line_art():
 def home(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
-<section class="hero">
+<section class="hero hero--centered">
   <div class="hero__glow"></div>
   {hero_line_art()}
-  <div class="container">
-    <span class="eyebrow reveal">Ramathibodi Digital Health &amp; AI Club</span>
+  <div class="container hero__inner">
+    <span class="eyebrow reveal center">Ramathibodi Digital Health &amp; AI Club</span>
     <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>
-    <p class="lead reveal measure" data-d="2">{bi("A student-led club, academy, and fellowship built inside one of Thailand's leading medical schools.", "ชมรมที่นำโดยนักศึกษา พร้อมอคาเดมีและเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
-    <div class="btn-row reveal" data-d="3">
+    <p class="lead reveal measure center" data-d="2">{bi("A student-led club, academy, and fellowship built inside one of Thailand's leading medical schools.", "ชมรมที่นำโดยนักศึกษา พร้อมอคาเดมีและเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
+    <div class="btn-row reveal" data-d="3" style="justify-content:center">
       <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Explore the Academy", "สำรวจอคาเดมี")} {I['arrow']}</a>
       <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Apply for the Fellowship", "สมัครเฟลโลว์ชิป")}</a>
     </div>
-    <div class="hero__meta">
+    <div class="hero__meta hero__meta--divided reveal" data-d="3">
       {ctx['stat']('<span class="gradient-text">AI + Medicine</span>', bi('One discipline, taught as one', 'สองศาสตร์ สอนเป็นหนึ่งเดียว'))}
       {ctx['stat'](bi('Idea to bedside', 'ไอเดียสู่ข้างเตียง'), bi('Build under clinical supervision', 'สร้างงานภายใต้การกำกับทางคลินิก'))}
       {ctx['stat'](bi('Open + selective', 'เปิดกว้าง + คัดสรร'), bi('Academy for all, Fellowship for few', 'อคาเดมีเพื่อทุกคน เฟลโลว์ชิปเพื่อคนที่ใช่'))}

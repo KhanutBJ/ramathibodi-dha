@@ -889,6 +889,18 @@ strong { color: var(--ink); font-weight: 600; }
 .spine-title { font-family: var(--font-editorial); font-optical-sizing: auto; font-weight: 600; font-size: 22px; fill: var(--ink); }
 [data-lang="th"] .spine-title { font-family: "Noto Serif Thai", serif; font-size: 18px; }
 .spine-dot { fill: var(--ink); opacity: .5; }
+.spine-ridge {
+  stroke: url(#spine-grad); stroke-width: 2.4; stroke-linecap: round;
+  stroke-dasharray: 1100; stroke-dashoffset: 1100; animation: spine-draw 1.8s var(--ease) .3s forwards;
+}
+.spine-ridge__spark {
+  fill: url(#spine-grad); opacity: 0; animation: vd-fade .5s ease 2s forwards;
+}
+@keyframes spine-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .spine-ridge { animation: none; stroke-dashoffset: 0; }
+  .spine-ridge__spark { animation: none; opacity: 1; }
+}
 .spine-captions { display: grid; grid-template-columns: 1fr; gap: var(--s3); }
 @media (min-width: 640px) { .spine-captions { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 980px) { .spine-captions { grid-template-columns: repeat(5, 1fr); } }

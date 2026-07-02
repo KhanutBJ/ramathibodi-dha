@@ -970,39 +970,74 @@ def competency_spine():
         ("#c14e3b", "IV", ("Driver", "ผู้ขับเคลื่อน"), bi("Lead adoption and set strategy for a department or region.", "นำการนำไปใช้ และกำหนดกลยุทธ์ระดับหน่วยงานหรือภูมิภาค")),
         ("#fd6502", "V", ("Shaper", "ผู้กำหนดทิศทาง"), bi("Set the national policy and standards everyone else follows.", "กำหนดนโยบายและมาตรฐานระดับชาติที่คนอื่นต้องทำตาม")),
     ]
+    # A hand-drawn glyph per role, small enough to sit beside the numeral:
+    # an eye (User, watching and using), a fitted diamond (Embedder, setting
+    # a piece into place), a spark (Creator, making), a rising arrow
+    # (Driver, steering momentum), a flag (Shaper, planting the direction).
+    def glyph(kind, cx, cy, color):
+        s = f'<g transform="translate({cx} {cy})" stroke="{color}" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+        if kind == "eye":
+            s += '<path d="M-10 0 Q0 -8 10 0 Q0 8 -10 0 Z"/><circle r="2.6" fill="' + color + '" stroke="none"/>'
+        elif kind == "diamond":
+            s += '<path d="M0 -10 L9 0 L0 10 L-9 0 Z"/><circle r="2.2" fill="' + color + '" stroke="none"/>'
+        elif kind == "spark":
+            s += '<path d="M0 -11 L0 11 M-11 0 L11 0 M-7.5 -7.5 L7.5 7.5 M-7.5 7.5 L7.5 -7.5"/>'
+        elif kind == "arrow":
+            s += '<path d="M-8 8 L8 -8 M-1 -8 L8 -8 L8 1"/>'
+        elif kind == "flag":
+            s += '<path d="M-6 10 L-6 -10 M-6 -9 L9 -5 L-6 0"/>'
+        s += "</g>"
+        return s
+    glyphs = ["eye", "diamond", "spark", "arrow", "flag"]
     n = len(pillars)
     step_w, gap = 190, 18
     base_y, top_y, min_h = 300, 90, 90
     steps_svg = ""
+    peaks = []
     for i, (color, num, (t_en, t_th), desc) in enumerate(pillars):
         x = 40 + i * (step_w + gap)
         h = min_h + i * ((base_y - top_y - min_h) / (n - 1))
         y = base_y - h
         num_y = base_y - 66
         title_y = base_y - 34
+        peaks.append((x + step_w / 2, y))
         steps_svg += (f'<rect class="spine-step" x="{x}" y="{y:.0f}" width="{step_w}" height="{h:.0f}" rx="10" '
                       f'style="fill:{color}22;stroke:{color}"/>'
                       f'<text class="spine-num" x="{x+20}" y="{num_y:.0f}" style="fill:{color}">{num}</text>'
                       f'<text class="l-en spine-title" x="{x+20}" y="{title_y:.0f}">{t_en}</text>'
                       f'<text class="l-th spine-title" x="{x+20}" y="{title_y:.0f}">{t_th}</text>')
+        steps_svg += glyph(glyphs[i], x + step_w - 30, y + 32, color)
     dots = "".join(f'<circle class="spine-dot" cx="{40+i*(step_w+gap)+step_w-18}" cy="{base_y-(min_h+i*((base_y-top_y-min_h)/(n-1)))+22:.0f}" r="5"/>' for i in range(n))
+    # A single hand-drawn line rises through each step's peak, the same
+    # "one continuous stroke reaching higher" language as the vision and
+    # workforce sketches elsewhere, so the climb reads as one gesture, not
+    # five separate boxes.
+    ridge_d = f"M {peaks[0][0]-24:.0f} {peaks[0][1]+34:.0f}"
+    for j, (px, py) in enumerate(peaks):
+        ridge_d += f" Q {px - (step_w+gap)/2:.0f} {py - 6:.0f}, {px:.0f} {py - 14:.0f}"
+    ridge_d += f" L {peaks[-1][0]+30:.0f} {peaks[-1][1]-40:.0f}"
     captions = "".join(
         f'<div class="spine-caption" style="border-top-color:{color}"><span class="mono">{num}</span><h4>{bi(*title)}</h4><p>{desc}</p></div>'
         for color, num, title, desc in pillars)
     svg_w = 40 * 2 + n * step_w + (n - 1) * gap
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 {svg_w} 340" role="img" aria-label="Five ascending steps: User, Embedder, Creator, Driver, Shaper" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 {svg_w} 340" role="img" aria-label="Five ascending steps, each with its own mark: an eye for User, a diamond for Embedder, a spark for Creator, an arrow for Driver, a flag for Shaper" preserveAspectRatio="xMidYMid meet">
     <defs>
-      <filter id="sketch-spine" x="-6%" y="-6%" width="112%" height="112%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="23" result="n"/>
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+      <filter id="sketch-spine" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.017" numOctaves="2" seed="23" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.6"/>
       </filter>
+      <linearGradient id="spine-grad" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0" stop-color="#2a1bd6"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#fd6502"/>
+      </linearGradient>
     </defs>
     <line x1="20" y1="{base_y}" x2="{svg_w-20}" y2="{base_y}" class="spine-ground"/>
     <g filter="url(#sketch-spine)" stroke-width="2">
       {steps_svg}
     </g>
+    <path class="spine-ridge" d="{ridge_d}" fill="none"/>
+    <circle class="spine-ridge__spark" cx="{peaks[-1][0]+30:.0f}" cy="{peaks[-1][1]-40:.0f}" r="6"/>
     {dots}
   </svg>
 </div>

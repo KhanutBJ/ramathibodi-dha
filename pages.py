@@ -248,11 +248,9 @@ def home(prefix, ctx):
   <div class="hero__grain" aria-hidden="true"></div>
   <div class="container hero__inner">
     <div class="hero__seal reveal">{hero_line_art()}</div>
-    <div class="hero__masthead reveal">
-      <span class="hero__ornament">&#9670;</span>
-      <span class="l-en">Vol. I &middot; Bangkok, Thailand</span>
-      <span class="l-th">เล่มที่ 1 &middot; กรุงเทพฯ ประเทศไทย</span>
-      <span class="hero__ornament">&#9670;</span>
+    <div class="hero__console reveal" aria-hidden="true">
+      <span class="hero__console-line hero__console-line--write">Rx: metformin 500mg BID</span>
+      <span class="hero__console-line hero__console-line--code">model.predict(patient)</span>
     </div>
     <span class="eyebrow reveal center">Ramathibodi Digital Health &amp; AI Club</span>
     <h1 class="reveal hero__title" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.<sup class="hero__note-mark">1</sup></span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span><sup class="hero__note-mark">1</sup></span></h1>

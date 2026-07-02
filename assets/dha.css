@@ -305,17 +305,51 @@ strong { color: var(--ink); font-weight: 600; }
 }
 @media (max-width: 640px) { .hero__meta--divided { gap: var(--s4); } }
 
-/* Editorial hero: a masthead line, a book-style drop cap, and a footnote,
-   so the page opens like a journal or a title page, not a landing page. */
-.hero__masthead {
-  display: flex; align-items: center; justify-content: center; gap: .65rem;
-  font-family: var(--font-mono); font-size: .74rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--ink-faint);
-  padding-block: .6rem; margin-bottom: var(--s4);
-  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  width: 100%; max-width: 34ch;
+/* Editorial hero: a book-style drop cap and a footnote, so the page opens
+   like a journal or a title page, not a landing page. */
+
+/* Writing and coding, the same hand: two lines share one spot, each
+   typing itself in and clearing out for the other, a handwritten script
+   giving way to code and back. Pure CSS, no JS: both lines sit absolutely
+   centred and take turns being revealed via an animated clip-path, so the
+   box never resizes or re-centres mid-animation. */
+.hero__console { position: relative; height: 2.2rem; margin-bottom: var(--s4); }
+.hero__console-line {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  white-space: nowrap; display: inline-block; clip-path: inset(0 100% 0 0);
 }
-.hero__ornament { font-size: .55rem; color: var(--accent); opacity: .75; line-height: 1; }
+.hero__console-line::after {
+  content: "\258C"; display: inline-block; margin-left: .12em; color: currentColor;
+  animation: console-blink 1s step-end infinite;
+}
+.hero__console-line--write {
+  font-family: "Caveat", cursive; font-size: 1.6rem; font-weight: 600; color: var(--accent);
+  animation: console-write 9s steps(24, end) infinite;
+}
+.hero__console-line--code {
+  font-family: var(--font-mono); font-size: .92rem; letter-spacing: .01em; color: var(--ink-soft);
+  animation: console-code 9s steps(22, end) infinite;
+}
+@keyframes console-write {
+  0% { clip-path: inset(0 100% 0 0); opacity: 1; }
+  22% { clip-path: inset(0 0% 0 0); }
+  44% { clip-path: inset(0 0% 0 0); opacity: 1; }
+  50% { clip-path: inset(0 0% 0 0); opacity: 0; }
+  50.01%, 100% { clip-path: inset(0 100% 0 0); opacity: 0; }
+}
+@keyframes console-code {
+  0%, 50% { clip-path: inset(0 100% 0 0); opacity: 0; }
+  50.01% { clip-path: inset(0 100% 0 0); opacity: 1; }
+  72% { clip-path: inset(0 0% 0 0); }
+  94% { clip-path: inset(0 0% 0 0); opacity: 1; }
+  100% { clip-path: inset(0 0% 0 0); opacity: 0; }
+}
+@keyframes console-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero__console-line { animation: none; clip-path: inset(0 0% 0 0); }
+  .hero__console-line--code { opacity: 0; }
+  .hero__console-line::after { animation: none; }
+}
 .hero--editorial h1 .l-en::first-letter {
   font-size: 1.5em; font-family: var(--font-editorial); font-weight: 600; line-height: 1;
 }

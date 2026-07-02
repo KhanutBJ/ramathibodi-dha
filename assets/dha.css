@@ -1049,6 +1049,25 @@ strong { color: var(--ink); font-weight: 600; }
 [data-lang="th"] .pe-cap { font-family: "Noto Sans Thai", sans-serif; font-size: 11px; }
 [data-lang="th"] .pe-center { font-family: "Noto Sans Thai", sans-serif; }
 
+/* Venture Studio bridge motif: two shores, a gap, one deck carrying a
+   project across four stages, held up by four piers. */
+.vb-shore { fill: none; stroke: currentColor; stroke-width: 1.7; opacity: .38; }
+.vb-gap { fill: none; stroke: currentColor; stroke-width: 1.3; stroke-dasharray: 2 5; opacity: .3; }
+.vb-deck { fill: none; stroke: url(#vb-grad); stroke-width: 2.6; stroke-linecap: round;
+  stroke-dasharray: 900; stroke-dashoffset: 900; animation: vb-draw 2.4s var(--ease) forwards; }
+.vb-pier { stroke: currentColor; stroke-width: 1.6; opacity: .4; }
+.vb-pier-foot { fill: var(--card); stroke: currentColor; stroke-width: 1.6; opacity: .55; }
+.vb-node { fill: var(--card); stroke: url(#vb-grad); stroke-width: 2; }
+.vb-num { font-family: var(--font-mono); font-size: 10px; font-weight: 600; fill: var(--ink); }
+.vb-lab { font-family: var(--font-mono); font-size: 12px; font-weight: 500; fill: var(--ink); letter-spacing: .01em; }
+[data-lang="th"] .vb-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 12.5px; }
+.vb-token { fill: #fd6502; filter: drop-shadow(0 0 5px rgba(247,98,5,.6)); }
+@keyframes vb-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .vb-deck { animation: none; stroke-dashoffset: 0; }
+  .vb-token { display: none; }
+}
+
 /* Tools funnel motif: raw reality narrowing to one routed answer. */
 .tf-band { opacity: .85; }
 .tf-lab { font-family: var(--font-display); font-weight: 700; font-size: 15px; fill: var(--ink); }

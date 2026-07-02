@@ -1962,6 +1962,75 @@ def portal_body(prefix):
 # ===========================================================================
 # REGISTER
 # ===========================================================================
+def venture_bridge(prefix):
+    """Signature sketch for Venture Studio: proof and product as two shores
+    with a gap between them, one bridge deck carrying a project across four
+    stages, held up by four piers, one per studio capability. Distinct shape
+    from every other diagram on the site: this is the only one built around
+    a gap that most work never crosses."""
+    stages = [
+        (260, 244, ("Proven project", "โปรเจกต์ที่พิสูจน์แล้ว")),
+        (420, 234, ("Hardening", "ทำให้แข็งแรง")),
+        (580, 234, ("Pilot", "นำร่อง")),
+        (740, 244, ("Venture", "เวนเจอร์")),
+    ]
+    piers = [
+        (320, 239, ("Engineering", "วิศวกรรม")),
+        (440, 233, ("Regulatory", "กฎระเบียบ")),
+        (560, 233, ("Evidence", "หลักฐาน")),
+        (680, 239, ("Market", "ตลาด")),
+    ]
+    deck_d = "M200,250 Q500,215 800,250"
+    stage_marks = ""
+    for i, (x, y, (en, th)) in enumerate(stages):
+        stage_marks += (f'<circle class="vb-node" cx="{x}" cy="{y}" r="9"/>'
+                         f'<text class="vb-num" x="{x}" y="{y+4}" text-anchor="middle">{i+1}</text>'
+                         f'<text class="l-en vb-lab" x="{x}" y="{y-20}" text-anchor="middle">{en}</text>'
+                         f'<text class="l-th vb-lab" x="{x}" y="{y-20}" text-anchor="middle">{th}</text>')
+    pier_marks = ""
+    for x, top_y, (en, th) in piers:
+        pier_marks += (f'<line class="vb-pier" x1="{x}" y1="{top_y}" x2="{x}" y2="318"/>'
+                        f'<circle class="vb-pier-foot" cx="{x}" cy="318" r="4"/>'
+                        f'<text class="l-en fa-cap" x="{x}" y="340" text-anchor="middle">{en}</text>'
+                        f'<text class="l-th fa-cap" x="{x}" y="340" text-anchor="middle">{th}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 1000 400" role="img" aria-label="A bridge from proven project to product, four piers holding it up" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch9" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="2" seed="31" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.4"/>
+      </filter>
+      <linearGradient id="vb-grad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="0.5" stop-color="#91386e"/><stop offset="1" stop-color="#2a1bd6"/>
+      </linearGradient>
+    </defs>
+    <g filter="url(#sketch9)">
+      <path class="vb-shore" d="M0,275 Q90,210 200,250"/>
+      <path class="vb-shore" d="M800,250 Q910,210 1000,275"/>
+      <path class="vb-gap" d="M200,322 Q300,332 400,320 Q500,310 600,320 Q700,332 800,322"/>
+      {pier_marks}
+      <path class="vb-deck" d="{deck_d}"/>
+      {stage_marks}
+      <path id="vb-motion" d="{deck_d}" fill="none" stroke="none"/>
+      <circle class="vb-token" r="7"><animateMotion dur="9s" repeatCount="indefinite" rotate="auto"><mpath href="#vb-motion"/></animateMotion></circle>
+    </g>
+    <text class="l-en fa-cap" x="100" y="272" text-anchor="middle">Fellowship &amp; member projects</text>
+    <text class="l-th fa-cap" x="100" y="272" text-anchor="middle">ผลงานเฟลโลว์ชิปและสมาชิก</text>
+    <text class="l-en fa-cap" x="900" y="272" text-anchor="middle">Hospitals, market, spin-outs</text>
+    <text class="l-th fa-cap" x="900" y="272" text-anchor="middle">โรงพยาบาล ตลาด บริษัทที่แยกตัว</text>
+    <text class="fa-hand" x="300" y="120" transform="rotate(-2 300 120)">most demos never make this crossing</text>
+    <path class="fa-hand-arrow" d="M480 132 q 30 40 -30 90"/>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">The studio is not a reward for good work. It is the bridge itself: the engineering, regulation, evidence, and market work a proven idea cannot cross without.</span>
+    <span class="l-th">สตูดิโอไม่ใช่รางวัลสำหรับงานที่ดี แต่คือตัวสะพานเอง คือวิศวกรรม กฎระเบียบ หลักฐาน และงานด้านตลาด ที่ไอเดียซึ่งพิสูจน์แล้วต้องมีจึงจะข้ามฝั่งได้</span>
+  </div>
+</div>"""
+    return (f'<section class="section"><div class="container">'
+            f'{head(bi("The bridge", "สะพาน"), bi("One bridge, four stages, four piers holding it up.", "สะพานเดียว สี่ขั้นตอน สี่จุดค้ำยัน"), bi("This is what the studio actually is: everything a proven idea needs to reach the other side, not four separate services.", "นี่คือสิ่งที่สตูดิโอเป็นจริง ๆ คือทุกอย่างที่ไอเดียซึ่งพิสูจน์แล้วต้องการเพื่อไปถึงอีกฝั่ง ไม่ใช่บริการสี่อย่างที่แยกกัน"))}'
+            f'{svg}</div></section>')
+
 # ===========================================================================
 # VENTURE STUDIO
 # ===========================================================================
@@ -1977,33 +2046,7 @@ def venture(prefix, ctx):
   <p class="lead reveal measure" data-d="2">{bi("Proof becomes product: engineering, regulation, evidence, market.", "จากพิสูจน์แล้วสู่ผลิตภัณฑ์ วิศวกรรม กฎระเบียบ หลักฐาน และตลาด")}</p>
 </div></section>"""
 
-    what = f"""
-<section class="section">
-  <div class="container">
-    <div class="band reveal">
-      <div class="band__glow"></div>
-      <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
-        <span class="eyebrow" style="color:#cbd5ef">{bi("What the studio adds", "สิ่งที่สตูดิโอเสริม")}</span>
-        <h2 class="mt3" style="color:#fff">{bi("Four things a demo is missing.", "สี่สิ่งที่เดโมยังขาด")}</h2>
-        <div class="grid grid-2 mt5">
-          <div class="card reveal" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['rocket']}</div><h3 style="color:#fff">{bi("Product engineering", "วิศวกรรมผลิตภัณฑ์")}</h3><p style="color:#aeb9d0">{bi("Reliability, monitoring, and the unglamorous work that makes a prototype safe to run every day.", "ความน่าเชื่อถือ การเฝ้าติดตาม และงานเบื้องหลังที่ทำให้ต้นแบบปลอดภัยพอจะใช้ได้ทุกวัน")}</p></div>
-          <div class="card reveal" data-d="1" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['shield']}</div><h3 style="color:#fff">{bi("Regulatory navigation", "การนำทางกฎระเบียบ")}</h3><p style="color:#aeb9d0">{bi("The Thai FDA pathway for AI as Software as a Medical Device, mapped and walked with you.", "เส้นทาง อย. สำหรับ AI ในฐานะ Software as a Medical Device ที่วางแผนและเดินไปด้วยกัน")}</p></div>
-          <div class="card reveal" data-d="2" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['pulse']}</div><h3 style="color:#fff">{bi("Clinical evidence", "หลักฐานทางคลินิก")}</h3><p style="color:#aeb9d0">{bi("Study design and validation so the claims hold up to review, not just a good demo day.", "การออกแบบงานวิจัยและการตรวจสอบ เพื่อให้ข้อกล่าวอ้างผ่านการตรวจทาน ไม่ใช่แค่วันเดโมที่ดูดี")}</p></div>
-          <div class="card reveal" data-d="3" style="background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.14)"><div class="card__icon">{I['compass']}</div><h3 style="color:#fff">{bi("Route to market", "เส้นทางสู่ตลาด")}</h3><p style="color:#aeb9d0">{bi("Pilots, procurement, and the move from research to venture through the Thai HealthTech ecosystem.", "การนำร่อง การจัดซื้อ และการเปลี่ยนจากงานวิจัยสู่เวนเจอร์ผ่านระบบนิเวศเฮลท์เทคไทย")}</p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>"""
-
-    path = sec(
-        head(bi("From research to venture", "จากงานวิจัยสู่เวนเจอร์"), bi("A path, not a leap.", "เส้นทาง ไม่ใช่การกระโดด")) +
-        flow([
-            (bi("01", "01"), bi("Proven project", "โปรเจกต์ที่พิสูจน์แล้ว"), bi("A tool that already helped in a real workflow, with evidence.", "เครื่องมือที่ช่วยได้จริงในเวิร์กโฟลว์ พร้อมหลักฐาน")),
-            (bi("02", "02"), bi("Hardening", "ทำให้แข็งแรง"), bi("Engineering, security, and a regulatory plan.", "วิศวกรรม ความปลอดภัย และแผนกฎระเบียบ")),
-            (bi("03", "03"), bi("Pilot", "นำร่อง"), bi("A supervised deployment with clinical validation.", "การนำไปใช้แบบมีการกำกับ พร้อมการตรวจสอบทางคลินิก")),
-            (bi("04", "04"), bi("Venture", "เวนเจอร์"), bi("Spin-out or adoption, with NIA and ecosystem support.", "แยกตัวเป็นบริษัทหรือถูกนำไปใช้ พร้อมการสนับสนุนจาก NIA และระบบนิเวศ")),
-        ], [I["flask"], I["shield"], I["pulse"], I["rocket"]]))
+    bridge = venture_bridge(prefix)
 
     portfolio = sec(
         head(bi("Portfolio", "พอร์ตโฟลิโอ"), bi("What comes out of it.", "สิ่งที่ออกมาจากมัน"), bi("Illustrative examples of the kind of product the studio exists to build.", "ตัวอย่างประเภทของผลิตภัณฑ์ที่สตูดิโอมีไว้เพื่อสร้าง")) +
@@ -2021,7 +2064,7 @@ def venture(prefix, ctx):
         f'<a class="btn btn--ghost btn--on-dark" href="{prefix}fellowship.html">{bi("Start in the Fellowship", "เริ่มที่เฟลโลว์ชิป")}</a></div>'
         f'</div></div>')
 
-    return hero + what + path + portfolio + cta
+    return hero + bridge + portfolio + cta
 
 # ===========================================================================
 # TEAM

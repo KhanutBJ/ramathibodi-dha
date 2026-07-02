@@ -175,6 +175,9 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
   {mobile_links(prefix)}
   <a href="{prefix}signin.html">{bi('Sign in', 'เข้าสู่ระบบ')}</a>
   <a href="{prefix}contact.html">{bi('Contact', 'ติดต่อเรา')}</a>
+  <button class="lang-toggle lang-toggle--menu" data-lang-toggle aria-label="Switch language">
+    <span class="l-en">Switch to Thai</span><span class="l-th">Switch to English</span>
+  </button>
 </div>
 <main id="top">
 {body}

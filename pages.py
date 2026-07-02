@@ -249,7 +249,7 @@ def home(prefix, ctx):
   <div class="container">
     <span class="eyebrow reveal">Ramathibodi Digital Health &amp; AI Club</span>
     <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>
-    <p class="lead reveal measure" data-d="2">{bi("A club, an academy, and a fellowship built inside one of Thailand's leading medical schools.", "คลับ อคาเดมี และเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
+    <p class="lead reveal measure" data-d="2">{bi("A student-led club, academy, and fellowship built inside one of Thailand's leading medical schools.", "ชมรมที่นำโดยนักศึกษา พร้อมอคาเดมีและเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
     <div class="btn-row reveal" data-d="3">
       <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Explore the Academy", "สำรวจอคาเดมี")} {I['arrow']}</a>
       <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Apply for the Fellowship", "สมัครเฟลโลว์ชิป")}</a>
@@ -291,7 +291,7 @@ def home(prefix, ctx):
         ctx['card']('brain', bi('Academy', 'อคาเดมี'), bi('An open curriculum in AI and digital health, from foundations to clinical deployment. Free to learn, practical from day one.', 'หลักสูตรเปิดด้าน AI และสุขภาพดิจิทัล ตั้งแต่พื้นฐานจนถึงการนำไปใช้ในคลินิก เรียนฟรี ลงมือทำได้ตั้งแต่วันแรก'), 'academy.html', bi('Start learning', 'เริ่มเรียน'), prefix, 1) +
         ctx['card']('flask', bi('Fellowship', 'เฟลโลว์ชิป'), bi('A selective, in-residence year. Fellows work on real clinical problems with Ramathibodi data, faculty, and patients.', 'หนึ่งปีแบบคัดสรรและประจำในสถานที่ เฟลโลว์ทำงานกับโจทย์คลินิกจริง ด้วยข้อมูล อาจารย์ และผู้ป่วยของรามาธิบดี'), 'fellowship.html', bi('See the Fellowship', 'ดูเฟลโลว์ชิป'), prefix, 2) +
         ctx['card']('rocket', bi('Venture Studio', 'เวนเจอร์สตูดิโอ'), bi('We help the best fellowship work become deployable products, with engineering, regulatory, and go-to-market support.', 'เราช่วยให้ผลงานเฟลโลว์ชิปที่ดีที่สุดกลายเป็นผลิตภัณฑ์ที่ใช้งานได้จริง ด้วยการสนับสนุนด้านวิศวกรรม กฎระเบียบ และการออกสู่ตลาด'), 'venture.html', bi('How it works', 'ทำงานอย่างไร'), prefix, 1) +
-        ctx['card']('compass', bi('Consulting', 'ที่ปรึกษานวัตกรรม'), bi('We advise hospitals and agencies building their own AI capability, so the workforce we train has somewhere to land.', 'เราให้คำปรึกษาแก่โรงพยาบาลและหน่วยงานที่กำลังสร้างขีดความสามารถด้าน AI ของตนเอง เพื่อให้คนที่เราฝึกมีที่ไปที่แข็งแรง'), 'what-we-do.html', bi('Work with us', 'ร่วมงานกับเรา'), prefix, 2) +
+        ctx['card']('compass', bi('Consult', 'คอนซัลต์'), bi('Bring us a problem. We support students who need project support, faculty who need a digital solution, and partner hospitals pursuing digital transformation.', 'นำโจทย์มาหาเรา เราสนับสนุนนักศึกษาที่ต้องการความช่วยเหลือด้านโปรเจกต์ อาจารย์ที่ต้องการโซลูชันดิจิทัล และโรงพยาบาลพันธมิตรที่ต้องการการเปลี่ยนผ่านสู่ดิจิทัล'), 'what-we-do.html#consult', bi('Get support', 'ขอรับการสนับสนุน'), prefix, 2) +
         '</div>')
 
     band = f"""
@@ -598,6 +598,7 @@ def who_we_are(prefix, ctx):
         <p class="lead">{bi("Thailand has talent, data, and a clear national direction. What it lacks is a place that turns clinical insight into deployable AI and trains the next workforce while doing it, inside a hospital.", "ประเทศไทยมีคนเก่ง มีข้อมูล และมีทิศทางระดับชาติที่ชัดเจน สิ่งที่ยังขาดคือที่ที่เปลี่ยนความเข้าใจทางคลินิกให้เป็น AI ที่ใช้ได้จริง และฝึกกำลังคนรุ่นต่อไปไปพร้อมกัน โดยทำอยู่ภายในโรงพยาบาล")}</p>
         <p>{bi("Pure universities teach theory without deployment. Pure startups deploy without clinical depth or a teaching mission. Vendors sell finished products and leave no capability behind. We are deliberately the thing in the middle: an academic home with a builder's studio and a fellowship, accountable to patients and to the public health system at the same time.", "มหาวิทยาลัยล้วนๆ สอนทฤษฎีแต่ไม่ได้นำไปใช้จริง สตาร์ตอัปล้วนๆ นำไปใช้แต่ขาดความลึกทางคลินิกและพันธกิจการสอน ผู้ขายขายผลิตภัณฑ์สำเร็จรูปแต่ไม่ทิ้งขีดความสามารถไว้ให้ เราตั้งใจอยู่ตรงกลาง เป็นบ้านทางวิชาการที่มีทั้งสตูดิโอของผู้สร้างและเฟลโลว์ชิป รับผิดชอบต่อผู้ป่วยและต่อระบบสุขภาพสาธารณะไปพร้อมกัน")}</p>
         <p>{bi("That is why this works here and not as a side project somewhere else. We have the clinical reality of Ramathibodi, the academic standing of Mahidol, and a mandate to teach. The result is a pipeline that produces both people and products the country can trust.", "นี่คือเหตุผลที่สิ่งนี้เกิดขึ้นได้ที่นี่ ไม่ใช่โปรเจกต์เสริมที่อื่น เรามีความจริงทางคลินิกของรามาธิบดี สถานะทางวิชาการของมหิดล และหน้าที่ในการสอน ผลลัพธ์คือเส้นทางที่ผลิตทั้งคนและผลิตภัณฑ์ที่ประเทศไว้วางใจได้")}</p>
+        <p>{bi("And we are run by students. Faculty supervise every clinical and ethical decision, but the club itself is built and operated by the people going through it, which is the point: the workforce Thailand needs should have a hand in building the place that trains it.", "และเราดำเนินการโดยนักศึกษาเอง อาจารย์กำกับดูแลทุกการตัดสินใจด้านคลินิกและจริยธรรม แต่ตัวชมรมถูกสร้างและบริหารโดยคนที่กำลังเรียนรู้อยู่ในนั้น นี่คือประเด็นสำคัญ กำลังคนที่ประเทศไทยต้องการ ควรมีส่วนร่วมสร้างสถานที่ที่ฝึกฝนพวกเขาเอง")}</p>
       </div>
       {position_chart()}
     </div>
@@ -632,15 +633,15 @@ def who_we_are(prefix, ctx):
       <div class="container" style="padding-block:clamp(3rem,6vw,5rem)">
         <div class="split">
           <div class="stack">
-            <span class="eyebrow" style="color:#cbd5ef">{bi("Innovation consulting", "ที่ปรึกษานวัตกรรม")}</span>
-            <h2>{bi("An innovation partner for the next-generation healthcare workforce.", "พันธมิตรด้านนวัตกรรม เพื่อกำลังคนสุขภาพรุ่นใหม่")}</h2>
-            <p>{bi("Beyond teaching and the fellowship, we advise hospitals, agencies, and health technology companies that are standing up their own AI capability. We design teams, governance, and training programmes, so the people we train have strong places to land and the system gains capability it keeps. This is how a club becomes infrastructure.", "นอกเหนือจากการสอนและเฟลโลว์ชิป เราให้คำปรึกษาแก่โรงพยาบาล หน่วยงาน และบริษัทเทคโนโลยีสุขภาพ ที่กำลังสร้างขีดความสามารถด้าน AI ของตนเอง เราออกแบบทีม ธรรมาภิบาล และโปรแกรมฝึกอบรม เพื่อให้คนที่เราฝึกมีที่ไปที่แข็งแรง และระบบได้ขีดความสามารถที่คงอยู่ นี่คือวิธีที่คลับกลายเป็นโครงสร้างพื้นฐาน")}</p>
-            <div class="btn-row"><a class="btn btn--grad" href="{prefix}what-we-do.html">{bi("How we work", "วิธีการทำงาน")} {I['arrow']}</a><a class="btn btn--ghost" href="{prefix}contact.html" style="color:#fff;border-color:rgba(255,255,255,.25)">{bi("Work with us", "ร่วมงานกับเรา")}</a></div>
+            <span class="eyebrow" style="color:#cbd5ef">{bi("Consult", "คอนซัลต์")}</span>
+            <h2>{bi("Three doors in, one student-led team behind them.", "สามประตูเข้า ทีมนักศึกษาทีมเดียวที่รองรับ")}</h2>
+            <p>{bi("Consult is how the club shows up for people who are not going through the Academy or the Fellowship. A student brings a project that is stuck. A faculty member brings a workflow that needs a digital solution. A partner hospital brings a digital transformation effort that needs builders who understand both the clinic and the code. All three are matched with the same student-led team, with faculty signing off on anything clinical.", "คอนซัลต์คือวิธีที่ชมรมเข้าไปช่วยคนที่ไม่ได้อยู่ในอคาเดมีหรือเฟลโลว์ชิป นักศึกษานำโปรเจกต์ที่ติดขัดมาหา อาจารย์นำเวิร์กโฟลว์ที่ต้องการโซลูชันดิจิทัลมาหา โรงพยาบาลพันธมิตรนำความพยายามเปลี่ยนผ่านสู่ดิจิทัลที่ต้องการผู้สร้างซึ่งเข้าใจทั้งคลินิกและโค้ดมาหา ทั้งสามกลุ่มได้รับการจับคู่กับทีมนักศึกษาทีมเดียวกัน โดยมีอาจารย์เซ็นรับรองทุกเรื่องที่เกี่ยวข้องกับคลินิก")}</p>
+            <div class="btn-row"><a class="btn btn--grad" href="{prefix}what-we-do.html#consult">{bi("How Consult works", "คอนซัลต์ทำงานอย่างไร")} {I['arrow']}</a><a class="btn btn--ghost" href="{prefix}contact.html" style="color:#fff;border-color:rgba(255,255,255,.25)">{bi("Talk to us", "ติดต่อเรา")}</a></div>
           </div>
           <div class="grid" style="gap:1rem">
-            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Capability design','ออกแบบขีดความสามารถ')+'</span>', '<span style="color:#9fb0d4">'+bi('Teams, not just tools','ทีม ไม่ใช่แค่เครื่องมือ')+'</span>')}</div>
-            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Governance','ธรรมาภิบาล')+'</span>', '<span style="color:#9fb0d4">'+bi('Evaluation and SaMD readiness','การประเมินและความพร้อม SaMD')+'</span>')}</div>
-            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Workforce','กำลังคน')+'</span>', '<span style="color:#9fb0d4">'+bi('Training programmes that stick','โปรแกรมฝึกที่ได้ผลจริง')+'</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Students','นักศึกษา')+'</span>', '<span style="color:#9fb0d4">'+bi('Seeking project support','ต้องการความช่วยเหลือด้านโปรเจกต์')+'</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Faculty','อาจารย์')+'</span>', '<span style="color:#9fb0d4">'+bi('Seeking a digital solution','ต้องการโซลูชันดิจิทัล')+'</span>')}</div>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap">{ctx['stat']('<span style="color:#fff">'+bi('Partner hospitals','โรงพยาบาลพันธมิตร')+'</span>', '<span style="color:#9fb0d4">'+bi('Seeking digital transformation','ต้องการการเปลี่ยนผ่านสู่ดิจิทัล')+'</span>')}</div>
           </div>
         </div>
       </div>
@@ -689,17 +690,18 @@ def what_we_do(prefix, ctx):
          bi("The strongest fellowship and member projects do not stop at a demo. The studio adds engineering, regulatory navigation for Software as a Medical Device, and go-to-market support, in step with the National Innovation Agency's path from research to venture.",
             "โปรเจกต์เฟลโลว์ชิปและสมาชิกที่แข็งแกร่งที่สุดไม่หยุดแค่ demo สตูดิโอเสริมด้านวิศวกรรม การนำทางกฎระเบียบสำหรับ Software as a Medical Device และการออกสู่ตลาด สอดคล้องกับเส้นทางจากงานวิจัยสู่เวนเจอร์ของ NIA"),
          [bi("Product engineering and reliability", "วิศวกรรมผลิตภัณฑ์และความน่าเชื่อถือ"), bi("Thai FDA SaMD pathway navigation", "นำทางเส้นทาง SaMD ของ อย."), bi("Clinical validation and evidence", "การตรวจสอบทางคลินิกและหลักฐาน"), bi("Routes to pilot and to market", "เส้นทางสู่การนำร่องและสู่ตลาด")]),
-        (bi("Consulting", "ที่ปรึกษานวัตกรรม"), "compass", bi("Build capability in institutions", "สร้างขีดความสามารถในสถาบัน"), "contact.html", bi("Work with us", "ร่วมงานกับเรา"),
-         bi("We advise hospitals, agencies, and health technology companies setting up their own AI capability. We are an innovation partner for the next generation of the healthcare workforce, so the people we train have strong places to land.",
-            "เราให้คำปรึกษาแก่โรงพยาบาล หน่วยงาน และบริษัทเทคโนโลยีสุขภาพ ที่กำลังสร้างขีดความสามารถ AI ของตนเอง เราเป็นพันธมิตรนวัตกรรมเพื่อกำลังคนสุขภาพรุ่นใหม่ เพื่อให้คนที่เราฝึกมีที่ไปที่แข็งแรง"),
-         [bi("Capability and team design", "ออกแบบขีดความสามารถและทีม"), bi("AI governance and evaluation frameworks", "กรอบธรรมาภิบาลและการประเมิน AI"), bi("Workforce training programmes", "โปรแกรมฝึกกำลังคน"), bi("Project and deployment advisory", "ที่ปรึกษาโปรเจกต์และการ deploy")]),
+        (bi("Consult", "คอนซัลต์"), "compass", bi("Three doors, one team", "สามประตู ทีมเดียว"), "contact.html", bi("Get support", "ขอรับการสนับสนุน"),
+         bi("Consult is the door for people who are not in the Academy or the Fellowship. A student brings a project that is stuck. A faculty member brings a workflow that needs a digital solution. A partner hospital brings a digital transformation effort that needs builders who understand the clinic. A student-led team takes it on, with faculty signing off on anything clinical.",
+            "คอนซัลต์คือประตูสำหรับคนที่ไม่ได้อยู่ในอคาเดมีหรือเฟลโลว์ชิป นักศึกษานำโปรเจกต์ที่ติดขัดมาหา อาจารย์นำเวิร์กโฟลว์ที่ต้องการโซลูชันดิจิทัลมาหา โรงพยาบาลพันธมิตรนำความพยายามเปลี่ยนผ่านสู่ดิจิทัลที่ต้องการผู้สร้างซึ่งเข้าใจงานคลินิกมาหา ทีมนักศึกษารับเรื่องไปดำเนินการ โดยมีอาจารย์เซ็นรับรองทุกเรื่องที่เกี่ยวข้องกับคลินิก"),
+         [bi("Students: project support", "นักศึกษา: ความช่วยเหลือด้านโปรเจกต์"), bi("Faculty: digital solutions", "อาจารย์: โซลูชันดิจิทัล"), bi("Partner hospitals: digital transformation", "โรงพยาบาลพันธมิตร: การเปลี่ยนผ่านสู่ดิจิทัล")]),
     ]
     photos = ["woman-work.jpg", "doctor.jpg", "analytics.jpg", "meeting.jpg"]
     for i, (name, icon, kicker, href, cta, body, bullets) in enumerate(blocks):
         rev = "split--rev" if i % 2 else ""
         bl = "".join(f'<li class="pill">{b}</li>' for b in bullets)
+        anchor = ' id="consult"' if i == 3 else ""
         parts += f"""
-<section class="section">
+<section class="section"{anchor}>
   <div class="container">
     <div class="split {rev}">
       <div class="stack reveal">

@@ -50,7 +50,7 @@ YEAR = datetime.date.today().year
 SITE = {
     "name": "Ramathibodi Digital Health & AI Club",
     "short": "DHA Club",
-    "tagline": "Pioneering the integration of AI and medicine for better healthcare.",
+    "tagline": "A student-led club pioneering the integration of AI and medicine for better healthcare.",
     "org_th": "คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล",
     "org_en": "Faculty of Medicine Ramathibodi Hospital, Mahidol University",
 }
@@ -244,7 +244,7 @@ def footer(prefix):
       <div class="footer__brand">
         <img class="light-only" src="{prefix}{av('dha-logo-light.png')}" alt="{esc(SITE['name'])}"/>
         <img class="dark-only" src="{prefix}{av('dha-logo-dark.png')}" alt="{esc(SITE['name'])}" style="display:none"/>
-        <p>{bi('The Ramathibodi Digital Health and AI Club trains the next generation of Thailand&#39;s medical AI builders, inside the Faculty of Medicine Ramathibodi Hospital, Mahidol University.', 'ชมรมสุขภาพดิจิทัลและปัญญาประดิษฐ์รามาธิบดี บ่มเพาะคนรุ่นใหม่ผู้สร้าง AI ทางการแพทย์ของไทย ภายใต้คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล')}</p>
+        <p>{bi('A student-led club at the Faculty of Medicine Ramathibodi Hospital, Mahidol University, training the next generation of Thailand&#39;s medical AI builders.', 'ชมรมที่นำโดยนักศึกษา ภายใต้คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล บ่มเพาะคนรุ่นใหม่ผู้สร้าง AI ทางการแพทย์ของไทย')}</p>
         <p class="sig" style="margin-top:var(--s3)">{bi('Made by hand, in Bangkok.', 'สร้างด้วยมือ ในกรุงเทพฯ')}</p>
       </div>
       {col_html}

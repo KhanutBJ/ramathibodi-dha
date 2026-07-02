@@ -882,7 +882,7 @@ strong { color: var(--ink); font-weight: 600; }
 .vd-lab--gap { fill: var(--accent); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { .vd-gap-link { animation: none; opacity: 1; } }
 
-/* Four-pillar competency spine: a hand-sketch ascending staircase. */
+/* Five-role workforce archetypes: a hand-sketch ascending staircase. */
 .spine-ground { stroke: var(--line); stroke-width: 2; }
 .spine-step { transition: transform .25s var(--ease); }
 .spine-num { font-family: var(--font-mono); font-size: 22px; font-weight: 700; }
@@ -890,7 +890,8 @@ strong { color: var(--ink); font-weight: 600; }
 [data-lang="th"] .spine-title { font-family: "Noto Serif Thai", serif; font-size: 18px; }
 .spine-dot { fill: var(--ink); opacity: .5; }
 .spine-captions { display: grid; grid-template-columns: 1fr; gap: var(--s3); }
-@media (min-width: 760px) { .spine-captions { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 640px) { .spine-captions { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .spine-captions { grid-template-columns: repeat(5, 1fr); } }
 .spine-caption { border-top: 3px solid; padding-top: .9rem; }
 .spine-caption .mono { font-family: var(--font-mono); font-size: .78rem; color: var(--ink-faint); }
 .spine-caption h4 { margin-top: .3rem; font-size: 1.02rem; }

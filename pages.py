@@ -948,36 +948,51 @@ def fellowship_orbit(prefix):
             f'{svg}</div></section>')
 
 def competency_spine():
-    """The four-pillar competency spine, redrawn as a hand-sketch staircase:
-    four ascending steps, one gradient stop each, climbing left to right,
-    so the shape itself says "climb" instead of a plain bordered list."""
+    """Workforce archetypes, redrawn as a hand-sketch staircase: five
+    ascending steps, one gradient stop each, climbing left to right. Not our
+    own invention: these are Health Education England's five AI workforce
+    archetypes (User, Embedder, Creator, Driver, Shaper), the framework the
+    NHS uses to plan its own AI-ready workforce, adapted here for Thailand.
+    HEE is explicit that the archetypes are not job titles or seniority
+    levels and are not mutually exclusive; the same clinician can be a User
+    on one project and a Creator on another.
+
+    Text is anchored to each step's shared bottom edge (base_y), not to its
+    own top, so the numeral and title sit a fixed distance above the
+    baseline regardless of step height. The previous version anchored from
+    the top, so the shortest step's title baseline fell below its own box,
+    a real, visible text-overflow bug. Minimum step height (90) is sized to
+    guarantee clearance for two lines of text at that fixed offset."""
     pillars = [
-        ("#3412d1", "I", ("Fluency", "ความเข้าใจพื้นฐาน"), bi("Read and question the tools you will meet.", "อ่านและตั้งคำถามต่อเครื่องมือที่จะเจอ")),
-        ("#7a2ba8", "II", ("Builder", "ผู้สร้าง"), bi("Design, train, and ship into a real workflow.", "ออกแบบ ฝึกโมเดล และนำไปใช้จริง")),
-        ("#b0507a", "III", ("Strategist", "นักกลยุทธ์"), bi("Decide build, buy, or wait.", "ตัดสินใจสร้าง ซื้อ หรือรอ")),
-        ("#fd6502", "IV", ("Steward", "ผู้ดูแลระยะยาว"), bi("Watch over a tool for years.", "ดูแลเครื่องมือในระยะยาว")),
+        ("#2a1bd6", "I", ("User", "ผู้ใช้"), bi("Use AI tools in the clinic or ward, day to day.", "ใช้เครื่องมือ AI ในคลินิกหรือหอผู้ป่วยทุกวัน")),
+        ("#5120af", "II", ("Embedder", "ผู้ฝังระบบ"), bi("Implement, validate, and monitor a tool after it is chosen.", "นำไปใช้จริง ตรวจสอบ และเฝ้าระวังเครื่องมือหลังถูกเลือกใช้")),
+        ("#91386e", "III", ("Creator", "ผู้สร้าง"), bi("Design, train, and evaluate the model itself.", "ออกแบบ ฝึก และประเมินตัวโมเดลเอง")),
+        ("#c14e3b", "IV", ("Driver", "ผู้ขับเคลื่อน"), bi("Lead adoption and set strategy for a department or region.", "นำการนำไปใช้ และกำหนดกลยุทธ์ระดับหน่วยงานหรือภูมิภาค")),
+        ("#fd6502", "V", ("Shaper", "ผู้กำหนดทิศทาง"), bi("Set the national policy and standards everyone else follows.", "กำหนดนโยบายและมาตรฐานระดับชาติที่คนอื่นต้องทำตาม")),
     ]
     n = len(pillars)
-    step_w, gap = 220, 20
-    base_y, top_y = 300, 90
+    step_w, gap = 190, 18
+    base_y, top_y, min_h = 300, 90, 90
     steps_svg = ""
     for i, (color, num, (t_en, t_th), desc) in enumerate(pillars):
         x = 40 + i * (step_w + gap)
-        h = 60 + i * ((base_y - top_y - 60) / (n - 1))
+        h = min_h + i * ((base_y - top_y - min_h) / (n - 1))
         y = base_y - h
+        num_y = base_y - 66
+        title_y = base_y - 34
         steps_svg += (f'<rect class="spine-step" x="{x}" y="{y:.0f}" width="{step_w}" height="{h:.0f}" rx="10" '
                       f'style="fill:{color}22;stroke:{color}"/>'
-                      f'<text class="spine-num" x="{x+22}" y="{y+38:.0f}" style="fill:{color}">{num}</text>'
-                      f'<text class="l-en spine-title" x="{x+22}" y="{y+66:.0f}">{t_en}</text>'
-                      f'<text class="l-th spine-title" x="{x+22}" y="{y+66:.0f}">{t_th}</text>')
-    dots = "".join(f'<circle class="spine-dot" cx="{40+i*(step_w+gap)+step_w-18}" cy="{base_y-(60+i*((base_y-top_y-60)/(n-1)))+22:.0f}" r="5"/>' for i in range(n))
+                      f'<text class="spine-num" x="{x+20}" y="{num_y:.0f}" style="fill:{color}">{num}</text>'
+                      f'<text class="l-en spine-title" x="{x+20}" y="{title_y:.0f}">{t_en}</text>'
+                      f'<text class="l-th spine-title" x="{x+20}" y="{title_y:.0f}">{t_th}</text>')
+    dots = "".join(f'<circle class="spine-dot" cx="{40+i*(step_w+gap)+step_w-18}" cy="{base_y-(min_h+i*((base_y-top_y-min_h)/(n-1)))+22:.0f}" r="5"/>' for i in range(n))
     captions = "".join(
         f'<div class="spine-caption" style="border-top-color:{color}"><span class="mono">{num}</span><h4>{bi(*title)}</h4><p>{desc}</p></div>'
         for color, num, title, desc in pillars)
     svg_w = 40 * 2 + n * step_w + (n - 1) * gap
     svg = f"""
 <div class="flow-art reveal">
-  <svg viewBox="0 0 {svg_w} 340" role="img" aria-label="The four-pillar competency spine, climbing" preserveAspectRatio="xMidYMid meet">
+  <svg viewBox="0 0 {svg_w} 340" role="img" aria-label="Five ascending steps: User, Embedder, Creator, Driver, Shaper" preserveAspectRatio="xMidYMid meet">
     <defs>
       <filter id="sketch-spine" x="-6%" y="-6%" width="112%" height="112%">
         <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="23" result="n"/>
@@ -991,13 +1006,14 @@ def competency_spine():
     {dots}
   </svg>
 </div>
-<div class="spine-captions reveal mt4">{captions}</div>"""
+<div class="spine-captions reveal mt4">{captions}</div>
+<p class="muted mt3 reveal" style="font-size:.82rem">{bi("Adapted from Health Education England's five workforce archetypes for AI in the NHS. Not job titles: the same person can be a User on one project and a Creator on another.", "ปรับจากกรอบห้าบทบาทกำลังคนด้าน AI ของ Health Education England (NHS) ไม่ใช่ตำแหน่งงาน คนคนเดียวกันอาจเป็นผู้ใช้ในโปรเจกต์หนึ่ง และเป็นผู้สร้างในอีกโปรเจกต์หนึ่งได้")}</p>"""
     return f"""
 <section class="section section--tight">
   <div class="container">
-    <span class="eyebrow reveal">{bi("The four-pillar competency spine", "แกนกลางสี่เสาหลักของทักษะ")}</span>
-    <h2 class="reveal mt3">{bi("Everyone climbs the same spine.", "ทุกคนไต่บันไดเดียวกัน")}</h2>
-    <p class="lead reveal mt3 measure">{bi("The six courses teach the craft. This is the judgement it is for.", "หกคอร์สสอนวิชาชีพ นี่คือวิจารณญาณที่วิชาชีพนั้นมีไว้เพื่อ")}</p>
+    <span class="eyebrow reveal">{bi("Five roles, one national framework", "ห้าบทบาท หนึ่งกรอบระดับชาติ")}</span>
+    <h2 class="reveal mt3">{bi("Everyone plays one of five roles.", "ทุกคนมีบทบาทหนึ่งในห้า")}</h2>
+    <p class="lead reveal mt3 measure">{bi("Adapted from the archetypes England's NHS uses to plan its own AI-ready workforce. Not a job title: the role you are playing on whatever you are building right now.", "ปรับจากบทบาทที่ระบบสุขภาพอังกฤษ (NHS) ใช้วางแผนกำลังคนที่พร้อมสำหรับ AI ไม่ใช่ตำแหน่งงาน แต่คือบทบาทที่คุณกำลังเล่นอยู่ในสิ่งที่คุณกำลังสร้าง")}</p>
     {svg}
   </div>
 </section>"""

@@ -243,13 +243,18 @@ def hero_line_art():
 def home(prefix, ctx):
     I = ctx["ICON"]
     hero = f"""
-<section class="hero hero--centered">
+<section class="hero hero--centered hero--editorial">
   <div class="hero__glow"></div>
   {hero_line_art()}
   <div class="container hero__inner">
+    <div class="hero__masthead reveal">
+      <span class="l-en">Vol. I &middot; Bangkok, Thailand</span>
+      <span class="l-th">เล่มที่ 1 &middot; กรุงเทพฯ ประเทศไทย</span>
+    </div>
     <span class="eyebrow reveal center">Ramathibodi Digital Health &amp; AI Club</span>
-    <h1 class="reveal" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.</span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span></span></h1>
+    <h1 class="reveal hero__title" data-d="1"><span class="l-en">We train the people who will bring <span class="gradient-text">AI to the bedside</span>.<sup class="hero__note-mark">1</sup></span><span class="l-th">เราสร้างคนที่จะนำ <span class="gradient-text">AI สู่ข้างเตียงผู้ป่วย</span><sup class="hero__note-mark">1</sup></span></h1>
     <p class="lead reveal measure center" data-d="2">{bi("A student-led club, academy, and fellowship built inside one of Thailand's leading medical schools.", "ชมรมที่นำโดยนักศึกษา พร้อมอคาเดมีและเฟลโลว์ชิป ที่สร้างขึ้นภายในหนึ่งในโรงเรียนแพทย์ชั้นนำของไทย")}</p>
+    <p class="hero__footnote reveal" data-d="2">{bi('1. Not a metaphor. Every course in this curriculum ends in something that could, in principle, reach a patient.', '1. ไม่ใช่คำเปรียบเทียบ ทุกคอร์สในหลักสูตรนี้จบด้วยสิ่งที่ในทางหลักการแล้วสามารถไปถึงผู้ป่วยได้จริง')}</p>
     <div class="btn-row reveal" data-d="3" style="justify-content:center">
       <a class="btn btn--grad btn--lg" href="{prefix}academy.html">{bi("Explore the Academy", "สำรวจอคาเดมี")} {I['arrow']}</a>
       <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Apply for the Fellowship", "สมัครเฟลโลว์ชิป")}</a>

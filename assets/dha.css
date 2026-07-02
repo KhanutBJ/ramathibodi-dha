@@ -305,6 +305,28 @@ strong { color: var(--ink); font-weight: 600; }
 }
 @media (max-width: 640px) { .hero__meta--divided { gap: var(--s4); } }
 
+/* Editorial hero: a masthead line, a book-style drop cap, and a footnote,
+   so the page opens like a journal or a title page, not a landing page. */
+.hero__masthead {
+  font-family: var(--font-mono); font-size: .74rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-faint);
+  padding-block: .6rem; margin-bottom: var(--s4);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  width: 100%; max-width: 30ch;
+}
+.hero--editorial h1 .l-en::first-letter {
+  font-size: 1.5em; font-family: var(--font-editorial); font-weight: 600; line-height: 1;
+}
+.hero__note-mark {
+  font-family: var(--font-mono); font-size: .42em; font-weight: 600;
+  color: var(--ink-faint); vertical-align: super; margin-left: .1em;
+}
+.hero__footnote {
+  font-family: var(--font-editorial); font-style: italic; font-size: .88rem;
+  color: var(--ink-faint); max-width: 46ch; margin-inline: auto; margin-top: var(--s3);
+}
+[data-lang="th"] .hero__footnote { font-family: "Noto Serif Thai", serif; font-style: normal; }
+
 /* ---- Stats ---------------------------------------------------------------- */
 .stat__num { font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); letter-spacing: -0.03em; line-height: 1; }
 .stat__num .gradient-text { display: inline; }

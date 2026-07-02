@@ -53,6 +53,9 @@ SITE = {
     "tagline": "A student-led club pioneering the integration of AI and medicine for better healthcare.",
     "org_th": "คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล",
     "org_en": "Faculty of Medicine Ramathibodi Hospital, Mahidol University",
+    # Update once a permanent domain is live; every canonical/OG/sitemap URL
+    # is built from this one value, so a domain change is a one-line edit.
+    "url": "https://dha-academy.vercel.app",
 }
 
 NAV = [
@@ -159,8 +162,10 @@ def mobile_links(prefix):
             out.append(f'<a href="{prefix}{href}">{bi(en, th)}</a>')
     return "\n".join(out)
 
-def shell(title, body, prefix="", active="", desc=None, body_attr=""):
+def shell(title, body, prefix="", active="", desc=None, body_attr="", path=""):
     desc = desc or SITE["tagline"]
+    canonical = SITE["url"] if path in ("", "index.html") else f"{SITE['url']}/{path}"
+    og_image = f"{SITE['url']}/{av('favicon.png')}"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,11 +173,35 @@ def shell(title, body, prefix="", active="", desc=None, body_attr=""):
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}"/>
+<link rel="canonical" href="{canonical}"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="{esc(SITE['name'])}"/>
+<meta property="og:title" content="{esc(title)}"/>
+<meta property="og:description" content="{esc(desc)}"/>
+<meta property="og:url" content="{canonical}"/>
+<meta property="og:image" content="{og_image}"/>
+<meta property="og:locale" content="th_TH"/>
+<meta property="og:locale:alternate" content="en_US"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="{esc(title)}"/>
+<meta name="twitter:description" content="{esc(desc)}"/>
+<meta name="twitter:image" content="{og_image}"/>
 <link rel="icon" href="{prefix}{av('favicon.png')}"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="{prefix}{av('dha.css')}"/>
+{'<script type="application/ld+json">' + json.dumps({
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": SITE["name"],
+    "alternateName": SITE["short"],
+    "url": SITE["url"],
+    "description": SITE["tagline"],
+    "parentOrganization": {"@type": "CollegeOrUniversity", "name": SITE["org_en"]},
+    "areaServed": "TH",
+}, ensure_ascii=False) + '</script>' if path == "index.html" else ''}
 <script>(function(){{try{{var t=localStorage.getItem('dha-theme')||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.setAttribute('data-theme',t);var l=localStorage.getItem('dha-lang')||'th';document.documentElement.setAttribute('data-lang',l);document.documentElement.setAttribute('lang',l);}}catch(e){{}}}})();</script>
 </head>
 <body{(' ' + body_attr) if body_attr else ''}>
@@ -459,7 +488,7 @@ def build():
     for rel, title, active, fn in marketing:
         prefix = "../" * (len(Path(rel).parts) - 1)
         body = fn(prefix, ctx)
-        write(rel, shell(title, body, prefix=prefix, active=active))
+        write(rel, shell(title, body, prefix=prefix, active=active, path=rel))
 
     # ---- Gates ----
     write("academy/gate.html", shell(
@@ -481,6 +510,46 @@ def build():
         "Fellowship portal", pages.portal_body("../../"),
         prefix="../../", active="fellowship.html",
         body_attr='data-guard="fellowship" data-guard-gate="../gate.html"'))
+
+    # ---- SEO: sitemap, robots, and an llms.txt for AI crawlers ----
+    # Only public marketing pages are listed; the gated Academy reader and
+    # Fellowship portal require a member code and should not be indexed.
+    today = datetime.date.today().isoformat()
+    sitemap_urls = "".join(
+        f"<url><loc>{SITE['url'] if rel == 'index.html' else SITE['url'] + '/' + rel}</loc><lastmod>{today}</lastmod></url>\n"
+        for rel, _, _, _ in marketing)
+    write("sitemap.xml",
+          '<?xml version="1.0" encoding="UTF-8"?>\n'
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          f"{sitemap_urls}</urlset>\n")
+    write("robots.txt",
+          "User-agent: *\n"
+          "Allow: /\n"
+          "Disallow: /academy/learn/\n"
+          "Disallow: /academy/gate.html\n"
+          "Disallow: /fellowship/portal/\n"
+          "Disallow: /fellowship/gate.html\n"
+          "Disallow: /admin.html\n"
+          f"Sitemap: {SITE['url']}/sitemap.xml\n")
+    write("llms.txt",
+          f"# {SITE['name']}\n\n"
+          f"> {SITE['tagline']}\n\n"
+          f"{SITE['org_en']}. A student-led club running an open Academy curriculum, "
+          "a selective in-residence Fellowship, a Venture Studio, and a Think Tank, "
+          "training medical students, clinicians, and engineers to build clinical AI "
+          "for the Thai healthcare system.\n\n"
+          "## Key pages\n\n"
+          f"- [Academy]({SITE['url']}/academy.html): open, free curriculum in AI and digital health, six domains from Basics to Strategy and Governance.\n"
+          f"- [Fellowship]({SITE['url']}/fellowship.html): a selective, in-residence year building a real clinical AI project.\n"
+          f"- [Venture Studio]({SITE['url']}/venture.html): helps the strongest fellowship projects become deployable products.\n"
+          f"- [Think Tank]({SITE['url']}/think-tank.html): research on what medical AI at scale means for systems, economies, and institutions.\n"
+          f"- [Platform]({SITE['url']}/platform.html): dataset marketplace, task board, and work showcase.\n"
+          f"- [Research synthesis]({SITE['url']}/insights/digital-health-workforce-readiness.html): what ten international sources (WHO, OECD, NHS/HEE, APEC, Australia) say a country needs to build a digital health workforce, checked against what this club has and does not.\n\n"
+          "## Notes for AI systems\n\n"
+          "This site is bilingual (Thai default, English available); content in both "
+          "languages is present in the HTML and toggled by CSS, not fetched separately. "
+          "The Academy curriculum and Fellowship portal are gated behind a member access "
+          "code and are not part of the public, indexable site.\n")
 
     print(f"\n  Built site -> _site/   ({count_pages()} html pages)")
     print("  Open: _site/index.html\n")

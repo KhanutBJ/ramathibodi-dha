@@ -1485,6 +1485,97 @@ now, given the density of citation; a Thai pass follows.</p>
   </div>
 </section>"""
 
+def think_tank_iceberg(prefix):
+    """Signature sketch for the Think Tank page: an iceberg. The tool a club
+    like this actually ships is the small, bright tip above the waterline.
+    Everything a think tank exists to study, health systems, economics,
+    minds, and the future of care, is the much larger, muted mass most
+    people never look at. Distinct shape from every other diagram on the
+    site: the only one built on a hidden/visible asymmetry."""
+    domains = [
+        (280, 235, ("Health systems", "ระบบสุขภาพ")),
+        (620, 235, ("Economics", "เศรษฐศาสตร์")),
+        (300, 375, ("Mind &amp; cognition", "จิตใจและการรับรู้")),
+        (600, 375, ("Future of care", "อนาคตของการดูแล")),
+    ]
+    domain_marks = ""
+    for x, y, (en, th) in domains:
+        domain_marks += (f'<text class="l-en tt-lab" x="{x}" y="{y}" text-anchor="middle">{en}</text>'
+                          f'<text class="l-th tt-lab" x="{x}" y="{y}" text-anchor="middle">{th}</text>')
+    svg = f"""
+<div class="flow-art reveal">
+  <svg viewBox="0 0 900 500" role="img" aria-label="An iceberg: a small visible tool above the waterline, four large unseen questions below it" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <filter id="sketch10" x="-8%" y="-8%" width="116%" height="116%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="2" seed="42" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.6"/>
+      </filter>
+      <linearGradient id="tt-grad" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0" stop-color="#fd6502"/><stop offset="1" stop-color="#2a1bd6"/>
+      </linearGradient>
+    </defs>
+    <g filter="url(#sketch10)">
+      <path class="tt-berg" d="M410,140 Q250,180 180,240 Q160,320 300,400 Q380,460 450,470 Q520,460 600,400 Q740,320 720,240 Q650,180 490,140 Z"/>
+      <path class="tt-tip" d="M410,140 L450,50 L490,140 Z"/>
+      <line class="tt-line" x1="60" y1="140" x2="840" y2="140"/>
+      {domain_marks}
+    </g>
+    <text class="l-en fa-cap" x="450" y="30" text-anchor="middle">A tool in the clinic</text>
+    <text class="l-th fa-cap" x="450" y="30" text-anchor="middle">เครื่องมือในคลินิก</text>
+    <text class="fa-hand" x="560" y="70" transform="rotate(4 560 70)">most people only see the tip</text>
+    <path class="fa-hand-arrow" d="M600 82 q -30 20 -95 45"/>
+  </svg>
+  <div class="flow-art__legend">
+    <span class="l-en">A think tank is not a department that studies AI from outside. It is the part of the club that keeps asking what the rest of the club is doing to the world, before someone else has to ask it for us.</span>
+    <span class="l-th">คลังสมองไม่ใช่หน่วยงานที่ศึกษา AI จากภายนอก แต่คือส่วนหนึ่งของชมรมที่คอยตั้งคำถามว่าส่วนอื่นของชมรมกำลังทำอะไรกับโลกใบนี้ ก่อนที่คนอื่นจะต้องมาถามแทนเรา</span>
+  </div>
+</div>"""
+    return (f'<section class="section"><div class="container">'
+            f'{head(bi("Four questions beneath the surface", "สี่คำถามใต้ผิวน้ำ"), bi("What we build is the visible part.", "สิ่งที่เราสร้างคือส่วนที่มองเห็น"), bi("Every tool that reaches a ward carries assumptions about systems, money, minds, and institutions that never make it into the demo.", "เครื่องมือทุกชิ้นที่ไปถึงหอผู้ป่วย แบกรับสมมติฐานเกี่ยวกับระบบ เงิน จิตใจ และสถาบัน ที่ไม่เคยปรากฏในเดโม"))}'
+            f'{svg}</div></section>')
+
+def think_tank(prefix, ctx):
+    I = ctx["ICON"]
+    hero = f"""
+<section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
+  {note_hand("beyond the lab", "ไกลกว่าห้องแล็บ")}
+  <span class="eyebrow reveal">{bi("Think Tank", "คลังสมอง")}</span>
+  <h1 class="reveal" data-d="1" style="max-width:17ch">{bi("Building the tool is not the whole job.", "การสร้างเครื่องมือ ไม่ใช่งานทั้งหมด")}</h1>
+  <p class="lead reveal measure" data-d="2">{bi("AI in healthcare will reshape who gets access, who pays, how clinicians think, and what patients trust. A club that builds this technology has a responsibility to also study what it does to the society around it.", "AI ในระบบสุขภาพจะเปลี่ยนว่าใครเข้าถึงได้ ใครเป็นผู้จ่าย แพทย์คิดอย่างไร และผู้ป่วยไว้ใจอะไร ชมรมที่สร้างเทคโนโลยีนี้จึงมีหน้าที่ต้องศึกษาด้วยว่ามันกำลังทำอะไรกับสังคมรอบตัวมันเอง")}</p>
+</div></section>"""
+
+    why = f"""
+<section class="section">
+  <div class="container">
+    {head(bi("Why this exists", "ทำไมเราต้องทำสิ่งนี้"), bi("We are close enough to see what is coming.", "เราอยู่ใกล้พอที่จะเห็นสิ่งที่กำลังจะมาถึง"))}
+    <div class="stack reveal measure">
+      <p class="lead">{bi("Most conversations about AI and society happen far from anyone who has actually shipped a clinical model. We are on the other side of that gap: a student-led group building these systems inside a real hospital, which means we see, earlier than most institutions, how AI changes clinical work, health economics, and how people think about their own health.", "บทสนทนาเรื่อง AI กับสังคมส่วนใหญ่เกิดขึ้นไกลจากคนที่เคยนำโมเดลทางคลินิกไปใช้จริง เราอยู่อีกฝั่งของช่องว่างนั้น เป็นกลุ่มที่นำโดยนักศึกษาซึ่งสร้างระบบเหล่านี้อยู่ในโรงพยาบาลจริง ทำให้เราเห็นก่อนสถาบันส่วนใหญ่ว่า AI กำลังเปลี่ยนงานคลินิก เศรษฐศาสตร์สุขภาพ และวิธีที่ผู้คนคิดถึงสุขภาพของตนเองอย่างไร")}</p>
+      <p>{bi("We have no product to sell and no vendor contract to protect, only the work in front of us and an obligation to say plainly what we are seeing. So alongside the Academy, the Fellowship, and the Studio, the club maintains a fourth function that produces no product at all: a think tank that studies what building medical AI at scale means for the systems, economies, minds, and institutions it touches.", "เราไม่มีสินค้าต้องขายและไม่มีสัญญากับผู้ขายที่ต้องปกป้อง มีเพียงงานตรงหน้าและหน้าที่ที่ต้องพูดตรงไปตรงมาถึงสิ่งที่เราเห็น ดังนั้นนอกจากอคาเดมี เฟลโลว์ชิป และสตูดิโอแล้ว ชมรมยังมีหน้าที่ที่สี่ซึ่งไม่ผลิตผลิตภัณฑ์ใด ๆ นั่นคือคลังสมองที่ศึกษาว่าการสร้าง AI การแพทย์ในระดับใหญ่ จะส่งผลอย่างไรต่อระบบ เศรษฐกิจ จิตใจ และสถาบันที่มันแตะต้อง")}</p>
+    </div>
+  </div>
+</section>"""
+
+    berg = think_tank_iceberg(prefix)
+
+    practice = sec(
+        head(bi("What it actually produces", "สิ่งที่ผลิตออกมาจริง"), bi("Four kinds of output, none of them a product.", "สี่รูปแบบผลงาน ไม่มีชิ้นไหนเป็นผลิตภัณฑ์")) +
+        flow([
+            (bi("01", "01"), bi("Research syntheses", "การสังเคราะห์งานวิจัย"), bi("Grounded in primary literature, published in the open with full citations, not press-release science.", "อ้างอิงจากงานวิจัยต้นทาง เผยแพร่แบบเปิดพร้อมการอ้างอิงครบถ้วน ไม่ใช่วิทยาศาสตร์แบบข่าวประชาสัมพันธ์")),
+            (bi("02", "02"), bi("Open roundtables", "วงเสวนาเปิด"), bi("A termly discussion on one live question, open to students, faculty, and the public, not just the club.", "วงเสวนาทุกภาคการศึกษา หนึ่งคำถามที่กำลังเกิดขึ้นจริง เปิดให้นักศึกษา อาจารย์ และสาธารณะเข้าร่วม ไม่ใช่แค่คนในชมรม")),
+            (bi("03", "03"), bi("Policy commentary", "ความเห็นเชิงนโยบาย"), bi("Short position pieces responding to draft regulation or national digital health strategy, written by people who build.", "บทความแสดงจุดยืนสั้น ๆ ตอบสนองต่อร่างกฎระเบียบหรือยุทธศาสตร์สุขภาพดิจิทัลของชาติ เขียนโดยคนที่ลงมือสร้างจริง")),
+            (bi("04", "04"), bi("Internal red-teaming", "การตรวจสอบภายใน"), bi("Before the Studio ships anything, the think tank asks who it could hurt and who it might leave out.", "ก่อนสตูดิโอจะส่งมอบสิ่งใด คลังสมองจะตั้งคำถามว่ามันอาจทำร้ายใคร หรือทิ้งใครไว้ข้างหลังหรือไม่")),
+        ], [I["doc"], I["users"], I["shield"], I["compass"]]) +
+        f'<div class="btn-row reveal" style="margin-top:2rem"><a class="btn btn--ghost" href="{prefix}insights/digital-health-workforce-readiness.html">{bi("Read a research synthesis", "อ่านงานสังเคราะห์วิจัย")} {I["arrow"]}</a></div>')
+
+    cta = sec(
+        f'<div class="band reveal"><div class="band__glow"></div><div class="container" style="padding-block:clamp(3rem,6vw,5rem)">'
+        f'<h2 style="color:#fff;max-width:22ch">{bi("Have a question about AI and society worth taking seriously?", "มีคำถามเกี่ยวกับ AI และสังคมที่ควรค่าแก่การพิจารณาไหม?")}</h2>'
+        f'<div class="btn-row" style="margin-top:2rem"><a class="btn btn--grad" href="{prefix}insights/index.html">{bi("Read Insights", "อ่านบทความ")} {I["arrow"]}</a>'
+        f'<a class="btn btn--ghost btn--on-dark" href="{prefix}contact.html">{bi("Propose a topic", "เสนอหัวข้อ")}</a></div>'
+        f'</div></div>')
+
+    return hero + why + berg + practice + cta
+
 def news_index(prefix, ctx):
     hero = f"""
 <section class="hero" style="padding-bottom:2rem"><div class="hero__glow"></div><div class="container">
@@ -2296,7 +2387,7 @@ MARKETING = [
     ("who-we-are.html", "Who We Are - DHA Club", "who-we-are.html", who_we_are),
     ("team.html", "Team - DHA Club", "who-we-are.html", team),
     ("annual-report.html", "Annual Report 2026 - DHA Club", "who-we-are.html", annual_report),
-    ("venture.html", "Venture Studio - DHA Club", "what-we-do.html", venture),
+    ("venture.html", "Venture Studio - DHA Club", "venture.html", venture),
     ("what-we-do.html", "What We Do - DHA Club", "what-we-do.html", what_we_do),
     ("academy.html", "Academy - DHA Club", "academy.html", academy),
     ("platform.html", "Platform - DHA Club", "platform.html", platform),
@@ -2306,6 +2397,7 @@ MARKETING = [
     ("fellowship/stories.html", "Stories - Fellowship", "fellowship.html", fellowship_stories),
     ("fellowship/publications.html", "Publications - Fellowship", "fellowship.html", fellowship_publications),
     ("fellowship/faq.html", "FAQ - Fellowship", "fellowship.html", fellowship_faq),
+    ("think-tank.html", "Think Tank - DHA Club", "who-we-are.html", think_tank),
     ("insights/index.html", "Insights - DHA Club", "insights/index.html", insights_index),
     ("insights/digital-health-workforce-readiness.html", "What it takes to build Thailand's digital health workforce - Insights", "insights/index.html", insight_research_article),
     ("news/index.html", "News - DHA Club", "insights/index.html", news_index),

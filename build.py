@@ -62,6 +62,7 @@ NAV = [
     ("Platform", "แพลตฟอร์ม", "platform.html"),
     ("Tools", "เครื่องมือ", "tools.html"),
     ("Fellowship", "เฟลโลว์ชิป", "fellowship.html"),
+    ("Venture Studio", "เวนเจอร์สตูดิโอ", "venture.html"),
     ("Insights", "บทความ", "insights/index.html"),
 ]
 
@@ -200,6 +201,7 @@ def footer(prefix):
             (("Sign in", "เข้าสู่ระบบ"), "signin.html"),
         ]),
         (("Resources", "แหล่งข้อมูล"), [
+            (("Think Tank", "คลังสมอง"), "think-tank.html"),
             (("Insights", "บทความ"), "insights/index.html"),
             (("News", "ข่าวสาร"), "news/index.html"),
             (("Team", "ทีมงาน"), "team.html"),

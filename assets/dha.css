@@ -170,10 +170,11 @@ strong { color: var(--ink); font-weight: 600; }
 .nav__links { display: none; gap: 0.25rem; margin-left: auto; align-items: center; }
 @media (min-width: 980px) { .nav__links { display: flex; } }
 .nav__link {
-  font-size: 0.92rem; font-weight: 500; color: var(--ink-soft);
-  padding: 0.5rem 0.85rem; border-radius: 999px;
+  font-size: 0.92rem; font-weight: 500; color: var(--ink-soft); white-space: nowrap;
+  padding: 0.5rem 0.5rem; border-radius: 999px;
   transition: color .2s, background .2s;
 }
+@media (max-width: 1180px) { .nav__link { font-size: 0.86rem; padding: 0.5rem 0.4rem; } }
 .nav__link:hover { color: var(--ink); background: var(--bg-elev); }
 .nav__link.is-active { color: var(--ink); }
 .nav__actions { display: flex; align-items: center; gap: 0.5rem; margin-left: var(--s2); }
@@ -971,10 +972,11 @@ strong { color: var(--ink); font-weight: 600; }
   background: none; position: relative; padding-bottom: .35rem;
 }
 .nav__link::after {
-  content: ""; position: absolute; left: .85rem; right: .85rem; bottom: .1rem; height: 1.5px;
+  content: ""; position: absolute; left: .5rem; right: .5rem; bottom: .1rem; height: 1.5px;
   background: var(--accent); transform: scaleX(0); transform-origin: left;
   transition: transform .32s var(--ease);
 }
+@media (max-width: 1180px) { .nav__link::after { left: .4rem; right: .4rem; } }
 .nav__link:hover { background: none; }
 .nav__link:hover::after, .nav__link.is-active::after { transform: scaleX(1); }
 .nav__link.is-active { color: var(--ink); }
@@ -1074,6 +1076,14 @@ strong { color: var(--ink); font-weight: 600; }
 .tf-cap { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-faint); }
 [data-lang="th"] .tf-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 14px; }
 [data-lang="th"] .tf-cap { font-family: "Noto Sans Thai", sans-serif; font-size: 11px; }
+
+/* Think Tank iceberg motif: a small bright tip above the waterline, a
+   large muted mass of unseen questions below it. */
+.tt-berg { fill: currentColor; fill-opacity: .05; stroke: currentColor; stroke-opacity: .4; stroke-width: 1.7; }
+.tt-tip { fill: url(#tt-grad); fill-opacity: .14; stroke: url(#tt-grad); stroke-width: 2; }
+.tt-line { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-dasharray: 3 6; opacity: .35; }
+.tt-lab { font-family: var(--font-mono); font-size: 13px; font-weight: 500; fill: var(--ink-soft); letter-spacing: .01em; }
+[data-lang="th"] .tt-lab { font-family: "Noto Sans Thai", sans-serif; font-size: 13.5px; }
 
 /* ---- Research article extras: inline citations + references list -------- */
 .cite { font-family: var(--font-mono); font-size: 0.78em; color: var(--accent); text-decoration: none; vertical-align: super; }

@@ -24,7 +24,7 @@ def _asset_hash(name):
     except Exception:
         return None
 ASSET_VER = {n: _asset_hash(n) for n in
-             ("dha.css", "dha.js", "favicon.png", "dha-logo-light.png", "dha-logo-dark.png")}
+             ("dha.css", "dha.js", "favicon2.png", "dha-logo-light.png", "dha-logo-dark.png")}
 def av(name):
     v = ASSET_VER.get(name)
     return f"assets/{name}?v={v}" if v else f"assets/{name}"
@@ -165,7 +165,7 @@ def mobile_links(prefix):
 def shell(title, body, prefix="", active="", desc=None, body_attr="", path=""):
     desc = desc or SITE["tagline"]
     canonical = SITE["url"] if path in ("", "index.html") else f"{SITE['url']}/{path}"
-    og_image = f"{SITE['url']}/{av('favicon.png')}"
+    og_image = f"{SITE['url']}/{av('favicon2.png')}"
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -187,7 +187,7 @@ def shell(title, body, prefix="", active="", desc=None, body_attr="", path=""):
 <meta name="twitter:title" content="{esc(title)}"/>
 <meta name="twitter:description" content="{esc(desc)}"/>
 <meta name="twitter:image" content="{og_image}"/>
-<link rel="icon" href="{prefix}{av('favicon.png')}"/>
+<link rel="icon" href="{prefix}{av('favicon2.png')}"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Caveat:wght@500;600;700&family=Montserrat:ital,wght@0,600;0,700;0,800;1,700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap" rel="stylesheet"/>

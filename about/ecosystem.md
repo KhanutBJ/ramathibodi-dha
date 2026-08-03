@@ -2,7 +2,7 @@
 
 <p class="dha-eyebrow">National Ecosystem</p>
 
-<p class="dha-lead">DHA ไม่ได้ทำงานอย่างโดดเดี่ยว เราออกแบบให้สอดคล้องกับยุทธศาสตร์สุขภาพดิจิทัลของประเทศ และเชื่อมต่อกับหน่วยงานหลักที่กำหนดทิศทาง กำกับดูแล และสนับสนุนนวัตกรรมสุขภาพของไทย hello </p>
+<p class="dha-lead">DHA ไม่ได้ทำงานอย่างโดดเดี่ยว เราออกแบบให้สอดคล้องกับยุทธศาสตร์สุขภาพดิจิทัลของประเทศ และเชื่อมต่อกับหน่วยงานหลักที่กำหนดทิศทาง กำกับดูแล และสนับสนุนนวัตกรรมสุขภาพของไทย</p>
 
 <figure class="dha-media" style="border:none;background:transparent;margin:2rem 0 2.5rem">
 <svg viewBox="0 0 920 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="แผนผังระบบนิเวศสุขภาพดิจิทัลไทยและตำแหน่งของ DHA" style="width:100%;height:auto;font-family:Inter,sans-serif">

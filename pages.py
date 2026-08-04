@@ -261,7 +261,7 @@ def home(prefix, ctx):
       <a class="btn btn--ghost btn--lg" href="{prefix}fellowship.html">{bi("Apply for the Fellowship", "สมัครเฟลโลว์ชิป")}</a>
     </div>
     <div class="hero__meta hero__meta--divided reveal" data-d="3">
-      {ctx['stat']('<span class="gradient-text">AI + Medicine</span>', bi('One discipline, taught as one', 'สองศาสตร์ สอนเป็นหนึ่งเดียว'))}
+      {ctx['stat'](f'<span class="gradient-text">{bi("AI + Medicine", "AI + การแพทย์")}</span>', bi('One discipline, taught as one', 'สองศาสตร์ สอนเป็นหนึ่งเดียว'))}
       {ctx['stat'](bi('Idea to bedside', 'ไอเดียสู่ข้างเตียง'), bi('Build under clinical supervision', 'สร้างงานภายใต้การกำกับทางคลินิก'))}
       {ctx['stat'](bi('Open + selective', 'เปิดกว้าง + คัดสรร'), bi('Academy for all, Fellowship for few', 'อคาเดมีเพื่อทุกคน เฟลโลว์ชิปเพื่อคนที่ใช่'))}
     </div>
@@ -275,17 +275,18 @@ def home(prefix, ctx):
         (f'{prefix}assets/partners/botnoi-academy.png', 'Botnoi Academy'),
     )
     _marks_html = "".join(f'<img class="logo-mark" src="{src}" alt="{alt}" loading="lazy"/>' for src, alt in _partner_marks)
+    _marquee_reps = 6  # enough copies that one half of the track outspans any viewport, so the loop never runs out of logos before it wraps. Keep in sync with the -100%/n keyframe in dha.css.
     proof = sec(
         '<div class="reveal partner-strip">'
         '<span class="eyebrow center">Built inside the system, with partners who build</span>'
-        f'<div class="logo-marquee"><div class="logo-marquee__track">{_marks_html}{_marks_html}</div></div>'
+        f'<div class="logo-marquee"><div class="logo-marquee__track">{_marks_html * _marquee_reps}</div></div>'
         '<p class="muted center" style="font-size:.82rem;margin-top:1.4rem">Aligned with MOPH Digital Health, NHSO, Thai FDA, and Thai HealthTech</p>'
         '</div>', "section section--tight")
 
     vision = f"""
 <section class="section">
   <div class="container">
-    {head(bi("The vision", "วิสัยทัศน์"), bi("Medicine and AI are not two skills to balance. They are one craft.", "การแพทย์กับ AI ไม่ใช่สองทักษะที่ต้องแบ่งเวลา แต่เป็นวิชาชีพเดียวกัน"), bi("Most people treat this as an add-on: learn medicine, then bolt on a coding course. We think that produces the wrong kind of graduate. The clinicians who matter in twenty years will not have learned AI on the side. They will never have learned medicine without it.", "คนส่วนใหญ่มองเรื่องนี้เป็นแค่ของเสริม เรียนแพทย์ให้จบก่อน แล้วค่อยต่อด้วยคอร์สเขียนโค้ด เราคิดว่าวิธีนี้สร้างบัณฑิตผิดแบบ แพทย์ที่จะสำคัญในอีกยี่สิบปีข้างหน้า จะไม่ใช่คนที่เรียน AI แทรกไปด้วย แต่คือคนที่ไม่เคยเรียนแพทย์แบบที่ไม่มี AI อยู่ในนั้นเลย"))}
+    {head(bi("The vision", "วิสัยทัศน์"), bi("Medicine and AI are not two skills to balance. They are one craft.", "การแพทย์กับ AI ไม่ใช่สองทักษะที่ต้องแบ่งเวลา แต่เป็นวิชาชีพเดียวกัน"), bi("Most people treat this as an add-on: learn medicine, then bolt on a coding course. We think that produces the wrong kind of graduate. The clinicians who matter in twenty years will not have learned AI on the side. They will never have learned medicine without it.", "คนส่วนใหญ่มองเรื่องนี้เป็นแค่ของเสริม เรียนแพทย์ให้จบก่อน แล้ว⁠ค่อยต่อด้วยคอร์สเขียนโค้ด เราคิดว่าวิธีนี้สร้างบัณฑิตผิดแบบ แพทย์ที่จะสำคัญในอีกยี่สิบปีข้างหน้า จะไม่ใช่คนที่เรียน AI แทรก⁠ไป⁠ด้วย แต่คือคนที่ไม่เคยเรียนแพทย์แบบที่ไม่มี AI"))}
     {vision_dawn()}
   </div>
 </section>"""
@@ -375,7 +376,7 @@ def home(prefix, ctx):
       {frame(bi("For the next generation", "เพื่อคนรุ่นใหม่"), "ratio-4x3", "a", "doctor.jpg", prefix)}
       <div class="stack reveal">
         <span class="eyebrow">{bi("Why medical students", "ทำไมต้องเป็นนักศึกษาแพทย์")}</span>
-        <h2>{bi("You already see the problems. We give you the tools.", "คุณเห็นปัญหาอยู่แล้ว เราแค่ให้เครื่องมือ")}</h2>
+        <h2>{bi("You already see the problems. We give you the tools.", "คุณเห็นปัญหาอยู่แล้ว<br>เราแค่ให้เครื่องมือ")}</h2>
         <p class="lead">{bi("The best medical AI does not come from engineers guessing at clinical needs. It comes from clinicians who learned to build. As a medical student in Thailand, you sit on the exact advantage the field needs.", "AI การแพทย์ที่ดีที่สุดไม่ได้มาจากวิศวกรที่เดาความต้องการทางคลินิก แต่มาจากแพทย์ที่เรียนรู้ที่จะสร้าง ในฐานะนักศึกษาแพทย์ไทย คุณมีข้อได้เปรียบที่วงการนี้ต้องการพอดี")}</p>
         <ul class="rows" style="border-top:1px solid var(--line)">
           <li class="row" style="grid-template-columns:1fr"><div><h3 style="font-size:var(--step-1)">{bi("You know what matters", "คุณรู้ว่าอะไรสำคัญ")}</h3><p>{bi("You have seen the ward, the frustration, the delay. You know which problems are worth solving.", "คุณเคยเห็นหอผู้ป่วย ความติดขัด ความล่าช้า คุณรู้ว่าโจทย์ไหนคุ้มค่าที่จะแก้")}</p></div></li>
@@ -678,7 +679,7 @@ def what_we_do(prefix, ctx):
   <div class="container">
     {note_hand("one path, four parts", "หนึ่งเส้นทาง สี่ส่วน")}
     <span class="eyebrow reveal">{bi("What we do", "สิ่งที่เราทำ")}</span>
-    <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("One pipeline, from first principles to the patient.", "หนึ่งเส้นทาง จากพื้นฐานสู่ผู้ป่วย")}</h1>
+    <h1 class="reveal" data-d="1" style="max-width:18ch">{bi("One pipeline, from first principles to the patient.", "หนึ่งเส้นทาง<br>จากพื้นฐานสู่ผู้ป่วย")}</h1>
     <p class="lead reveal measure" data-d="2">{bi("Learn. Prove it. Build the product. Four parts, one pipeline.", "เรียนรู้ พิสูจน์ฝีมือ สร้างผลิตภัณฑ์ สี่ส่วน หนึ่งเส้นทาง")}</p>
   </div>
 </section>"""
